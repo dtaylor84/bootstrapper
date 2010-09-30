@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Bootstrapper.UnityExtension;
+using Bootstrap.UnityExtension;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using UnityContainerExtension = Bootstrapper.UnityExtension.UnityContainerExtension;
+using UnityContainerExtension = Bootstrap.UnityExtension.UnityContainerExtension;
 
-namespace Bootstrapper.Tests.Extensions.Containers.Unity
+namespace Bootstrap.Tests.Extensions.Containers.Unity
 {
     [TestClass]
     public class UnityContainerExtensionTests
@@ -41,12 +41,12 @@ namespace Bootstrapper.Tests.Extensions.Containers.Unity
         {
             //Arrange
             var containerExtension = new UnityContainerExtension();
-            Bootstrapper.With.Container(containerExtension);
+            Bootstrap.Bootstrapper.With.Container(containerExtension);
 
             //Act
             containerExtension.Run();
             var result = containerExtension.Container;
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);
@@ -58,12 +58,12 @@ namespace Bootstrapper.Tests.Extensions.Containers.Unity
         {
             //Arrange
             var containerExtension = new UnityContainerExtension();
-            Bootstrapper.With.Container(containerExtension);
+            Bootstrap.Bootstrapper.With.Container(containerExtension);
 
             //Act
             containerExtension.Run();
             var result = containerExtension.Container.ResolveAll<IUnityRegistration>();
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);
@@ -76,12 +76,12 @@ namespace Bootstrapper.Tests.Extensions.Containers.Unity
         {
             //Arrange
             var containerExtension = new UnityContainerExtension();
-            Bootstrapper.With.Container(containerExtension);
+            Bootstrap.Bootstrapper.With.Container(containerExtension);
 
             //Act
             containerExtension.Run();
             var result = containerExtension.Container.ResolveAll<IUnityRegistration>();
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);
@@ -94,12 +94,12 @@ namespace Bootstrapper.Tests.Extensions.Containers.Unity
         {
             //Arrange
             var containerExtension = new UnityContainerExtension();
-            Bootstrapper.With.Container(containerExtension);
+            Bootstrap.Bootstrapper.With.Container(containerExtension);
 
             //Act
             containerExtension.Run();
             var result = containerExtension.Container.ResolveAll<IUnityRegistration>();
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);
@@ -112,13 +112,13 @@ namespace Bootstrapper.Tests.Extensions.Containers.Unity
         {
             //Arrange
             var containerExtension = new UnityContainerExtension();
-            Bootstrapper.With.Container(containerExtension);
+            Bootstrap.Bootstrapper.With.Container(containerExtension);
 
             //Act
             containerExtension.LookForRegistrations.InAssembly(Assembly.GetAssembly(typeof(TestUnityRegistration)));
             containerExtension.Run();
             var result = containerExtension.Container.Resolve<UnityContainerExtension>();
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);
@@ -131,12 +131,12 @@ namespace Bootstrapper.Tests.Extensions.Containers.Unity
             //Arrange
             ServiceLocator.SetLocatorProvider(() => null);
             var containerExtension = new UnityContainerExtension();
-            Bootstrapper.With.Container(containerExtension);
+            Bootstrap.Bootstrapper.With.Container(containerExtension);
 
             //Act
             containerExtension.Run();
             var result = ServiceLocator.Current;
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);
@@ -148,12 +148,12 @@ namespace Bootstrapper.Tests.Extensions.Containers.Unity
         {
             //Arrange
             var containerExtension = new UnityContainerExtension();
-            Bootstrapper.With.Container(containerExtension);
+            Bootstrap.Bootstrapper.With.Container(containerExtension);
 
             //Act
             containerExtension.Run();
             var result = containerExtension.Container.ResolveAll<IStartupTask>();
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);
@@ -167,26 +167,44 @@ namespace Bootstrapper.Tests.Extensions.Containers.Unity
         {
             //Arrange
             var containerExtension = new UnityContainerExtension();
-            Bootstrapper.With.Container(containerExtension).Start();
+            Bootstrap.Bootstrapper.With.Container(containerExtension).Start();
 
             //Act
             containerExtension.Reset();
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNull(ServiceLocator.Current);
         }
 
         [TestMethod]
+        public void ShouldSetTheContainer()
+        {
+            //Arrange            
+            var containerExtension = new UnityContainerExtension();
+            Bootstrap.Bootstrapper.With.Container(containerExtension);
+
+            //Act
+            containerExtension.Run();
+            var result = Bootstrap.Bootstrapper.GetContainer();
+            Bootstrap.Bootstrapper.ClearExtensions();
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(IUnityContainer));
+        }
+
+
+        [TestMethod]
         public void ShouldResetTheContainer()
         {
             //Arrange
             var containerExtension = new UnityContainerExtension();
-            Bootstrapper.With.Container(containerExtension).Start();
+            Bootstrap.Bootstrapper.With.Container(containerExtension).Start();
 
             //Act
             containerExtension.Reset();
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNull(containerExtension.Container);
@@ -197,12 +215,12 @@ namespace Bootstrapper.Tests.Extensions.Containers.Unity
         {
             //Arrange
             var containerExtension = new UnityContainerExtension();
-            Bootstrapper.With.Container(containerExtension).Start();
+            Bootstrap.Bootstrapper.With.Container(containerExtension).Start();
 
             //Act
             containerExtension.Reset();
-            var result = Bootstrapper.GetContainer();
-            Bootstrapper.ClearExtensions();
+            var result = Bootstrap.Bootstrapper.GetContainer();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNull(result);

@@ -1,10 +1,10 @@
 ﻿using System.Reflection;
-using Bootstrapper.Tests.Other;
+using Bootstrap.Tests.Other;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Moq;
 
-namespace Bootstrapper.Tests.Core
+namespace Bootstrap.Tests.Core
 {
     [TestClass]
     public class AssemblyCollectorTest
@@ -102,7 +102,7 @@ namespace Bootstrapper.Tests.Core
             var extension = new Mock<IBootstrapperContainerExtension>();
             var collector = new AssemblyCollector(extension.Object);
             var assembly1 = Assembly.GetExecutingAssembly();
-            var assembly2 = Assembly.GetAssembly(typeof(Bootstrapper));
+            var assembly2 = Assembly.GetAssembly(typeof(Bootstrap.Bootstrapper));
 
             //Act
             collector.InAssembly(assembly1);

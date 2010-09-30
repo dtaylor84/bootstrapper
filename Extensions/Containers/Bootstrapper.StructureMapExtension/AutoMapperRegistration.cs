@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using StructureMap;
 
-namespace Bootstrapper.StructureMapExtension
+namespace Bootstrap.StructureMapExtension
 {
     public class AutoMapperRegistration:IStructureMapRegistration
     {
@@ -18,7 +18,7 @@ namespace Bootstrapper.StructureMapExtension
 
         private static void RegisterMapCreators(IContainer container)
         {
-            var containerExtension = Bootstrapper.GetContainerExtension();
+            var containerExtension = Bootstrap.Bootstrapper.GetContainerExtension();
             if (containerExtension == null) return;
 
             container.Configure(c => c.Scan(s =>

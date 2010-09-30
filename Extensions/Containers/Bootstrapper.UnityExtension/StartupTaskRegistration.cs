@@ -1,13 +1,13 @@
 ﻿using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 
-namespace Bootstrapper.UnityExtension
+namespace Bootstrap.UnityExtension
 {
     public class StartupTaskRegistration : IUnityRegistration
     {
         public void Register(IUnityContainer container)
         {
-            var containerExtension = Bootstrapper.GetContainerExtension();
+            var containerExtension = Bootstrap.Bootstrapper.GetContainerExtension();
             if (containerExtension == null) return;
 
             containerExtension.LookForStartupTasks.AssemblyNames.

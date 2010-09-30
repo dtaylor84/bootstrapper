@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using Bootstrapper.WindsorExtension;
+using Bootstrap.WindsorExtension;
 using Castle.Facilities.FactorySupport;
 using Castle.Windsor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace Bootstrapper.Tests.Extensions.Containers.Windsor
+
+namespace Bootstrap.Tests.Extensions.Containers.Windsor
 {
     [TestClass]
     public class AutoMapperRegistrationTests
@@ -39,12 +40,12 @@ namespace Bootstrapper.Tests.Extensions.Containers.Windsor
             collector.Setup(c => c.Assemblies).Returns(new List<Assembly> {Assembly.GetExecutingAssembly()});
             collector.Setup(c => c.AssemblyNames).Returns(new List<string>());
             containerExtension.Setup(c => c.LookForMaps).Returns(collector.Object);
-            Bootstrapper.With.Container(containerExtension.Object);
+            Bootstrap.Bootstrapper.With.Container(containerExtension.Object);
 
             //Act
             new AutoMapperRegistration().Register(container);
             var result = container.ResolveAll<IMapCreator>();
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);
@@ -62,12 +63,12 @@ namespace Bootstrapper.Tests.Extensions.Containers.Windsor
             collector.Setup(c => c.Assemblies).Returns(new List<Assembly>());
             collector.Setup(c => c.AssemblyNames).Returns(new List<string> {Assembly.GetExecutingAssembly().FullName});
             containerExtension.Setup(c => c.LookForMaps).Returns(collector.Object);
-            Bootstrapper.With.Container(containerExtension.Object);
+            Bootstrap.Bootstrapper.With.Container(containerExtension.Object);
 
             //Act
             new AutoMapperRegistration().Register(container);
             var result = container.ResolveAll<IMapCreator>();
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);

@@ -2,7 +2,7 @@
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
 
-namespace Bootstrapper.UnityExtension
+namespace Bootstrap.UnityExtension
 {
     public class UnityContainerExtension: BootstrapperContainerExtension
     {

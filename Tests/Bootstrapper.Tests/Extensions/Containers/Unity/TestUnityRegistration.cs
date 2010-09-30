@@ -1,8 +1,8 @@
-﻿using Bootstrapper.UnityExtension;
+﻿using Bootstrap.UnityExtension;
 using Microsoft.Practices.Unity;
-using UnityContainerExtension = Bootstrapper.UnityExtension.UnityContainerExtension;
+using UnityContainerExtension = Bootstrap.UnityExtension.UnityContainerExtension;
 
-namespace Bootstrapper.Tests.Extensions.Containers.Unity
+namespace Bootstrap.Tests.Extensions.Containers.Unity
 {
     public class TestUnityRegistration: IUnityRegistration
     {

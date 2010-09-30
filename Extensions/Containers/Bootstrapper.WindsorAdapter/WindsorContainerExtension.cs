@@ -5,7 +5,7 @@ using Castle.MicroKernel.Registration;
 using CommonServiceLocator.WindsorAdapter;
 using Microsoft.Practices.ServiceLocation;
 
-namespace Bootstrapper.WindsorExtension
+namespace Bootstrap.WindsorExtension
 {
     public class WindsorContainerExtension: BootstrapperContainerExtension
     {

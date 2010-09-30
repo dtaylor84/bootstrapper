@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
-using Bootstrapper.Tests.Extensions.Containers;
-using Bootstrapper.WindsorExtension;
+using Bootstrap.Tests.Extensions.Containers;
+using Bootstrap.WindsorExtension;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace Bootstrapper.Tests.Core
+namespace Bootstrap.Tests.Core
 {
     [TestClass]
     public class BootstrapperTests
@@ -39,7 +39,7 @@ namespace Bootstrapper.Tests.Core
 
             //Act
             Bootstrapper.ClearExtensions();
-            var result = Bootstrapper.GetExtensions();
+            var result =  Bootstrapper.GetExtensions();
 
             //Assert
             Assert.IsNotNull(result);

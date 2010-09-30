@@ -1,13 +1,13 @@
 ﻿using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
-using Bootstrapper.Tests.ExtensionForTest;
-using Bootstrapper.Tests.Extensions.Containers;
+using Bootstrap.Tests.ExtensionForTest;
+using Bootstrap.Tests.Extensions.Containers;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace Bootstrapper.Tests.Core
+namespace Bootstrap.Tests.Core
 {
     [TestClass]
     public class BootstrapperContainerExtensionTests
@@ -31,17 +31,17 @@ namespace Bootstrapper.Tests.Core
             var containerExtension = new TestContainerExtension(null);
             var locator = new Mock<IServiceLocator>();
             containerExtension.SetTestServiceLocator(locator.Object);
-            Bootstrapper.With.Container(containerExtension);
+            Bootstrap.Bootstrapper.With.Container(containerExtension);
 
             //Act
 
             containerExtension.Run();
             var assemblies = containerExtension.LookForRegistrations.Assemblies;
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsTrue(assemblies.Any(a =>
-                a == Assembly.GetAssembly(typeof(Bootstrapper))));
+                a == Assembly.GetAssembly(typeof(Bootstrap.Bootstrapper))));
         }
 
         [TestMethod]
@@ -51,16 +51,16 @@ namespace Bootstrapper.Tests.Core
             var containerExtension = new TestContainerExtension(null);
             var locator = new Mock<IServiceLocator>();
             containerExtension.SetTestServiceLocator(locator.Object);
-            Bootstrapper.With.Container(containerExtension);
+            Bootstrap.Bootstrapper.With.Container(containerExtension);
 
             //Act
             containerExtension.Run();
             var assemblies = containerExtension.LookForMaps.Assemblies;
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsTrue(assemblies.Any(a =>
-                a == Assembly.GetAssembly(typeof(Bootstrapper))));
+                a == Assembly.GetAssembly(typeof(Bootstrap.Bootstrapper))));
         }
 
         [TestMethod]
@@ -70,16 +70,16 @@ namespace Bootstrapper.Tests.Core
             var containerExtension = new TestContainerExtension(null);
             var locator = new Mock<IServiceLocator>();
             containerExtension.SetTestServiceLocator(locator.Object);
-            Bootstrapper.With.Container(containerExtension);
+            Bootstrap.Bootstrapper.With.Container(containerExtension);
 
             //Act
             containerExtension.Run();
             var assemblies = containerExtension.LookForStartupTasks.Assemblies;
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsTrue(assemblies.Any(a =>
-                a == Assembly.GetAssembly(typeof(Bootstrapper))));
+                a == Assembly.GetAssembly(typeof(Bootstrap.Bootstrapper))));
         }
 
         [TestMethod]
@@ -89,12 +89,12 @@ namespace Bootstrapper.Tests.Core
             var containerExtension = new TestContainerExtension(null);
             var locator = new Mock<IServiceLocator>();
             containerExtension.SetTestServiceLocator(locator.Object);
-            Bootstrapper.With.Container(containerExtension);
+            Bootstrap.Bootstrapper.With.Container(containerExtension);
 
             //Act
             containerExtension.Run();
             var assemblies = containerExtension.LookForRegistrations.Assemblies;
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsTrue(assemblies.Any(a =>
@@ -108,12 +108,12 @@ namespace Bootstrapper.Tests.Core
             var containerExtension = new TestContainerExtension(null);
             var locator = new Mock<IServiceLocator>();
             containerExtension.SetTestServiceLocator(locator.Object);
-            Bootstrapper.With.Container(containerExtension);
+            Bootstrap.Bootstrapper.With.Container(containerExtension);
 
             //Act
             containerExtension.Run();
             var assemblies = containerExtension.LookForMaps.Assemblies;
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsTrue(assemblies.Any(a =>
@@ -127,12 +127,12 @@ namespace Bootstrapper.Tests.Core
             var containerExtension = new TestContainerExtension(null);
             var locator = new Mock<IServiceLocator>();
             containerExtension.SetTestServiceLocator(locator.Object);
-            Bootstrapper.With.Container(containerExtension);
+            Bootstrap.Bootstrapper.With.Container(containerExtension);
 
             //Act
             containerExtension.Run();
             var assemblies = containerExtension.LookForStartupTasks.Assemblies;
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsTrue(assemblies.Any(a =>
@@ -143,16 +143,16 @@ namespace Bootstrapper.Tests.Core
         public void ShouldLookForRegistrationsInBootstrapperStartCallingAssembly()
         {
             //Arrange
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
             var containerExtension = new TestContainerExtension(null);
             var locator = new Mock<IServiceLocator>();
             containerExtension.SetTestServiceLocator(locator.Object);
-            Bootstrapper.With.Container(containerExtension);
+            Bootstrap.Bootstrapper.With.Container(containerExtension);
 
             //Act
-            Bootstrapper.Start();
+            Bootstrap.Bootstrapper.Start();
             var assemblies = containerExtension.LookForRegistrations.Assemblies;
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert            
             Assert.IsTrue(assemblies.Any(a =>
@@ -163,16 +163,16 @@ namespace Bootstrapper.Tests.Core
         public void ShouldLookForMapsInBootstrapperStartCallingAssembly()
         {
             //Arrange
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
             var containerExtension = new TestContainerExtension(null);
             var locator = new Mock<IServiceLocator>();
             containerExtension.SetTestServiceLocator(locator.Object);
-            Bootstrapper.With.Container(containerExtension);
+            Bootstrap.Bootstrapper.With.Container(containerExtension);
 
             //Act
-            Bootstrapper.Start();
+            Bootstrap.Bootstrapper.Start();
             var assemblies = containerExtension.LookForMaps.Assemblies;
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsTrue(assemblies.Any(a =>
@@ -183,16 +183,16 @@ namespace Bootstrapper.Tests.Core
         public void ShouldLookForStartupTasksInBootstrapperStartCallingAssembly()
         {
             //Arrange
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
             var containerExtension = new TestContainerExtension(null);
             var locator = new Mock<IServiceLocator>();
             containerExtension.SetTestServiceLocator(locator.Object);
-            Bootstrapper.With.Container(containerExtension);
+            Bootstrap.Bootstrapper.With.Container(containerExtension);
 
             //Act
-            Bootstrapper.Start();
+            Bootstrap.Bootstrapper.Start();
             var assemblies = containerExtension.LookForStartupTasks.Assemblies;
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsTrue(assemblies.Any(a =>
@@ -205,17 +205,17 @@ namespace Bootstrapper.Tests.Core
         public void ShouldLookForRegistrationsInExtensionsAssembly()
         {
             //Arrange
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
             var containerExtension = new TestContainerExtension(null);
             var locator = new Mock<IServiceLocator>();
             containerExtension.SetTestServiceLocator(locator.Object);
-            Bootstrapper.With.Container(containerExtension);
-            Bootstrapper.With.Extension(new TestBootstrapperExtension());
+            Bootstrap.Bootstrapper.With.Container(containerExtension);
+            Bootstrap.Bootstrapper.With.Extension(new TestBootstrapperExtension());
 
             //Act
-            Bootstrapper.Start();
+            Bootstrap.Bootstrapper.Start();
             var assemblies = containerExtension.LookForRegistrations.Assemblies;
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert            
             Assert.IsTrue(assemblies.Any(a =>
@@ -226,17 +226,17 @@ namespace Bootstrapper.Tests.Core
         public void ShouldLookForMapsInExtensionsAssembly()
         {
             //Arrange
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
             var containerExtension = new TestContainerExtension(null);
             var locator = new Mock<IServiceLocator>();
             containerExtension.SetTestServiceLocator(locator.Object);
-            Bootstrapper.With.Container(containerExtension);
-            Bootstrapper.With.Extension(new TestBootstrapperExtension());
+            Bootstrap.Bootstrapper.With.Container(containerExtension);
+            Bootstrap.Bootstrapper.With.Extension(new TestBootstrapperExtension());
 
             //Act
-            Bootstrapper.Start();
+            Bootstrap.Bootstrapper.Start();
             var assemblies = containerExtension.LookForMaps.Assemblies;
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert            
             Assert.IsTrue(assemblies.Any(a =>
@@ -247,17 +247,17 @@ namespace Bootstrapper.Tests.Core
         public void ShouldLookForStartupTasksInExtensionsAssembly()
         {
             //Arrange
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
             var containerExtension = new TestContainerExtension(null);
             var locator = new Mock<IServiceLocator>();
             containerExtension.SetTestServiceLocator(locator.Object);
-            Bootstrapper.With.Container(containerExtension);
-            Bootstrapper.With.Extension(new TestBootstrapperExtension());
+            Bootstrap.Bootstrapper.With.Container(containerExtension);
+            Bootstrap.Bootstrapper.With.Extension(new TestBootstrapperExtension());
 
             //Act
-            Bootstrapper.Start();
+            Bootstrap.Bootstrapper.Start();
             var assemblies = containerExtension.LookForStartupTasks.Assemblies;
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert            
             Assert.IsTrue(assemblies.Any(a =>
@@ -268,17 +268,17 @@ namespace Bootstrapper.Tests.Core
         public void ShouldSetTheBootstrapperContainer()
         {
             //Arrange
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
             var container = new object();
             var containerExtension = new TestContainerExtension(container);
             var locator = new Mock<IServiceLocator>();
             containerExtension.SetTestServiceLocator(locator.Object);
-            Bootstrapper.With.Container(containerExtension);
+            Bootstrap.Bootstrapper.With.Container(containerExtension);
 
             //Act
             containerExtension.Run();
-            var result = Bootstrapper.GetContainer();
-            Bootstrapper.ClearExtensions();
+            var result = Bootstrap.Bootstrapper.GetContainer();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);
@@ -296,11 +296,11 @@ namespace Bootstrapper.Tests.Core
             locator.Setup(l => l.GetAllInstances<IStartupTask>()).Returns(new List<IStartupTask> {new TestStartupTask()});
             var containerExtension = new TestContainerExtension(container);
             containerExtension.SetTestServiceLocator(locator.Object);
-            Bootstrapper.With.Container(containerExtension).Start();
+            Bootstrap.Bootstrapper.With.Container(containerExtension).Start();
 
             //Act
             var result = TestStartupTask.Invoked;
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsTrue(result);
@@ -318,7 +318,7 @@ namespace Bootstrapper.Tests.Core
 
             //Act
             containerExtension.Reset();
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsFalse(TestStartupTask.Invoked);
@@ -331,12 +331,12 @@ namespace Bootstrapper.Tests.Core
             var containerExtension = new TestContainerExtension(new object());
             var locator = new Mock<IServiceLocator>();
             containerExtension.SetTestServiceLocator(locator.Object);
-            Bootstrapper.With.Container(containerExtension).Start();
+            Bootstrap.Bootstrapper.With.Container(containerExtension).Start();
 
             //Act
             containerExtension.Reset();
-            var result = Bootstrapper.GetContainer();
-            Bootstrapper.ClearExtensions();
+            var result = Bootstrap.Bootstrapper.GetContainer();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNull(result);

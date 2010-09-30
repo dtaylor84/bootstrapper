@@ -1,4 +1,4 @@
-﻿namespace Bootstrapper.StructureMapExtension
+﻿namespace Bootstrap.StructureMapExtension
 {
     public interface IStructureMapRegistration
     {

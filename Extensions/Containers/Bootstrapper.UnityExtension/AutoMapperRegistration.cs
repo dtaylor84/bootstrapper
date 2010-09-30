@@ -2,7 +2,7 @@
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 
-namespace Bootstrapper.UnityExtension
+namespace Bootstrap.UnityExtension
 {
     public class AutoMapperRegistration: IUnityRegistration
     {
@@ -19,7 +19,7 @@ namespace Bootstrapper.UnityExtension
 
         private static void RegisterMapCreators(IUnityContainer container)
         {
-            var containerExtension = Bootstrapper.GetContainerExtension();
+            var containerExtension = Bootstrap.Bootstrapper.GetContainerExtension();
             if (containerExtension == null) return;
 
             containerExtension.LookForMaps.AssemblyNames.

@@ -1,8 +1,8 @@
-﻿using Microsoft.Practices.ServiceLocation;
-using StructureMap;
+﻿using StructureMap;
 using StructureMap.ServiceLocatorAdapter;
+using Microsoft.Practices.ServiceLocation;
 
-namespace Bootstrapper.StructureMapExtension
+namespace Bootstrap.StructureMapExtension
 {
     public class StructureMapContainerExtension: BootstrapperContainerExtension
     {
@@ -35,6 +35,7 @@ namespace Bootstrapper.StructureMapExtension
         protected override void InitializeServiceLocator()
         {
             ServiceLocator.SetLocatorProvider(() => new StructureMapServiceLocator(Container));
+            SetContainer(Container);
         }
 
         protected override void ResetContainer()

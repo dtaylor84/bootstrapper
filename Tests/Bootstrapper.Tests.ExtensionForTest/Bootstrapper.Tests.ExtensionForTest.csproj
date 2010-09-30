@@ -8,7 +8,7 @@
     <ProjectGuid>{E0531F4E-3D33-42D4-AE64-13D015D2192F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Bootstrapper.Tests.ExtensionForTest</RootNamespace>
+    <RootNamespace>Bootstrap.Tests.ExtensionForTest</RootNamespace>
     <AssemblyName>Bootstrapper.Tests.ExtensionForTest</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

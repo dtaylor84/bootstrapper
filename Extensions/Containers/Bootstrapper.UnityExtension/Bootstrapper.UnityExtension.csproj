@@ -8,7 +8,7 @@
     <ProjectGuid>{1704683F-3495-4B2B-9BA4-9931D8FB064F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Bootstrapper.UnityExtension</RootNamespace>
+    <RootNamespace>Bootstrap.UnityExtension</RootNamespace>
     <AssemblyName>Bootstrapper.UnityExtension</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

@@ -1,9 +1,9 @@
 ﻿using System.Reflection;
 using System.Linq;
-using Bootstrapper.Tests.Extensions.Containers;
+using Bootstrap.Tests.Extensions.Containers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bootstrapper.Tests.Core
+namespace Bootstrap.Tests.Core
 {
     [TestClass]
     public class RegistrationHelperTests

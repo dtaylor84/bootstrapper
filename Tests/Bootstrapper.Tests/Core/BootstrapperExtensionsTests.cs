@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Bootstrapper.Tests.Other;
+using Bootstrap.Tests.Other;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace Bootstrapper.Tests.Core
+namespace Bootstrap.Tests.Core
 {
     [TestClass]
     public class BootstrapperExtensionsTests
@@ -111,11 +111,11 @@ namespace Bootstrapper.Tests.Core
         {
             //Arrange
             var extension = new Mock<IBootstrapperExtension>();
-            Bootstrapper.With.Extension(extension.Object);
+            Bootstrap.Bootstrapper.With.Extension(extension.Object);
 
             //Act
-            Bootstrapper.With.Start();
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.With.Start();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             extension.Verify(e => e.Run(), Times.Once());
@@ -125,9 +125,9 @@ namespace Bootstrapper.Tests.Core
         public void ShouldCaptureTheStartCallingAssembly()
         {
             //Act
-            Bootstrapper.With.Start();
-            var result = Bootstrapper.GetStartCallingAssembly();
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.With.Start();
+            var result = Bootstrap.Bootstrapper.GetStartCallingAssembly();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);

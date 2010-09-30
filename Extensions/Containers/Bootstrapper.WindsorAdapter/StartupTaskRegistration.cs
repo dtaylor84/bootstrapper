@@ -2,13 +2,13 @@
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 
-namespace Bootstrapper.WindsorExtension
+namespace Bootstrap.WindsorExtension
 {
     public class StartupTaskRegistration : IWindsorRegistration
     {
         public void Register(IWindsorContainer container)
         {
-            var containerExtension = Bootstrapper.GetContainerExtension();
+            var containerExtension = Bootstrap.Bootstrapper.GetContainerExtension();
             if (containerExtension == null) return;
 
             containerExtension.LookForStartupTasks.AssemblyNames

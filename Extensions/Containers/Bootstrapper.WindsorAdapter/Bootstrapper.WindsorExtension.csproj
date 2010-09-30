@@ -8,7 +8,7 @@
     <ProjectGuid>{AD16249F-B34D-4DED-8801-7BFC9AFD9B2A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Bootstrapper.WindsorExtension</RootNamespace>
+    <RootNamespace>Bootstrap.WindsorExtension</RootNamespace>
     <AssemblyName>Bootstrapper.WindsorExtension</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

@@ -1,7 +1,7 @@
-﻿using Bootstrapper.WindsorExtension;
+﻿using Bootstrap.WindsorExtension;
 using Castle.Windsor;
 
-namespace Bootstrapper.Tests.Extensions.Containers.Windsor
+namespace Bootstrap.Tests.Extensions.Containers.Windsor
 {
     public class TestWindsorRegistration: IWindsorRegistration
     {

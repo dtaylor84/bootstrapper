@@ -1,4 +1,4 @@
-﻿namespace Bootstrapper.Tests.Extensions.Containers
+﻿namespace Bootstrap.Tests.Extensions.Containers
 {
     public class TestStartupTask: IStartupTask
     {

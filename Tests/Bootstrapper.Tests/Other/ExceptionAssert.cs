@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bootstrapper.Tests.Other
+namespace Bootstrap.Tests.Other
 {
     public static class ExceptionAssert
     {

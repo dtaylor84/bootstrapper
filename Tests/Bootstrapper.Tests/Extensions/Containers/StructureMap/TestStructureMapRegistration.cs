@@ -1,7 +1,7 @@
-﻿using Bootstrapper.StructureMapExtension;
+﻿using Bootstrap.StructureMapExtension;
 using StructureMap;
 
-namespace Bootstrapper.Tests.Extensions.Containers.StructureMap
+namespace Bootstrap.Tests.Extensions.Containers.StructureMap
 {
     public class TestStructureMapRegistration: IStructureMapRegistration
     {

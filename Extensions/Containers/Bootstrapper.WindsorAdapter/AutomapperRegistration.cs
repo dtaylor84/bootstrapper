@@ -3,7 +3,7 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using AutoMapper;
 
-namespace Bootstrapper.WindsorExtension
+namespace Bootstrap.WindsorExtension
 {
     public class AutoMapperRegistration: IWindsorRegistration
     {
@@ -21,7 +21,7 @@ namespace Bootstrapper.WindsorExtension
 
         private static void RegisterMapCreators(IWindsorContainer container)
         {
-            var containerExtension = Bootstrapper.GetContainerExtension();
+            var containerExtension = Bootstrap.Bootstrapper.GetContainerExtension();
             if (containerExtension == null) return;
 
             containerExtension.LookForMaps.AssemblyNames.

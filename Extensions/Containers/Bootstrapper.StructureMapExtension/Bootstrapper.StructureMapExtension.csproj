@@ -8,7 +8,7 @@
     <ProjectGuid>{B4E4CBAC-28F3-4649-BFEC-698C0FD8357A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Bootstrapper.StructureMapExtension</RootNamespace>
+    <RootNamespace>Bootstrap.StructureMapExtension</RootNamespace>
     <AssemblyName>Bootstrapper.StructureMapExtension</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

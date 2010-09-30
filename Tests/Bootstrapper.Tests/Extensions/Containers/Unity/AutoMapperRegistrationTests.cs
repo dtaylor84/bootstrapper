@@ -2,12 +2,12 @@
 using System.Linq;
 using System.Reflection;
 using AutoMapper;
-using Bootstrapper.UnityExtension;
+using Bootstrap.UnityExtension;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace Bootstrapper.Tests.Extensions.Containers.Unity
+namespace Bootstrap.Tests.Extensions.Containers.Unity
 {
     [TestClass]
     public class AutoMapperRegistrationTests
@@ -38,12 +38,12 @@ namespace Bootstrapper.Tests.Extensions.Containers.Unity
             collector.Setup(c => c.Assemblies).Returns(new List<Assembly> { Assembly.GetExecutingAssembly() });
             collector.Setup(c => c.AssemblyNames).Returns(new List<string>());
             containerExtension.Setup(c => c.LookForMaps).Returns(collector.Object);
-            Bootstrapper.With.Container(containerExtension.Object);
+            Bootstrap.Bootstrapper.With.Container(containerExtension.Object);
 
             //Act
             new AutoMapperRegistration().Register(container);
             var result = container.ResolveAll<IMapCreator>();
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);
@@ -61,12 +61,12 @@ namespace Bootstrapper.Tests.Extensions.Containers.Unity
             collector.Setup(c => c.Assemblies).Returns(new List<Assembly>());
             collector.Setup(c => c.AssemblyNames).Returns(new List<string> { Assembly.GetExecutingAssembly().FullName });
             containerExtension.Setup(c => c.LookForMaps).Returns(collector.Object);
-            Bootstrapper.With.Container(containerExtension.Object);
+            Bootstrap.Bootstrapper.With.Container(containerExtension.Object);
 
             //Act
             new AutoMapperRegistration().Register(container);
             var result = container.ResolveAll<IMapCreator>();
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);

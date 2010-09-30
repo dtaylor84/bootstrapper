@@ -1,12 +1,12 @@
 ﻿using StructureMap;
 
-namespace Bootstrapper.StructureMapExtension
+namespace Bootstrap.StructureMapExtension
 {
     public class StartupTaskRegistration: IStructureMapRegistration
     {
         public void Register(IContainer container)
         {
-            var containerExtension = Bootstrapper.GetContainerExtension();
+            var containerExtension = Bootstrap.Bootstrapper.GetContainerExtension();
             if (containerExtension == null) return;
 
             container.Configure(c => c.Scan(s =>

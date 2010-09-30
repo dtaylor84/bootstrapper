@@ -1,7 +1,7 @@
 ﻿using Microsoft.Practices.ServiceLocation;
 using AutoMapper;
 
-namespace Bootstrapper
+namespace Bootstrap
 {
     public class AutoMapperStartupTask: IStartupTask
     {

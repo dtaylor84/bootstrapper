@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Bootstrapper.Tests.Extensions.Containers
+﻿namespace Bootstrap.Tests.Extensions.Containers
 {
     internal class InternalTestStartupTask : IStartupTask
     {

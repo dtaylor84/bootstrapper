@@ -1,4 +1,4 @@
-﻿namespace Bootstrapper
+﻿namespace Bootstrap
 {
     public interface IContainerInitializer
     {

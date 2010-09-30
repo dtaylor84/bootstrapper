@@ -1,7 +1,7 @@
 using System.Reflection;
 using Microsoft.Practices.ServiceLocation;
 
-namespace Bootstrapper
+namespace Bootstrap
 {
     public abstract class BootstrapperContainerExtension : BootstrapperExtension, IBootstrapperContainerExtension
     {

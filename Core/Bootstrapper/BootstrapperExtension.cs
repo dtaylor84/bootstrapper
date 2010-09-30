@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Bootstrapper
+﻿namespace Bootstrap
 {
     public class BootstrapperExtension : IBootstrapperExtension
     {

@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
-using Bootstrapper.WindsorExtension;
-using Castle.Windsor;
+using Bootstrap.WindsorExtension;
 using CommonServiceLocator.WindsorAdapter;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Castle.Windsor;
 
-namespace Bootstrapper.Tests.Extensions.Containers.Windsor
+namespace Bootstrap.Tests.Extensions.Containers.Windsor
 {
     [TestClass]
     public class WindsorContainerExtensionTests
@@ -41,12 +41,12 @@ namespace Bootstrapper.Tests.Extensions.Containers.Windsor
         {
             //Arrange
             var containerExtension = new WindsorContainerExtension();
-            Bootstrapper.With.Container(containerExtension);
+            Bootstrap.Bootstrapper.With.Container(containerExtension);
 
             //Act
             containerExtension.Run();
             var result = containerExtension.Container;
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);
@@ -58,12 +58,12 @@ namespace Bootstrapper.Tests.Extensions.Containers.Windsor
         {
             //Arrange
             var containerExtension = new WindsorContainerExtension();
-            Bootstrapper.With.Container(containerExtension);
+            Bootstrap.Bootstrapper.With.Container(containerExtension);
 
             //Act
             containerExtension.Run();
             var result = containerExtension.Container.ResolveAll<IWindsorRegistration>();
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);
@@ -76,12 +76,12 @@ namespace Bootstrapper.Tests.Extensions.Containers.Windsor
         {
             //Arrange
             var containerExtension = new WindsorContainerExtension();
-            Bootstrapper.With.Container(containerExtension);
+            Bootstrap.Bootstrapper.With.Container(containerExtension);
 
             //Act
             containerExtension.Run();
             var result = containerExtension.Container.ResolveAll<IWindsorRegistration>();
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);
@@ -94,12 +94,12 @@ namespace Bootstrapper.Tests.Extensions.Containers.Windsor
         {
             //Arrange
             var containerExtension = new WindsorContainerExtension();
-            Bootstrapper.With.Container(containerExtension);
+            Bootstrap.Bootstrapper.With.Container(containerExtension);
 
             //Act
             containerExtension.Run();
             var result = containerExtension.Container.ResolveAll<IWindsorRegistration>();
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);
@@ -112,13 +112,13 @@ namespace Bootstrapper.Tests.Extensions.Containers.Windsor
         {
             //Arrange
             var containerExtension = new WindsorContainerExtension();
-            Bootstrapper.With.Container(containerExtension);
+            Bootstrap.Bootstrapper.With.Container(containerExtension);
 
             //Act
             containerExtension.LookForRegistrations.InAssembly(Assembly.GetAssembly(typeof(TestWindsorRegistration)));
             containerExtension.Run();
             var result = containerExtension.Container.Resolve<WindsorContainerExtension>();
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);
@@ -131,12 +131,12 @@ namespace Bootstrapper.Tests.Extensions.Containers.Windsor
             //Arrange
             ServiceLocator.SetLocatorProvider(() => null);
             var containerExtension = new WindsorContainerExtension();
-            Bootstrapper.With.Container(containerExtension);
+            Bootstrap.Bootstrapper.With.Container(containerExtension);
 
             //Act
             containerExtension.Run();
             var result = ServiceLocator.Current;
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);
@@ -148,12 +148,12 @@ namespace Bootstrapper.Tests.Extensions.Containers.Windsor
         {
             //Arrange
             var containerExtension = new WindsorContainerExtension();
-            Bootstrapper.With.Container(containerExtension);
+            Bootstrap.Bootstrapper.With.Container(containerExtension);
 
             //Act
             containerExtension.Run();
             var result = containerExtension.Container.ResolveAll<IStartupTask>();
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);
@@ -167,14 +167,31 @@ namespace Bootstrapper.Tests.Extensions.Containers.Windsor
         {
             //Arrange
             var containerExtension = new WindsorContainerExtension();
-            Bootstrapper.With.Container(containerExtension).Start();
+            Bootstrap.Bootstrapper.With.Container(containerExtension).Start();
 
             //Act
             containerExtension.Reset();
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNull(ServiceLocator.Current);
+        }
+
+        [TestMethod]
+        public void ShouldSetTheContainer()
+        {
+            //Arrange            
+            var containerExtension = new WindsorContainerExtension();
+            Bootstrap.Bootstrapper.With.Container(containerExtension);
+
+            //Act
+            containerExtension.Run();
+            var result = Bootstrap.Bootstrapper.GetContainer();
+            Bootstrap.Bootstrapper.ClearExtensions();
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(IWindsorContainer));
         }
 
         [TestMethod]
@@ -182,11 +199,11 @@ namespace Bootstrapper.Tests.Extensions.Containers.Windsor
         {
             //Arrange
             var containerExtension = new WindsorContainerExtension();
-            Bootstrapper.With.Container(containerExtension).Start();
+            Bootstrap.Bootstrapper.With.Container(containerExtension).Start();
 
             //Act
             containerExtension.Reset();
-            Bootstrapper.ClearExtensions();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNull(containerExtension.Container);
@@ -197,12 +214,12 @@ namespace Bootstrapper.Tests.Extensions.Containers.Windsor
         {
             //Arrange
             var containerExtension = new WindsorContainerExtension();
-            Bootstrapper.With.Container(containerExtension).Start();
+            Bootstrap.Bootstrapper.With.Container(containerExtension).Start();
 
             //Act
             containerExtension.Reset();
-            var result = Bootstrapper.GetContainer();
-            Bootstrapper.ClearExtensions();
+            var result = Bootstrap.Bootstrapper.GetContainer();
+            Bootstrap.Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNull(result);

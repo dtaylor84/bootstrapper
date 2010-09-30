@@ -1,6 +1,6 @@
 ﻿using Microsoft.Practices.ServiceLocation;
 
-namespace Bootstrapper.Tests.Extensions.Containers
+namespace Bootstrap.Tests.Extensions.Containers
 {
     public class TestContainerExtension: BootstrapperContainerExtension
     {
