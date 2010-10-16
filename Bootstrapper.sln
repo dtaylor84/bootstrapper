@@ -40,7 +40,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Moq", "Moq", "{E414EA86-74E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Containers", "Containers", "{7ECDBD90-1ACB-4BE9-A501-BBE3C33E2139}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper.WindsorExtension", "Extensions\Containers\Bootstrapper.WindsorAdapter\Bootstrapper.WindsorExtension.csproj", "{AD16249F-B34D-4DED-8801-7BFC9AFD9B2A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper.WindsorExtension", "Extensions\Containers\Bootstrapper.WindsorExtension\Bootstrapper.WindsorExtension.csproj", "{AD16249F-B34D-4DED-8801-7BFC9AFD9B2A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper.Tests", "Tests\Bootstrapper.Tests\Bootstrapper.Tests.csproj", "{0C4C0CFC-3E77-4FE4-81CA-618BEE9AAB96}"
 EndProject
