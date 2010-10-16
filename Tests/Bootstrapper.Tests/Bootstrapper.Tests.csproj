@@ -45,8 +45,12 @@
     <Reference Include="Castle.DynamicProxy2">
       <HintPath>..\..\Libraries\Windsor\Castle.DynamicProxy2.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.MicroKernel, Version=2.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL" />
-    <Reference Include="Castle.Windsor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL" />
+    <Reference Include="Castle.MicroKernel">
+      <HintPath>..\..\Libraries\Windsor\Castle.MicroKernel.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\..\Libraries\Windsor\Castle.Windsor.dll</HintPath>
+    </Reference>
     <Reference Include="CommonServiceLocator.WindsorAdapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Libraries\CommonServiceLocator\CommonServiceLocator.WindsorAdapter.dll</HintPath>
@@ -124,7 +128,7 @@
       <Project>{E2F2C1AF-D39D-4783-BB45-01781B24AEA3}</Project>
       <Name>Bootstrapper.UnityExtension</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Extensions\Containers\Bootstrapper.WindsorAdapter\Bootstrapper.WindsorExtension.csproj">
+    <ProjectReference Include="..\..\Extensions\Containers\Bootstrapper.WindsorExtension\Bootstrapper.WindsorExtension.csproj">
       <Project>{AD16249F-B34D-4DED-8801-7BFC9AFD9B2A}</Project>
       <Name>Bootstrapper.WindsorExtension</Name>
     </ProjectReference>
