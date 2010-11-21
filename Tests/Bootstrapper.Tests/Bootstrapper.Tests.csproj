@@ -41,19 +41,20 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\AutoMapper.1.1.0.118\lib\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.Core, Version=1.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL" />
-    <Reference Include="Castle.DynamicProxy2">
-      <HintPath>..\..\Libraries\Windsor\Castle.DynamicProxy2.dll</HintPath>
+    <Reference Include="Castle.Core, Version=1.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Castle.Core.2.5.1\lib\NET35\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.MicroKernel">
-      <HintPath>..\..\Libraries\Windsor\Castle.MicroKernel.dll</HintPath>
+    <Reference Include="Castle.Facilities.Synchronize">
+      <HintPath>..\..\packages\Castle.Windsor.2.5.1\lib\NET40\Castle.Facilities.Synchronize.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.Windsor">
-      <HintPath>..\..\Libraries\Windsor\Castle.Windsor.dll</HintPath>
+    <Reference Include="Castle.Windsor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Castle.Windsor.2.5.1\lib\NET40\Castle.Windsor.dll</HintPath>
     </Reference>
     <Reference Include="CommonServiceLocator.WindsorAdapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Libraries\CommonServiceLocator\CommonServiceLocator.WindsorAdapter.dll</HintPath>
+      <HintPath>..\..\packages\CommonServiceLocator.WindsorAdapter.1.0\lib\NET35\CommonServiceLocator.WindsorAdapter.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">

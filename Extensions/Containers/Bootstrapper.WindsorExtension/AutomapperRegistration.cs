@@ -21,14 +21,14 @@ namespace Bootstrap.WindsorExtension
 
         private static void RegisterMapCreators(IWindsorContainer container)
         {
-            var containerExtension = Bootstrap.Bootstrapper.GetContainerExtension();
+            var containerExtension = Bootstrapper.GetContainerExtension();
             if (containerExtension == null) return;
 
             containerExtension.LookForMaps.AssemblyNames.
-                ForEach(n => container.Register(AllTypes.Of<IMapCreator>().FromAssemblyNamed(n)));
+                ForEach(n => container.Register(AllTypes.FromAssemblyNamed(n).BasedOn<IMapCreator>()));
 
             containerExtension.LookForMaps.Assemblies.
-                ForEach(a => container.Register(AllTypes.Of<IMapCreator>().FromAssembly(a)));
+                ForEach(a => container.Register(AllTypes.FromAssembly(a).BasedOn<IMapCreator>()));
         }
 
     }

@@ -20,10 +20,10 @@ namespace Bootstrap.WindsorExtension
         protected override void RegisterImplementationsOfIRegistration()
         {
             LookForRegistrations.AssemblyNames
-                .ForEach(n => Container.Register(AllTypes.Of<IWindsorRegistration>().FromAssemblyNamed(n)));
+                .ForEach(n => Container.Register(AllTypes.FromAssemblyNamed(n).BasedOn<IWindsorRegistration>()));
 
             LookForRegistrations.Assemblies
-                .ForEach(a => Container.Register(AllTypes.Of<IWindsorRegistration>().FromAssembly(a)));
+                .ForEach(a => Container.Register(AllTypes.FromAssembly(a).BasedOn<IWindsorRegistration>()));
         }
 
         protected override void InvokeRegisterForImplementationsOfIRegistration()

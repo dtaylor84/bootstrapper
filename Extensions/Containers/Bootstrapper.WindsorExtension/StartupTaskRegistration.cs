@@ -8,14 +8,14 @@ namespace Bootstrap.WindsorExtension
     {
         public void Register(IWindsorContainer container)
         {
-            var containerExtension = Bootstrap.Bootstrapper.GetContainerExtension();
+            var containerExtension = Bootstrapper.GetContainerExtension();
             if (containerExtension == null) return;
 
             containerExtension.LookForStartupTasks.AssemblyNames
-                .ForEach(n => container.Register(AllTypes.Of<IStartupTask>().FromAssemblyNamed(n)));
+                .ForEach(n => container.Register(AllTypes.FromAssemblyNamed(n).BasedOn<IStartupTask>()));
 
             containerExtension.LookForStartupTasks.Assemblies
-                .ForEach(a => container.Register(AllTypes.Of<IStartupTask>().FromAssembly(a)));
+                .ForEach(a => container.Register(AllTypes.FromAssembly(a).BasedOn<IStartupTask>()));
 
         }
     }
