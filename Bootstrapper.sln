@@ -79,6 +79,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CommonServiceLocator.Windso
 		packages\CommonServiceLocator.WindsorAdapter.1.0\lib\NET35\CommonServiceLocator.WindsorAdapter.dll = packages\CommonServiceLocator.WindsorAdapter.1.0\lib\NET35\CommonServiceLocator.WindsorAdapter.dll
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unity", "Unity", "{5C89499B-6C23-4FF1-8CE3-47FB52DCF4E3}"
+	ProjectSection(SolutionItems) = preProject
+		packages\Unity.2.0\lib\20\Microsoft.Practices.Unity.Configuration.dll = packages\Unity.2.0\lib\20\Microsoft.Practices.Unity.Configuration.dll
+		packages\Unity.2.0\lib\20\Microsoft.Practices.Unity.dll = packages\Unity.2.0\lib\20\Microsoft.Practices.Unity.dll
+		packages\Unity.2.0\lib\20\Microsoft.Practices.Unity.Interception.Configuration.dll = packages\Unity.2.0\lib\20\Microsoft.Practices.Unity.Interception.Configuration.dll
+		packages\Unity.2.0\lib\20\Microsoft.Practices.Unity.Interception.dll = packages\Unity.2.0\lib\20\Microsoft.Practices.Unity.Interception.dll
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -137,5 +145,6 @@ Global
 		{E8C5BFE8-8E36-46C3-BAEA-C55A2FB0B6C4} = {D6607171-92E0-4049-8757-6F1C7E4FC762}
 		{62661D1C-FA30-46FF-A6D7-6EB4C972113D} = {D6607171-92E0-4049-8757-6F1C7E4FC762}
 		{491990BD-19A6-4C4F-81E5-095E562E9F03} = {D6607171-92E0-4049-8757-6F1C7E4FC762}
+		{5C89499B-6C23-4FF1-8CE3-47FB52DCF4E3} = {D6607171-92E0-4049-8757-6F1C7E4FC762}
 	EndGlobalSection
 EndGlobal
