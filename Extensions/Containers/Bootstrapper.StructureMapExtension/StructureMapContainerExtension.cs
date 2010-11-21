@@ -33,7 +33,7 @@ namespace Bootstrap.StructureMapExtension
         }
 
         protected override void InitializeServiceLocator()
-        {
+        {            
             ServiceLocator.SetLocatorProvider(() => new StructureMapServiceLocator(Container));
             SetContainer(Container);
         }

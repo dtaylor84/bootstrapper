@@ -43,6 +43,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\packages\Unity.2.0\lib\20\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
+    <Reference Include="StructureMap">
+      <HintPath>..\..\..\packages\structuremap.2.6.1.0\lib\StructureMap.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
