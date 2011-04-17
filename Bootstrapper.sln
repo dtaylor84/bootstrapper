@@ -88,15 +88,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CommonServiceLocator.Struct
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StructureMap", "StructureMap", "{FD9DA8D5-32ED-4E20-AB7C-B2BF7391D147}"
 	ProjectSection(SolutionItems) = preProject
-		packages\structuremap.2.6.1.0\automocking\StructureMap.AutoMocking.dll = packages\structuremap.2.6.1.0\automocking\StructureMap.AutoMocking.dll
-		packages\structuremap.2.6.1.0\lib\StructureMap.dll = packages\structuremap.2.6.1.0\lib\StructureMap.dll
+		packages\structuremap.2.6.2\lib\StructureMap.dll = packages\structuremap.2.6.2\lib\StructureMap.dll
 	EndProjectSection
 EndProject
 Global
-	GlobalSection(SubversionScc) = preSolution
-		Svn-Managed = True
-		Manager = AnkhSVN - Subversion Support for Visual Studio
-	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Bootstrapper.vsmdi
 	EndGlobalSection

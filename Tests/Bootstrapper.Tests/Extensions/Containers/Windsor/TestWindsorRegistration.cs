@@ -1,4 +1,5 @@
 ﻿using Bootstrap.WindsorExtension;
+using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 
 namespace Bootstrap.Tests.Extensions.Containers.Windsor
@@ -7,7 +8,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
     {
         public void Register(IWindsorContainer container)
         {
-            container.AddComponent<WindsorContainerExtension, WindsorContainerExtension>();
+            container.Register(Component.For<WindsorContainerExtension>().ImplementedBy<WindsorContainerExtension>());
         }
     }
 }
