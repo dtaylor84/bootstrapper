@@ -1,6 +1,6 @@
 ﻿using Castle.Windsor;
 
-namespace Bootstrap.WindsorExtension
+namespace Bootstrap.Windsor
 {
     public interface IWindsorRegistration
     {

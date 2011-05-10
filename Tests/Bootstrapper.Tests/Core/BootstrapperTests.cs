@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Reflection;
+using Bootstrap.AutoMapper;
+using Bootstrap.Extensions;
+using Bootstrap.Extensions.Containers;
+using Bootstrap.ServiceLocator;
+using Bootstrap.StartupTasks;
+using Bootstrap.StructureMap;
 using Bootstrap.Tests.Extensions.Containers;
-using Bootstrap.WindsorExtension;
-using Microsoft.Practices.ServiceLocation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -50,7 +53,7 @@ namespace Bootstrap.Tests.Core
         [TestMethod]
         public void ShouldReturnANullContainerExtension()
         {
-            var result = Bootstrapper.GetContainerExtension();
+            var result = Bootstrapper.ContainerExtension;
 
             //Assert
             Assert.IsNull(result);
@@ -65,7 +68,7 @@ namespace Bootstrap.Tests.Core
 
             //Act
             Bootstrapper.ClearExtensions();
-            var result = Bootstrapper.GetContainerExtension();
+            var result = Bootstrapper.ContainerExtension;
 
             //Assert
             Assert.IsNull(result);
@@ -75,7 +78,7 @@ namespace Bootstrap.Tests.Core
         public void ShouldReturnANullContainer()
         {
             //Act
-            var result = Bootstrapper.GetContainer();
+            var result = Bootstrapper.Container;
 
             //Assert
             Assert.IsNull(result);
@@ -85,16 +88,13 @@ namespace Bootstrap.Tests.Core
         public void ShouldNotHaveContainer()
         {
             //Arrange
-            var container = new object();
-            var containerExtension = new TestContainerExtension(container);
-            var locator = new Mock<IServiceLocator>();
-            containerExtension.SetTestServiceLocator(locator.Object);
-            Bootstrapper.With.Container(containerExtension);
+            var containerExtension = new TestContainerExtension();
+            Bootstrapper.With.Extension(containerExtension);
             Bootstrapper.Start();
 
             //Act
             Bootstrapper.ClearExtensions();
-            var result = Bootstrapper.GetContainer();
+            var result = Bootstrapper.Container;
 
             //Assert
             Assert.IsNull(result);
@@ -104,19 +104,15 @@ namespace Bootstrap.Tests.Core
         public void ShouldReturnTheSetContainer()
         {
             //Arrange
-            var container = new object();
-            var containerExtension = new TestContainerExtension(container);
-            var locator = new Mock<IServiceLocator>();
-            containerExtension.SetTestServiceLocator(locator.Object);
-            Bootstrapper.With.Container(containerExtension);
+            var containerExtension = new TestContainerExtension();
+            Bootstrapper.With.Extension(containerExtension);
 
             //Act
             Bootstrapper.Start();
-            var result = Bootstrapper.GetContainer();
+            var result = Bootstrapper.Container;
 
             //Assert
             Assert.IsNotNull(result);
-            Assert.AreSame(container, result);
         }
 
         [TestMethod]
@@ -151,10 +147,10 @@ namespace Bootstrap.Tests.Core
         {
             //Arrange
             var container = new Mock<IBootstrapperContainerExtension>();
-            Bootstrapper.With.Container(container.Object);
+            Bootstrapper.With.Extension(container.Object);
 
             //Act
-            var result = Bootstrapper.GetContainerExtension();
+            var result = Bootstrapper.ContainerExtension;
 
             //Assert
             Assert.IsNotNull(result);
@@ -190,33 +186,10 @@ namespace Bootstrap.Tests.Core
         }
 
         [TestMethod]
-        public void ShouldCaptureTheStartCallingAssembly()
-        {
-            //Act
-            Bootstrapper.Start();
-            var result = Bootstrapper.GetStartCallingAssembly();
-
-            //Assert
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(Assembly));
-            Assert.AreSame(result, Assembly.GetExecutingAssembly());
-        }
-       
-        [TestMethod]
         public void ShouldCompile()
         {
             //Act
-            Bootstrapper
-                .With
-                    .Container(
-                         new WindsorContainerExtension()
-                            .LookForRegistrations
-                                .InAssemblyNamed("Bootstrapper")
-                            .LookForMaps
-                                .InAssemblyNamed("Bootstrapper")
-                            .LookForStartupTasks
-                                .InAssemblyNamed("Bootstrapper"))
-                .Start();
+            Bootstrapper.With.StructureMap().And.AutoMapper().And.ServiceLocator().And.StartupTasks().Start();
         }
 
 

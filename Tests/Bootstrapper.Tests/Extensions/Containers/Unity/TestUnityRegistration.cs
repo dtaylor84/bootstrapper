@@ -1,6 +1,5 @@
-﻿using Bootstrap.UnityExtension;
+﻿using Bootstrap.Unity;
 using Microsoft.Practices.Unity;
-using UnityContainerExtension = Bootstrap.UnityExtension.UnityContainerExtension;
 
 namespace Bootstrap.Tests.Extensions.Containers.Unity
 {
@@ -8,7 +7,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
     {
         public void Register(IUnityContainer container)
         {
-            container.RegisterType<UnityContainerExtension, UnityContainerExtension>();
+            container.RegisterType<UnityExtension, UnityExtension>();
         }
     }
 }

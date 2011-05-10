@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
+using Bootstrap.Extensions;
+using Bootstrap.Extensions.Containers;
 
 namespace Bootstrap.Tests.Extensions.Containers
 {
     public class BootStrapperExtensionMapCreator: IMapCreator
     {
-        public void CreateMap()
+        public void CreateMap(IProfileExpression mapper)
         {
-            Mapper.CreateMap<BootstrapperExtension, BootstrapperExtension>();
+            mapper.CreateMap<IBootstrapperExtension, BootstrapperContainerExtension>();
         }
     }
 }

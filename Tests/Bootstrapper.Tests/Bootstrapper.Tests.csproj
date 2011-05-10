@@ -95,49 +95,54 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\AssemblyCollectorTest.cs" />
-    <Compile Include="Core\AutoMapperStartupTaskTests.cs" />
-    <Compile Include="Core\BootstrapperContainerExtensionTests.cs" />
+    <Compile Include="Core\Extensions\Containers\BootstrapperContainerExtensionTests.cs" />
+    <Compile Include="Core\StartupTasks\BootstrapperStartupTasksHelperTests.cs" />
     <Compile Include="Core\BootstrapperTests.cs" />
-    <Compile Include="Core\BootstrapperExtensionsTests.cs" />
-    <Compile Include="Core\BootstrapperExtensionTests.cs" />
-    <Compile Include="Core\RegistrationHelperTests.cs" />
+    <Compile Include="Core\Extensions\BootstrapperExtensionsTests.cs" />
+    <Compile Include="Core\Extensions\Containers\RegistrationHelperTests.cs" />
+    <Compile Include="Core\StartupTasks\StartupTasksExtensionTests.cs" />
+    <Compile Include="Core\StartupTasks\StartupTasksRegistrationTests.cs" />
     <Compile Include="Extensions\Containers\AbstractTestStartupTask.cs" />
     <Compile Include="Extensions\Containers\BootStrapperExtensionMapCreator.cs" />
     <Compile Include="Extensions\Containers\InternalTestStartupTask.cs" />
-    <Compile Include="Extensions\Containers\StructureMap\AutoMapperRegistrationTests.cs" />
-    <Compile Include="Extensions\Containers\StructureMap\StartupTasksRegistrationTests.cs" />
-    <Compile Include="Extensions\Containers\StructureMap\StructureMapContainerExtensionTests.cs" />
+    <Compile Include="Extensions\Containers\StructureMap\BootstrapperStructureMapHelperTests.cs" />
+    <Compile Include="Extensions\Containers\StructureMap\StructureMapExtensionTests.cs" />
     <Compile Include="Extensions\Containers\StructureMap\TestStructureMapRegistration.cs" />
     <Compile Include="Extensions\Containers\TestContainerExtension.cs" />
     <Compile Include="Extensions\Containers\TestStartupTask.cs" />
-    <Compile Include="Extensions\Containers\Unity\AutoMapperRegistrationTests.cs" />
-    <Compile Include="Extensions\Containers\Unity\StartupTasksRegistrationTests.cs" />
+    <Compile Include="Extensions\Containers\Unity\BootstrapperUnityHelperTests.cs" />
     <Compile Include="Extensions\Containers\Unity\TestUnityRegistration.cs" />
-    <Compile Include="Extensions\Containers\Unity\UnityContainerExtensionTests.cs" />
-    <Compile Include="Extensions\Containers\Windsor\AutoMapperRegistrationTests.cs" />
-    <Compile Include="Extensions\Containers\Windsor\StartupTasksRegistrationTests.cs" />
+    <Compile Include="Extensions\Containers\Unity\UnityExtensionTests.cs" />
+    <Compile Include="Extensions\Containers\Windsor\BootstrapperWindsorHelperTests.cs" />
     <Compile Include="Extensions\Containers\Windsor\TestWindsorRegistration.cs" />
-    <Compile Include="Extensions\Containers\Windsor\WindsorContainerExtensionTests.cs" />
+    <Compile Include="Extensions\Containers\Windsor\WindsorExtensionTests.cs" />
     <Compile Include="Other\ExceptionAssert.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Bootstrapper.AutoMapperExtension\Bootstrapper.AutoMapper.csproj">
+      <Project>{53821BFC-38ED-4663-811F-F21C346E8E68}</Project>
+      <Name>Bootstrapper.AutoMapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bootstrapper.ServiceLocator\Bootstrapper.ServiceLocator.csproj">
+      <Project>{E6F0B913-1A8F-43EC-B2CB-E23EFBE7C1D9}</Project>
+      <Name>Bootstrapper.ServiceLocator</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Core\Bootstrapper\Bootstrapper.csproj">
       <Project>{451C9B3F-D315-48EA-84EA-45C45E513B45}</Project>
       <Name>Bootstrapper</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Extensions\Containers\Bootstrapper.StructureMapExtension\Bootstrapper.StructureMapExtension.csproj">
+    <ProjectReference Include="..\..\Extensions\Containers\Bootstrapper.StructureMapExtension\Bootstrapper.StructureMap.csproj">
       <Project>{B4E4CBAC-28F3-4649-BFEC-698C0FD8357A}</Project>
-      <Name>Bootstrapper.StructureMapExtension</Name>
+      <Name>Bootstrapper.StructureMap</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Extensions\Containers\Bootstrapper.UnityExtension\Bootstrapper.UnityExtension.csproj">
-      <Project>{E2F2C1AF-D39D-4783-BB45-01781B24AEA3}</Project>
-      <Name>Bootstrapper.UnityExtension</Name>
+    <ProjectReference Include="..\..\Extensions\Containers\Bootstrapper.UnityExtension\Bootstrapper.Unity.csproj">
+      <Project>{1704683F-3495-4B2B-9BA4-9931D8FB064F}</Project>
+      <Name>Bootstrapper.Unity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Extensions\Containers\Bootstrapper.WindsorExtension\Bootstrapper.WindsorExtension.csproj">
+    <ProjectReference Include="..\..\Extensions\Containers\Bootstrapper.WindsorExtension\Bootstrapper.Windsor.csproj">
       <Project>{AD16249F-B34D-4DED-8801-7BFC9AFD9B2A}</Project>
-      <Name>Bootstrapper.WindsorExtension</Name>
+      <Name>Bootstrapper.Windsor</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bootstrapper.Tests.ExtensionForTest\Bootstrapper.Tests.ExtensionForTest.csproj">
       <Project>{E0531F4E-3D33-42D4-AE64-13D015D2192F}</Project>

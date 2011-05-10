@@ -1,36 +1,54 @@
-﻿using Microsoft.Practices.ServiceLocation;
+﻿using System;
+using System.Collections.Generic;
+using Bootstrap.Extensions.Containers;
+using Microsoft.Practices.ServiceLocation;
 
 namespace Bootstrap.Tests.Extensions.Containers
 {
     public class TestContainerExtension: BootstrapperContainerExtension
     {
-        private object container;
-        private IServiceLocator locator;
-
-        public TestContainerExtension(object theContainer)
-        {
-            container = theContainer;
-        }
-       
         public void SetTestServiceLocator(IServiceLocator theLocator)
         {
-            locator = theLocator;
+            throw new NotImplementedException();
         }
 
-        protected override void InitializeServiceLocator()
+        public override void RegisterAll<TTarget>()
         {
-            if(locator != null)
-                ServiceLocator.SetLocatorProvider(() => locator);
-            SetContainer(container);
+            throw new NotImplementedException();
         }
 
-        protected override void ResetContainer()
+        public override void SetServiceLocator()
         {
-            container = null;
-            SetContainer(container);
+            throw new NotImplementedException();
         }
 
-        protected override void InitializeContainer() { }
+        public override void ResetServiceLocator()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override T Resolve<T>()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IList<T> ResolveAll<T>()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Register<TTarget, TImplementation>()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Register<TTarget>(TTarget implementation)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void ResetContainer() {Container = null;}
+        protected override void InitializeContainer() { Container = new object(); }
         protected override void RegisterImplementationsOfIRegistration() { }
         protected override void InvokeRegisterForImplementationsOfIRegistration() { }
 
