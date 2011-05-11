@@ -20,7 +20,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         }
 
         [TestMethod]
-        public void ShouldCreateAStructureMapContainerExtension()
+        public void ShouldCreateAStructureMapExtension()
         {
             //Act
             var result = new StructureMapExtension();
@@ -91,6 +91,21 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         }
 
         [TestMethod]
+        public void ShouldInvokeTheRegisterMethodOfAllIBootstrapperRegistrationTypes()
+        {
+            //Arrange
+            var containerExtension = new StructureMapExtension();
+
+            //Act
+            containerExtension.Run();
+            var result = containerExtension.Resolve<IStartupTask>();
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(IStartupTask));
+        }
+
+        [TestMethod]
         public void ShouldInvokeTheRegisterMethodOfAllIStructureMapRegistrationTypes()
         {
             //Arrange
@@ -106,29 +121,14 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         }
 
         [TestMethod]
-        public void ShouldInvokeTheRegisterMethodOfAllIBootstrapperRegistrationTypes()
-        {
-            //Arrange
-            var containerExtension = new StructureMapExtension();
-
-            //Act
-            containerExtension.Run();
-            var result = containerExtension.Resolve<IStartupTask>();
-
-            //Assert
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(IStartupTask));
-        }
-
-
-        [TestMethod]
         public void ShouldSetTheServiceLocator()
         {
             //Arrange
             Microsoft.Practices.ServiceLocation.ServiceLocator.SetLocatorProvider(() => null);
             var containerExtension = new StructureMapExtension();
+            containerExtension.Run();
 
-            //Act
+            //Act            
             containerExtension.SetServiceLocator();
             var result = Microsoft.Practices.ServiceLocation.ServiceLocator.Current;
 
@@ -174,10 +174,9 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
 
             //Act
             containerExtension.Reset();
-            Bootstrapper.ClearExtensions();
 
             //Assert
-            Assert.IsNull(Bootstrapper.Container);
+            Assert.IsNull(containerExtension.Container);
         }
 
         [TestMethod]
