@@ -11,6 +11,12 @@ namespace Bootstrap.Unity
     {
         private IUnityContainer container;
 
+        public void InitializeContainer(IUnityContainer aContainer)
+        {
+            container = aContainer;
+            Container = container;
+        }
+
         protected override void InitializeContainer()
         {
             container = new UnityContainer();
@@ -53,12 +59,12 @@ namespace Bootstrap.Unity
 
         public override void Register<TTarget, TImplementation>()
         {
-            container.RegisterType<TTarget, TImplementation>();
+            container.RegisterType<TTarget, TImplementation>(typeof(TImplementation).Name);
         }
 
         public override void Register<TTarget>(TTarget implementation)
         {
-            container.RegisterInstance(implementation);
+            container.RegisterInstance(implementation.GetType().Name, implementation);
         }
 
         public override void RegisterAll<TTarget>()

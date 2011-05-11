@@ -16,16 +16,12 @@ namespace Bootstrap.Extensions.Containers
         public abstract void Register<TTarget>(TTarget implementation);
         public abstract void RegisterAll<TTarget>();
 
+        public object Container { get; protected set; }
+
         public void  Run()
         {
             InitializeContainer();
             InitializeRegistrations();
-        }
-
-        private void InitializeRegistrations()
-        {
-            RegisterImplementationsOfIRegistration();
-            InvokeRegisterForImplementationsOfIRegistration();
         }
 
         public void Reset()
@@ -33,6 +29,10 @@ namespace Bootstrap.Extensions.Containers
             ResetContainer();
         }
 
-        public object Container { get; protected set; }
+        private void InitializeRegistrations()
+        {
+            RegisterImplementationsOfIRegistration();
+            InvokeRegisterForImplementationsOfIRegistration();
+        }
     }
 }

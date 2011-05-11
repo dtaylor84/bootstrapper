@@ -15,6 +15,12 @@ namespace Bootstrap.Windsor
     {
         private IWindsorContainer container;
 
+        public void InitializeContainer(IWindsorContainer aContainer)
+        {
+            container = aContainer;
+            Container = container;
+        }
+
         protected override void InitializeContainer()
         {
             container = new WindsorContainer()

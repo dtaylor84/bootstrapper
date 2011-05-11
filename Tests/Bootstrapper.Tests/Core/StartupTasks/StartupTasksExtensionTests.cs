@@ -2,8 +2,8 @@
 using Bootstrap.Extensions;
 using Bootstrap.Extensions.Containers;
 using Bootstrap.StartupTasks;
+using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 
 namespace Bootstrap.Tests.Core.StartupTasks
 {
@@ -32,32 +32,32 @@ namespace Bootstrap.Tests.Core.StartupTasks
         public void ShouldExecuteTheRunMethodOfAllStartupTasks()
         {
             //Arrange
-            var containerExtension = new Mock<IBootstrapperContainerExtension>();
-            var task = new Mock<IStartupTask>();
-            containerExtension.Setup(c => c.ResolveAll<IStartupTask>()).Returns(new List<IStartupTask> { task.Object });
-            Bootstrapper.With.Extension(containerExtension.Object).And.Extension(new StartupTasksExtension());
+            var containerExtension = A.Fake<IBootstrapperContainerExtension>();
+            var task = A.Fake<IStartupTask>();
+            A.CallTo(() => containerExtension.ResolveAll<IStartupTask>()).Returns(new List<IStartupTask> {task});
+            Bootstrapper.With.Extension(containerExtension).And.Extension(new StartupTasksExtension());
 
             //Act
             Bootstrapper.Start();
 
             //Assert
-            task.Verify(t => t.Run(), Times.Once());
+            A.CallTo(() => task.Run()).MustHaveHappened();
         }
 
         [TestMethod]
         public void ShouldExecuteTheResetMethodOfAllStartupTasks()
         {
             //Arrange
-            var containerExtension = new Mock<IBootstrapperContainerExtension>();
-            var task = new Mock<IStartupTask>();
-            containerExtension.Setup(c => c.ResolveAll<IStartupTask>()).Returns(new List<IStartupTask> { task.Object });
-            Bootstrapper.With.Extension(containerExtension.Object).And.Extension(new StartupTasksExtension());
+            var containerExtension = A.Fake<IBootstrapperContainerExtension>();
+            var task = A.Fake<IStartupTask>();
+            A.CallTo(() => containerExtension.ResolveAll<IStartupTask>()).Returns(new List<IStartupTask> { task });
+            Bootstrapper.With.Extension(containerExtension).And.Extension(new StartupTasksExtension());
 
             //Act
             Bootstrapper.Reset();
 
             //Assert
-            task.Verify(t => t.Reset(), Times.Once());
+            A.CallTo(() => task.Reset()).MustHaveHappened();
         }
 
     }

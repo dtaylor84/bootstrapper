@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Bootstrap.Extensions.Containers;
 using Bootstrap.StartupTasks;
+using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 
 namespace Bootstrap.Tests.Core.StartupTasks
 {
@@ -21,11 +21,11 @@ namespace Bootstrap.Tests.Core.StartupTasks
         {
             //Arrange
             Bootstrapper.ClearExtensions();
-            var containerExtension = new Mock<IBootstrapperContainerExtension>();
-            containerExtension.Setup(c => c.ResolveAll<IStartupTask>()).Returns(new List<IStartupTask>());
+            var containerExtension = A.Fake<IBootstrapperContainerExtension>();
+            A.CallTo(() => containerExtension.ResolveAll<IStartupTask>()).Returns(new List<IStartupTask>());
 
             //Act
-            Bootstrapper.With.Extension(containerExtension.Object).And.StartupTasks();
+            Bootstrapper.With.Extension(containerExtension).And.StartupTasks();
 
             //Assert
             Assert.IsInstanceOfType(Bootstrapper.GetExtensions()[1], typeof(StartupTasksExtension));

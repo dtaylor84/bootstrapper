@@ -2,6 +2,7 @@
 using System.Linq;
 using Bootstrap.Extensions.Containers;
 using Bootstrap.StructureMap;
+using FakeItEasy;
 using StructureMap;
 using StructureMap.ServiceLocatorAdapter;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -18,7 +19,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         }
 
         [TestMethod]
-        public void ShouldCreateAStructureMapContainerExtension()
+        public void ShouldCreateAStructureMapExtension()
         {
             //Act
             var result = new StructureMapExtension();
@@ -46,12 +47,10 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         {
             //Arrange
             var containerExtension = new StructureMapExtension();
-            Bootstrapper.With.Extension(containerExtension);
 
             //Act
             containerExtension.Run();
             var result = containerExtension.Container;
-            Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);
@@ -59,34 +58,14 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         }
 
         [TestMethod]
-        public void ShouldRegisterAllTypesOfIStructureMapRegistration()
-        {
-            //Arrange
-            var containerExtension = new StructureMapExtension();
-            Bootstrapper.With.Extension(containerExtension);
-
-            //Act
-            containerExtension.Run();
-            var result = containerExtension.ResolveAll<IStructureMapRegistration>();
-            Bootstrapper.ClearExtensions();
-
-            //Assert
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(IEnumerable<IStructureMapRegistration>));
-            Assert.IsTrue(result.Count() > 0);
-        }
-
-        [TestMethod]
         public void ShouldRegisterAllTypesOfIBootstrapperRegistration()
         {
             //Arrange
             var containerExtension = new StructureMapExtension();
-            Bootstrapper.With.Extension(containerExtension);
 
             //Act
             containerExtension.Run();
             var result = containerExtension.ResolveAll<IBootstrapperRegistration>();
-            Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);
@@ -95,20 +74,19 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         }
 
         [TestMethod]
-        public void ShouldInvokeTheRegisterMethodOfAllIStructureMapRegistrationTypes()
+        public void ShouldRegisterAllTypesOfIStructureMapRegistration()
         {
             //Arrange
             var containerExtension = new StructureMapExtension();
-            Bootstrapper.With.Extension(containerExtension);
 
             //Act
             containerExtension.Run();
-            var result = containerExtension.Resolve<StructureMapExtension>();
-            Bootstrapper.ClearExtensions();
+            var result = containerExtension.ResolveAll<IStructureMapRegistration>();
 
             //Assert
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(StructureMapExtension));
+            Assert.IsInstanceOfType(result, typeof(IEnumerable<IStructureMapRegistration>));
+            Assert.IsTrue(result.Count() > 0);
         }
 
         [TestMethod]
@@ -116,18 +94,30 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         {
             //Arrange
             var containerExtension = new StructureMapExtension();
-            Bootstrapper.With.Extension(containerExtension);
 
             //Act
             containerExtension.Run();
             var result = containerExtension.Resolve<IStartupTask>();
-            Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IStartupTask));
         }
 
+        [TestMethod]
+        public void ShouldInvokeTheRegisterMethodOfAllIStructureMapRegistrationTypes()
+        {
+            //Arrange
+            var containerExtension = new StructureMapExtension();
+
+            //Act
+            containerExtension.Run();
+            var result = containerExtension.Resolve<StructureMapExtension>();
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(StructureMapExtension));
+        }
 
         [TestMethod]
         public void ShouldSetTheServiceLocator()
@@ -135,12 +125,11 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
             //Arrange
             Microsoft.Practices.ServiceLocation.ServiceLocator.SetLocatorProvider(() => null);
             var containerExtension = new StructureMapExtension();
-            Bootstrapper.With.Extension(containerExtension).Start();
+            containerExtension.Run();
 
-            //Act
+            //Act            
             containerExtension.SetServiceLocator();
             var result = Microsoft.Practices.ServiceLocation.ServiceLocator.Current;
-            Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);
@@ -152,11 +141,10 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         {
             //Arrange
             var containerExtension = new StructureMapExtension();
-            Bootstrapper.With.Extension(containerExtension).Start();
+            containerExtension.Run();
 
             //Act
             containerExtension.ResetServiceLocator();
-            Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNull(Microsoft.Practices.ServiceLocation.ServiceLocator.Current);
@@ -167,12 +155,10 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         {
             //Arrange            
             var containerExtension = new StructureMapExtension();
-            Bootstrapper.With.Extension(containerExtension);
 
             //Act
             containerExtension.Run();
-            var result = Bootstrapper.Container;
-            Bootstrapper.ClearExtensions();
+            var result = containerExtension.Container;
 
             //Assert
             Assert.IsNotNull(result);
@@ -184,30 +170,122 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         {
             //Arrange
             var containerExtension = new StructureMapExtension();
-            Bootstrapper.With.Extension(containerExtension).Start();
+            containerExtension.Run();
 
             //Act
             containerExtension.Reset();
-            Bootstrapper.ClearExtensions();
 
             //Assert
-            Assert.IsNull(Bootstrapper.Container);
+            Assert.IsNull(containerExtension.Container);
         }
 
         [TestMethod]
-        public void ShouldResetTheBootstrapperContainer()
+        public void ShouldInitializeTheContainerToTheValuePassed()
         {
             //Arrange
             var containerExtension = new StructureMapExtension();
-            Bootstrapper.With.Extension(containerExtension).Start();
+            var container = A.Fake<IContainer>();
 
             //Act
-            containerExtension.Reset();
-            var result = Bootstrapper.Container;
-            Bootstrapper.ClearExtensions();
+            containerExtension.InitializeContainer(container);
+            var result = containerExtension.Container;
 
             //Assert
-            Assert.IsNull(result);
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(IContainer));
+            Assert.AreSame(result, container);
+        }
+
+        [TestMethod] 
+        public void ShouldResolveASingleType()
+        {
+            //Arrange
+            var containerExtension = new StructureMapExtension();
+            var container = A.Fake<IContainer>();
+            containerExtension.InitializeContainer(container);
+            var instance = new object();
+            A.CallTo(() => container.GetInstance<object>()).Returns(instance);
+
+            //Act
+            var result = containerExtension.Resolve<object>();
+
+            //Assert
+            A.CallTo(() => container.GetInstance<object>()).MustHaveHappened();
+            Assert.IsNotNull(result);
+            Assert.AreSame(instance, result);
+        }
+
+        [TestMethod]
+        public void ShouldResolveMultipleTypes()
+        {
+            //Arrange
+            var containerExtension = new StructureMapExtension();
+            var container = A.Fake<IContainer>();
+            containerExtension.InitializeContainer(container);
+            var instances = new List<object> { new object(), new object() };
+            A.CallTo(() => container.GetAllInstances<object>()).Returns(instances);
+            
+            //Act
+            var result = containerExtension.ResolveAll<object>();
+
+            //Assert
+            A.CallTo(() => container.GetAllInstances<object>()).MustHaveHappened();
+            Assert.IsNotNull(result);
+            Assert.AreSame(instances, result);
+        }
+
+        [TestMethod]
+        public void ShouldRegisterWithTargetAndImplementationType()
+        {
+            //Arrange
+            var container = new Container();
+            var containerExtension = new StructureMapExtension();
+            containerExtension.InitializeContainer(container);
+
+            //Act
+            containerExtension.Register<IBootstrapperContainerExtension, StructureMapExtension>();
+            var result = container.GetInstance<IBootstrapperContainerExtension>();
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(StructureMapExtension));
+        }
+
+        [TestMethod]
+        public void ShouldRegisterWithTargetAndImplementationInstance()
+        {
+            //Arrange
+            var container = new Container();
+            var containerExtension = new StructureMapExtension();
+            containerExtension.InitializeContainer(container);
+
+            //Act
+            containerExtension.Register<IBootstrapperContainerExtension>(containerExtension);
+            var result = container.GetInstance<IBootstrapperContainerExtension>();
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(StructureMapExtension));
+            Assert.AreSame(containerExtension, result);
+        }
+
+        [TestMethod]
+        public void ShouldRegisterWithTargetType()
+        {
+            //Arrange
+            var container = new Container();
+            var containerExtension = new StructureMapExtension();
+            containerExtension.InitializeContainer(container);
+
+            //Act
+            containerExtension.RegisterAll<IBootstrapperContainerExtension>();
+            var result = container.GetAllInstances<IBootstrapperContainerExtension>();
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(IEnumerable<IBootstrapperContainerExtension>));
+            Assert.IsTrue(result.Count() > 0);
+            Assert.IsTrue(result.Any(c => c is StructureMapExtension));
         }
     }
 }

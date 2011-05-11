@@ -3,6 +3,7 @@ using System.Linq;
 using Bootstrap.Extensions.Containers;
 using Bootstrap.Windsor;
 using CommonServiceLocator.WindsorAdapter;
+using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Castle.Windsor;
 
@@ -46,12 +47,10 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
         {
             //Arrange
             var containerExtension = new WindsorExtension();
-            Bootstrapper.With.Extension(containerExtension);
 
             //Act
             containerExtension.Run();
-            var result = Bootstrapper.Container;
-            Bootstrapper.ClearExtensions();
+            var result = containerExtension.Container;
 
             //Assert
             Assert.IsNotNull(result);
@@ -59,34 +58,14 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
         }
         
         [TestMethod]
-        public void ShouldRegisterAllTypesOfIWindsorRegistration()
-        {
-            //Arrange
-            var containerExtension = new WindsorExtension();
-            Bootstrapper.With.Extension(containerExtension);
-
-            //Act
-            containerExtension.Run();
-            var result = containerExtension.ResolveAll<IWindsorRegistration>();
-            Bootstrapper.ClearExtensions();
-
-            //Assert
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(IEnumerable<IWindsorRegistration>));
-            Assert.IsTrue(result.Count() > 0);
-        }
-
-        [TestMethod]
         public void ShouldRegisterAllTypesOfIBootstrapperRegistration()
         {
             //Arrange
             var containerExtension = new WindsorExtension();
-            Bootstrapper.With.Extension(containerExtension);
 
             //Act
             containerExtension.Run();
             var result = containerExtension.ResolveAll<IBootstrapperRegistration>();
-            Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);
@@ -95,20 +74,19 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
         }
 
         [TestMethod]
-        public void ShouldInvokeTheRegisterMethodOfAllIWindsorRegistrationTypes()
+        public void ShouldRegisterAllTypesOfIWindsorRegistration()
         {
             //Arrange
             var containerExtension = new WindsorExtension();
-            Bootstrapper.With.Extension(containerExtension);
 
             //Act
             containerExtension.Run();
-            var result = containerExtension.Resolve<WindsorExtension>();
-            Bootstrapper.ClearExtensions();
+            var result = containerExtension.ResolveAll<IWindsorRegistration>();
 
             //Assert
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(WindsorExtension));         
+            Assert.IsInstanceOfType(result, typeof(IEnumerable<IWindsorRegistration>));
+            Assert.IsTrue(result.Count() > 0);
         }
 
         [TestMethod]
@@ -116,16 +94,29 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
         {
             //Arrange
             var containerExtension = new WindsorExtension();
-            Bootstrapper.With.Extension(containerExtension);
 
             //Act
             containerExtension.Run();
             var result = containerExtension.Resolve<IStartupTask>();
-            Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IStartupTask));
+        }
+
+        [TestMethod]
+        public void ShouldInvokeTheRegisterMethodOfAllIWindsorRegistrationTypes()
+        {
+            //Arrange
+            var containerExtension = new WindsorExtension();
+
+            //Act
+            containerExtension.Run();
+            var result = containerExtension.Resolve<WindsorExtension>();
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(WindsorExtension));         
         }
 
         [TestMethod]
@@ -134,12 +125,11 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
             //Arrange
             Microsoft.Practices.ServiceLocation.ServiceLocator.SetLocatorProvider(() => null);
             var containerExtension = new WindsorExtension();
-            Bootstrapper.With.Extension(containerExtension).Start();
+            containerExtension.Run();
 
             //Act
             containerExtension.SetServiceLocator();
             var result = Microsoft.Practices.ServiceLocation.ServiceLocator.Current;
-            Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);
@@ -151,11 +141,10 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
         {
             //Arrange
             var containerExtension = new WindsorExtension();
-            Bootstrapper.With.Extension(containerExtension).Start();
+            containerExtension.Run();
 
             //Act
             containerExtension.ResetServiceLocator();
-            Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNull(Microsoft.Practices.ServiceLocation.ServiceLocator.Current);
@@ -166,12 +155,10 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
         {
             //Arrange            
             var containerExtension = new WindsorExtension();
-            Bootstrapper.With.Extension(containerExtension);
 
             //Act
             containerExtension.Run();
-            var result = Bootstrapper.Container;
-            Bootstrapper.ClearExtensions();
+            var result = containerExtension.Container;
 
             //Assert
             Assert.IsNotNull(result);
@@ -183,30 +170,122 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
         {
             //Arrange
             var containerExtension = new WindsorExtension();
-            Bootstrapper.With.Extension(containerExtension).Start();
+            containerExtension.Run();
 
             //Act
             containerExtension.Reset();
-            Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNull(Bootstrapper.ContainerExtension);
         }
 
         [TestMethod]
-        public void ShouldResetTheBootstrapperContainer()
+        public void ShouldInitializeTheContainerToTheValuePassed()
         {
             //Arrange
             var containerExtension = new WindsorExtension();
-            Bootstrapper.With.Extension(containerExtension).Start();
+            var container = A.Fake<IWindsorContainer>();
 
             //Act
-            containerExtension.Reset();
-            var result = Bootstrapper.Container;
-            Bootstrapper.ClearExtensions();
+            containerExtension.InitializeContainer(container);
+            var result = containerExtension.Container;
 
             //Assert
-            Assert.IsNull(result);
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(IWindsorContainer));
+            Assert.AreSame(result, container);
+        }
+
+        [TestMethod]
+        public void ShouldResolveASingleType()
+        {
+            //Arrange
+            var containerExtension = new WindsorExtension();
+            var container = A.Fake<IWindsorContainer>();
+            containerExtension.InitializeContainer(container);
+            var instance = new object();
+            A.CallTo(() => container.Resolve<object>()).Returns(instance);
+
+            //Act
+            var result = containerExtension.Resolve<object>();
+
+            //Assert
+            A.CallTo(() => container.Resolve<object>()).MustHaveHappened();
+            Assert.IsNotNull(result);
+            Assert.AreSame(instance, result);
+        }
+
+        [TestMethod]
+        public void ShouldResolveMultipleTypes()
+        {
+            //Arrange
+            var containerExtension = new WindsorExtension();
+            var container = A.Fake<IWindsorContainer>();
+            containerExtension.InitializeContainer(container);
+            var instances = new [] { new object(), new object() };
+            A.CallTo(() => container.ResolveAll<object>()).Returns(instances);
+
+            //Act
+            var result = containerExtension.ResolveAll<object>();
+
+            //Assert
+            A.CallTo(() => container.ResolveAll<object>()).MustHaveHappened();
+            Assert.IsNotNull(result);
+            Assert.AreSame(instances, result);
+        }
+
+        [TestMethod]
+        public void ShouldRegisterWithTargetAndImplementationType()
+        {
+            //Arrange
+            var container = new WindsorContainer();
+            var containerExtension = new WindsorExtension();
+            containerExtension.InitializeContainer(container);
+
+            //Act
+            containerExtension.Register<IBootstrapperContainerExtension, WindsorExtension>();
+            var result = container.Resolve<IBootstrapperContainerExtension>();
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(WindsorExtension));
+        }
+
+        [TestMethod]
+        public void ShouldRegisterWithTargetAndImplementationInstance()
+        {
+            //Arrange
+            var container = new WindsorContainer();
+            var containerExtension = new WindsorExtension();
+            containerExtension.InitializeContainer(container);
+
+            //Act
+            containerExtension.Register<IBootstrapperContainerExtension>(containerExtension);
+            var result = container.Resolve<IBootstrapperContainerExtension>();
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(WindsorExtension));
+            Assert.AreSame(containerExtension, result);
+        }
+
+        [TestMethod]
+        public void ShouldRegisterWithTargetType()
+        {
+            //Arrange
+            var container = new WindsorContainer();
+            var containerExtension = new WindsorExtension();
+            containerExtension.InitializeContainer(container);
+
+            //Act
+            containerExtension.RegisterAll<IBootstrapperContainerExtension>();
+            var result = container.ResolveAll<IBootstrapperContainerExtension>();
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(IEnumerable<IBootstrapperContainerExtension>));
+            Assert.IsTrue(result.Count() > 0);
+            Assert.IsTrue(result.Any(c => c is WindsorExtension));
         }
     }
 }

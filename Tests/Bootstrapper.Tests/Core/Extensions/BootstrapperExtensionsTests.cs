@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using Bootstrap.Extensions;
 using Bootstrap.Extensions.Containers;
 using Bootstrap.Tests.Other;
+using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 
 namespace Bootstrap.Tests.Core.Extensions
 {
@@ -42,6 +42,7 @@ namespace Bootstrap.Tests.Core.Extensions
         {
             //Arrange
             var extensions = new BootstrapperExtensions();
+            extensions.Extension(A.Fake<IBootstrapperExtension>());
 
             //Act
             extensions.ClearExtensions();
@@ -57,45 +58,45 @@ namespace Bootstrap.Tests.Core.Extensions
         public void ShouldAddAnExtension()
         {
             //Arrange
-            var extension = new Mock<IBootstrapperExtension>();
+            var extension = A.Fake<IBootstrapperExtension>();
             var extensions = new BootstrapperExtensions();
 
             //Act
-            extensions.Extension(extension.Object);
+            extensions.Extension(extension);
             var result = extensions.GetExtensions();
 
             //Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result,typeof(IList<IBootstrapperExtension>));
             Assert.AreEqual(1, result.Count);
-            Assert.AreSame(extension.Object, result[0]);
+            Assert.AreSame(extension, result[0]);
         }
 
         [TestMethod]
         public void ShouldSetTheContainer()
         {
             //Arrange
-            var container = new Mock<IBootstrapperContainerExtension>();
+            var containerExtension = A.Fake<IBootstrapperContainerExtension>();
             var extensions = new BootstrapperExtensions();
 
             //Act
-            extensions.Extension(container.Object);
+            extensions.Extension(containerExtension);
             var result = Bootstrapper.ContainerExtension;
 
             //Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IBootstrapperContainerExtension));
-            Assert.AreSame(container.Object, result);
+            Assert.AreSame(containerExtension, result);
         }
 
         [TestMethod]
         public void ShouldReturnAReadOnlyListOfBoostraperExtensions()
         {
             //Arrange
-            var extension = new Mock<IBootstrapperExtension>();
-            var newExtension = new Mock<IBootstrapperExtension>();
+            var extension = A.Fake<IBootstrapperExtension>();
+            var newExtension = A.Fake<IBootstrapperExtension>();
             var extensions = new BootstrapperExtensions();
-            extensions.Extension(extension.Object);
+            extensions.Extension(extension);
 
             //Act
             var result = extensions.GetExtensions();
@@ -104,22 +105,22 @@ namespace Bootstrap.Tests.Core.Extensions
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IList<IBootstrapperExtension>));
             Assert.AreEqual(1, result.Count);
-            ExceptionAssert.Throws<NotSupportedException>(() => result.Add(newExtension.Object));
+            ExceptionAssert.Throws<NotSupportedException>(() => result.Add(newExtension));
         }
 
         [TestMethod]
         public void ShouldInvokeTheStartMethodOftheBootStrapper()
         {
             //Arrange
-            var extension = new Mock<IBootstrapperExtension>();
-            Bootstrapper.With.Extension(extension.Object);
+            var extension = A.Fake<IBootstrapperExtension>();
+            Bootstrapper.With.Extension(extension);
 
             //Act
             Bootstrapper.With.Start();
             Bootstrapper.ClearExtensions();
 
             //Assert
-            extension.Verify(e => e.Run(), Times.Once());
+            A.CallTo(() => extension.Run()).MustHaveHappened();
         }
 
     }
