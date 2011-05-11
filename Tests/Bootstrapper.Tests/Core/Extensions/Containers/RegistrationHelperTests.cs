@@ -65,6 +65,5 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
             //Assert
             Assert.IsFalse(result.Any(t => t == typeof(AbstractTestStartupTask)));
         }
-
     }
 }

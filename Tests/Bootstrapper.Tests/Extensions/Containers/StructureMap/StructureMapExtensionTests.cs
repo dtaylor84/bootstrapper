@@ -46,34 +46,14 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         {
             //Arrange
             var containerExtension = new StructureMapExtension();
-            Bootstrapper.With.Extension(containerExtension);
 
             //Act
             containerExtension.Run();
             var result = containerExtension.Container;
-            Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IContainer));
-        }
-
-        [TestMethod]
-        public void ShouldRegisterAllTypesOfIStructureMapRegistration()
-        {
-            //Arrange
-            var containerExtension = new StructureMapExtension();
-            Bootstrapper.With.Extension(containerExtension);
-
-            //Act
-            containerExtension.Run();
-            var result = containerExtension.ResolveAll<IStructureMapRegistration>();
-            Bootstrapper.ClearExtensions();
-
-            //Assert
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(IEnumerable<IStructureMapRegistration>));
-            Assert.IsTrue(result.Count() > 0);
         }
 
         [TestMethod]
@@ -91,6 +71,24 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
             //Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IEnumerable<IBootstrapperRegistration>));
+            Assert.IsTrue(result.Count() > 0);
+        }
+
+        [TestMethod]
+        public void ShouldRegisterAllTypesOfIStructureMapRegistration()
+        {
+            //Arrange
+            var containerExtension = new StructureMapExtension();
+            Bootstrapper.With.Extension(containerExtension);
+
+            //Act
+            containerExtension.Run();
+            var result = containerExtension.ResolveAll<IStructureMapRegistration>();
+            Bootstrapper.ClearExtensions();
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(IEnumerable<IStructureMapRegistration>));
             Assert.IsTrue(result.Count() > 0);
         }
 

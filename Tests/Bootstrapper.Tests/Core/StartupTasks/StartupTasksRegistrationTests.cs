@@ -1,7 +1,7 @@
 ﻿using Bootstrap.Extensions.Containers;
 using Bootstrap.StartupTasks;
+using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 
 namespace Bootstrap.Tests.Core.StartupTasks
 {
@@ -24,13 +24,13 @@ namespace Bootstrap.Tests.Core.StartupTasks
         public void ShouldInvokeRegisterAllForStartupTasksInContainerExtension()
         {
             //Arrange
-            var containerExtension = new Mock<IBootstrapperContainerExtension>();
+            var containerExtension = A.Fake<IBootstrapperContainerExtension>();
 
             //Act
-            new StartupTasksRegistration().Register(containerExtension.Object);
+            new StartupTasksRegistration().Register(containerExtension);
 
             //Assert
-            containerExtension.Verify(c => c.RegisterAll<IStartupTask>(), Times.Once());
+            A.CallTo(() => containerExtension.RegisterAll<IStartupTask>()).MustHaveHappened();
         }
     }
 }

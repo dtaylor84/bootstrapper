@@ -6,8 +6,8 @@ using Bootstrap.ServiceLocator;
 using Bootstrap.StartupTasks;
 using Bootstrap.StructureMap;
 using Bootstrap.Tests.Extensions.Containers;
+using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 
 namespace Bootstrap.Tests.Core
 {
@@ -22,59 +22,6 @@ namespace Bootstrap.Tests.Core
         }
 
         [TestMethod]
-        public void ShouldReturnAnEmptyExtensionIList()
-        {
-            var result = Bootstrapper.GetExtensions();
-
-            //Assert
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(IList<IBootstrapperExtension>));
-            Assert.AreEqual(0, Bootstrapper.GetExtensions().Count);
-        }
-
-
-        [TestMethod]
-        public void ShouldNotHaveExtensions()
-        {
-            //Arrange
-            var extension = new Mock<IBootstrapperExtension>();
-            Bootstrapper.With.Extension(extension.Object);
-
-            //Act
-            Bootstrapper.ClearExtensions();
-            var result =  Bootstrapper.GetExtensions();
-
-            //Assert
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result,typeof(IList<IBootstrapperExtension>));
-            Assert.AreEqual(0, Bootstrapper.GetExtensions().Count);
-        }
-
-        [TestMethod]
-        public void ShouldReturnANullContainerExtension()
-        {
-            var result = Bootstrapper.ContainerExtension;
-
-            //Assert
-            Assert.IsNull(result);
-        }
-
-        [TestMethod]
-        public void ShouldNotHaveContainerExtension()
-        {
-            //Arrange
-            var extension = new Mock<IBootstrapperExtension>();
-            Bootstrapper.With.Extension(extension.Object);
-
-            //Act
-            Bootstrapper.ClearExtensions();
-            var result = Bootstrapper.ContainerExtension;
-
-            //Assert
-            Assert.IsNull(result);
-        }
-
-        [TestMethod]
         public void ShouldReturnANullContainer()
         {
             //Act
@@ -85,16 +32,21 @@ namespace Bootstrap.Tests.Core
         }
 
         [TestMethod]
-        public void ShouldNotHaveContainer()
+        public void ShouldReturnAnEmptyBootstrapperExtensions()
         {
-            //Arrange
-            var containerExtension = new TestContainerExtension();
-            Bootstrapper.With.Extension(containerExtension);
-            Bootstrapper.Start();
-
             //Act
-            Bootstrapper.ClearExtensions();
-            var result = Bootstrapper.Container;
+            var result = Bootstrapper.With;
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(BootstrapperExtensions));
+            Assert.AreEqual(0, result.GetExtensions().Count);
+        }
+
+        [TestMethod]
+        public void ShouldReturnANullContainerExtension()
+        {
+            var result = Bootstrapper.ContainerExtension;
 
             //Assert
             Assert.IsNull(result);
@@ -118,20 +70,100 @@ namespace Bootstrap.Tests.Core
         [TestMethod]
         public void ShouldReturnABootstrapperExtensions()
         {
+            //Arrange
+            var containerExtension = A.Fake<IBootstrapperContainerExtension>();
+            Bootstrapper.With.Extension(containerExtension);
+
             //Act
             var result = Bootstrapper.With;
 
             //Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(BootstrapperExtensions));
+            Assert.AreSame(containerExtension, result.GetExtensions()[0]);
+            Assert.AreEqual(1, result.GetExtensions().Count);
+        }
+       
+        [TestMethod]
+        public void ShouldReturnTheContainerExtensionConfigured()
+        {
+            //Arrange
+            var container = A.Fake<IBootstrapperContainerExtension>();
+            Bootstrapper.With.Extension(container);
+
+            //Act
+            var result = Bootstrapper.ContainerExtension;
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.AreSame(container, result);
+        }
+
+        [TestMethod]
+        public void ShouldClearContainer()
+        {
+            //Arrange
+            var containerExtension = new TestContainerExtension();
+            Bootstrapper.With.Extension(containerExtension);
+            Bootstrapper.Start();
+
+            //Act
+            Bootstrapper.ClearExtensions();
+            var result = Bootstrapper.Container;
+
+            //Assert
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void ShouldClearExtensions()
+        {
+            //Arrange
+            var extension = A.Fake<IBootstrapperExtension>();
+            Bootstrapper.With.Extension(extension);
+
+            //Act
+            Bootstrapper.ClearExtensions();
+            var result =  Bootstrapper.GetExtensions();
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result,typeof(IList<IBootstrapperExtension>));
+            Assert.AreEqual(0, Bootstrapper.GetExtensions().Count);
+        }
+
+        [TestMethod]
+        public void ShouldNotHaveContainerExtension()
+        {
+            //Arrange
+            var extension = A.Fake<IBootstrapperExtension>();
+            Bootstrapper.With.Extension(extension);
+
+            //Act
+            Bootstrapper.ClearExtensions();
+            var result = Bootstrapper.ContainerExtension;
+
+            //Assert
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void ShouldReturnAnEmptyExtensionIList()
+        {
+            var result = Bootstrapper.GetExtensions();
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(IList<IBootstrapperExtension>));
+            Assert.AreEqual(0, Bootstrapper.GetExtensions().Count);
         }
 
         [TestMethod]
         public void ShouldReturnTheExtensionsAdded()
         {
             //Arrange
-            var extension = new Mock<IBootstrapperExtension>();
-            Bootstrapper.With.Extension(extension.Object);
+            var extension = A.Fake<IBootstrapperExtension>();
+            Bootstrapper.With.Extension(extension);
 
             //Act
             var result = Bootstrapper.GetExtensions();
@@ -139,50 +171,35 @@ namespace Bootstrap.Tests.Core
             //Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(1, result.Count);
-            Assert.AreSame(extension.Object, result[0]);
-        }
-
-        [TestMethod]
-        public void ShouldReturnTheContainerConfigured()
-        {
-            //Arrange
-            var container = new Mock<IBootstrapperContainerExtension>();
-            Bootstrapper.With.Extension(container.Object);
-
-            //Act
-            var result = Bootstrapper.ContainerExtension;
-
-            //Assert
-            Assert.IsNotNull(result);
-            Assert.AreSame(container.Object, result);
-        }
-
-        [TestMethod]
-        public void ShouldInvokeTheResetMethodOfAllTheRegisteredExtensions()
-        {
-            //Arrange
-            var extension = new Mock<IBootstrapperExtension>();
-            Bootstrapper.With.Extension(extension.Object);
-
-            //Act
-            Bootstrapper.Reset();
-
-            //Assert
-            extension.Verify(e => e.Reset(), Times.Once());
+            Assert.AreSame(extension, result[0]);
         }
 
         [TestMethod]
         public void ShouldInvokeTheRunMethodOfAllTheRegisteredExtensions()
         {
             //Arrange
-            var extension = new Mock<IBootstrapperExtension>();
-            Bootstrapper.With.Extension(extension.Object);
+            var extension = A.Fake<IBootstrapperExtension>();
+            Bootstrapper.With.Extension(extension);
 
             //Act
             Bootstrapper.Start();
 
             //Assert
-            extension.Verify(e => e.Run(), Times.Once());
+            A.CallTo(() => extension.Run()).MustHaveHappened();
+        }
+
+        [TestMethod]
+        public void ShouldInvokeTheResetMethodOfAllTheRegisteredExtensions()
+        {
+            //Arrange
+            var extension = A.Fake<IBootstrapperExtension>();
+            Bootstrapper.With.Extension(extension);
+
+            //Act
+            Bootstrapper.Reset();
+
+            //Assert
+            A.CallTo(() => extension.Reset()).MustHaveHappened();
         }
 
         [TestMethod]

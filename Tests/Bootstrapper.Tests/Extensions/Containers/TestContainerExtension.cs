@@ -7,6 +7,15 @@ namespace Bootstrap.Tests.Extensions.Containers
 {
     public class TestContainerExtension: BootstrapperContainerExtension
     {
+        public bool RegistrationsRegistered { get; set; }
+        public bool RegistrationsInvoked { get; set; }
+
+        public TestContainerExtension()
+        {
+            RegistrationsRegistered = false;
+            RegistrationsInvoked = false;
+        }
+
         public void SetTestServiceLocator(IServiceLocator theLocator)
         {
             throw new NotImplementedException();
@@ -49,8 +58,7 @@ namespace Bootstrap.Tests.Extensions.Containers
 
         protected override void ResetContainer() {Container = null;}
         protected override void InitializeContainer() { Container = new object(); }
-        protected override void RegisterImplementationsOfIRegistration() { }
-        protected override void InvokeRegisterForImplementationsOfIRegistration() { }
-
+        protected override void RegisterImplementationsOfIRegistration() {RegistrationsRegistered = true;}
+        protected override void InvokeRegisterForImplementationsOfIRegistration(){RegistrationsInvoked = true;}
     }
 }

@@ -18,18 +18,6 @@ namespace Bootstrap
             Extensions = new BootstrapperExtensions();
         }
 
-        public static void Start()
-        {
-            foreach (var extension in Extensions.GetExtensions())
-                extension.Run();
-        }
-
-        public static void Reset()
-        {
-            foreach (var extension in Extensions.GetExtensions().Reverse())
-                extension.Reset();
-        }
-
         public static void ClearExtensions()
         {
             Reset();
@@ -40,6 +28,18 @@ namespace Bootstrap
         public static IList<IBootstrapperExtension> GetExtensions()
         {
             return With.GetExtensions();
+        }
+
+        public static void Start()
+        {
+            foreach (var extension in Extensions.GetExtensions())
+                extension.Run();
+        }
+
+        public static void Reset()
+        {
+            foreach (var extension in Extensions.GetExtensions().Reverse())
+                extension.Reset();
         }
     }
 }
