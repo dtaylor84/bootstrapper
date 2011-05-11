@@ -12,6 +12,12 @@ namespace Bootstrap.StructureMap
     {
         private IContainer container;
 
+        public void InitializeContainer(IContainer aContainer)
+        {
+            container = aContainer;
+            Container = container;
+        }
+
         protected override void InitializeContainer()
         {
             container = new Container();

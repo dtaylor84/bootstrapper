@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Bootstrap.Extensions.Containers;
 using Bootstrap.StructureMap;
+using FakeItEasy;
 using StructureMap;
 using StructureMap.ServiceLocatorAdapter;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -61,12 +63,10 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         {
             //Arrange
             var containerExtension = new StructureMapExtension();
-            Bootstrapper.With.Extension(containerExtension);
 
             //Act
             containerExtension.Run();
             var result = containerExtension.ResolveAll<IBootstrapperRegistration>();
-            Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);
@@ -79,12 +79,10 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         {
             //Arrange
             var containerExtension = new StructureMapExtension();
-            Bootstrapper.With.Extension(containerExtension);
 
             //Act
             containerExtension.Run();
             var result = containerExtension.ResolveAll<IStructureMapRegistration>();
-            Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);
@@ -97,12 +95,10 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         {
             //Arrange
             var containerExtension = new StructureMapExtension();
-            Bootstrapper.With.Extension(containerExtension);
 
             //Act
             containerExtension.Run();
             var result = containerExtension.Resolve<StructureMapExtension>();
-            Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);
@@ -114,12 +110,10 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         {
             //Arrange
             var containerExtension = new StructureMapExtension();
-            Bootstrapper.With.Extension(containerExtension);
 
             //Act
             containerExtension.Run();
             var result = containerExtension.Resolve<IStartupTask>();
-            Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);
@@ -133,12 +127,10 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
             //Arrange
             Microsoft.Practices.ServiceLocation.ServiceLocator.SetLocatorProvider(() => null);
             var containerExtension = new StructureMapExtension();
-            Bootstrapper.With.Extension(containerExtension).Start();
 
             //Act
             containerExtension.SetServiceLocator();
             var result = Microsoft.Practices.ServiceLocation.ServiceLocator.Current;
-            Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNotNull(result);
@@ -150,11 +142,9 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         {
             //Arrange
             var containerExtension = new StructureMapExtension();
-            Bootstrapper.With.Extension(containerExtension).Start();
 
             //Act
             containerExtension.ResetServiceLocator();
-            Bootstrapper.ClearExtensions();
 
             //Assert
             Assert.IsNull(Microsoft.Practices.ServiceLocation.ServiceLocator.Current);
@@ -165,12 +155,10 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         {
             //Arrange            
             var containerExtension = new StructureMapExtension();
-            Bootstrapper.With.Extension(containerExtension);
 
             //Act
             containerExtension.Run();
-            var result = Bootstrapper.Container;
-            Bootstrapper.ClearExtensions();
+            var result = containerExtension.Container;
 
             //Assert
             Assert.IsNotNull(result);
@@ -182,7 +170,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         {
             //Arrange
             var containerExtension = new StructureMapExtension();
-            Bootstrapper.With.Extension(containerExtension).Start();
+            containerExtension.Run();
 
             //Act
             containerExtension.Reset();
@@ -193,19 +181,102 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         }
 
         [TestMethod]
-        public void ShouldResetTheBootstrapperContainer()
+        public void ShouldInitializeTheContainerToTheValuePassed()
         {
             //Arrange
             var containerExtension = new StructureMapExtension();
-            Bootstrapper.With.Extension(containerExtension).Start();
+            var container = A.Fake<IContainer>();
 
             //Act
-            containerExtension.Reset();
-            var result = Bootstrapper.Container;
-            Bootstrapper.ClearExtensions();
+            containerExtension.InitializeContainer(container);
+            var result = containerExtension.Container;
 
             //Assert
-            Assert.IsNull(result);
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(IContainer));
+            Assert.AreSame(result, container);
+        }
+
+        [TestMethod] public void ShouldResolveASingleType()
+        {
+            //Arrange
+            var containerExtension = new StructureMapExtension();
+            var container = A.Fake<IContainer>();
+            containerExtension.InitializeContainer(container);
+            var instance = new object();
+            A.CallTo(() => container.GetInstance<object>()).Returns(instance);
+
+            //Act
+            var result = containerExtension.Resolve<object>();
+
+            //Assert
+            A.CallTo(() => container.GetInstance<object>()).MustHaveHappened();
+            Assert.IsNotNull(result);
+            Assert.AreSame(instance, result);
+        }
+
+        [TestMethod]
+        public void ShouldResolveMultipleTypes()
+        {
+            //Arrange
+            var containerExtension = new StructureMapExtension();
+            var container = A.Fake<IContainer>();
+            containerExtension.InitializeContainer(container);
+            var instances = new List<object> { new object(), new object() };
+            A.CallTo(() => container.GetAllInstances<object>()).Returns(instances);
+            
+            //Act
+            var result = containerExtension.ResolveAll<object>();
+
+            //Assert
+            A.CallTo(() => container.GetAllInstances<object>()).MustHaveHappened();
+            Assert.IsNotNull(result);
+            Assert.AreSame(instances, result);
+        }
+
+        [TestMethod]
+        public void ShouldRegisterWithTargetAndImplementationType()
+        {
+            //Arrange
+            var containerExtension = new StructureMapExtension();
+            var container = A.Fake<IContainer>();
+            containerExtension.InitializeContainer(container);
+
+            //Act
+            containerExtension.Register<IBootstrapperContainerExtension, StructureMapExtension>();
+
+            //Assert
+            A.CallTo(() => container.Configure(A<Action<ConfigurationExpression>>.Ignored)).MustHaveHappened();
+        }
+
+        [TestMethod]
+        public void ShouldRegisterWithTargetAndImplementationInstance()
+        {
+            //Arrange
+            var containerExtension = new StructureMapExtension();
+            var container = A.Fake<IContainer>();
+            containerExtension.InitializeContainer(container);
+
+            //Act
+            containerExtension.Register<IBootstrapperContainerExtension>(containerExtension);
+
+            //Assert
+            A.CallTo(() => container.Configure(A<Action<ConfigurationExpression>>.Ignored)).MustHaveHappened();
+        }
+
+        [TestMethod]
+        public void ShouldRegisterWithTargetType()
+        {
+            //Arrange
+            var containerExtension = new StructureMapExtension();
+            var container = A.Fake<IContainer>();
+            containerExtension.InitializeContainer(container);
+
+            //Act
+            containerExtension.RegisterAll<IBootstrapperContainerExtension>();
+
+            //Assert
+            A.CallTo(() => container.Configure(A<Action<ConfigurationExpression>>.Ignored)).MustHaveHappened();
         }
     }
 }
