@@ -105,6 +105,7 @@
     <Compile Include="Extensions\AutoMapper\AutoMapperExtensionTests.cs" />
     <Compile Include="Extensions\AutoMapper\AutoMapperRegistrationTests.cs" />
     <Compile Include="Extensions\Locator\BootstrapperServiceLocatorHelperTests.cs" />
+    <Compile Include="Extensions\Locator\ServiceLocatorExtensionTests.cs" />
     <Compile Include="Extensions\TestImplementations\AbstractTestStartupTask.cs" />
     <Compile Include="Extensions\TestImplementations\BootStrapperExtensionMapCreator.cs" />
     <Compile Include="Extensions\TestImplementations\InternalTestStartupTask.cs" />
