@@ -140,6 +140,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
         {
             //Arrange
             var containerExtension = new UnityExtension();
+            containerExtension.Run();
 
             //Act
             containerExtension.ResetServiceLocator();
@@ -306,6 +307,5 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
             Assert.IsTrue(result.Count() > 0);
             Assert.IsTrue(result.Any(c => c is UnityExtension));
         }
-
     }
 }

@@ -1,4 +1,4 @@
-﻿using Bootstrap.Tests.Extensions.Containers;
+﻿using Bootstrap.Tests.Extensions.TestImplementations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bootstrap.Tests.Core.Extensions.Containers

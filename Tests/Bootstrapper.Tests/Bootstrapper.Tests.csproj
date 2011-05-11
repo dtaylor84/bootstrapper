@@ -72,9 +72,6 @@
       <HintPath>..\..\packages\Unity.2.0\lib\20\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Moq">
-      <HintPath>..\..\Libraries\Moq\Moq.dll</HintPath>
-    </Reference>
     <Reference Include="StructureMap">
       <HintPath>..\..\packages\structuremap.2.6.2\lib\StructureMap.dll</HintPath>
     </Reference>
@@ -104,14 +101,14 @@
     <Compile Include="Core\Extensions\Containers\RegistrationHelperTests.cs" />
     <Compile Include="Core\StartupTasks\StartupTasksExtensionTests.cs" />
     <Compile Include="Core\StartupTasks\StartupTasksRegistrationTests.cs" />
-    <Compile Include="Extensions\Containers\AbstractTestStartupTask.cs" />
-    <Compile Include="Extensions\Containers\BootStrapperExtensionMapCreator.cs" />
-    <Compile Include="Extensions\Containers\InternalTestStartupTask.cs" />
+    <Compile Include="Extensions\TestImplementations\AbstractTestStartupTask.cs" />
+    <Compile Include="Extensions\TestImplementations\BootStrapperExtensionMapCreator.cs" />
+    <Compile Include="Extensions\TestImplementations\InternalTestStartupTask.cs" />
     <Compile Include="Extensions\Containers\StructureMap\BootstrapperStructureMapHelperTests.cs" />
     <Compile Include="Extensions\Containers\StructureMap\StructureMapExtensionTests.cs" />
     <Compile Include="Extensions\Containers\StructureMap\TestStructureMapRegistration.cs" />
-    <Compile Include="Extensions\Containers\TestContainerExtension.cs" />
-    <Compile Include="Extensions\Containers\TestStartupTask.cs" />
+    <Compile Include="Extensions\TestImplementations\TestContainerExtension.cs" />
+    <Compile Include="Extensions\TestImplementations\TestStartupTask.cs" />
     <Compile Include="Extensions\Containers\Unity\BootstrapperUnityHelperTests.cs" />
     <Compile Include="Extensions\Containers\Unity\TestUnityRegistration.cs" />
     <Compile Include="Extensions\Containers\Unity\UnityExtensionTests.cs" />

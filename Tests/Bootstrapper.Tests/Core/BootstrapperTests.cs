@@ -5,7 +5,7 @@ using Bootstrap.Extensions.Containers;
 using Bootstrap.ServiceLocator;
 using Bootstrap.StartupTasks;
 using Bootstrap.StructureMap;
-using Bootstrap.Tests.Extensions.Containers;
+using Bootstrap.Tests.Extensions.TestImplementations;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

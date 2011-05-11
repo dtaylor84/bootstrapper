@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Bootstrap.Extensions.Containers;
 using Microsoft.Practices.ServiceLocation;
 
-namespace Bootstrap.Tests.Extensions.Containers
+namespace Bootstrap.Tests.Extensions.TestImplementations
 {
     public class TestContainerExtension: BootstrapperContainerExtension
     {

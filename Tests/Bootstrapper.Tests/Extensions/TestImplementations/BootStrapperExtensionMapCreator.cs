@@ -2,7 +2,7 @@
 using Bootstrap.Extensions;
 using Bootstrap.Extensions.Containers;
 
-namespace Bootstrap.Tests.Extensions.Containers
+namespace Bootstrap.Tests.Extensions.TestImplementations
 {
     public class BootStrapperExtensionMapCreator: IMapCreator
     {
