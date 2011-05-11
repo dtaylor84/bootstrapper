@@ -8,13 +8,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CommonServiceLocator", "Com
 		Libraries\CommonServiceLocator\StructureMapAdapter.dll = Libraries\CommonServiceLocator\StructureMapAdapter.dll
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{D36D9CA6-6F85-462B-AA27-2A34CB47BAAC}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{A60A16EB-0E28-4883-8F0E-ECA651B19731}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{62A844FA-23C6-4A14-91D6-803D0CC6DE2D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper", "Core\Bootstrapper\Bootstrapper.csproj", "{451C9B3F-D315-48EA-84EA-45C45E513B45}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D2FD405F-1602-4D14-A1F0-11DAF1ACF7E7}"
 	ProjectSection(SolutionItems) = preProject
@@ -30,7 +26,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Moq", "Moq", "{E414EA86-74E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Containers", "Containers", "{7ECDBD90-1ACB-4BE9-A501-BBE3C33E2139}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper.WindsorExtension", "Extensions\Containers\Bootstrapper.WindsorExtension\Bootstrapper.WindsorExtension.csproj", "{AD16249F-B34D-4DED-8801-7BFC9AFD9B2A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper.Windsor", "Extensions\Containers\Bootstrapper.WindsorExtension\Bootstrapper.Windsor.csproj", "{AD16249F-B34D-4DED-8801-7BFC9AFD9B2A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper.Tests", "Tests\Bootstrapper.Tests\Bootstrapper.Tests.csproj", "{0C4C0CFC-3E77-4FE4-81CA-618BEE9AAB96}"
 EndProject
@@ -41,9 +37,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Microsoft", "Microsoft", "{
 		Libraries\Microsoft\Microsoft.Practices.Unity.dll = Libraries\Microsoft\Microsoft.Practices.Unity.dll
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper.UnityExtension", "Extensions\Containers\Bootstrapper.UnityExtension\Bootstrapper.UnityExtension.csproj", "{1704683F-3495-4B2B-9BA4-9931D8FB064F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper.Unity", "Extensions\Containers\Bootstrapper.UnityExtension\Bootstrapper.Unity.csproj", "{1704683F-3495-4B2B-9BA4-9931D8FB064F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper.StructureMapExtension", "Extensions\Containers\Bootstrapper.StructureMapExtension\Bootstrapper.StructureMapExtension.csproj", "{B4E4CBAC-28F3-4649-BFEC-698C0FD8357A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper.StructureMap", "Extensions\Containers\Bootstrapper.StructureMapExtension\Bootstrapper.StructureMap.csproj", "{B4E4CBAC-28F3-4649-BFEC-698C0FD8357A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packages", "Packages", "{D6607171-92E0-4049-8757-6F1C7E4FC762}"
 EndProject
@@ -91,6 +87,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StructureMap", "StructureMa
 		packages\structuremap.2.6.2\lib\StructureMap.dll = packages\structuremap.2.6.2\lib\StructureMap.dll
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper.AutoMapper", "Bootstrapper.AutoMapperExtension\Bootstrapper.AutoMapper.csproj", "{53821BFC-38ED-4663-811F-F21C346E8E68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper.ServiceLocator", "Bootstrapper.ServiceLocator\Bootstrapper.ServiceLocator.csproj", "{E6F0B913-1A8F-43EC-B2CB-E23EFBE7C1D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper", "Core\Bootstrapper\Bootstrapper.csproj", "{451C9B3F-D315-48EA-84EA-45C45E513B45}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{CD8E8EE5-3A5F-488E-A01E-24012234BEDB}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Bootstrapper.vsmdi
@@ -100,10 +104,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{451C9B3F-D315-48EA-84EA-45C45E513B45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{451C9B3F-D315-48EA-84EA-45C45E513B45}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{451C9B3F-D315-48EA-84EA-45C45E513B45}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{451C9B3F-D315-48EA-84EA-45C45E513B45}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AD16249F-B34D-4DED-8801-7BFC9AFD9B2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AD16249F-B34D-4DED-8801-7BFC9AFD9B2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD16249F-B34D-4DED-8801-7BFC9AFD9B2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -124,6 +124,18 @@ Global
 		{B4E4CBAC-28F3-4649-BFEC-698C0FD8357A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4E4CBAC-28F3-4649-BFEC-698C0FD8357A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4E4CBAC-28F3-4649-BFEC-698C0FD8357A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53821BFC-38ED-4663-811F-F21C346E8E68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53821BFC-38ED-4663-811F-F21C346E8E68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53821BFC-38ED-4663-811F-F21C346E8E68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53821BFC-38ED-4663-811F-F21C346E8E68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6F0B913-1A8F-43EC-B2CB-E23EFBE7C1D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6F0B913-1A8F-43EC-B2CB-E23EFBE7C1D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6F0B913-1A8F-43EC-B2CB-E23EFBE7C1D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6F0B913-1A8F-43EC-B2CB-E23EFBE7C1D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{451C9B3F-D315-48EA-84EA-45C45E513B45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{451C9B3F-D315-48EA-84EA-45C45E513B45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{451C9B3F-D315-48EA-84EA-45C45E513B45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{451C9B3F-D315-48EA-84EA-45C45E513B45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -132,8 +144,9 @@ Global
 		{313DEA56-158A-44E8-B907-43FD8E543381} = {4E8822AE-E985-4E3E-9011-949152F9B88C}
 		{E414EA86-74ED-4EC7-8DC9-E61827444CA9} = {4E8822AE-E985-4E3E-9011-949152F9B88C}
 		{A7B895D0-A9A8-40C7-8565-78F3A52324B1} = {4E8822AE-E985-4E3E-9011-949152F9B88C}
-		{451C9B3F-D315-48EA-84EA-45C45E513B45} = {D36D9CA6-6F85-462B-AA27-2A34CB47BAAC}
 		{7ECDBD90-1ACB-4BE9-A501-BBE3C33E2139} = {A60A16EB-0E28-4883-8F0E-ECA651B19731}
+		{53821BFC-38ED-4663-811F-F21C346E8E68} = {A60A16EB-0E28-4883-8F0E-ECA651B19731}
+		{E6F0B913-1A8F-43EC-B2CB-E23EFBE7C1D9} = {A60A16EB-0E28-4883-8F0E-ECA651B19731}
 		{0C4C0CFC-3E77-4FE4-81CA-618BEE9AAB96} = {62A844FA-23C6-4A14-91D6-803D0CC6DE2D}
 		{E0531F4E-3D33-42D4-AE64-13D015D2192F} = {62A844FA-23C6-4A14-91D6-803D0CC6DE2D}
 		{AD16249F-B34D-4DED-8801-7BFC9AFD9B2A} = {7ECDBD90-1ACB-4BE9-A501-BBE3C33E2139}
@@ -147,5 +160,6 @@ Global
 		{5C89499B-6C23-4FF1-8CE3-47FB52DCF4E3} = {D6607171-92E0-4049-8757-6F1C7E4FC762}
 		{78F91D80-E976-4A14-A5FB-F38F16548336} = {D6607171-92E0-4049-8757-6F1C7E4FC762}
 		{FD9DA8D5-32ED-4E20-AB7C-B2BF7391D147} = {D6607171-92E0-4049-8757-6F1C7E4FC762}
+		{451C9B3F-D315-48EA-84EA-45C45E513B45} = {CD8E8EE5-3A5F-488E-A01E-24012234BEDB}
 	EndGlobalSection
 EndGlobal

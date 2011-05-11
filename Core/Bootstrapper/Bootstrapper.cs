@@ -1,40 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Bootstrap.Extensions;
+using Bootstrap.Extensions.Containers;
 
 namespace Bootstrap
 {
     public static class Bootstrapper
     {
         private static readonly BootstrapperExtensions Extensions;
-        internal static object Container { get; set; }
-        internal static Assembly StartCallingAssembly { get; set; }
 
+        public static object Container {get { return ContainerExtension == null ? null : ContainerExtension.Container; }}
         public static BootstrapperExtensions With { get { return Extensions; } }
+        public static IBootstrapperContainerExtension ContainerExtension { get; set; }
 
         static Bootstrapper()
         {
             Extensions = new BootstrapperExtensions();
         }
 
-        public static void Start()
-        {
-            StartCallingAssembly = StartCallingAssembly ?? Assembly.GetCallingAssembly();
-
-            foreach (var extension in Extensions.GetExtensions())
-                extension.Run();
-        }
-
-
-        public static void Reset()
-        {
-            foreach (var extension in Extensions.GetExtensions())
-                extension.Reset();
-        }
-
         public static void ClearExtensions()
         {
             Reset();
+            ContainerExtension = null;
             Extensions.ClearExtensions();
         }
 
@@ -43,19 +30,16 @@ namespace Bootstrap
             return With.GetExtensions();
         }
 
-        public static IBootstrapperContainerExtension GetContainerExtension()
+        public static void Start()
         {
-            return With.GetContainerExtension();
+            foreach (var extension in Extensions.GetExtensions())
+                extension.Run();
         }
 
-        public static Assembly GetStartCallingAssembly()
+        public static void Reset()
         {
-            return StartCallingAssembly;
-        }
-
-        public static Object GetContainer()
-        {
-            return Container;
+            foreach (var extension in Extensions.GetExtensions().Reverse())
+                extension.Reset();
         }
     }
 }

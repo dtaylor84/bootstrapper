@@ -1,7 +1,9 @@
-﻿namespace Bootstrap.StructureMapExtension
+﻿using StructureMap;
+
+namespace Bootstrap.StructureMap
 {
     public interface IStructureMapRegistration
     {
-        void Register(StructureMap.IContainer container);
+        void Register(IContainer container);
     }
 }

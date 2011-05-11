@@ -1,7 +1,9 @@
-﻿namespace Bootstrap
+﻿using AutoMapper;
+
+namespace Bootstrap
 {
     public interface IMapCreator
     {
-        void CreateMap();
+        void CreateMap(IProfileExpression mapper);
     }
 }

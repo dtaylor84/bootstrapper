@@ -1,6 +1,6 @@
 ﻿using Microsoft.Practices.Unity;
 
-namespace Bootstrap.UnityExtension
+namespace Bootstrap.Unity
 {
     public interface IUnityRegistration
     {
