@@ -6,6 +6,7 @@ using FakeItEasy;
 using StructureMap;
 using StructureMap.ServiceLocatorAdapter;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.Practices.ServiceLocation;
 
 namespace Bootstrap.Tests.Extensions.Containers.StructureMap
 {
@@ -123,13 +124,13 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         public void ShouldSetTheServiceLocator()
         {
             //Arrange
-            Microsoft.Practices.ServiceLocation.ServiceLocator.SetLocatorProvider(() => null);
+            ServiceLocator.SetLocatorProvider(() => null);
             var containerExtension = new StructureMapExtension();
             containerExtension.Run();
 
             //Act            
             containerExtension.SetServiceLocator();
-            var result = Microsoft.Practices.ServiceLocation.ServiceLocator.Current;
+            var result = ServiceLocator.Current;
 
             //Assert
             Assert.IsNotNull(result);
@@ -147,7 +148,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
             containerExtension.ResetServiceLocator();
 
             //Assert
-            Assert.IsNull(Microsoft.Practices.ServiceLocation.ServiceLocator.Current);
+            Assert.IsNull(ServiceLocator.Current);
         }
 
         [TestMethod]

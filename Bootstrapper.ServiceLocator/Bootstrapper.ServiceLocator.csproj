@@ -8,7 +8,7 @@
     <ProjectGuid>{E6F0B913-1A8F-43EC-B2CB-E23EFBE7C1D9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Bootstrap.ServiceLocator</RootNamespace>
+    <RootNamespace>Bootstrap.Locator</RootNamespace>
     <AssemblyName>Bootstrapper.ServiceLocator</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

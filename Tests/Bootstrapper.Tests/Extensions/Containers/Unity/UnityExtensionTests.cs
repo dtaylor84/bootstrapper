@@ -3,6 +3,7 @@ using System.Linq;
 using Bootstrap.Extensions.Containers;
 using Bootstrap.Unity;
 using FakeItEasy;
+using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -122,13 +123,13 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
         public void ShouldSetTheServiceLocator()
         {
             //Arrange
-            Microsoft.Practices.ServiceLocation.ServiceLocator.SetLocatorProvider(() => null);
+            ServiceLocator.SetLocatorProvider(() => null);
             var containerExtension = new UnityExtension();
             containerExtension.Run();
 
             //Act
             containerExtension.SetServiceLocator();
-            var result = Microsoft.Practices.ServiceLocation.ServiceLocator.Current;
+            var result = ServiceLocator.Current;
 
             //Assert
             Assert.IsNotNull(result);
@@ -146,7 +147,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
             containerExtension.ResetServiceLocator();
 
             //Assert
-            Assert.IsNull(Microsoft.Practices.ServiceLocation.ServiceLocator.Current);
+            Assert.IsNull(ServiceLocator.Current);
         }
 
         [TestMethod]

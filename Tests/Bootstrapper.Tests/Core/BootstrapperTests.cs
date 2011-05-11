@@ -2,7 +2,7 @@
 using Bootstrap.AutoMapper;
 using Bootstrap.Extensions;
 using Bootstrap.Extensions.Containers;
-using Bootstrap.ServiceLocator;
+using Bootstrap.Locator;
 using Bootstrap.StartupTasks;
 using Bootstrap.StructureMap;
 using Bootstrap.Tests.Extensions.TestImplementations;
