@@ -94,6 +94,7 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\AutoMapper\BootstrapperAutoMapperHelperTests.cs" />
     <Compile Include="Core\Extensions\Containers\BootstrapperContainerExtensionTests.cs" />
     <Compile Include="Core\StartupTasks\BootstrapperStartupTasksHelperTests.cs" />
     <Compile Include="Core\BootstrapperTests.cs" />
