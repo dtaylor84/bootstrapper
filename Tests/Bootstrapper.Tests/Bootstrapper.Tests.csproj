@@ -101,7 +101,8 @@
     <Compile Include="Core\Extensions\Containers\RegistrationHelperTests.cs" />
     <Compile Include="Core\StartupTasks\StartupTasksExtensionTests.cs" />
     <Compile Include="Core\StartupTasks\StartupTasksRegistrationTests.cs" />
-    <Compile Include="Extensions\AutoMapperExtensionTests.cs" />
+    <Compile Include="Extensions\AutoMapper\AutoMapperExtensionTests.cs" />
+    <Compile Include="Extensions\AutoMapper\AutoMapperRegistrationTests.cs" />
     <Compile Include="Extensions\TestImplementations\AbstractTestStartupTask.cs" />
     <Compile Include="Extensions\TestImplementations\BootStrapperExtensionMapCreator.cs" />
     <Compile Include="Extensions\TestImplementations\InternalTestStartupTask.cs" />

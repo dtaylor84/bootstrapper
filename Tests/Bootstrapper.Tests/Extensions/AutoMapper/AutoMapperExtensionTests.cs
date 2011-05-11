@@ -6,7 +6,7 @@ using Bootstrap.Extensions.Containers;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bootstrap.Tests.Extensions
+namespace Bootstrap.Tests.Extensions.AutoMapper
 {
     [TestClass]
     public class AutoMapperExtensionTests

@@ -2,6 +2,6 @@
 {
     public interface IBootstrapperRegistration
     {
-        void Register(IBootstrapperContainerExtension container);
+        void Register(IBootstrapperContainerExtension containerExtension);
     }
 }

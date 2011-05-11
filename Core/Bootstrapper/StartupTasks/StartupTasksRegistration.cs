@@ -4,9 +4,9 @@ namespace Bootstrap.StartupTasks
 {
     public class StartupTasksRegistration: IBootstrapperRegistration
     {
-        public void Register(IBootstrapperContainerExtension container)
+        public void Register(IBootstrapperContainerExtension containerExtension)
         {
-            container.RegisterAll<IStartupTask>();
+            containerExtension.RegisterAll<IStartupTask>();
         }
     }
 }
