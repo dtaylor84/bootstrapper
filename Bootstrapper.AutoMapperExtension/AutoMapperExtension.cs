@@ -8,14 +8,14 @@ namespace Bootstrap.AutoMapper
     {
         public void Run()
         {
-            var container = Bootstrapper.ContainerExtension;
-            var mapper = container.Resolve<IProfileExpression>();
-            container.ResolveAll<IMapCreator>().ToList().ForEach(m => m.CreateMap(mapper));
+            var containerExtension = Bootstrapper.ContainerExtension;
+            var mapper = containerExtension.Resolve<IProfileExpression>();
+            containerExtension.ResolveAll<IMapCreator>().ToList().ForEach(m => m.CreateMap(mapper));
         }
 
         public void Reset()
         {
-            Mapper.Reset();               
+            Mapper.Reset();  
         }
     }
 }
