@@ -1,6 +1,6 @@
 ﻿using Bootstrap.Extensions;
 
-namespace Bootstrap.ServiceLocator
+namespace Bootstrap.Locator
 {
     public class ServiceLocatorExtension: IBootstrapperExtension
     {

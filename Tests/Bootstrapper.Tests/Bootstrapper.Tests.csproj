@@ -104,6 +104,8 @@
     <Compile Include="Core\StartupTasks\StartupTasksRegistrationTests.cs" />
     <Compile Include="Extensions\AutoMapper\AutoMapperExtensionTests.cs" />
     <Compile Include="Extensions\AutoMapper\AutoMapperRegistrationTests.cs" />
+    <Compile Include="Extensions\Locator\BootstrapperServiceLocatorHelperTests.cs" />
+    <Compile Include="Extensions\Locator\ServiceLocatorExtensionTests.cs" />
     <Compile Include="Extensions\TestImplementations\AbstractTestStartupTask.cs" />
     <Compile Include="Extensions\TestImplementations\BootStrapperExtensionMapCreator.cs" />
     <Compile Include="Extensions\TestImplementations\InternalTestStartupTask.cs" />
@@ -154,6 +156,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

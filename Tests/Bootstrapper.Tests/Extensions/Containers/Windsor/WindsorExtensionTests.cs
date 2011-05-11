@@ -5,6 +5,7 @@ using Bootstrap.Windsor;
 using CommonServiceLocator.WindsorAdapter;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.Practices.ServiceLocation;
 using Castle.Windsor;
 
 namespace Bootstrap.Tests.Extensions.Containers.Windsor
@@ -123,13 +124,13 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
         public void ShouldSetTheServiceLocator()
         {
             //Arrange
-            Microsoft.Practices.ServiceLocation.ServiceLocator.SetLocatorProvider(() => null);
+            ServiceLocator.SetLocatorProvider(() => null);
             var containerExtension = new WindsorExtension();
             containerExtension.Run();
 
             //Act
             containerExtension.SetServiceLocator();
-            var result = Microsoft.Practices.ServiceLocation.ServiceLocator.Current;
+            var result = ServiceLocator.Current;
 
             //Assert
             Assert.IsNotNull(result);
@@ -147,7 +148,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
             containerExtension.ResetServiceLocator();
 
             //Assert
-            Assert.IsNull(Microsoft.Practices.ServiceLocation.ServiceLocator.Current);
+            Assert.IsNull(ServiceLocator.Current);
         }
 
         [TestMethod]
