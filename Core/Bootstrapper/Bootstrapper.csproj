@@ -57,11 +57,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Extensions\BootstrapperExtensionOptions.cs" />
     <Compile Include="Extensions\BootstrapperExtensions.cs" />
     <Compile Include="Extensions\Containers\BootstrapperContainerExtension.cs" />
+    <Compile Include="Extensions\Containers\BootstrapperContainerExtensionOptions.cs" />
     <Compile Include="Extensions\Containers\IBootstrapperRegistration.cs" />
+    <Compile Include="Extensions\Containers\IBootstrapperContainerExtensionOptions.cs" />
     <Compile Include="Extensions\IBootstrapperExtension.cs" />
     <Compile Include="Extensions\Containers\IBootstrapperContainerExtension.cs" />
+    <Compile Include="Extensions\IBootstrapperExtensionOptions.cs" />
     <Compile Include="IMapCreator.cs" />
     <Compile Include="IStartupTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
