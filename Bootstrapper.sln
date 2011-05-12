@@ -19,11 +19,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Moq", "Moq", "{E414EA86-74ED-4EC7-8DC9-E61827444CA9}"
-	ProjectSection(SolutionItems) = preProject
-		Libraries\Moq\Moq.dll = Libraries\Moq\Moq.dll
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Containers", "Containers", "{7ECDBD90-1ACB-4BE9-A501-BBE3C33E2139}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper.Windsor", "Extensions\Containers\Bootstrapper.WindsorExtension\Bootstrapper.Windsor.csproj", "{AD16249F-B34D-4DED-8801-7BFC9AFD9B2A}"
@@ -95,6 +90,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper", "Core\Bootst
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{CD8E8EE5-3A5F-488E-A01E-24012234BEDB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FakeItEasy", "FakeItEasy", "{8046BB59-64B8-42EF-9CA9-D63AEA4C9C57}"
+	ProjectSection(SolutionItems) = preProject
+		packages\Castle.Core.2.5.2\lib\NET40ClientProfile\Castle.Core.dll = packages\Castle.Core.2.5.2\lib\NET40ClientProfile\Castle.Core.dll
+		packages\FakeItEasy.1.7.4117.2\lib\NET40\FakeItEasy.dll = packages\FakeItEasy.1.7.4117.2\lib\NET40\FakeItEasy.dll
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Bootstrapper.vsmdi
@@ -142,7 +143,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{313DEA56-158A-44E8-B907-43FD8E543381} = {4E8822AE-E985-4E3E-9011-949152F9B88C}
-		{E414EA86-74ED-4EC7-8DC9-E61827444CA9} = {4E8822AE-E985-4E3E-9011-949152F9B88C}
 		{A7B895D0-A9A8-40C7-8565-78F3A52324B1} = {4E8822AE-E985-4E3E-9011-949152F9B88C}
 		{7ECDBD90-1ACB-4BE9-A501-BBE3C33E2139} = {A60A16EB-0E28-4883-8F0E-ECA651B19731}
 		{53821BFC-38ED-4663-811F-F21C346E8E68} = {A60A16EB-0E28-4883-8F0E-ECA651B19731}
@@ -160,6 +160,7 @@ Global
 		{5C89499B-6C23-4FF1-8CE3-47FB52DCF4E3} = {D6607171-92E0-4049-8757-6F1C7E4FC762}
 		{78F91D80-E976-4A14-A5FB-F38F16548336} = {D6607171-92E0-4049-8757-6F1C7E4FC762}
 		{FD9DA8D5-32ED-4E20-AB7C-B2BF7391D147} = {D6607171-92E0-4049-8757-6F1C7E4FC762}
+		{8046BB59-64B8-42EF-9CA9-D63AEA4C9C57} = {D6607171-92E0-4049-8757-6F1C7E4FC762}
 		{451C9B3F-D315-48EA-84EA-45C45E513B45} = {CD8E8EE5-3A5F-488E-A01E-24012234BEDB}
 	EndGlobalSection
 EndGlobal
