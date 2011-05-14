@@ -288,5 +288,20 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
             Assert.IsTrue(result.Count() > 0);
             Assert.IsTrue(result.Any(c => c is StructureMapExtension));
         }
+
+        [TestMethod]
+        public void ShouldReturnABootstrapperContainerExtensionOptions()
+        {
+            //Arrange
+            var containerExtension = new StructureMapExtension();
+
+            //Act
+            var result = containerExtension.Options;
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(IBootstrapperContainerExtensionOptions));
+            Assert.IsInstanceOfType(result, typeof(BootstrapperContainerExtensionOptions));
+        }
     }
 }

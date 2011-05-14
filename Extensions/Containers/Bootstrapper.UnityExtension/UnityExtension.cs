@@ -10,6 +10,12 @@ namespace Bootstrap.Unity
     public class UnityExtension: BootstrapperContainerExtension
     {
         private IUnityContainer container;
+        public IBootstrapperContainerExtensionOptions Options { get; private set; }
+
+        public UnityExtension()
+        {
+            Options = new BootstrapperContainerExtensionOptions();
+        }
 
         public void InitializeContainer(IUnityContainer aContainer)
         {

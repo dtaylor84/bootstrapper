@@ -308,5 +308,20 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
             Assert.IsTrue(result.Count() > 0);
             Assert.IsTrue(result.Any(c => c is UnityExtension));
         }
+
+        [TestMethod]
+        public void ShouldReturnABootstrapperContainerExtensionOptions()
+        {
+            //Arrange
+            var containerExtension = new UnityExtension();
+
+            //Act
+            var result = containerExtension.Options;
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(IBootstrapperContainerExtensionOptions));
+            Assert.IsInstanceOfType(result, typeof(BootstrapperContainerExtensionOptions));
+        }
     }
 }

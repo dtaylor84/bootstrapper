@@ -14,6 +14,12 @@ namespace Bootstrap.Windsor
     public class WindsorExtension: BootstrapperContainerExtension
     {
         private IWindsorContainer container;
+        public IBootstrapperContainerExtensionOptions Options { get; private set; }
+
+        public WindsorExtension()
+        {
+            Options= new BootstrapperContainerExtensionOptions();
+        }
 
         public void InitializeContainer(IWindsorContainer aContainer)
         {

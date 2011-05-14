@@ -28,7 +28,7 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
             var options = new BootstrapperContainerExtensionOptions();
 
             //Act
-            var result = options.UseAutoRegistration;
+            var result = options.AutoRegistration;
 
             //Assert
             Assert.IsFalse(result);
@@ -41,11 +41,15 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
             var options = new BootstrapperContainerExtensionOptions();
 
             //Act
-            options.WithAutoRegistration();
-            var result = options.UseAutoRegistration;
+            var result = options.UsingAutoRegistration();
 
             //Assert
-            Assert.IsTrue(result);
+            Assert.IsTrue(options.AutoRegistration);
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(IBootstrapperExtensionOptions));
+            Assert.IsInstanceOfType(result, typeof(IBootstrapperContainerExtensionOptions));
+            Assert.IsInstanceOfType(result, typeof(BootstrapperContainerExtensionOptions));
+            Assert.AreSame(options, result);
         }
     }
 }

@@ -288,5 +288,20 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
             Assert.IsTrue(result.Count() > 0);
             Assert.IsTrue(result.Any(c => c is WindsorExtension));
         }
+
+        [TestMethod]
+        public void ShouldReturnABootstrapperContainerExtensionOptions()
+        {
+            //Arrange
+            var containerExtension = new WindsorExtension();
+
+            //Act
+            var result = containerExtension.Options;
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(IBootstrapperContainerExtensionOptions));
+            Assert.IsInstanceOfType(result, typeof(BootstrapperContainerExtensionOptions));
+        }
     }
 }

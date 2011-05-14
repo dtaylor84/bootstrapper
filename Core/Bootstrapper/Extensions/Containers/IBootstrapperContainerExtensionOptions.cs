@@ -2,7 +2,7 @@
 {
     public interface IBootstrapperContainerExtensionOptions: IBootstrapperExtensionOptions
     {
-        IBootstrapperExtensionOptions WithAutoRegistration();
-        bool UseAutoRegistration { get;}
+        IBootstrapperContainerExtensionOptions UsingAutoRegistration();
+        bool AutoRegistration { get;}
     }
 }

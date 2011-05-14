@@ -1,12 +1,15 @@
 ﻿using Bootstrap.Extensions;
+using Bootstrap.Extensions.Containers;
 
 namespace Bootstrap.StructureMap
 {
     public static class BootstrapperStructureMapHelper
     {
-        public static BootstrapperExtensions StructureMap(this BootstrapperExtensions extensions)
+        public static IBootstrapperContainerExtensionOptions StructureMap(this BootstrapperExtensions extensions)
         {
-            return extensions.Extension(new StructureMapExtension());
+            var extension = new StructureMapExtension();
+            extensions.Extension(new StructureMapExtension());
+            return extension.Options;
         }
     }
 }

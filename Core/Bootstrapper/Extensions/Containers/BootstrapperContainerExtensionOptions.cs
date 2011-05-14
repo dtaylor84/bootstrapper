@@ -2,11 +2,11 @@
 {
     public class BootstrapperContainerExtensionOptions: BootstrapperExtensionOptions, IBootstrapperContainerExtensionOptions
     {
-        public bool UseAutoRegistration { get; private set; }
+        public bool AutoRegistration { get; private set; }
 
-        public IBootstrapperExtensionOptions WithAutoRegistration()
+        public IBootstrapperContainerExtensionOptions UsingAutoRegistration()
         {
-            UseAutoRegistration = true;
+            AutoRegistration = true;
             return this;
         }
     }

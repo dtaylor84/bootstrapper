@@ -34,5 +34,21 @@ namespace Bootstrap.Tests.Core.Extensions
             Assert.IsInstanceOfType(result, typeof(BootstrapperExtensions));
             Assert.AreSame(Bootstrapper.With, result);
         }
+
+        [TestMethod]
+        public void ShouldInvokeTheStartMethodOftheBootStrapper()
+        {
+            //Arrange
+            var extension = A.Fake<IBootstrapperExtension>();
+            Bootstrapper.With.Extension(extension);
+            var options = new BootstrapperExtensionOptions();
+
+            //Act
+            options.Start();
+            Bootstrapper.ClearExtensions();
+
+            //Assert
+            A.CallTo(() => extension.Run()).MustHaveHappened();
+        }
     }
 }

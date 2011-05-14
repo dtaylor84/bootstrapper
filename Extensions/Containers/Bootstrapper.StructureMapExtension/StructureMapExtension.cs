@@ -11,6 +11,12 @@ namespace Bootstrap.StructureMap
     public class StructureMapExtension : BootstrapperContainerExtension
     {
         private IContainer container;
+        public IBootstrapperContainerExtensionOptions Options { get; private set; }
+
+        public StructureMapExtension()
+        {
+            Options = new BootstrapperContainerExtensionOptions();
+        }
 
         public void InitializeContainer(IContainer aContainer)
         {
