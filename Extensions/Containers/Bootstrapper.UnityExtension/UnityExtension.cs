@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Bootstrap.Extensions.Containers;
 using Microsoft.Practices.ServiceLocation;
@@ -15,6 +14,7 @@ namespace Bootstrap.Unity
         public UnityExtension()
         {
             Options = new BootstrapperContainerExtensionOptions();
+            Bootstrapper.Excluding.Assembly("Microsoft.Practices");
         }
 
         public void InitializeContainer(IUnityContainer aContainer)
@@ -75,7 +75,7 @@ namespace Bootstrap.Unity
 
         public override void RegisterAll<TTarget>()
         {
-            AppDomain.CurrentDomain.GetAssemblies().Where(a => !a.IsDynamic).ToList().ForEach(
+            RegistrationHelper.GetAssemblies().ToList().ForEach(
                 a => RegistrationHelper.GetTypesImplementing<TTarget>(a).ToList().ForEach(
                     t => container.RegisterType(typeof (TTarget), t, t.Name)));
         }

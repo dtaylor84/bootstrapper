@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Bootstrap.AutoMapper;
 using Bootstrap.Extensions;
 using Bootstrap.Extensions.Containers;
@@ -206,9 +207,41 @@ namespace Bootstrap.Tests.Core
         public void ShouldCompile()
         {
             //Act
-            Bootstrapper.With.StructureMap().And.AutoMapper().And.ServiceLocator().And.StartupTasks().Start();
+            Bootstrapper
+                .Excluding
+                    .Assembly("StructureMap")
+                    .AndAssembly("Microsoft.Practices")
+                .With
+                    .StructureMap()
+                        .UsingAutoRegistration()
+                    .And.AutoMapper()
+                    .And.ServiceLocator()
+                    .And.StartupTasks()
+                .Start();
         }
 
+        [TestMethod]
+        public void ShouldReturnExcludedAssemblies()
+        {
+            //Act
+            var result = Bootstrapper.Excluding.Assemblies;
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(List<string>));
+        }
+
+        [TestMethod]
+        public void ShouldResetExcludedAssemblies()
+        {
+            //Act
+            Bootstrapper.Excluding.Assembly("Test");
+            Bootstrapper.Reset();
+            var result = Bootstrapper.Excluding.Assemblies;
+
+            //Assert
+            Assert.IsFalse(result.Contains("Test"));
+        }
 
     }
 }

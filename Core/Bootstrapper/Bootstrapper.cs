@@ -12,10 +12,12 @@ namespace Bootstrap
         public static object Container {get { return ContainerExtension == null ? null : ContainerExtension.Container; }}
         public static BootstrapperExtensions With { get { return Extensions; } }
         public static IBootstrapperContainerExtension ContainerExtension { get; set; }
+        public static IExcludedAssemblies Excluding { get; private set; }
 
         static Bootstrapper()
         {
             Extensions = new BootstrapperExtensions();
+            InitializeExcludedAssemblies();
         }
 
         public static void ClearExtensions()
@@ -38,8 +40,14 @@ namespace Bootstrap
 
         public static void Reset()
         {
+            InitializeExcludedAssemblies();
             foreach (var extension in Extensions.GetExtensions().Reverse())
                 extension.Reset();
+        }
+
+        private static void InitializeExcludedAssemblies()
+        {
+            Excluding = new ExcludedAssemblies();
         }
     }
 }

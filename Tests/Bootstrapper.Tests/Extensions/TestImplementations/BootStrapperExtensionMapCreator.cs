@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Bootstrap.AutoMapper;
 using Bootstrap.Extensions;
 using Bootstrap.Extensions.Containers;
 

@@ -1,4 +1,6 @@
-﻿namespace Bootstrap.Tests.Extensions.TestImplementations
+﻿using Bootstrap.StartupTasks;
+
+namespace Bootstrap.Tests.Extensions.TestImplementations
 {
     internal class InternalTestStartupTask : IStartupTask
     {

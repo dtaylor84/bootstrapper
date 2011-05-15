@@ -1,4 +1,6 @@
-﻿using Bootstrap.Tests.Extensions.TestImplementations;
+﻿using System;
+using System.Collections.Generic;
+using Bootstrap.Tests.Extensions.TestImplementations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bootstrap.Tests.Core.Extensions.Containers
@@ -62,6 +64,23 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
 
             //Assert
             Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void ShouldRegisterBasedOnConvention()
+        {
+            //Arrange
+            var containerExtension = new TestContainerExtension();
+
+            //Act
+            containerExtension.DoAutoRegister();
+            var result = containerExtension.Registrations;
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result,typeof(Dictionary<Type,Type>));
+            Assert.IsTrue(result.ContainsKey(typeof(IRegisteredByConvention)));
+            Assert.AreSame(typeof(RegisteredByConvention), result[typeof(IRegisteredByConvention)]);
         }
     }
 }

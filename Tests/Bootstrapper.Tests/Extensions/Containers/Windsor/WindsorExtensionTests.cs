@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Bootstrap.Extensions.Containers;
+using Bootstrap.StartupTasks;
 using Bootstrap.Windsor;
 using CommonServiceLocator.WindsorAdapter;
 using FakeItEasy;
@@ -28,6 +29,17 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
             //Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(WindsorExtension));
+        }
+
+        [TestMethod]
+        public void ShouldAddCastleToExcludedAssemblies()
+        {
+            //Act
+            var result = new WindsorExtension();
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsTrue(Bootstrapper.Excluding.Assemblies.Contains("Castle"));
         }
         
         [TestMethod]

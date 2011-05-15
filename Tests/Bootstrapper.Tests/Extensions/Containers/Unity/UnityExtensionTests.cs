@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Bootstrap.Extensions.Containers;
+using Bootstrap.StartupTasks;
 using Bootstrap.Unity;
 using FakeItEasy;
 using Microsoft.Practices.ServiceLocation;
@@ -27,6 +28,17 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
             //Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(UnityExtension));
+        }
+
+        [TestMethod]
+        public void ShouldAddMicrosoftPracticesToExcludedAssemblies()
+        {
+            //Act
+            var result = new UnityExtension();
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsTrue(Bootstrapper.Excluding.Assemblies.Contains("Microsoft.Practices"));
         }
 
         [TestMethod]

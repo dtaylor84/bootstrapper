@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace Bootstrap.Extensions.Containers
 {
@@ -29,10 +32,31 @@ namespace Bootstrap.Extensions.Containers
             ResetContainer();
         }
 
+        protected void AutoRegister()
+        {
+            RegistrationHelper.GetAssemblies().ToList()
+                .ForEach(a => a.GetExportedTypes().Where(t => !t.IsGenericType && !t.IsAbstract).ToList()
+                    .ForEach(t =>
+                                 {
+                                     var defaultInterfaceName = string.Format("I{0}", t.Name);
+                                     var defaultInterface = t.GetInterface(defaultInterfaceName);
+                                     if (defaultInterface != null)
+                                         Register(defaultInterface,t);
+                                 }));
+        }
+
         private void InitializeRegistrations()
         {
             RegisterImplementationsOfIRegistration();
             InvokeRegisterForImplementationsOfIRegistration();
+        }
+
+        private void Register(Type target, Type implementation)
+        {
+            var genericClass = typeof(RegistrationInvoker<,>);
+            var invokerClass = genericClass.MakeGenericType(target,implementation);
+            var invoker = Activator.CreateInstance(invokerClass,this);
+            invoker.GetType().InvokeMember("Register", BindingFlags.Default | BindingFlags.InvokeMethod, null, invoker, null);
         }
     }
 }

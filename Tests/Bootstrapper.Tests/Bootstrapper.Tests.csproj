@@ -94,8 +94,10 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\ExcludedAssembliesTests.cs" />
     <Compile Include="Core\Extensions\BootstrapperExtensionOptionsTests.cs" />
     <Compile Include="Core\Extensions\Containers\BootstrapperContainerExtensionOptionsTests.cs" />
+    <Compile Include="Core\Extensions\Containers\RegistrationInvokerTests.cs" />
     <Compile Include="Extensions\AutoMapper\BootstrapperAutoMapperHelperTests.cs" />
     <Compile Include="Core\Extensions\Containers\BootstrapperContainerExtensionTests.cs" />
     <Compile Include="Core\StartupTasks\BootstrapperStartupTasksHelperTests.cs" />
@@ -114,6 +116,8 @@
     <Compile Include="Extensions\Containers\StructureMap\BootstrapperStructureMapHelperTests.cs" />
     <Compile Include="Extensions\Containers\StructureMap\StructureMapExtensionTests.cs" />
     <Compile Include="Extensions\Containers\StructureMap\TestStructureMapRegistration.cs" />
+    <Compile Include="Extensions\TestImplementations\IRegisteredByConvention.cs" />
+    <Compile Include="Extensions\TestImplementations\RegisteredByConvention.cs" />
     <Compile Include="Extensions\TestImplementations\TestContainerExtension.cs" />
     <Compile Include="Extensions\TestImplementations\TestStartupTask.cs" />
     <Compile Include="Extensions\Containers\Unity\BootstrapperUnityHelperTests.cs" />

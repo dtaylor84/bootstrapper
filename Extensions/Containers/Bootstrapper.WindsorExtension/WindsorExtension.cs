@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Bootstrap.Extensions.Containers;
 using Castle.Facilities.FactorySupport;
@@ -19,6 +18,7 @@ namespace Bootstrap.Windsor
         public WindsorExtension()
         {
             Options= new BootstrapperContainerExtensionOptions();
+            Bootstrapper.Excluding.Assembly("Castle");
         }
 
         public void InitializeContainer(IWindsorContainer aContainer)
@@ -48,7 +48,7 @@ namespace Bootstrap.Windsor
 
         public override void RegisterAll<TTarget>()
         {
-            AppDomain.CurrentDomain.GetAssemblies().Where(a => !a.IsDynamic).ToList().ForEach(
+            RegistrationHelper.GetAssemblies().ToList().ForEach(
                 a => container.Register(AllTypes.FromAssembly(a).BasedOn<TTarget>().WithService.Base()));
         }
 

@@ -1,7 +1,9 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using System.Linq;
 using Bootstrap.Extensions;
 using Bootstrap.Extensions.Containers;
+using Bootstrap.StartupTasks;
 using Bootstrap.Tests.Extensions.TestImplementations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -65,5 +67,28 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
             //Assert
             Assert.IsFalse(result.Any(t => t == typeof(AbstractTestStartupTask)));
         }
+
+        [TestMethod]
+        public void ShouldReturnNonDynamicAssemblies()
+        {
+            //Act
+            var result = RegistrationHelper.GetAssemblies().ToList();
+
+            //Assert
+            Assert.IsFalse(result.Any(a => a.IsDynamic));
+        }
+
+        [TestMethod]
+        public void ShouldExcludeExcludedAssemblies()
+        {
+            //Arrange
+            Bootstrapper.Excluding.Assembly("StructureMap").AndAssembly("Castle").AndAssembly("Windsor");
+            //Act
+            var result = RegistrationHelper.GetAssemblies().ToList();
+
+            //Assert
+            Bootstrapper.Excluding.Assemblies.ForEach(e => Assert.IsFalse(result.Any(a => a.FullName.StartsWith(e))));
+        }
+
     }
 }

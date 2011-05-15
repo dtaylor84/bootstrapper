@@ -9,11 +9,13 @@ namespace Bootstrap.Tests.Extensions.TestImplementations
     {
         public bool RegistrationsRegistered { get; set; }
         public bool RegistrationsInvoked { get; set; }
+        public Dictionary<Type, Type> Registrations { get; set; }
 
         public TestContainerExtension()
         {
             RegistrationsRegistered = false;
             RegistrationsInvoked = false;
+            Registrations = new Dictionary<Type, Type>();
         }
 
         public void SetTestServiceLocator(IServiceLocator theLocator)
@@ -48,7 +50,7 @@ namespace Bootstrap.Tests.Extensions.TestImplementations
 
         public override void Register<TTarget, TImplementation>()
         {
-            throw new NotImplementedException();
+            Registrations.Add(typeof(TTarget), typeof(TImplementation));
         }
 
         public override void Register<TTarget>(TTarget implementation)
@@ -56,9 +58,15 @@ namespace Bootstrap.Tests.Extensions.TestImplementations
             throw new NotImplementedException();
         }
 
+        public void DoAutoRegister()
+        {
+            AutoRegister();
+        }
+
         protected override void ResetContainer() {Container = null;}
-        protected override void InitializeContainer() { Container = new object(); }
+        protected override void InitializeContainer() { Container = new object();  }
         protected override void RegisterImplementationsOfIRegistration() {RegistrationsRegistered = true;}
         protected override void InvokeRegisterForImplementationsOfIRegistration(){RegistrationsInvoked = true;}
+
     }
 }
