@@ -99,7 +99,12 @@
     <Compile Include="Core\Extensions\Containers\BootstrapperContainerExtensionOptionsTests.cs" />
     <Compile Include="Core\Extensions\Containers\NoContainerExceptionTests.cs" />
     <Compile Include="Core\Extensions\Containers\RegistrationInvokerTests.cs" />
+    <Compile Include="Core\StartupTasks\SequenceSpecialTests.cs" />
+    <Compile Include="Core\StartupTasks\SequenceSpecificationTests.cs" />
+    <Compile Include="Core\StartupTasks\TaskAlpha.cs" />
     <Compile Include="Core\StartupTasks\TaskAttributeTests.cs" />
+    <Compile Include="Core\StartupTasks\TaskBeta.cs" />
+    <Compile Include="Core\StartupTasks\TaskOmega.cs" />
     <Compile Include="Extensions\AutoMapper\BootstrapperAutoMapperHelperTests.cs" />
     <Compile Include="Core\Extensions\Containers\BootstrapperContainerExtensionTests.cs" />
     <Compile Include="Core\StartupTasks\BootstrapperStartupTasksHelperTests.cs" />
