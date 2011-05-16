@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Bootstrap.Extensions;
+using Bootstrap.Extensions.Containers;
 
 namespace Bootstrap.StartupTasks
 {
@@ -7,14 +9,24 @@ namespace Bootstrap.StartupTasks
     {
         public void Run()
         {
-            var container = Bootstrapper.ContainerExtension;
-            container.ResolveAll<IStartupTask>().ToList().ForEach(t => t.Run());
+            List<IStartupTask> tasks;
+
+            if (Bootstrapper.ContainerExtension != null && Bootstrapper.Container != null)
+                tasks = Bootstrapper.ContainerExtension.ResolveAll<IStartupTask>().ToList();
+            else
+                tasks = RegistrationHelper.GetInstancesOfTypesImplementing<IStartupTask>();
+            tasks.ForEach(t => t.Run());
         }
 
         public void Reset()
         {
-            var container = Bootstrapper.ContainerExtension;
-            container.ResolveAll<IStartupTask>().ToList().ForEach(t => t.Reset());
+            List<IStartupTask> tasks;
+
+            if (Bootstrapper.ContainerExtension != null && Bootstrapper.Container != null)
+                tasks = Bootstrapper.ContainerExtension.ResolveAll<IStartupTask>().ToList();
+            else
+                tasks = RegistrationHelper.GetInstancesOfTypesImplementing<IStartupTask>();
+            tasks.ForEach(t => t.Reset());
         }
     }
 }

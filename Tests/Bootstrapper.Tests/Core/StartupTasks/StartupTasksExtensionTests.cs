@@ -2,6 +2,7 @@
 using Bootstrap.Extensions;
 using Bootstrap.Extensions.Containers;
 using Bootstrap.StartupTasks;
+using Bootstrap.Tests.Extensions.TestImplementations;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -60,5 +61,31 @@ namespace Bootstrap.Tests.Core.StartupTasks
             A.CallTo(() => task.Reset()).MustHaveHappened();
         }
 
+        [TestMethod]
+        public void ShouldExecuteTheRunMethodForAllStartupTasksWhenNoContainerExtensionHasBeenDeclared()
+        {
+            //Arrange
+            var tasksExtension = new StartupTasksExtension();
+
+            //Act
+            tasksExtension.Run();
+
+            //Assert
+            Assert.IsTrue(TestStartupTask.Invoked);
+        }
+
+        [TestMethod]
+        public void ShouldExecuteTheResetMethodForAllStartupTasksWhenNoContainerExtensionHasBeenDeclared()
+        {
+            //Arrange
+            var tasksExtension = new StartupTasksExtension();
+
+            //Act
+            tasksExtension.Run();
+            tasksExtension.Reset();
+
+            //Assert
+            Assert.IsFalse (TestStartupTask.Invoked);
+        }
     }
 }
