@@ -3,6 +3,9 @@ using AutoMapper;
 using Bootstrap.AutoMapper;
 using Bootstrap.Extensions;
 using Bootstrap.Extensions.Containers;
+using Bootstrap.StartupTasks;
+using Bootstrap.Tests.Extensions.TestImplementations;
+using Bootstrap.Tests.Other;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -72,6 +75,20 @@ namespace Bootstrap.Tests.Extensions.AutoMapper
 
             //Assert
             Assert.AreEqual(0, Mapper.GetAllTypeMaps().Length);
+        }
+
+        [TestMethod]
+        public void ShouldInvokeCreateMapForAllMapCreatorsWhenNoContainerExtensionHasBeenDeclared()
+        {
+            //Arrange
+            var mapperExtension = new AutoMapperExtension();
+
+            //Act
+            mapperExtension.Run();
+            
+            //Assert
+            Assert.IsNotNull(Mapper.Map<BootstrapperContainerExtension, IBootstrapperExtension>(new TestContainerExtension()));
+            ExceptionAssert.Throws<AutoMapperMappingException>(() =>Mapper.Map<IBootstrapperExtension, BootstrapperContainerExtension>(new StartupTasksExtension()));
         }
     }
 }

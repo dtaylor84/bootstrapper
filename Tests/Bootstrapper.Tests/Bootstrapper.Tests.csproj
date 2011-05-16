@@ -97,6 +97,7 @@
     <Compile Include="Core\ExcludedAssembliesTests.cs" />
     <Compile Include="Core\Extensions\BootstrapperExtensionOptionsTests.cs" />
     <Compile Include="Core\Extensions\Containers\BootstrapperContainerExtensionOptionsTests.cs" />
+    <Compile Include="Core\Extensions\Containers\NoContainerExceptionTests.cs" />
     <Compile Include="Core\Extensions\Containers\RegistrationInvokerTests.cs" />
     <Compile Include="Extensions\AutoMapper\BootstrapperAutoMapperHelperTests.cs" />
     <Compile Include="Core\Extensions\Containers\BootstrapperContainerExtensionTests.cs" />
@@ -111,7 +112,7 @@
     <Compile Include="Extensions\Locator\BootstrapperServiceLocatorHelperTests.cs" />
     <Compile Include="Extensions\Locator\ServiceLocatorExtensionTests.cs" />
     <Compile Include="Extensions\TestImplementations\AbstractTestStartupTask.cs" />
-    <Compile Include="Extensions\TestImplementations\BootStrapperExtensionMapCreator.cs" />
+    <Compile Include="Extensions\TestImplementations\TestMapCreator.cs" />
     <Compile Include="Extensions\TestImplementations\InternalTestStartupTask.cs" />
     <Compile Include="Extensions\Containers\StructureMap\BootstrapperStructureMapHelperTests.cs" />
     <Compile Include="Extensions\Containers\StructureMap\StructureMapExtensionTests.cs" />

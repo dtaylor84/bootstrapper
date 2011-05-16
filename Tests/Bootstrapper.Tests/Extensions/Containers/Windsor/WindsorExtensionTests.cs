@@ -3,6 +3,7 @@ using System.Linq;
 using Bootstrap.Extensions.Containers;
 using Bootstrap.StartupTasks;
 using Bootstrap.Tests.Extensions.TestImplementations;
+using Bootstrap.Tests.Other;
 using Bootstrap.Windsor;
 using CommonServiceLocator.WindsorAdapter;
 using FakeItEasy;
@@ -333,5 +334,82 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
             Assert.IsNotNull(containerExtension.Resolve<IRegisteredByConvention>());
         }
 
+        [TestMethod]
+        public void ShouldThrowNoContainerExceptionWhenSettingServiceLocatorBeforeInitializingTheContainer()
+        {
+            //Arrange
+            var containerExtension = new WindsorExtension();
+
+            //Act
+            var result = ExceptionAssert.Throws<NoContainerException>(containerExtension.SetServiceLocator);
+
+            //Assert
+            Assert.AreEqual(NoContainerException.DefaultMessage, result.Message);
+        }
+
+        [TestMethod]
+        public void ShouldThrowNoContainerExceptionWhenResolvingSimpleTypeBeforeInitializingTheContainer()
+        {
+            //Arrange
+            var containerExtension = new WindsorExtension();
+
+            //Act
+            var result = ExceptionAssert.Throws<NoContainerException>(() => containerExtension.Resolve<object>());
+
+            //Assert
+            Assert.AreEqual(NoContainerException.DefaultMessage, result.Message);
+        }
+
+        [TestMethod]
+        public void ShouldThrowNoContainerExceptionWhenResolvingMultipleTypesBeforeInitializingTheContainer()
+        {
+            //Arrange
+            var containerExtension = new WindsorExtension();
+
+            //Act
+            var result = ExceptionAssert.Throws<NoContainerException>(() => containerExtension.ResolveAll<object>());
+
+            //Assert
+            Assert.AreEqual(NoContainerException.DefaultMessage, result.Message);
+        }
+
+        [TestMethod]
+        public void ShouldThrowNoContainerExceptionWhenRegisteringWithTargetAndImplementationTypeBeforeInitializingTheContainer()
+        {
+            //Arrange
+            var containerExtension = new WindsorExtension();
+
+            //Act
+            var result = ExceptionAssert.Throws<NoContainerException>(containerExtension.Register<IBootstrapperContainerExtension, WindsorExtension>);
+
+            //Assert
+            Assert.AreEqual(NoContainerException.DefaultMessage, result.Message);
+        }
+
+        [TestMethod]
+        public void ShouldThrowNoContainerExceptionWhenRegisteringWithTargetAndImplementationInstanceBeforeInitializingTheContainer()
+        {
+            //Arrange
+            var containerExtension = new WindsorExtension();
+
+            //Act
+            var result = ExceptionAssert.Throws<NoContainerException>(() => containerExtension.Register<IBootstrapperContainerExtension>(containerExtension));
+
+            //Assert
+            Assert.AreEqual(NoContainerException.DefaultMessage, result.Message);
+        }
+
+        [TestMethod]
+        public void ShouldThrowNoContainerExceptionWhenRegisteringWithTargetTypeBeforeInitializingTheContainer()
+        {
+            //Arrange
+            var containerExtension = new WindsorExtension();
+
+            //Act
+            var result = ExceptionAssert.Throws<NoContainerException>(containerExtension.RegisterAll<IBootstrapperContainerExtension>);
+
+            //Assert
+            Assert.AreEqual(NoContainerException.DefaultMessage, result.Message);
+        }
     }
 }

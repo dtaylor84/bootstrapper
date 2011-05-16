@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
 using Bootstrap.Extensions;
@@ -90,5 +90,17 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
             Bootstrapper.Excluding.Assemblies.ForEach(e => Assert.IsFalse(result.Any(a => a.FullName.StartsWith(e))));
         }
 
+        [TestMethod]
+        public void ShouldReturnInstancesOfAType()
+        {
+            //Act
+            var result = RegistrationHelper.GetInstancesOfTypesImplementing<IBootstrapperContainerExtension>();
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(List<IBootstrapperContainerExtension>));
+            Assert.IsTrue(result.Count > 0);
+            Assert.IsTrue(result.Any(c => c is TestContainerExtension));
+        }
     }
 }
