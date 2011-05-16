@@ -112,11 +112,12 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
 
             //Act
             containerExtension.Run();
-            var result = containerExtension.Resolve<IStartupTask>();
+            var result = containerExtension.ResolveAll<IStartupTask>();
 
             //Assert
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(IStartupTask));
+            Assert.IsInstanceOfType(result, typeof(IList<IStartupTask>));
+            Assert.IsTrue(result.Count> 0);
         }
 
         [TestMethod]

@@ -87,5 +87,102 @@ namespace Bootstrap.Tests.Core.StartupTasks
             //Assert
             Assert.IsFalse (TestStartupTask.Invoked);
         }
+
+        [TestMethod]
+        public void ShouldReturnAnEmptyExecutionLog()
+        {
+            var taskExtension = new StartupTasksExtension();
+
+            //Act
+            var result = taskExtension.ExecutionLog;
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(List<string>));
+            Assert.AreEqual(0, result.Count);
+        }
+
+        [TestMethod]
+        public void ShouldLogTheExecutionOrderOfTasks()
+        {
+            var tasksExtension = new StartupTasksExtension();
+
+            //Act
+            tasksExtension.Run();
+            var result = tasksExtension.ExecutionLog;
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(List<string>));
+            Assert.IsTrue(result.Count > 0);
+            Assert.IsTrue(result.Contains("+TaskOmega"));
+            Assert.IsTrue(result.Contains("+TaskAlpha"));
+            Assert.IsTrue(result.Contains("+TaskBeta"));
+            Assert.IsTrue(result.Contains("+TestStartupTask"));
+        }
+
+        [TestMethod]
+        public void ShouldLogTheResetOrderOfTasks()
+        {
+            var tasksExtension = new StartupTasksExtension();
+
+            //Act
+            tasksExtension.Reset();
+            var result = tasksExtension.ExecutionLog;
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(List<string>));
+            Assert.IsTrue(result.Count > 0);
+            Assert.IsTrue(result.Contains("-TaskOmega"));
+            Assert.IsTrue(result.Contains("-TaskAlpha"));
+            Assert.IsTrue(result.Contains("-TaskBeta"));
+            Assert.IsTrue(result.Contains("-TestStartupTask"));
+        }
+
+        [TestMethod]
+        public void ShouldExecuteTasksInSequence()
+        {
+            var tasksExtension = new StartupTasksExtension();
+
+            //Act
+            tasksExtension.Run();
+            var result = tasksExtension.ExecutionLog;
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(List<string>));
+            Assert.IsTrue(result.Count > 0);
+            Assert.AreEqual("+TaskOmega", result[0]);
+            Assert.AreEqual("+TaskAlpha", result[1]);
+            Assert.IsTrue(result.Contains("+TaskBeta"));
+            Assert.IsTrue(result.Contains("+TestStartupTask"));
+        }
+
+        [TestMethod]
+        public void ShouldResetTasksInReverseSequence()
+        {
+            var tasksExtension = new StartupTasksExtension();
+
+            //Act
+            tasksExtension.Reset();
+            var result = tasksExtension.ExecutionLog;
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(List<string>));
+            Assert.IsTrue(result.Count > 0);
+            Assert.IsTrue(result.Contains("-TestStartupTask"));
+            Assert.IsTrue(result.Contains("-TaskBeta"));
+            Assert.AreEqual("-TaskAlpha", result[result.Count-2]);
+            Assert.AreEqual("-TaskOmega", result[result.Count-1]);
+        }
+
     }
+
+    [Task(PositionInSequence = 2)] public class TaskAlpha : TestStartupTask { }
+    [Task(PositionInSequence = 1)] public class TaskOmega : TestStartupTask { }
+    public class TaskBeta : TestStartupTask { }
+
+
 }
