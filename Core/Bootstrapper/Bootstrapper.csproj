@@ -71,10 +71,14 @@
     <Compile Include="Extensions\Containers\IBootstrapperContainerExtension.cs" />
     <Compile Include="Extensions\IBootstrapperExtensionOptions.cs" />
     <Compile Include="IExcludedAssemblies.cs" />
+    <Compile Include="StartupTasks\ISequenceSpecial.cs" />
+    <Compile Include="StartupTasks\ISequenceSpecification.cs" />
     <Compile Include="StartupTasks\IStartupTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Extensions\Containers\RegistrationHelper.cs" />
     <Compile Include="StartupTasks\BootstrapperStartupTasksHelper.cs" />
+    <Compile Include="StartupTasks\SequenceSpecial.cs" />
+    <Compile Include="StartupTasks\SequenceSpecification.cs" />
     <Compile Include="StartupTasks\StartupTasksExtension.cs" />
     <Compile Include="StartupTasks\StartupTasksRegistration.cs" />
     <Compile Include="StartupTasks\TaskAttribute.cs" />

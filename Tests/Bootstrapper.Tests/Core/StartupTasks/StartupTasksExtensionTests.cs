@@ -179,10 +179,4 @@ namespace Bootstrap.Tests.Core.StartupTasks
         }
 
     }
-
-    [Task(PositionInSequence = 2)] public class TaskAlpha : TestStartupTask { }
-    [Task(PositionInSequence = 1)] public class TaskOmega : TestStartupTask { }
-    public class TaskBeta : TestStartupTask { }
-
-
 }
