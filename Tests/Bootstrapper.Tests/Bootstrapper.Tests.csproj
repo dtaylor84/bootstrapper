@@ -97,6 +97,7 @@
     <Compile Include="Core\ExcludedAssembliesTests.cs" />
     <Compile Include="Core\Extensions\BootstrapperExtensionOptionsTests.cs" />
     <Compile Include="Core\Extensions\Containers\BootstrapperContainerExtensionOptionsTests.cs" />
+    <Compile Include="Core\Extensions\Containers\NoContainerExceptionTests.cs" />
     <Compile Include="Core\Extensions\Containers\RegistrationInvokerTests.cs" />
     <Compile Include="Extensions\AutoMapper\BootstrapperAutoMapperHelperTests.cs" />
     <Compile Include="Core\Extensions\Containers\BootstrapperContainerExtensionTests.cs" />

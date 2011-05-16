@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Bootstrap.Extensions.Containers;
 using StructureMap;
@@ -32,19 +33,22 @@ namespace Bootstrap.StructureMap
 
         protected override void RegisterImplementationsOfIRegistration()
         {
-            if(Options.AutoRegistration) AutoRegister();
+            CheckContainer();
+            if (Options.AutoRegistration) AutoRegister();
             RegisterAll<IBootstrapperRegistration>();
             RegisterAll<IStructureMapRegistration>();
         }
 
         protected override void InvokeRegisterForImplementationsOfIRegistration()
         {
+            CheckContainer();
             container.GetAllInstances<IBootstrapperRegistration>().ToList().ForEach(r => r.Register(this));
             container.GetAllInstances<IStructureMapRegistration>().ToList().ForEach(r => r.Register(container));
         }
 
         public override void SetServiceLocator()
         {
+            CheckContainer();
             ServiceLocator.SetLocatorProvider(() => new StructureMapServiceLocator(container));
         }
 
@@ -61,26 +65,31 @@ namespace Bootstrap.StructureMap
 
         public override T Resolve<T>()
         {
+            CheckContainer();
             return container.GetInstance<T>();
         }
 
         public override IList<T> ResolveAll<T>()
         {
+            CheckContainer();
             return container.GetAllInstances<T>();
         }
 
         public override void Register<TTarget, TImplementation>()
         {
+            CheckContainer();
             container.Configure(c => c.For<TTarget>().Use<TImplementation>());
         }
 
         public override void Register<TTarget>(TTarget implementation)
         {
+            CheckContainer();
             container.Configure(c => c.For<TTarget>().Use(implementation));
         }
 
         public override void RegisterAll<TTarget>()
         {
+            CheckContainer();
             container.Configure(c =>
                                 c.Scan(s =>
                                            {
@@ -88,6 +97,11 @@ namespace Bootstrap.StructureMap
                                                foreach (var assembly in RegistrationHelper.GetAssemblies())
                                                    s.Assembly(assembly);
                                            }));
+        }
+
+        private void CheckContainer()
+        {
+            if (Container == null) throw new NoContainerException();
         }
     }
 }
