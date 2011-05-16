@@ -6,6 +6,11 @@ namespace Bootstrap.AutoMapper
 {
     public class AutoMapperExtension : IBootstrapperExtension
     {
+        public AutoMapperExtension()
+        {
+            Bootstrapper.Excluding.Assembly("AutoMapper");            
+        }
+
         public void Run()
         {
             var containerExtension = Bootstrapper.ContainerExtension;

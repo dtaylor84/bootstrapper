@@ -31,6 +31,7 @@ namespace Bootstrap.Unity
 
         protected override void RegisterImplementationsOfIRegistration()
         {
+            if (Options.AutoRegistration) AutoRegister();
             RegisterAll<IBootstrapperRegistration>();
             RegisterAll<IUnityRegistration>();
         }

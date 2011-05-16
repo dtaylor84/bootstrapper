@@ -331,7 +331,5 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
             Assert.IsNotNull(containerExtension.Resolve<StructureMapExtension>());
             Assert.IsNotNull(containerExtension.Resolve<IRegisteredByConvention>());
         }
-
-
     }
 }

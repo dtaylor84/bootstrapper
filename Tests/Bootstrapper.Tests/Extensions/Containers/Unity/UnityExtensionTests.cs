@@ -2,6 +2,7 @@
 using System.Linq;
 using Bootstrap.Extensions.Containers;
 using Bootstrap.StartupTasks;
+using Bootstrap.Tests.Extensions.TestImplementations;
 using Bootstrap.Unity;
 using FakeItEasy;
 using Microsoft.Practices.ServiceLocation;
@@ -334,6 +335,21 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IBootstrapperContainerExtensionOptions));
             Assert.IsInstanceOfType(result, typeof(BootstrapperContainerExtensionOptions));
+        }
+
+        [TestMethod]
+        public void ShouldRegisterWithConventionAndWithRegistration()
+        {
+            //Arrange
+            var containerExtension = new UnityExtension();
+            containerExtension.Options.UsingAutoRegistration();
+
+            //Act
+            containerExtension.Run();
+
+            //Assert
+            Assert.IsNotNull(containerExtension.Resolve<UnityExtension>());
+            Assert.IsNotNull(containerExtension.Resolve<IRegisteredByConvention>());
         }
     }
 }

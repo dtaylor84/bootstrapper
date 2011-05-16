@@ -123,5 +123,20 @@ namespace Bootstrap.Tests.Core.Extensions
             A.CallTo(() => extension.Run()).MustHaveHappened();
         }
 
+        [TestMethod]
+        public void ShouldReturnBootstrapperExcludedAssemblies()
+        {
+            //Arrange
+            var extensions = new BootstrapperExtensions();
+
+            //Act
+            var result = extensions.Excluding;
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(IExcludedAssemblies));
+            Assert.AreSame(Bootstrapper.Excluding, result);            
+        }
+
     }
 }

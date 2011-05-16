@@ -21,6 +21,11 @@ namespace Bootstrap.Extensions.Containers
 
         public object Container { get; protected set; }
 
+        protected BootstrapperContainerExtension()
+        {
+            Bootstrapper.Excluding.Assembly("Microsoft.Practices");
+        }
+
         public void  Run()
         {
             InitializeContainer();

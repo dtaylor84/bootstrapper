@@ -36,6 +36,7 @@ namespace Bootstrap.Windsor
 
         protected override void RegisterImplementationsOfIRegistration()
         {
+            if(Options.AutoRegistration) AutoRegister();
             RegisterAll<IBootstrapperRegistration>();
             RegisterAll<IWindsorRegistration>();
         }
@@ -74,13 +75,16 @@ namespace Bootstrap.Windsor
 
         public override void Register<TTarget, TImplementation>()
         {
-            container.Register(Component.For<TTarget>().ImplementedBy<TImplementation>());
-
+            if(!container.Kernel.HasComponent(typeof(TTarget).Name) ||
+                container.Resolve<TTarget>().GetType() != typeof(TImplementation))
+                container.Register(Component.For<TTarget>().ImplementedBy<TImplementation>());
         }
 
         public override void Register<TTarget>(TTarget implementation)
         {
-            container.Register(Component.For<TTarget>().Instance(implementation));
+            if (!container.Kernel.HasComponent(typeof(TTarget).Name) ||
+                container.Resolve<TTarget>().GetType() != implementation.GetType())
+                container.Register(Component.For<TTarget>().Instance(implementation));
         }
 
         protected override void ResetContainer()

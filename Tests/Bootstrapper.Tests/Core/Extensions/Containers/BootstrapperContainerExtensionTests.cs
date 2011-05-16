@@ -21,6 +21,17 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
         }
 
         [TestMethod]
+        public void ShouldAddMicrosoftPracticesToExcludedAssemblies()
+        {
+            //Act
+            var result = new TestContainerExtension();
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsTrue(Bootstrapper.Excluding.Assemblies.Contains("Microsoft.Practices"));
+        }
+
+        [TestMethod]
         public void ShouldSetTheBootstrapperContainer()
         {
             //Arrange

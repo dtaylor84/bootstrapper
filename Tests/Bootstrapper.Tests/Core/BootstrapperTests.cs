@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Bootstrap.AutoMapper;
 using Bootstrap.Extensions;
 using Bootstrap.Extensions.Containers;
 using Bootstrap.Locator;
 using Bootstrap.StartupTasks;
 using Bootstrap.StructureMap;
+using Bootstrap.Unity;
 using Bootstrap.Tests.Extensions.TestImplementations;
+using Bootstrap.Windsor;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -211,12 +212,13 @@ namespace Bootstrap.Tests.Core
                 .Excluding
                     .Assembly("StructureMap")
                     .AndAssembly("Microsoft.Practices")
-                .With
-                    .StructureMap()
-                        .UsingAutoRegistration()
-                    .And.AutoMapper()
-                    .And.ServiceLocator()
-                    .And.StartupTasks()
+                .With.StructureMap().UsingAutoRegistration()
+                .And.Unity().UsingAutoRegistration()
+                .And.Windsor().UsingAutoRegistration()
+                .And.AutoMapper()
+                .And.ServiceLocator()
+                .And.StartupTasks()
+                .Excluding.Assembly("Castle")
                 .Start();
         }
 

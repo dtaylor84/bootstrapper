@@ -2,6 +2,7 @@
 using System.Linq;
 using Bootstrap.Extensions.Containers;
 using Bootstrap.StartupTasks;
+using Bootstrap.Tests.Extensions.TestImplementations;
 using Bootstrap.Windsor;
 using CommonServiceLocator.WindsorAdapter;
 using FakeItEasy;
@@ -315,5 +316,22 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
             Assert.IsInstanceOfType(result, typeof(IBootstrapperContainerExtensionOptions));
             Assert.IsInstanceOfType(result, typeof(BootstrapperContainerExtensionOptions));
         }
+
+        [TestMethod]
+        public void ShouldRegisterWithConventionAndWithRegistration()
+        {
+            //Arrange
+            var containerExtension = new WindsorExtension();
+            containerExtension.Options.UsingAutoRegistration();
+            Bootstrapper.Excluding.Assembly("AutoMapper"); //excluded because Windsor will complain if the component is registered twice.
+
+            //Act
+            containerExtension.Run();
+
+            //Assert
+            Assert.IsNotNull(containerExtension.Resolve<WindsorExtension>());
+            Assert.IsNotNull(containerExtension.Resolve<IRegisteredByConvention>());
+        }
+
     }
 }
