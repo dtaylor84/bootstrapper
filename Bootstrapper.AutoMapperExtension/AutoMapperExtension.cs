@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using AutoMapper;
 using Bootstrap.Extensions;
+using Bootstrap.Extensions.Containers;
 
 namespace Bootstrap.AutoMapper
 {
@@ -13,9 +15,17 @@ namespace Bootstrap.AutoMapper
 
         public void Run()
         {
-            var containerExtension = Bootstrapper.ContainerExtension;
-            var mapper = containerExtension.Resolve<IProfileExpression>();
-            containerExtension.ResolveAll<IMapCreator>().ToList().ForEach(m => m.CreateMap(mapper));
+            if (Bootstrapper.ContainerExtension != null && Bootstrapper.Container != null)
+            {
+                var containerExtension = Bootstrapper.ContainerExtension;
+                var mapper = containerExtension.Resolve<IProfileExpression>();
+                containerExtension.ResolveAll<IMapCreator>().ToList().ForEach(m => m.CreateMap(mapper));
+            }
+            else
+            {
+                RegistrationHelper.GetInstancesOfTypesImplementing<IMapCreator>()
+                    .ForEach(m => m.CreateMap(Mapper.Configuration));
+            }
         }
 
         public void Reset()

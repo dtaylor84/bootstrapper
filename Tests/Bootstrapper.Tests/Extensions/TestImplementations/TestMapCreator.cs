@@ -5,11 +5,11 @@ using Bootstrap.Extensions.Containers;
 
 namespace Bootstrap.Tests.Extensions.TestImplementations
 {
-    public class BootStrapperExtensionMapCreator: IMapCreator
+    public class TestMapCreator: IMapCreator
     {
         public void CreateMap(IProfileExpression mapper)
         {
-            mapper.CreateMap<IBootstrapperExtension, BootstrapperContainerExtension>();
+            mapper.CreateMap<BootstrapperContainerExtension, IBootstrapperExtension>();
         }
     }
 }

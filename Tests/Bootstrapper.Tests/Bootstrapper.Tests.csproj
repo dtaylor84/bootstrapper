@@ -112,7 +112,7 @@
     <Compile Include="Extensions\Locator\BootstrapperServiceLocatorHelperTests.cs" />
     <Compile Include="Extensions\Locator\ServiceLocatorExtensionTests.cs" />
     <Compile Include="Extensions\TestImplementations\AbstractTestStartupTask.cs" />
-    <Compile Include="Extensions\TestImplementations\BootStrapperExtensionMapCreator.cs" />
+    <Compile Include="Extensions\TestImplementations\TestMapCreator.cs" />
     <Compile Include="Extensions\TestImplementations\InternalTestStartupTask.cs" />
     <Compile Include="Extensions\Containers\StructureMap\BootstrapperStructureMapHelperTests.cs" />
     <Compile Include="Extensions\Containers\StructureMap\StructureMapExtensionTests.cs" />
