@@ -98,10 +98,5 @@ namespace Bootstrap.StructureMap
                                                    s.Assembly(assembly);
                                            }));
         }
-
-        private void CheckContainer()
-        {
-            if (Container == null) throw new NoContainerException();
-        }
     }
 }

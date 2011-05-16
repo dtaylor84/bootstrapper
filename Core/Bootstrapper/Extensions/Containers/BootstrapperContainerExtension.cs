@@ -63,5 +63,10 @@ namespace Bootstrap.Extensions.Containers
             var invoker = Activator.CreateInstance(invokerClass,this);
             invoker.GetType().InvokeMember("Register", BindingFlags.Default | BindingFlags.InvokeMethod, null, invoker, null);
         }
+
+        protected void CheckContainer()
+        {
+            if (Container == null) throw new NoContainerException();
+        }
     }
 }

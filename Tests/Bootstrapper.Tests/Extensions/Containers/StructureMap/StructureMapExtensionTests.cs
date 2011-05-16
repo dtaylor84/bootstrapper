@@ -409,7 +409,5 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
             //Assert
             Assert.AreEqual(NoContainerException.DefaultMessage, result.Message);
         }
-
-
     }
 }
