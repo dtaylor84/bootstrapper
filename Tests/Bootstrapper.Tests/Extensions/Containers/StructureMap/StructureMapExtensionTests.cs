@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Bootstrap.Extensions.Containers;
+using Bootstrap.StartupTasks;
 using Bootstrap.StructureMap;
+using Bootstrap.Tests.Extensions.TestImplementations;
 using FakeItEasy;
 using StructureMap;
 using StructureMap.ServiceLocatorAdapter;
@@ -28,6 +30,17 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
             //Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(StructureMapExtension));
+        }
+
+        [TestMethod]
+        public void ShouldAddStructureMapToExcludedAssemblies()
+        {
+            //Act
+            var result = new StructureMapExtension();
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsTrue(Bootstrapper.Excluding.Assemblies.Contains("StructureMap"));
         }
 
         [TestMethod]
@@ -287,6 +300,36 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
             Assert.IsInstanceOfType(result, typeof(IEnumerable<IBootstrapperContainerExtension>));
             Assert.IsTrue(result.Count() > 0);
             Assert.IsTrue(result.Any(c => c is StructureMapExtension));
+        }
+
+        [TestMethod]
+        public void ShouldReturnABootstrapperContainerExtensionOptions()
+        {
+            //Arrange
+            var containerExtension = new StructureMapExtension();
+
+            //Act
+            var result = containerExtension.Options;
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(IBootstrapperContainerExtensionOptions));
+            Assert.IsInstanceOfType(result, typeof(BootstrapperContainerExtensionOptions));
+        }
+
+        [TestMethod]
+        public void ShouldRegisterWithConventionAndWithRegistration()
+        {
+            //Arrange
+            var containerExtension = new StructureMapExtension();
+            containerExtension.Options.UsingAutoRegistration();
+
+            //Act
+            containerExtension.Run();
+
+            //Assert
+            Assert.IsNotNull(containerExtension.Resolve<StructureMapExtension>());
+            Assert.IsNotNull(containerExtension.Resolve<IRegisteredByConvention>());
         }
     }
 }

@@ -5,7 +5,9 @@ using Bootstrap.Extensions.Containers;
 using Bootstrap.Locator;
 using Bootstrap.StartupTasks;
 using Bootstrap.StructureMap;
+using Bootstrap.Unity;
 using Bootstrap.Tests.Extensions.TestImplementations;
+using Bootstrap.Windsor;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -206,9 +208,42 @@ namespace Bootstrap.Tests.Core
         public void ShouldCompile()
         {
             //Act
-            Bootstrapper.With.StructureMap().And.AutoMapper().And.ServiceLocator().And.StartupTasks().Start();
+            Bootstrapper
+                .Excluding
+                    .Assembly("StructureMap")
+                    .AndAssembly("Microsoft.Practices")
+                .With.StructureMap().UsingAutoRegistration()
+                .And.Unity().UsingAutoRegistration()
+                .And.Windsor().UsingAutoRegistration()
+                .And.AutoMapper()
+                .And.ServiceLocator()
+                .And.StartupTasks()
+                .Excluding.Assembly("Castle")
+                .Start();
         }
 
+        [TestMethod]
+        public void ShouldReturnExcludedAssemblies()
+        {
+            //Act
+            var result = Bootstrapper.Excluding.Assemblies;
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(List<string>));
+        }
+
+        [TestMethod]
+        public void ShouldResetExcludedAssemblies()
+        {
+            //Act
+            Bootstrapper.Excluding.Assembly("Test");
+            Bootstrapper.Reset();
+            var result = Bootstrapper.Excluding.Assemblies;
+
+            //Assert
+            Assert.IsFalse(result.Contains("Test"));
+        }
 
     }
 }

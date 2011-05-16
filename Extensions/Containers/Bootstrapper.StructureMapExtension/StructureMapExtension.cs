@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Bootstrap.Extensions.Containers;
 using StructureMap;
@@ -11,6 +10,13 @@ namespace Bootstrap.StructureMap
     public class StructureMapExtension : BootstrapperContainerExtension
     {
         private IContainer container;
+        public IBootstrapperContainerExtensionOptions Options { get; private set; }
+
+        public StructureMapExtension()
+        {
+            Options = new BootstrapperContainerExtensionOptions();
+            Bootstrapper.Excluding.Assembly("StructureMap");
+        }
 
         public void InitializeContainer(IContainer aContainer)
         {
@@ -26,6 +32,7 @@ namespace Bootstrap.StructureMap
 
         protected override void RegisterImplementationsOfIRegistration()
         {
+            if(Options.AutoRegistration) AutoRegister();
             RegisterAll<IBootstrapperRegistration>();
             RegisterAll<IStructureMapRegistration>();
         }
@@ -78,7 +85,7 @@ namespace Bootstrap.StructureMap
                                 c.Scan(s =>
                                            {
                                                s.AddAllTypesOf<TTarget>();
-                                               foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies().Where(assembly => !assembly.IsDynamic))
+                                               foreach (var assembly in RegistrationHelper.GetAssemblies())
                                                    s.Assembly(assembly);
                                            }));
         }

@@ -8,6 +8,7 @@ namespace Bootstrap.Extensions
         private readonly List<IBootstrapperExtension> extensions = new List<IBootstrapperExtension>();
 
         public BootstrapperExtensions And { get { return this; } }
+        public IExcludedAssemblies Excluding { get { return Bootstrapper.Excluding; } }
 
         public void ClearExtensions()
         {
@@ -31,5 +32,6 @@ namespace Bootstrap.Extensions
         {
             Bootstrapper.Start();
         }
+
     }
 }

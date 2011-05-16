@@ -24,5 +24,16 @@ namespace Bootstrap.Extensions.Containers
                                                     !t.IsAbstract &&
                                                     typeof (T).IsAssignableFrom(t));
         }
+
+        public static IEnumerable<Assembly> GetAssemblies()
+        {
+            return AppDomain.CurrentDomain.GetAssemblies().Where(a => !a.IsDynamic &&
+                                                                      IsNotExcluded(a));
+        }
+
+        private static bool IsNotExcluded(Assembly assembly)
+        {
+            return !Bootstrapper.Excluding.Assemblies.Any(e => assembly.FullName.StartsWith(e));
+        }
     }
 }

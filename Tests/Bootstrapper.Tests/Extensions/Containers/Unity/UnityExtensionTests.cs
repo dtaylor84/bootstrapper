@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Bootstrap.Extensions.Containers;
+using Bootstrap.StartupTasks;
+using Bootstrap.Tests.Extensions.TestImplementations;
 using Bootstrap.Unity;
 using FakeItEasy;
 using Microsoft.Practices.ServiceLocation;
@@ -27,6 +29,17 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
             //Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(UnityExtension));
+        }
+
+        [TestMethod]
+        public void ShouldAddMicrosoftPracticesToExcludedAssemblies()
+        {
+            //Act
+            var result = new UnityExtension();
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsTrue(Bootstrapper.Excluding.Assemblies.Contains("Microsoft.Practices"));
         }
 
         [TestMethod]
@@ -307,6 +320,36 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
             Assert.IsInstanceOfType(result, typeof(IEnumerable<IBootstrapperContainerExtension>));
             Assert.IsTrue(result.Count() > 0);
             Assert.IsTrue(result.Any(c => c is UnityExtension));
+        }
+
+        [TestMethod]
+        public void ShouldReturnABootstrapperContainerExtensionOptions()
+        {
+            //Arrange
+            var containerExtension = new UnityExtension();
+
+            //Act
+            var result = containerExtension.Options;
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(IBootstrapperContainerExtensionOptions));
+            Assert.IsInstanceOfType(result, typeof(BootstrapperContainerExtensionOptions));
+        }
+
+        [TestMethod]
+        public void ShouldRegisterWithConventionAndWithRegistration()
+        {
+            //Arrange
+            var containerExtension = new UnityExtension();
+            containerExtension.Options.UsingAutoRegistration();
+
+            //Act
+            containerExtension.Run();
+
+            //Assert
+            Assert.IsNotNull(containerExtension.Resolve<UnityExtension>());
+            Assert.IsNotNull(containerExtension.Resolve<IRegisteredByConvention>());
         }
     }
 }

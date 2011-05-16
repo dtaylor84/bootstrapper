@@ -1,12 +1,15 @@
 ﻿using Bootstrap.Extensions;
+using Bootstrap.Extensions.Containers;
 
 namespace Bootstrap.Unity
 {
     public static class BootstrapperUnityHelper
     {
-        public static BootstrapperExtensions Unity(this BootstrapperExtensions extensions)
+        public static IBootstrapperContainerExtensionOptions Unity(this BootstrapperExtensions extensions)
         {
-            return extensions.Extension(new UnityExtension());
+            var extension = new UnityExtension();
+            extensions.Extension(extension);
+            return extension.Options;
         }
     }
 }

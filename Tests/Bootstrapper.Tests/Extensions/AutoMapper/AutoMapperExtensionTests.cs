@@ -24,6 +24,17 @@ namespace Bootstrap.Tests.Extensions.AutoMapper
         }
 
         [TestMethod]
+        public void ShouldAddAutoMapperToExcludedAssemblies()
+        {
+            //Act
+            var result = new AutoMapperExtension();
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsTrue(Bootstrapper.Excluding.Assemblies.Contains("AutoMapper"));
+        }
+
+        [TestMethod]
         public void ShouldInvokeCreateMapForAllRegisteredMapCreators()
         {
             //Arrange

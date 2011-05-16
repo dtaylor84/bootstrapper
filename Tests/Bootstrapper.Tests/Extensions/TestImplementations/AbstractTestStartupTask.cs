@@ -1,4 +1,6 @@
-﻿namespace Bootstrap.Tests.Extensions.TestImplementations
+﻿using Bootstrap.StartupTasks;
+
+namespace Bootstrap.Tests.Extensions.TestImplementations
 {
     public abstract class AbstractTestStartupTask: IStartupTask
     {

@@ -1,12 +1,15 @@
 ﻿using Bootstrap.Extensions;
+using Bootstrap.Extensions.Containers;
 
 namespace Bootstrap.Windsor
 {
     public static class BootstrapperWindsorHelper
     {
-        public static BootstrapperExtensions Windsor(this BootstrapperExtensions extensions)
+        public static IBootstrapperContainerExtensionOptions Windsor(this BootstrapperExtensions extensions)
         {
-            return extensions.Extension(new WindsorExtension());
+            var extension = new WindsorExtension();
+            extensions.Extension(extension);
+            return extension.Options;
         }
     }
 }

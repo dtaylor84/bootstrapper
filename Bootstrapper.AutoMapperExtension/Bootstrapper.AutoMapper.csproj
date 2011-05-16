@@ -46,6 +46,7 @@
     <Compile Include="AutoMapperExtension.cs" />
     <Compile Include="AutoMapperRegistration.cs" />
     <Compile Include="BootstrapperAutoMapperHelper.cs" />
+    <Compile Include="IMapCreator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

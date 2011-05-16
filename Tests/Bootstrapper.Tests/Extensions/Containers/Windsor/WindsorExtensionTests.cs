@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Bootstrap.Extensions.Containers;
+using Bootstrap.StartupTasks;
+using Bootstrap.Tests.Extensions.TestImplementations;
 using Bootstrap.Windsor;
 using CommonServiceLocator.WindsorAdapter;
 using FakeItEasy;
@@ -28,6 +30,17 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
             //Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(WindsorExtension));
+        }
+
+        [TestMethod]
+        public void ShouldAddCastleToExcludedAssemblies()
+        {
+            //Act
+            var result = new WindsorExtension();
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsTrue(Bootstrapper.Excluding.Assemblies.Contains("Castle"));
         }
         
         [TestMethod]
@@ -288,5 +301,37 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
             Assert.IsTrue(result.Count() > 0);
             Assert.IsTrue(result.Any(c => c is WindsorExtension));
         }
+
+        [TestMethod]
+        public void ShouldReturnABootstrapperContainerExtensionOptions()
+        {
+            //Arrange
+            var containerExtension = new WindsorExtension();
+
+            //Act
+            var result = containerExtension.Options;
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(IBootstrapperContainerExtensionOptions));
+            Assert.IsInstanceOfType(result, typeof(BootstrapperContainerExtensionOptions));
+        }
+
+        [TestMethod]
+        public void ShouldRegisterWithConventionAndWithRegistration()
+        {
+            //Arrange
+            var containerExtension = new WindsorExtension();
+            containerExtension.Options.UsingAutoRegistration();
+            Bootstrapper.Excluding.Assembly("AutoMapper"); //excluded because Windsor will complain if the component is registered twice.
+
+            //Act
+            containerExtension.Run();
+
+            //Assert
+            Assert.IsNotNull(containerExtension.Resolve<WindsorExtension>());
+            Assert.IsNotNull(containerExtension.Resolve<IRegisteredByConvention>());
+        }
+
     }
 }

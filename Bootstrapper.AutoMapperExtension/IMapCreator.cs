@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace Bootstrap
+namespace Bootstrap.AutoMapper
 {
     public interface IMapCreator
     {
