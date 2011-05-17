@@ -79,6 +79,7 @@
     <Compile Include="StartupTasks\BootstrapperStartupTasksHelper.cs" />
     <Compile Include="StartupTasks\SequenceSpecial.cs" />
     <Compile Include="StartupTasks\SequenceSpecification.cs" />
+    <Compile Include="StartupTasks\StartupTasksOptions.cs" />
     <Compile Include="StartupTasks\StartupTasksExtension.cs" />
     <Compile Include="StartupTasks\StartupTasksRegistration.cs" />
     <Compile Include="StartupTasks\TaskAttribute.cs" />
