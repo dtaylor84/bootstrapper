@@ -4,9 +4,11 @@ namespace Bootstrap.StartupTasks
 {
     public static class BootstrapperStartupTasksHelper
     {
-        public static BootstrapperExtensions StartupTasks(this BootstrapperExtensions extensions)
+        public static StartupTasksOptions StartupTasks(this BootstrapperExtensions extensions)
         {
-            return extensions.Extension(new StartupTasksExtension());
+            var extension = new StartupTasksExtension();
+            extensions.Extension(extension);
+            return extension.Options;
         }
     }
 }
