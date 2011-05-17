@@ -25,10 +25,15 @@ namespace Bootstrap.Tests.Core.StartupTasks
             A.CallTo(() => containerExtension.ResolveAll<IStartupTask>()).Returns(new List<IStartupTask>());
 
             //Act
-            Bootstrapper.With.Extension(containerExtension).And.StartupTasks();
+            var result = Bootstrapper.With.Extension(containerExtension).And.StartupTasks();
 
             //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(StartupTasksOptions));
             Assert.IsInstanceOfType(Bootstrapper.GetExtensions()[1], typeof(StartupTasksExtension));
+            var extension = Bootstrapper.GetExtensions()[1] as StartupTasksExtension;
+            Assert.IsNotNull(extension);
+            Assert.AreSame(extension.Options, result);
         }
     }
 }

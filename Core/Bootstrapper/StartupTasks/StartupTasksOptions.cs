@@ -6,11 +6,12 @@ namespace Bootstrap.StartupTasks
 {
     public class StartupTasksOptions: BootstrapperExtensionOptions
     {
-        public List<Type> Sequence { get; private set; }
+        private readonly ISequenceSpecification taskSequence = new SequenceSpecification();
+        public List<Type> Sequence { get { return taskSequence.Sequence; } }
 
-        public StartupTasksOptions UsingSequence(ISequenceSpecification sequenceSpecification)
+        public StartupTasksOptions UsingThisExecutionOrder(Func<ISequenceSpecification, ISequenceSpecification> buildSequence)
         {
-            Sequence = sequenceSpecification.Sequence;
+            buildSequence(taskSequence);
             return this;
         }
 

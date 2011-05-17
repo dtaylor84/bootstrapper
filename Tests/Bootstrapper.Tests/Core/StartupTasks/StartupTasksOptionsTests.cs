@@ -29,7 +29,6 @@ namespace Bootstrap.Tests.Core.StartupTasks
             //Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(List<Type>));
-            options.UsingSequence(new SequenceSpecification().First<TaskAlpha>().Then<TaskBeta>());
         }
 
         [TestMethod]
@@ -37,13 +36,14 @@ namespace Bootstrap.Tests.Core.StartupTasks
         {
             //Act
             var options = new StartupTasksOptions();
+            options.UsingThisExecutionOrder(s => s.First<TaskAlpha>().Then<TaskBeta>());
             var result = options.Sequence;
 
             //Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(List<Type>));
+            Assert.AreEqual(typeof(TaskAlpha), result[0]);
+            Assert.AreEqual(typeof(TaskBeta), result[1]);
         }
-
-
     }
 }
