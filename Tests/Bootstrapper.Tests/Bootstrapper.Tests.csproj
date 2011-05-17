@@ -101,6 +101,7 @@
     <Compile Include="Core\Extensions\Containers\RegistrationInvokerTests.cs" />
     <Compile Include="Core\StartupTasks\SequenceSpecialTests.cs" />
     <Compile Include="Core\StartupTasks\SequenceSpecificationTests.cs" />
+    <Compile Include="Core\StartupTasks\StartupTasksOptionsTests.cs" />
     <Compile Include="Core\StartupTasks\TaskAlpha.cs" />
     <Compile Include="Core\StartupTasks\TaskAttributeTests.cs" />
     <Compile Include="Core\StartupTasks\TaskBeta.cs" />
