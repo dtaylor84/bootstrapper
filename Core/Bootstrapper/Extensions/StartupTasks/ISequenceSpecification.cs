@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Bootstrap.StartupTasks
+namespace Bootstrap.Extensions.StartupTasks
 {
     public interface ISequenceSpecification
     {

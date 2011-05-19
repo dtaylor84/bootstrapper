@@ -2,10 +2,10 @@
 using Bootstrap.AutoMapper;
 using Bootstrap.Extensions;
 using Bootstrap.Extensions.Containers;
+using Bootstrap.Extensions.StartupTasks;
 using Bootstrap.Locator;
-using Bootstrap.StartupTasks;
 using Bootstrap.StructureMap;
-using Bootstrap.Tests.Core.StartupTasks;
+using Bootstrap.Tests.Core.Extensions.StartupTasks;
 using Bootstrap.Unity;
 using Bootstrap.Tests.Extensions.TestImplementations;
 using Bootstrap.Windsor;

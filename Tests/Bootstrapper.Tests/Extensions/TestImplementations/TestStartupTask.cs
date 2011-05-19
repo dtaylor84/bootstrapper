@@ -1,4 +1,4 @@
-﻿using Bootstrap.StartupTasks;
+﻿using Bootstrap.Extensions.StartupTasks;
 
 namespace Bootstrap.Tests.Extensions.TestImplementations
 {
