@@ -1,6 +1,6 @@
 ﻿using Bootstrap.Extensions.Containers;
 
-namespace Bootstrap.Extensions.StartupTasks
+namespace Bootstrap.StartupTasks
 {
     public class StartupTasksRegistration: IBootstrapperRegistration
     {

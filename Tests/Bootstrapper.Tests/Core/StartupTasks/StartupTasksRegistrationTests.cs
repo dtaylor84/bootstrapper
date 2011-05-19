@@ -1,9 +1,9 @@
 ﻿using Bootstrap.Extensions.Containers;
-using Bootstrap.Extensions.StartupTasks;
+using Bootstrap.StartupTasks;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bootstrap.Tests.Core.Extensions.StartupTasks
+namespace Bootstrap.Tests.Core.StartupTasks
 {
     [TestClass]
     public class StartupTasksRegistrationTests

@@ -3,7 +3,7 @@ using AutoMapper;
 using Bootstrap.AutoMapper;
 using Bootstrap.Extensions;
 using Bootstrap.Extensions.Containers;
-using Bootstrap.Extensions.StartupTasks;
+using Bootstrap.StartupTasks;
 using Bootstrap.Tests.Extensions.TestImplementations;
 using Bootstrap.Tests.Other;
 using FakeItEasy;
