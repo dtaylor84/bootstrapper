@@ -1,6 +1,4 @@
-﻿using Bootstrap.Extensions;
-
-namespace Bootstrap.StartupTasks
+﻿namespace Bootstrap.Extensions.StartupTasks
 {
     public static class BootstrapperStartupTasksHelper
     {
