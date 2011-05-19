@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Bootstrap.Extensions.Containers;
-using Bootstrap.StartupTasks;
+using Bootstrap.Extensions.StartupTasks;
 using Bootstrap.StructureMap;
 using Bootstrap.Tests.Extensions.TestImplementations;
 using Bootstrap.Tests.Other;

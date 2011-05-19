@@ -2,10 +2,10 @@
 using Bootstrap.AutoMapper;
 using Bootstrap.Extensions;
 using Bootstrap.Extensions.Containers;
+using Bootstrap.Extensions.StartupTasks;
 using Bootstrap.Locator;
-using Bootstrap.StartupTasks;
 using Bootstrap.StructureMap;
-using Bootstrap.Tests.Core.StartupTasks;
+using Bootstrap.Tests.Core.Extensions.StartupTasks;
 using Bootstrap.Unity;
 using Bootstrap.Tests.Extensions.TestImplementations;
 using Bootstrap.Windsor;
@@ -221,7 +221,7 @@ namespace Bootstrap.Tests.Core
                 .And.StartupTasks()
                     .UsingThisExecutionOrder(s => s
                         .First<TaskAlpha>()
-                        .Then<TaskBeta>()
+                        .Then<TaskBeta>().DelayStartBy(5).MilliSeconds
                         .Then().TheRest()
                         .Then<TaskOmega>())
                 .Excluding.Assembly("Castle")
