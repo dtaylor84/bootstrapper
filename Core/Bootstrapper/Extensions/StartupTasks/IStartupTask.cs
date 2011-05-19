@@ -1,4 +1,4 @@
-﻿namespace Bootstrap.StartupTasks
+﻿namespace Bootstrap.Extensions.StartupTasks
 {
     public interface IStartupTask
     {

@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Linq;
 using Bootstrap.Extensions;
 using Bootstrap.Extensions.Containers;
-using Bootstrap.StartupTasks;
+using Bootstrap.Extensions.StartupTasks;
 using Bootstrap.Tests.Extensions.TestImplementations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

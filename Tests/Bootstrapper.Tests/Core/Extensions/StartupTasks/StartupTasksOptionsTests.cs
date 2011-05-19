@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using Bootstrap.StartupTasks;
+﻿using System.Collections.Generic;
+using Bootstrap.Extensions.StartupTasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bootstrap.Tests.Core.StartupTasks
+namespace Bootstrap.Tests.Core.Extensions.StartupTasks
 {
     [TestClass]
     public class StartupTasksOptionsTests
@@ -28,7 +27,7 @@ namespace Bootstrap.Tests.Core.StartupTasks
 
             //Assert
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(List<Type>));
+            Assert.IsInstanceOfType(result, typeof(List<TaskExecutionParameters>));
         }
 
         [TestMethod]
@@ -41,9 +40,9 @@ namespace Bootstrap.Tests.Core.StartupTasks
 
             //Assert
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(List<Type>));
-            Assert.AreEqual(typeof(TaskAlpha), result[0]);
-            Assert.AreEqual(typeof(TaskBeta), result[1]);
+            Assert.IsInstanceOfType(result, typeof(List<TaskExecutionParameters>));
+            Assert.AreEqual(typeof(TaskAlpha), result[0].TaskType);
+            Assert.AreEqual(typeof(TaskBeta), result[1].TaskType);
         }
     }
 }
