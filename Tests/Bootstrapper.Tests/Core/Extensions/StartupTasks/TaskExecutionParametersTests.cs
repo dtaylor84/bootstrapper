@@ -16,6 +16,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
             var result = new TaskExecutionParameters
                              {
                                  Task = task,
+                                 TaskType = task.GetType(),
                                  Position = 1,
                                  Delay = 100
                              };
@@ -24,6 +25,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(TaskExecutionParameters));
             Assert.AreSame(task, result.Task);
+            Assert.AreSame(typeof(TaskAlpha), result.TaskType);
             Assert.AreEqual(1, result.Position);
             Assert.AreEqual(100, result.Delay);
         }

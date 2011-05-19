@@ -221,7 +221,7 @@ namespace Bootstrap.Tests.Core
                 .And.StartupTasks()
                     .UsingThisExecutionOrder(s => s
                         .First<TaskAlpha>()
-                        .Then<TaskBeta>()
+                        .Then<TaskBeta>().DelayStartBy(5).MilliSeconds
                         .Then().TheRest()
                         .Then<TaskOmega>())
                 .Excluding.Assembly("Castle")

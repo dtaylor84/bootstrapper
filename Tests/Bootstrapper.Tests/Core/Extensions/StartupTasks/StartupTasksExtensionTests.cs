@@ -324,5 +324,76 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
             Assert.IsTrue(beta.StartedAt >= beta.Timestamp.AddMilliseconds(beta.DelayInMilliseconds));
         }
 
+        [TestMethod]
+        public void ShouldExecuteTasksUsingFluentDelay()
+        {
+            var tasksExtension = new StartupTasksExtension();
+            tasksExtension
+                .Options
+                    .UsingThisExecutionOrder(s => s
+                        .First<TestStartupTask>()
+                        .Then<TaskAlpha>().DelayStartBy(40)
+                        .Then<TaskBeta>().DelayStartBy(80)
+                        .Then<TaskOmega>().DelayStartBy(12)
+                        .Then().TheRest());
+
+            //Act
+            tasksExtension.Run();
+            var result = tasksExtension.ExecutionLog;
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(List<ExecutionLogEntry>));
+            Assert.IsTrue(result.Count > 0);
+            Assert.AreEqual(0,  result[0].DelayInMilliseconds);
+            Assert.AreEqual(40, result[1].DelayInMilliseconds);
+            Assert.AreEqual(80, result[2].DelayInMilliseconds);
+            Assert.AreEqual(12, result[3].DelayInMilliseconds);
+        }
+
+        [TestMethod]
+        public void ShouldRunUsingFluentDelayOrAttributeDealyIfMissingOrDefaultDelayIfBothAreMissing()
+        {
+            var tasksExtension = new StartupTasksExtension();
+            tasksExtension
+                .Options
+                    .UsingThisExecutionOrder(s => s
+                        .First().TheRest()
+                        .Then<TaskOmega>().DelayStartBy(50));
+
+            //Act
+            tasksExtension.Run();
+            var result = tasksExtension.ExecutionLog;
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(List<ExecutionLogEntry>));
+            Assert.IsTrue(result.Count > 0);
+            Assert.AreEqual(0, result.First(t => t.TaskName == "+TaskAlpha").DelayInMilliseconds);
+            Assert.AreEqual(10, result.First(t => t.TaskName == "+TaskBeta").DelayInMilliseconds);
+            Assert.AreEqual(50, result.First(t => t.TaskName == "+TaskOmega").DelayInMilliseconds);
+            Assert.AreEqual(0, result.First(t => t.TaskName == "+TestStartupTask").DelayInMilliseconds);
+        }
+
+        [TestMethod]
+        public void ShouldApplyFluentDelayOnlytoFirstofTheRestTask()
+        {
+            var tasksExtension = new StartupTasksExtension();
+            tasksExtension
+                .Options
+                    .UsingThisExecutionOrder(s => s
+                        .First<TaskBeta>()
+                        .Then<TaskOmega>()
+                        .Then().TheRest().DelayStartBy(20));
+
+            //Act
+            tasksExtension.Run();
+            var result = tasksExtension.ExecutionLog;
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(List<ExecutionLogEntry>));
+            Assert.AreEqual(1, result.Count(t => t.TaskName != "+TaskOmega" && t.TaskName != "+TaskBeta" && t.DelayInMilliseconds == 20));
+        }
     }
 }
