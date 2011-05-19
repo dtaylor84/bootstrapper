@@ -87,7 +87,23 @@ namespace Bootstrap.Extensions.StartupTasks
                                                        Position = GetSequencePosition(t, tasks),
                                                        Delay = GetDelay(t)
                                                    }));
-            return sortedTasks;
+            return AdjustDelayForTheRest(sortedTasks);
+        }
+
+        private IEnumerable<TaskExecutionParameters> AdjustDelayForTheRest(IEnumerable<TaskExecutionParameters> tasks)
+        {
+            var theRest = Options.Sequence.FirstOrDefault(t => t.TaskType == typeof(IStartupTask));
+            if (theRest == null) return tasks;
+
+            tasks = tasks.OrderBy(t => t.Position);
+
+            var match = tasks.FirstOrDefault(t => t.Delay == -1);
+            if (match == null) return tasks;
+
+            match.Delay = theRest.Delay;
+            tasks.Where(t => t.Delay == -1).ToList().ForEach(t => t.Delay = 0);
+
+            return tasks;
         }
 
         private int GetSequencePosition(IStartupTask task, ICollection tasks)
@@ -100,7 +116,7 @@ namespace Bootstrap.Extensions.StartupTasks
 
         private int? GetFluentlyDeclaredPosition(IStartupTask task, ICollection tasks)
         {
-            var sequence = Options.Sequence;
+            var sequence = Options.Sequence.Select(s => s.TaskType).ToList();
             if (!sequence.Contains(task.GetType())) return null;
             if (!sequence.Contains(typeof(IStartupTask))) return sequence.IndexOf(tasks.GetType()) + 1;
             if (sequence.IndexOf(typeof(IStartupTask)) > sequence.IndexOf(task.GetType())) return sequence.IndexOf(task.GetType()) + 1;
@@ -117,22 +133,40 @@ namespace Bootstrap.Extensions.StartupTasks
 
         private int? GetRestPosition(ICollection tasks)
         {
-            var sequence = Options.Sequence;
+            var sequence = Options.Sequence.Select(s => s.TaskType).ToList();
             if (!sequence.Contains(typeof(IStartupTask))) return null;
             return tasks.Count;
         }
 
-        private static int GetDelay(IStartupTask task)
+        private int GetDelay(IStartupTask task)
         {
-            return GetAttributeDelay(task) ?? 0;
+            return  GetFluentlyDeclaredDelay(task) ??
+                    GetAttributeDelay(task) ??
+                    GetRestDelay() ?? 
+                    0;
+        }
+
+        private int? GetFluentlyDeclaredDelay(IStartupTask task)
+        {
+            var match = Options.Sequence.FirstOrDefault(t => t.TaskType == task.GetType());
+            if (match == null) return null;
+            if (match.Delay == 0) return null;
+            return match.Delay;
         }
 
         private static int? GetAttributeDelay(IStartupTask task)
         {
-            var attribute = task.GetType().GetCustomAttributes(false).FirstOrDefault(a => a is TaskAttribute);
+            var attribute = task.GetType().GetCustomAttributes(false).FirstOrDefault(a => a is TaskAttribute) as TaskAttribute;
             if (attribute == null) return null;
-            return ((TaskAttribute)attribute).DelayStartBy;
+            if (attribute.DelayStartBy == 0) return null;
+            return attribute.DelayStartBy;
         }
 
+        public int? GetRestDelay()
+        {
+            var match = Options.Sequence.FirstOrDefault(t => t.TaskType == typeof(IStartupTask));
+            if (match == null) return null;
+            return -1;            
+        }
     }
 }
