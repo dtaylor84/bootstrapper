@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Bootstrap.StartupTasks;
+using Bootstrap.Extensions.StartupTasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bootstrap.Tests.Core.StartupTasks
+namespace Bootstrap.Tests.Core.Extensions.StartupTasks
 {
     [TestClass]
     public class StartupTasksOptionsTests

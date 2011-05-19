@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Bootstrap.Extensions;
 
-namespace Bootstrap.StartupTasks
+namespace Bootstrap.Extensions.StartupTasks
 {
     public class StartupTasksOptions: BootstrapperExtensionOptions
     {
