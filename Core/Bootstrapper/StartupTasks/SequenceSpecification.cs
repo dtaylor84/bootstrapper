@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Bootstrap.Extensions.StartupTasks
+namespace Bootstrap.StartupTasks
 {
     public class SequenceSpecification: ISequenceSpecification
     {
-        
         public List<Type> Sequence {get; private set; }
 
         public SequenceSpecification()
