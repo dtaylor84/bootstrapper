@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0C4C0CFC-3E77-4FE4-81CA-618BEE9AAB96}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bootstrap.Tests</RootNamespace>
+    <AssemblyName>Bootstrapper.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=1.1.0.188, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\AutoMapper.1.1.0.118\lib\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core">
+      <HintPath>..\..\packages\Castle.Core.2.5.1\lib\NET35\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Facilities.Synchronize">
+      <HintPath>..\..\packages\Castle.Windsor.2.5.1\lib\NET40\Castle.Facilities.Synchronize.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Castle.Windsor.2.5.1\lib\NET40\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="CommonServiceLocator.WindsorAdapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\CommonServiceLocator.WindsorAdapter.1.0\lib\NET35\CommonServiceLocator.WindsorAdapter.dll</HintPath>
+    </Reference>
+    <Reference Include="FakeItEasy">
+      <HintPath>..\..\packages\FakeItEasy.1.7.4117.2\lib\NET40\FakeItEasy.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Unity.2.0\lib\20\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="StructureMap">
+      <HintPath>..\..\packages\structuremap.2.6.2\lib\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMapAdapter, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\CommonServiceLocator\StructureMapAdapter.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
+      <Visible>False</Visible>
+    </CodeAnalysisDependentAssemblyPaths>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\ExcludedAssembliesTests.cs" />
+    <Compile Include="Core\Extensions\BootstrapperExtensionOptionsTests.cs" />
+    <Compile Include="Core\Extensions\Containers\BootstrapperContainerExtensionOptionsTests.cs" />
+    <Compile Include="Core\Extensions\Containers\NoContainerExceptionTests.cs" />
+    <Compile Include="Core\Extensions\Containers\RegistrationInvokerTests.cs" />
+    <Compile Include="Core\Extensions\StartupTasks\ExecutionLogEntryTests.cs" />
+    <Compile Include="Core\Extensions\StartupTasks\SequenceSpecialTests.cs" />
+    <Compile Include="Core\Extensions\StartupTasks\SequenceSpecificationTests.cs" />
+    <Compile Include="Core\Extensions\StartupTasks\TaskExecutionParametersTests.cs" />
+    <Compile Include="Core\Extensions\StartupTasks\StartupTasksOptionsTests.cs" />
+    <Compile Include="Core\Extensions\StartupTasks\TaskAlpha.cs" />
+    <Compile Include="Core\Extensions\StartupTasks\TaskAttributeTests.cs" />
+    <Compile Include="Core\Extensions\StartupTasks\TaskBeta.cs" />
+    <Compile Include="Core\Extensions\StartupTasks\TaskGamma.cs" />
+    <Compile Include="Core\Extensions\StartupTasks\TaskGroupTests.cs" />
+    <Compile Include="Core\Extensions\StartupTasks\TaskOmega.cs" />
+    <Compile Include="Extensions\AutoMapper\BootstrapperAutoMapperHelperTests.cs" />
+    <Compile Include="Core\Extensions\Containers\BootstrapperContainerExtensionTests.cs" />
+    <Compile Include="Core\Extensions\StartupTasks\BootstrapperStartupTasksHelperTests.cs" />
+    <Compile Include="Core\BootstrapperTests.cs" />
+    <Compile Include="Core\Extensions\BootstrapperExtensionsTests.cs" />
+    <Compile Include="Core\Extensions\Containers\RegistrationHelperTests.cs" />
+    <Compile Include="Core\Extensions\StartupTasks\StartupTasksExtensionTests.cs" />
+    <Compile Include="Core\Extensions\StartupTasks\StartupTasksRegistrationTests.cs" />
+    <Compile Include="Extensions\AutoMapper\AutoMapperExtensionTests.cs" />
+    <Compile Include="Extensions\AutoMapper\AutoMapperRegistrationTests.cs" />
+    <Compile Include="Extensions\Locator\BootstrapperServiceLocatorHelperTests.cs" />
+    <Compile Include="Extensions\Locator\ServiceLocatorExtensionTests.cs" />
+    <Compile Include="Extensions\TestImplementations\AbstractTestStartupTask.cs" />
+    <Compile Include="Extensions\TestImplementations\TestMapCreator.cs" />
+    <Compile Include="Extensions\TestImplementations\InternalTestStartupTask.cs" />
+    <Compile Include="Extensions\Containers\StructureMap\BootstrapperStructureMapHelperTests.cs" />
+    <Compile Include="Extensions\Containers\StructureMap\StructureMapExtensionTests.cs" />
+    <Compile Include="Extensions\Containers\StructureMap\TestStructureMapRegistration.cs" />
+    <Compile Include="Extensions\TestImplementations\IRegisteredByConvention.cs" />
+    <Compile Include="Extensions\TestImplementations\RegisteredByConvention.cs" />
+    <Compile Include="Extensions\TestImplementations\TestContainerExtension.cs" />
+    <Compile Include="Extensions\TestImplementations\TestStartupTask.cs" />
+    <Compile Include="Extensions\Containers\Unity\BootstrapperUnityHelperTests.cs" />
+    <Compile Include="Extensions\Containers\Unity\TestUnityRegistration.cs" />
+    <Compile Include="Extensions\Containers\Unity\UnityExtensionTests.cs" />
+    <Compile Include="Extensions\Containers\Windsor\BootstrapperWindsorHelperTests.cs" />
+    <Compile Include="Extensions\Containers\Windsor\TestWindsorRegistration.cs" />
+    <Compile Include="Extensions\Containers\Windsor\WindsorExtensionTests.cs" />
+    <Compile Include="Other\ExceptionAssert.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Bootstrapper.AutoMapperExtension\Bootstrapper.AutoMapper.csproj">
+      <Project>{53821BFC-38ED-4663-811F-F21C346E8E68}</Project>
+      <Name>Bootstrapper.AutoMapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bootstrapper.ServiceLocator\Bootstrapper.ServiceLocator.csproj">
+      <Project>{E6F0B913-1A8F-43EC-B2CB-E23EFBE7C1D9}</Project>
+      <Name>Bootstrapper.ServiceLocator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Bootstrapper\Bootstrapper.csproj">
+      <Project>{451C9B3F-D315-48EA-84EA-45C45E513B45}</Project>
+      <Name>Bootstrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Extensions\Containers\Bootstrapper.StructureMapExtension\Bootstrapper.StructureMap.csproj">
+      <Project>{B4E4CBAC-28F3-4649-BFEC-698C0FD8357A}</Project>
+      <Name>Bootstrapper.StructureMap</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Extensions\Containers\Bootstrapper.UnityExtension\Bootstrapper.Unity.csproj">
+      <Project>{1704683F-3495-4B2B-9BA4-9931D8FB064F}</Project>
+      <Name>Bootstrapper.Unity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Extensions\Containers\Bootstrapper.WindsorExtension\Bootstrapper.Windsor.csproj">
+      <Project>{AD16249F-B34D-4DED-8801-7BFC9AFD9B2A}</Project>
+      <Name>Bootstrapper.Windsor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bootstrapper.Tests.ExtensionForTest\Bootstrapper.Tests.ExtensionForTest.csproj">
+      <Project>{E0531F4E-3D33-42D4-AE64-13D015D2192F}</Project>
+      <Name>Bootstrapper.Tests.ExtensionForTest</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
