@@ -13,7 +13,8 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
             var result = new TaskAttribute
                              {
                                  PositionInSequence = 1,
-                                 DelayStartBy = 500
+                                 DelayStartBy = 500,
+                                 Group = 1
                              };
 
             //Assert
@@ -21,6 +22,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
             Assert.IsInstanceOfType(result, typeof(TaskAttribute));
             Assert.AreEqual(1, result.PositionInSequence);
             Assert.AreEqual(500, result.DelayStartBy);
+            Assert.AreEqual(1, result.Group);
         }
 
         [TestMethod]
@@ -34,6 +36,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
             Assert.IsInstanceOfType(result, typeof(TaskAttribute));
             Assert.AreEqual(int.MaxValue, result.PositionInSequence);
             Assert.AreEqual(0, result.DelayStartBy);
+            Assert.AreEqual(0, result.Group);
         }
 
     }

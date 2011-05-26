@@ -9,50 +9,59 @@ namespace Bootstrap.Extensions.StartupTasks
 {
     public class StartupTasksExtension:IBootstrapperExtension
     {
-        const int DefaultPosition = int.MaxValue;
-        public List<ExecutionLogEntry> ExecutionLog { get; private set; }
+        const int DefaultPosition = int.MaxValue;       
         public StartupTasksOptions Options { get; private set; }
+        private readonly List<TaskGroup> taskGroups;
+        public List<ExecutionLogEntry> ExecutionLog { 
+            get
+            {
+                var log = new List<ExecutionLogEntry>();
+                taskGroups.ForEach(g => log.AddRange(g.ExecutionLog));
+                return log;
+            }
+        }
 
         public StartupTasksExtension()
         {
             Options = new StartupTasksOptions();
-            ExecutionLog = new List<ExecutionLogEntry>();
+            taskGroups = new List<TaskGroup>();
         }
 
         public void Run()
         {
-            List<IStartupTask> tasks;
+            BuildTaskGroups(GetTasks());
 
-            if (Bootstrapper.ContainerExtension != null && Bootstrapper.Container != null)
-                tasks = Bootstrapper.ContainerExtension.ResolveAll<IStartupTask>().ToList();
+            if (taskGroups.Count == 1) RunGroup(taskGroups[0]);
             else
-                tasks = RegistrationHelper.GetInstancesOfTypesImplementing<IStartupTask>();
-            
-            AddSequencePosition(tasks)
-                .OrderBy(p => p.Position).ToList()
-                .ForEach(Run);
+            {
+                taskGroups.ForEach(g => g.Thread = new Thread(() => RunGroup(g)));
+                taskGroups.ForEach(g => g.Thread.Start());
+                taskGroups.ForEach(g => g.Thread.Join());
+            }
         }
 
         public void Reset()
         {
-            List<IStartupTask> tasks;
+            BuildTaskGroups(GetTasks());
+            taskGroups.Reverse();
 
-            if (Bootstrapper.ContainerExtension != null && Bootstrapper.Container != null)
-                tasks = Bootstrapper.ContainerExtension.ResolveAll<IStartupTask>().ToList();
-            else
-                tasks = RegistrationHelper.GetInstancesOfTypesImplementing<IStartupTask>();
-
-            AddSequencePosition(tasks)
-                .OrderByDescending(p => p.Position).ToList()
-                .ForEach(Reset);
+            taskGroups.ForEach(g => 
+                g.Tasks.OrderByDescending(t => t.Position).ToList()
+                    .ForEach(t => Reset(t,g)));
         }
 
-        private void Run(TaskExecutionParameters taskExecutionParameters)
+        public void RunGroup(TaskGroup group)
+        {
+            group.Tasks.ForEach(t => Run(t, group));
+        }
+
+        private static void Run(TaskExecutionParameters taskExecutionParameters, TaskGroup group)
         {
             var logEntry = new ExecutionLogEntry
                                {
                                    Timestamp = DateTime.Now,
                                    TaskName = "+" + taskExecutionParameters.Task.GetType().Name,
+                                   Group = taskExecutionParameters.Group,
                                    SequencePosition = taskExecutionParameters.Position,
                                    DelayInMilliseconds = taskExecutionParameters.Delay
                                };
@@ -60,32 +69,52 @@ namespace Bootstrap.Extensions.StartupTasks
             logEntry.StartedAt = DateTime.Now;
             taskExecutionParameters.Task.Run();
             logEntry.EndedAt = DateTime.Now;
-            ExecutionLog.Add(logEntry);
+            group.ExecutionLog.Add(logEntry);
         }
 
-        private void Reset(TaskExecutionParameters taskExecutionParameters)
+        private void Reset(TaskExecutionParameters taskExecutionParameters, TaskGroup group)
         {
             var logEntry = new ExecutionLogEntry
                                {
                                    Timestamp = DateTime.Now,
                                    TaskName = "-" + taskExecutionParameters.Task.GetType().Name,
+                                   Group = taskExecutionParameters.Group,
                                    SequencePosition = taskExecutionParameters.Position,
                                    DelayInMilliseconds = 0,
                                    StartedAt = DateTime.Now
                                };
             taskExecutionParameters.Task.Reset();
             logEntry.EndedAt = DateTime.Now;
-            ExecutionLog.Add(logEntry);
+            group.ExecutionLog.Add(logEntry);
         }
 
-        private IEnumerable<TaskExecutionParameters> AddSequencePosition(List<IStartupTask> tasks)
+        private static List<IStartupTask> GetTasks()
+        {
+            List<IStartupTask> tasks;
+            if (Bootstrapper.ContainerExtension != null && Bootstrapper.Container != null)
+                tasks = Bootstrapper.ContainerExtension.ResolveAll<IStartupTask>().ToList();
+            else
+                tasks = RegistrationHelper.GetInstancesOfTypesImplementing<IStartupTask>();
+            return tasks;
+        }
+
+        private void BuildTaskGroups(List<IStartupTask> tasks)
+        {
+            AddExecutionParameters(tasks)
+                .OrderBy(t => t.Position)
+                .GroupBy(t => t.Group)
+                .ToList().ForEach(g => taskGroups.Add(new TaskGroup { Tasks = g.ToList(), ExecutionLog = new List<ExecutionLogEntry>() }));
+        }
+
+        private IEnumerable<TaskExecutionParameters> AddExecutionParameters(List<IStartupTask> tasks)
         {
             var sortedTasks = new List<TaskExecutionParameters>();
             tasks.ForEach(t => sortedTasks.Add(new TaskExecutionParameters
                                                    {
                                                        Task = t,
                                                        Position = GetSequencePosition(t, tasks),
-                                                       Delay = GetDelay(t)
+                                                       Delay = GetDelay(t),
+                                                       Group = GetGroup(t)
                                                    }));
             return AdjustDelayForTheRest(sortedTasks);
         }
@@ -168,5 +197,20 @@ namespace Bootstrap.Extensions.StartupTasks
             if (match == null) return null;
             return -1;            
         }
+
+        private static int GetGroup(IStartupTask task)
+        {
+            return  GetAttributeGroup(task) ??
+                    0;
+        }
+
+        private static int? GetAttributeGroup(IStartupTask task)
+        {
+            var attribute = task.GetType().GetCustomAttributes(false).FirstOrDefault(a => a is TaskAttribute) as TaskAttribute;
+            if (attribute == null) return null;
+            if (attribute.Group == 0) return null;
+            return attribute.Group;
+        }
+        
     }
 }

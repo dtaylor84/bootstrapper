@@ -18,8 +18,9 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
                              {
                                  Timestamp = now,
                                  TaskName = "Test",
+                                 Group = 2,
                                  SequencePosition = 1,
-                                 DelayInMilliseconds = 200,
+                                 DelayInMilliseconds = 200,                                
                                  StartedAt = now.AddMilliseconds(200),
                                  EndedAt = now.AddMilliseconds(300)
                              };
@@ -29,6 +30,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
             Assert.IsInstanceOfType(result, typeof(ExecutionLogEntry));
             Assert.AreEqual(now, result.Timestamp);
             Assert.AreEqual("Test", result.TaskName);
+            Assert.AreEqual(2, result.Group);
             Assert.AreEqual(1, result.SequencePosition);
             Assert.AreEqual(200, result.DelayInMilliseconds);
             Assert.AreEqual(now.AddMilliseconds(200), result.StartedAt);

@@ -8,5 +8,6 @@ namespace Bootstrap.Extensions.StartupTasks
         public Type TaskType { get; set; }
         public int Position { get; set; }
         public int Delay { get; set; }
+        public int Group { get; set; }
     }
 }

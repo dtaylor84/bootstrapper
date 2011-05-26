@@ -18,7 +18,8 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
                                  Task = task,
                                  TaskType = task.GetType(),
                                  Position = 1,
-                                 Delay = 100
+                                 Delay = 100,
+                                 Group = 2
                              };
 
             //Assert
@@ -28,6 +29,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
             Assert.AreSame(typeof(TaskAlpha), result.TaskType);
             Assert.AreEqual(1, result.Position);
             Assert.AreEqual(100, result.Delay);
+            Assert.AreEqual(2, result.Group);
         }
     }
 }

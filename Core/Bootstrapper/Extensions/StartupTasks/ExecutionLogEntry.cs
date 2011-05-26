@@ -6,6 +6,7 @@ namespace Bootstrap.Extensions.StartupTasks
     {
         public DateTime Timestamp { get; set; }
         public string TaskName { get; set; }
+        public int Group { get; set; }
         public int SequencePosition { get; set; }
         public int DelayInMilliseconds { get; set; }
         public DateTime StartedAt { get; set; }

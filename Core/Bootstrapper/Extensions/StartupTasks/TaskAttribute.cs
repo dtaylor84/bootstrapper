@@ -7,11 +7,13 @@ namespace Bootstrap.Extensions.StartupTasks
     {
         public int PositionInSequence { get; set; }
         public int DelayStartBy { get; set; }
+        public int Group { get; set; }
 
         public TaskAttribute()
         {
             PositionInSequence = int.MaxValue;
             DelayStartBy = 0;
+            Group = 0;
         }
     }
 }

@@ -241,10 +241,10 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(List<ExecutionLogEntry>));
             Assert.IsTrue(result.Count > 0);
-            Assert.AreEqual("-TaskOmega"      , result[0].TaskName);
-            Assert.AreEqual("-TaskBeta"       , result[1].TaskName);
-            Assert.AreEqual("-TaskAlpha"      , result[2].TaskName);
-            Assert.AreEqual("-TestStartupTask", result[3].TaskName);
+            Assert.AreEqual("-TaskOmega"      , result[result.Count - 4].TaskName);
+            Assert.AreEqual("-TaskBeta"       , result[result.Count - 3].TaskName);
+            Assert.AreEqual("-TaskAlpha"      , result[result.Count - 2].TaskName);
+            Assert.AreEqual("-TestStartupTask", result[result.Count - 1].TaskName);
         }
 
         [TestMethod]
@@ -259,7 +259,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
 
             //Act
             tasksExtension.Run();
-            var result = tasksExtension.ExecutionLog;
+            var result = tasksExtension.ExecutionLog.Where(l => l.Group==0).ToList();
 
             //Assert
             Assert.IsNotNull(result);
@@ -283,7 +283,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
 
             //Act
             tasksExtension.Reset();
-            var result = tasksExtension.ExecutionLog;
+            var result = tasksExtension.ExecutionLog.Where(l => l.Group == 0).ToList();
 
             //Assert
             Assert.IsNotNull(result);
@@ -378,6 +378,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
         [TestMethod]
         public void ShouldApplyFluentDelayOnlytoFirstofTheRestTask()
         {
+            //Arrange
             var tasksExtension = new StartupTasksExtension();
             tasksExtension
                 .Options
@@ -394,6 +395,46 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(List<ExecutionLogEntry>));
             Assert.AreEqual(1, result.Count(t => t.TaskName != "+TaskOmega" && t.TaskName != "+TaskBeta" && t.DelayInMilliseconds == 20));
+        }
+
+        [TestMethod]
+        public void ShouldRunTasksInDifferentGroupsInParallel()
+        {
+            //Arrange
+            var taskExtension = new StartupTasksExtension();
+            taskExtension
+                .Options
+                .UsingThisExecutionOrder(s => s
+                    .First<TaskAlpha>().DelayStartBy(100)
+                    .Then().TheRest());
+
+            //Act
+            taskExtension.Run();
+            var group0Log = taskExtension.ExecutionLog.Where(l => l.Group == 0).ToList();
+            var group1Log = taskExtension.ExecutionLog.Where(l => l.Group == 1).ToList();
+
+            //Assert
+            Assert.IsTrue(group1Log[0].StartedAt < group0Log[group0Log.Count -1].EndedAt);
+        }
+
+        [TestMethod]
+        public void ShouldResetTasksSequentiallyFromLastGroupToFirstInReverseOrder()
+        {
+            var tasksExtension = new StartupTasksExtension();
+
+            //Act
+            tasksExtension.Reset();
+            var result = tasksExtension.ExecutionLog;
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(List<ExecutionLogEntry>));
+            Assert.IsTrue(result.Count > 0);
+            Assert.AreEqual("-TaskGamma", result[0].TaskName);
+            Assert.IsTrue(result.Any(e => e.TaskName == "-TestStartupTask"));
+            Assert.IsTrue(result.Any(e => e.TaskName == "-TaskBeta"));
+            Assert.AreEqual("-TaskAlpha", result[result.Count - 2].TaskName);
+            Assert.AreEqual("-TaskOmega", result[result.Count - 1].TaskName);            
         }
     }
 }
