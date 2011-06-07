@@ -72,7 +72,7 @@ namespace Bootstrap.Extensions.StartupTasks
             group.ExecutionLog.Add(logEntry);
         }
 
-        private void Reset(TaskExecutionParameters taskExecutionParameters, TaskGroup group)
+        private static void Reset(TaskExecutionParameters taskExecutionParameters, TaskGroup group)
         {
             var logEntry = new ExecutionLogEntry
                                {
