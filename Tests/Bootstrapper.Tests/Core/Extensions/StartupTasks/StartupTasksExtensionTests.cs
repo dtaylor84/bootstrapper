@@ -376,7 +376,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
         }
 
         [TestMethod]
-        public void ShouldApplyFluentDelayOnlytoFirstofTheRestTask()
+        public void ShouldApplyFluentDelayOnlytoFirstOfTheRestTask()
         {
             //Arrange
             var tasksExtension = new StartupTasksExtension();
@@ -398,7 +398,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
         }
 
         [TestMethod]
-        public void ShouldRunTasksInDifferentGroupsInParallel()
+        public void ShouldRunTasksInDifferentGroupsInParallelWithAttribute()
         {
             //Arrange
             var taskExtension = new StartupTasksExtension();
@@ -418,7 +418,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
         }
 
         [TestMethod]
-        public void ShouldResetTasksSequentiallyFromLastGroupToFirstInReverseOrder()
+        public void ShouldResetTasksSequentiallyFromLastGroupToFirstInReverseOrderWithAttribute()
         {
             var tasksExtension = new StartupTasksExtension();
 
@@ -436,5 +436,59 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
             Assert.AreEqual("-TaskAlpha", result[result.Count - 2].TaskName);
             Assert.AreEqual("-TaskOmega", result[result.Count - 1].TaskName);            
         }
+
+        [Ignore] //TODO: Make this test pass
+        [TestMethod]
+        public void ShouldRunTasksInDifferentGroupsInParallelWithFluentSyntax()
+        {
+            //Arrange
+            var taskExtension = new StartupTasksExtension();
+            taskExtension
+                .Options
+                .WithGroup(s => s
+                    .First<TaskBeta>()
+                    .Then<TaskAlpha>())
+                .AndGroup(s => s
+                    .First<TaskGamma>()
+                    .Then().TheRest());
+
+            //Act
+            taskExtension.Run();
+            var group0Log = taskExtension.ExecutionLog.Where(l => l.Group == 0).ToList();
+            var group1Log = taskExtension.ExecutionLog.Where(l => l.Group == 1).ToList();
+
+            //Assert
+            Assert.AreEqual(2, group0Log.Count);
+            Assert.IsTrue(group1Log[0].StartedAt < group0Log[group0Log.Count - 1].EndedAt);
+        }
+
+        [Ignore] //TODO: Make this test pass
+        [TestMethod]
+        public void ShouldResetTasksSequentiallyFromLastGroupToFirstInReverseOrderWithFluentSyntax()
+        {
+            //Arrange
+            var taskExtension = new StartupTasksExtension();
+            taskExtension
+                .Options
+                .WithGroup(s => s
+                    .First<TaskBeta>()
+                    .Then<TaskAlpha>())
+                .AndGroup(s => s
+                    .First<TaskGamma>()
+                    .Then().TheRest());
+
+            //Act
+            taskExtension.Reset();
+            var result = taskExtension.ExecutionLog;
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(List<ExecutionLogEntry>));
+            Assert.IsTrue(result.Count > 3);
+            Assert.AreEqual("-TaskGamma", result[result.Count - 3].TaskName);
+            Assert.AreEqual("-TaskAlpha", result[result.Count - 2].TaskName);
+            Assert.AreEqual("-TaskBeta", result[result.Count - 1].TaskName);
+        }
+
     }
 }
