@@ -437,7 +437,6 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
             Assert.AreEqual("-TaskOmega", result[result.Count - 1].TaskName);            
         }
 
-        [Ignore] //TODO: Make this test pass
         [TestMethod]
         public void ShouldRunTasksInDifferentGroupsInParallelWithFluentSyntax()
         {
@@ -460,9 +459,13 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
             //Assert
             Assert.AreEqual(2, group0Log.Count);
             Assert.IsTrue(group1Log[0].StartedAt < group0Log[group0Log.Count - 1].EndedAt);
+            Assert.AreEqual("+TaskBeta", group0Log[0].TaskName);
+            Assert.AreEqual("+TaskAlpha", group0Log[1].TaskName);
+            Assert.AreEqual("+TaskGamma", group1Log[0].TaskName);
+            Assert.IsTrue(group1Log.Any(l => l.TaskName == "+TaskOmega"));
+            Assert.IsTrue(group1Log.Any(l => l.TaskName == "+TestStartupTask"));
         }
 
-        [Ignore] //TODO: Make this test pass
         [TestMethod]
         public void ShouldResetTasksSequentiallyFromLastGroupToFirstInReverseOrderWithFluentSyntax()
         {
@@ -474,7 +477,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
                     .First<TaskBeta>()
                     .Then<TaskAlpha>())
                 .AndGroup(s => s
-                    .First<TaskGamma>()
+                    .First<TaskOmega>()
                     .Then().TheRest());
 
             //Act
@@ -485,7 +488,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(List<ExecutionLogEntry>));
             Assert.IsTrue(result.Count > 3);
-            Assert.AreEqual("-TaskGamma", result[result.Count - 3].TaskName);
+            Assert.AreEqual("-TaskOmega", result[result.Count - 3].TaskName);
             Assert.AreEqual("-TaskAlpha", result[result.Count - 2].TaskName);
             Assert.AreEqual("-TaskBeta", result[result.Count - 1].TaskName);
         }

@@ -145,9 +145,10 @@ namespace Bootstrap.Extensions.StartupTasks
 
         private int? GetFluentlyDeclaredPosition(IStartupTask task, ICollection tasks)
         {
-            var sequence = Options.Sequence.Select(s => s.TaskType).ToList();
-            if (!sequence.Contains(task.GetType())) return null;
-            if (!sequence.Contains(typeof(IStartupTask))) return sequence.IndexOf(tasks.GetType()) + 1;
+            var group = Options.Groups.FirstOrDefault(g => g.Sequence.Any(t => t.TaskType == task.GetType()));
+            if (group == null) return null;
+            var sequence = group.Sequence.Select(s => s.TaskType).ToList();
+            if (!sequence.Contains(typeof(IStartupTask))) return sequence.IndexOf(task.GetType()) + 1;
             if (sequence.IndexOf(typeof(IStartupTask)) > sequence.IndexOf(task.GetType())) return sequence.IndexOf(task.GetType()) + 1;
             return tasks.Count + sequence.IndexOf(task.GetType()) - sequence.IndexOf(typeof(IStartupTask));
         }
@@ -162,8 +163,8 @@ namespace Bootstrap.Extensions.StartupTasks
 
         private int? GetRestPosition(ICollection tasks)
         {
-            var sequence = Options.Sequence.Select(s => s.TaskType).ToList();
-            if (!sequence.Contains(typeof(IStartupTask))) return null;
+            var group = Options.Groups.FirstOrDefault(g => g.Sequence.Any(t => t.TaskType == typeof(IStartupTask)));
+            if (group == null) return null;
             return tasks.Count;
         }
 
@@ -177,8 +178,9 @@ namespace Bootstrap.Extensions.StartupTasks
 
         private int? GetFluentlyDeclaredDelay(IStartupTask task)
         {
-            var match = Options.Sequence.FirstOrDefault(t => t.TaskType == task.GetType());
-            if (match == null) return null;
+            var group = Options.Groups.FirstOrDefault(g => g.Sequence.Any(t => t.TaskType == task.GetType()));
+            if (group == null) return null;
+            var match = group.Sequence.FirstOrDefault(t => t.TaskType == task.GetType());
             if (match.Delay == 0) return null;
             return match.Delay;
         }
@@ -198,10 +200,19 @@ namespace Bootstrap.Extensions.StartupTasks
             return -1;            
         }
 
-        private static int GetGroup(IStartupTask task)
+        private int GetGroup(IStartupTask task)
         {
-            return  GetAttributeGroup(task) ??
+            return  GetFluentlyDeclaredGroup(task) ??
+                    GetAttributeGroup(task) ??
+                    GetRestGroup() ??
                     0;
+        }
+
+        private int? GetFluentlyDeclaredGroup(IStartupTask task)
+        {
+            var group = Options.Groups.FirstOrDefault(g => g.Sequence.Any(t => t.TaskType == task.GetType()));
+            if (group == null) return null;
+            return Options.Groups.IndexOf(group);
         }
 
         private static int? GetAttributeGroup(IStartupTask task)
@@ -210,6 +221,13 @@ namespace Bootstrap.Extensions.StartupTasks
             if (attribute == null) return null;
             if (attribute.Group == 0) return null;
             return attribute.Group;
+        }
+
+        private int? GetRestGroup()
+        {
+            var group = Options.Groups.FirstOrDefault(g => g.Sequence.Any(t => t.TaskType == typeof(IStartupTask)));
+            if (group == null) return null;
+            return Options.Groups.IndexOf(group);            
         }
         
     }
