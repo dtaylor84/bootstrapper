@@ -219,11 +219,12 @@ namespace Bootstrap.Tests.Core
                 .And.AutoMapper()
                 .And.ServiceLocator()
                 .And.StartupTasks()
-                    .UsingThisExecutionOrder(s => s
-                        .First<TaskAlpha>()
-                        .Then<TaskBeta>().DelayStartBy(5).MilliSeconds
-                        .Then().TheRest()
-                        .Then<TaskOmega>())
+                    .WithGroup(s => s
+                        .First<TaskBeta>().DelayStartBy(5).MilliSeconds
+                        .Then<TaskAlpha>())
+                    .AndGroup(s => s
+                        .First<TaskOmega>()
+                        .Then().TheRest())
                 .Excluding.Assembly("Castle")
                 .Start();
         }
