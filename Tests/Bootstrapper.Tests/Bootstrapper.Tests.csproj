@@ -66,6 +66,12 @@
       <HintPath>..\..\packages\Unity.2.1.505.0\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Ninject, Version=2.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.2.2.1.4\lib\net40-Full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Extensions.Conventions">
+      <HintPath>..\..\packages\Ninject.Extensions.Conventions.2.2.0.5\lib\net40-Full\Ninject.Extensions.Conventions.dll</HintPath>
+    </Reference>
     <Reference Include="StructureMap, Version=2.6.2.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
       <HintPath>..\..\packages\structuremap.2.6.2\lib\StructureMap.dll</HintPath>
     </Reference>
@@ -114,6 +120,9 @@
     <Compile Include="Core\Extensions\StartupTasks\StartupTasksRegistrationTests.cs" />
     <Compile Include="Extensions\AutoMapper\AutoMapperExtensionTests.cs" />
     <Compile Include="Extensions\AutoMapper\AutoMapperRegistrationTests.cs" />
+    <Compile Include="Extensions\Containers\Ninject\BootstrapperNinjectHelperTests.cs" />
+    <Compile Include="Extensions\Containers\Ninject\NinjectExtensionTests.cs" />
+    <Compile Include="Extensions\Containers\Ninject\TestNinjectRegistration.cs" />
     <Compile Include="Extensions\Locator\BootstrapperServiceLocatorHelperTests.cs" />
     <Compile Include="Extensions\Locator\ServiceLocatorExtensionTests.cs" />
     <Compile Include="Extensions\TestImplementations\AbstractTestStartupTask.cs" />
@@ -147,6 +156,10 @@
     <ProjectReference Include="..\..\Core\Bootstrapper\Bootstrapper.csproj">
       <Project>{451C9B3F-D315-48EA-84EA-45C45E513B45}</Project>
       <Name>Bootstrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Extensions\Containers\Bootstrapper.Ninject\Bootstrapper.Ninject.csproj">
+      <Project>{5341CC1B-EABC-4076-B5E2-DFF05AED8A83}</Project>
+      <Name>Bootstrapper.Ninject</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Extensions\Containers\Bootstrapper.StructureMapExtension\Bootstrapper.StructureMap.csproj">
       <Project>{B4E4CBAC-28F3-4649-BFEC-698C0FD8357A}</Project>
