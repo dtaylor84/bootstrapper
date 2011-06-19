@@ -135,7 +135,6 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
             Assert.IsInstanceOfType(result, typeof(NinjectExtension));
         }
 
-        [Ignore] //TODO: Fix by adding NinjectServiceLocator
         [TestMethod]
         public void ShouldSetTheServiceLocator()
         {
