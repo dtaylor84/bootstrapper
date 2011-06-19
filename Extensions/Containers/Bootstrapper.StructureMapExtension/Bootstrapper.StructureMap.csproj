@@ -56,7 +56,9 @@
     <Compile Include="StructureMapExtension.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Core\Bootstrapper\Bootstrapper.csproj">

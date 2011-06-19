@@ -10,6 +10,7 @@ using FakeItEasy;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Ninject;
+using NinjectAdapter;
 
 namespace Bootstrap.Tests.Extensions.Containers.Ninject
 {
@@ -149,7 +150,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
 
             //Assert
             Assert.IsNotNull(result);
-            //Assert.IsInstanceOfType(result, typeof(NinjectServiceLocator));
+            Assert.IsInstanceOfType(result, typeof(NinjectServiceLocator));
         }
 
         [TestMethod]
