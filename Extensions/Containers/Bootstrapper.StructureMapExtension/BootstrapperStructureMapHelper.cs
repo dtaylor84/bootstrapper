@@ -8,7 +8,7 @@ namespace Bootstrap.StructureMap
         public static IBootstrapperContainerExtensionOptions StructureMap(this BootstrapperExtensions extensions)
         {
             var extension = new StructureMapExtension();
-            extensions.Extension(new StructureMapExtension());
+            extensions.Extension(extension);
             return extension.Options;
         }
     }
