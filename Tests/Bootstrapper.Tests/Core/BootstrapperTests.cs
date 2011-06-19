@@ -4,6 +4,7 @@ using Bootstrap.Extensions;
 using Bootstrap.Extensions.Containers;
 using Bootstrap.Extensions.StartupTasks;
 using Bootstrap.Locator;
+using Bootstrap.Ninject;
 using Bootstrap.StructureMap;
 using Bootstrap.Tests.Core.Extensions.StartupTasks;
 using Bootstrap.Unity;
@@ -213,7 +214,8 @@ namespace Bootstrap.Tests.Core
                 .Excluding
                     .Assembly("StructureMap")
                     .AndAssembly("Microsoft.Practices")
-                .With.StructureMap().UsingAutoRegistration()
+                .With.Ninject().UsingAutoRegistration()
+                .And.StructureMap().UsingAutoRegistration()
                 .And.Unity().UsingAutoRegistration()
                 .And.Windsor().UsingAutoRegistration()
                 .And.AutoMapper()

@@ -3,6 +3,7 @@ using System.Linq;
 using Bootstrap.Extensions.Containers;
 using Microsoft.Practices.ServiceLocation;
 using Ninject;
+using NinjectAdapter;
 
 namespace Bootstrap.Ninject
 {
@@ -61,8 +62,7 @@ namespace Bootstrap.Ninject
         public override void SetServiceLocator()
         {
             CheckContainer();
-            //TODO: Add NinjectServiceLocator
-            //ServiceLocator.SetLocatorProvider(() => new NinjectServiceLocator(container));
+            ServiceLocator.SetLocatorProvider(() => new NinjectServiceLocator(container));
         }
 
         public override void ResetServiceLocator()
