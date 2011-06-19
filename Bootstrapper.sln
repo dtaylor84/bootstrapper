@@ -32,6 +32,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper", "Core\Bootst
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{CD8E8EE5-3A5F-488E-A01E-24012234BEDB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper.Ninject", "Extensions\Containers\Bootstrapper.Ninject\Bootstrapper.Ninject.csproj", "{5341CC1B-EABC-4076-B5E2-DFF05AED8A83}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Bootstrapper.vsmdi
@@ -73,6 +75,10 @@ Global
 		{451C9B3F-D315-48EA-84EA-45C45E513B45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{451C9B3F-D315-48EA-84EA-45C45E513B45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{451C9B3F-D315-48EA-84EA-45C45E513B45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5341CC1B-EABC-4076-B5E2-DFF05AED8A83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5341CC1B-EABC-4076-B5E2-DFF05AED8A83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5341CC1B-EABC-4076-B5E2-DFF05AED8A83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5341CC1B-EABC-4076-B5E2-DFF05AED8A83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,6 +92,7 @@ Global
 		{AD16249F-B34D-4DED-8801-7BFC9AFD9B2A} = {7ECDBD90-1ACB-4BE9-A501-BBE3C33E2139}
 		{1704683F-3495-4B2B-9BA4-9931D8FB064F} = {7ECDBD90-1ACB-4BE9-A501-BBE3C33E2139}
 		{B4E4CBAC-28F3-4649-BFEC-698C0FD8357A} = {7ECDBD90-1ACB-4BE9-A501-BBE3C33E2139}
+		{5341CC1B-EABC-4076-B5E2-DFF05AED8A83} = {7ECDBD90-1ACB-4BE9-A501-BBE3C33E2139}
 		{451C9B3F-D315-48EA-84EA-45C45E513B45} = {CD8E8EE5-3A5F-488E-A01E-24012234BEDB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

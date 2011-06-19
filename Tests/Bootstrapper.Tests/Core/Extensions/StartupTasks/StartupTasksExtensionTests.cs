@@ -446,7 +446,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
                 .Options
                 .WithGroup(s => s
                     .First<TaskBeta>()
-                    .Then<TaskAlpha>())
+                    .Then<TaskAlpha>().DelayStartBy(100))
                 .AndGroup(s => s
                     .First<TaskGamma>()
                     .Then().TheRest());

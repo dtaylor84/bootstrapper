@@ -92,9 +92,9 @@ namespace Bootstrap.Extensions.StartupTasks
         {
             List<IStartupTask> tasks;
             if (Bootstrapper.ContainerExtension != null && Bootstrapper.Container != null)
-                tasks = Bootstrapper.ContainerExtension.ResolveAll<IStartupTask>().ToList();
+                tasks = Bootstrapper.ContainerExtension.ResolveAll<IStartupTask>().OrderBy(t => t.GetType().Name).ToList();
             else
-                tasks = RegistrationHelper.GetInstancesOfTypesImplementing<IStartupTask>();
+                tasks = RegistrationHelper.GetInstancesOfTypesImplementing<IStartupTask>().OrderBy(t => t.GetType().Name).ToList();
             return tasks;
         }
 
@@ -108,15 +108,15 @@ namespace Bootstrap.Extensions.StartupTasks
 
         private IEnumerable<TaskExecutionParameters> AddExecutionParameters(List<IStartupTask> tasks)
         {
-            var sortedTasks = new List<TaskExecutionParameters>();
-            tasks.ForEach(t => sortedTasks.Add(new TaskExecutionParameters
+            var tasksWithParameters = new List<TaskExecutionParameters>();
+            tasks.ForEach(t => tasksWithParameters.Add(new TaskExecutionParameters
                                                    {
                                                        Task = t,
                                                        Position = GetSequencePosition(t, tasks),
                                                        Delay = GetDelay(t),
                                                        Group = GetGroup(t)
                                                    }));
-            return AdjustDelayForTheRest(sortedTasks);
+            return AdjustDelayForTheRest(tasksWithParameters);
         }
 
         private IEnumerable<TaskExecutionParameters> AdjustDelayForTheRest(IEnumerable<TaskExecutionParameters> tasks)
