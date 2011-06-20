@@ -29,6 +29,11 @@ namespace Bootstrap
             get { return Bootstrapper.With; }
         }
 
+        public IIncludedAssemblies Including
+        {
+            get { return Bootstrapper.Including; }
+        }
+
         public void Start()
         {
             Bootstrapper.Start();

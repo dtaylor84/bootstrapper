@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Reflection;
 using Bootstrap.AutoMapper;
 using Bootstrap.Extensions;
 using Bootstrap.Extensions.Containers;
@@ -7,6 +8,7 @@ using Bootstrap.Locator;
 using Bootstrap.Ninject;
 using Bootstrap.StructureMap;
 using Bootstrap.Tests.Core.Extensions.StartupTasks;
+using Bootstrap.Tests.ExtensionForTest;
 using Bootstrap.Unity;
 using Bootstrap.Tests.Extensions.TestImplementations;
 using Bootstrap.Windsor;
@@ -211,6 +213,9 @@ namespace Bootstrap.Tests.Core
         {
             //Act
             Bootstrapper
+                .Including
+                    .Assembly(Assembly.GetExecutingAssembly())
+                    .AndAssembly(Assembly.GetAssembly(typeof(TestBootstrapperExtension)))
                 .Excluding
                     .Assembly("StructureMap")
                     .AndAssembly("Microsoft.Practices")
@@ -252,6 +257,29 @@ namespace Bootstrap.Tests.Core
 
             //Assert
             Assert.IsFalse(result.Contains("Test"));
+        }
+
+        [TestMethod]
+        public void ShouldReturnIncludedAssemblies()
+        {
+            //Act
+            var result = Bootstrapper.Including.Assemblies;
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(List<Assembly>));
+        }
+
+        [TestMethod]
+        public void ShouldResetIncludedAssemblies()
+        {
+            //Act
+            Bootstrapper.Including.Assembly(Assembly.GetExecutingAssembly());
+            Bootstrapper.Reset();
+            var result = Bootstrapper.Including.Assemblies;
+
+            //Assert
+            Assert.IsFalse(result.Contains(Assembly.GetExecutingAssembly()));
         }
 
     }
