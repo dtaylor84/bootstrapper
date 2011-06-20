@@ -1,18 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{A60A16EB-0E28-4883-8F0E-ECA651B19731}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{62A844FA-23C6-4A14-91D6-803D0CC6DE2D}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D2FD405F-1602-4D14-A1F0-11DAF1ACF7E7}"
 	ProjectSection(SolutionItems) = preProject
 		Bootstrapper.vsmdi = Bootstrapper.vsmdi
 		Local.testsettings = Local.testsettings
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Containers", "Containers", "{7ECDBD90-1ACB-4BE9-A501-BBE3C33E2139}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper.Windsor", "Extensions\Containers\Bootstrapper.WindsorExtension\Bootstrapper.Windsor.csproj", "{AD16249F-B34D-4DED-8801-7BFC9AFD9B2A}"
 EndProject
@@ -29,8 +23,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper.ServiceLocator", "Bootstrapper.ServiceLocator\Bootstrapper.ServiceLocator.csproj", "{E6F0B913-1A8F-43EC-B2CB-E23EFBE7C1D9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper", "Core\Bootstrapper\Bootstrapper.csproj", "{451C9B3F-D315-48EA-84EA-45C45E513B45}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{CD8E8EE5-3A5F-488E-A01E-24012234BEDB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper.Ninject", "Extensions\Containers\Bootstrapper.Ninject\Bootstrapper.Ninject.csproj", "{5341CC1B-EABC-4076-B5E2-DFF05AED8A83}"
 EndProject
@@ -82,18 +74,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{7ECDBD90-1ACB-4BE9-A501-BBE3C33E2139} = {A60A16EB-0E28-4883-8F0E-ECA651B19731}
-		{53821BFC-38ED-4663-811F-F21C346E8E68} = {A60A16EB-0E28-4883-8F0E-ECA651B19731}
-		{E6F0B913-1A8F-43EC-B2CB-E23EFBE7C1D9} = {A60A16EB-0E28-4883-8F0E-ECA651B19731}
-		{0C4C0CFC-3E77-4FE4-81CA-618BEE9AAB96} = {62A844FA-23C6-4A14-91D6-803D0CC6DE2D}
-		{E0531F4E-3D33-42D4-AE64-13D015D2192F} = {62A844FA-23C6-4A14-91D6-803D0CC6DE2D}
-		{AD16249F-B34D-4DED-8801-7BFC9AFD9B2A} = {7ECDBD90-1ACB-4BE9-A501-BBE3C33E2139}
-		{1704683F-3495-4B2B-9BA4-9931D8FB064F} = {7ECDBD90-1ACB-4BE9-A501-BBE3C33E2139}
-		{B4E4CBAC-28F3-4649-BFEC-698C0FD8357A} = {7ECDBD90-1ACB-4BE9-A501-BBE3C33E2139}
-		{5341CC1B-EABC-4076-B5E2-DFF05AED8A83} = {7ECDBD90-1ACB-4BE9-A501-BBE3C33E2139}
-		{451C9B3F-D315-48EA-84EA-45C45E513B45} = {CD8E8EE5-3A5F-488E-A01E-24012234BEDB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35
