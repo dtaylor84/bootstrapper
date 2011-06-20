@@ -60,6 +60,18 @@ namespace Bootstrap.Tests.Core
         }
 
         [TestMethod]
+        public void ShouldReturnIncludedAssemblies()
+        {
+            //Act
+            var excluded = new ExcludedAssemblies();
+            var result = excluded.Including;
+
+            //Assert
+            Assert.AreSame(Bootstrapper.Including, result);
+        }
+
+
+        [TestMethod]
         public void ShouldReturnBootstrapperExtensions()
         {
             //Act

@@ -111,6 +111,7 @@
     <Compile Include="Core\Extensions\StartupTasks\TaskGamma.cs" />
     <Compile Include="Core\Extensions\StartupTasks\TaskGroupTests.cs" />
     <Compile Include="Core\Extensions\StartupTasks\TaskOmega.cs" />
+    <Compile Include="Core\IncludedAssembliesTests.cs" />
     <Compile Include="Extensions\AutoMapper\BootstrapperAutoMapperHelperTests.cs" />
     <Compile Include="Core\Extensions\Containers\BootstrapperContainerExtensionTests.cs" />
     <Compile Include="Core\Extensions\StartupTasks\BootstrapperStartupTasksHelperTests.cs" />
