@@ -127,6 +127,8 @@
     <Compile Include="Extensions\Containers\Ninject\TestNinjectRegistration.cs" />
     <Compile Include="Extensions\Locator\BootstrapperServiceLocatorHelperTests.cs" />
     <Compile Include="Extensions\Locator\ServiceLocatorExtensionTests.cs" />
+    <Compile Include="Extensions\NHibernateWcf\BootstrapperNHibernateWcfHelperTests.cs" />
+    <Compile Include="Extensions\NHibernateWcf\NHibernateWcfExtensionTests.cs" />
     <Compile Include="Extensions\TestImplementations\AbstractTestStartupTask.cs" />
     <Compile Include="Extensions\TestImplementations\TestMapCreator.cs" />
     <Compile Include="Extensions\TestImplementations\InternalTestStartupTask.cs" />
@@ -150,6 +152,10 @@
     <ProjectReference Include="..\..\Bootstrapper.AutoMapperExtension\Bootstrapper.AutoMapper.csproj">
       <Project>{53821BFC-38ED-4663-811F-F21C346E8E68}</Project>
       <Name>Bootstrapper.AutoMapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bootstrapper.NHibernate.Wcf\Bootstrapper.NHibernate.Wcf.csproj">
+      <Project>{F21CD14A-FE25-40C4-AA39-C9CA1D27E41A}</Project>
+      <Name>Bootstrapper.NHibernate.Wcf</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Bootstrapper.ServiceLocator\Bootstrapper.ServiceLocator.csproj">
       <Project>{E6F0B913-1A8F-43EC-B2CB-E23EFBE7C1D9}</Project>

@@ -31,6 +31,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentNHibernate">
+      <HintPath>..\packages\FluentNHibernate.1.2.0.712\lib\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\packages\Iesi.Collections.3.1.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\packages\NHibernate.3.1.0.4000\lib\Net35\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.ByteCode.Castle">
+      <HintPath>..\packages\NHibernate.Castle.3.1.0.4000\lib\Net35\NHibernate.ByteCode.Castle.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,15 +58,25 @@
     <None Include="ErrorManagementService.svc.cs" />
     <None Include="IErrorManagementService.cs" />
     <None Include="Initializer.cs" />
-    <None Include="ISessionFactoryProvider.cs" />
+    <Compile Include="ISessionFactoryProvider.cs" />
     <None Include="NHibernateContextManager.cs" />
     <None Include="NHibernateSessionContext.cs" />
+    <Compile Include="BootstrapperNHibernateWcfHelper.cs" />
+    <Compile Include="IConnectionStringProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="NHibernateWcfExtension.cs" />
+    <None Include="packages.config" />
     <None Include="RegisterDataOrm.cs" />
     <None Include="Repository.cs" />
-    <None Include="SessionFactoryProvider.cs" />
+    <Compile Include="SessionFactoryProvider.cs" />
     <None Include="SessionPerCallInstanceProvider.cs" />
     <None Include="SessionPerCallServiceBehavior.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Bootstrapper\Bootstrapper.csproj">
+      <Project>{451C9B3F-D315-48EA-84EA-45C45E513B45}</Project>
+      <Name>Bootstrapper</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

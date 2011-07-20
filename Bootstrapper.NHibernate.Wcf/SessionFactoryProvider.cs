@@ -1,4 +1,9 @@
-﻿namespace Bootstrap.NHibernate.Wcf
+﻿using Bootstrap.Extensions;
+using FluentNHibernate.Cfg;
+using FluentNHibernate.Cfg.Db;
+using NHibernate;
+
+namespace Bootstrap.NHibernate.Wcf
 {
     public class SessionFactoryProvider : ISessionFactoryProvider
     {
@@ -12,15 +17,11 @@
 
         public ISessionFactory GetSessionFactory()
         {
-#if (DEBUG)
-            NHibernateProfiler.Initialize();
-#endif
-
             return sessionFactory ?? 
                 (sessionFactory = Fluently.Configure()
                     .Database(MsSqlConfiguration.MsSql2008.ConnectionString(
-                        connectionStringProvider.GetConnectionString(CafConfigKeys.CcsConnectionStringKey)))
-                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<IngestionErrorMap>())
+                        connectionStringProvider.GetConnectionString()))
+                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<BootstrapperExtensions>())
                     .BuildSessionFactory());
         }
     }

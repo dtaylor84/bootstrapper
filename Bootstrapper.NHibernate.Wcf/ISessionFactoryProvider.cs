@@ -1,4 +1,6 @@
-﻿namespace Bootstrap.NHibernate.Wcf
+﻿using NHibernate;
+
+namespace Bootstrap.NHibernate.Wcf
 {
     public interface ISessionFactoryProvider
     {
