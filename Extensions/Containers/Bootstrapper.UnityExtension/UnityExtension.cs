@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Bootstrap.Extensions.Containers;
 using Microsoft.Practices.ServiceLocation;
@@ -79,6 +80,7 @@ namespace Bootstrap.Unity
         {
             CheckContainer();
             container.RegisterInstance(implementation.GetType().Name, implementation);
+            container.RegisterInstance(typeof(TTarget).Name, implementation);
         }
 
         public override void RegisterAll<TTarget>()
