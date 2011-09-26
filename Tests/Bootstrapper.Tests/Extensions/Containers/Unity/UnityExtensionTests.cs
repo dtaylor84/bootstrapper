@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
+using Bootstrap.AutoMapper;
 using Bootstrap.Extensions.Containers;
 using Bootstrap.Extensions.StartupTasks;
 using Bootstrap.Tests.Extensions.TestImplementations;
@@ -296,12 +298,16 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
 
             //Act
             containerExtension.Register<IBootstrapperContainerExtension>(containerExtension);
-            var result = container.Resolve<IBootstrapperContainerExtension>(typeof(UnityExtension).Name);
+            var result1 = container.Resolve<IBootstrapperContainerExtension>(typeof(UnityExtension).Name);
+            var result2 = container.Resolve<IBootstrapperContainerExtension>(typeof (IBootstrapperContainerExtension).Name);
 
             //Assert
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(UnityExtension));
-            Assert.AreSame(containerExtension, result);
+            Assert.IsNotNull(result1);
+            Assert.IsInstanceOfType(result1, typeof(UnityExtension));
+            Assert.AreSame(containerExtension, result1);
+            Assert.IsNotNull(result2);
+            Assert.IsInstanceOfType(result2, typeof(UnityExtension));
+            Assert.AreSame(containerExtension, result2);
         }
 
         [TestMethod]
@@ -328,7 +334,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
         {
             //Arrange
             var containerExtension = new UnityExtension();
-
+             
             //Act
             var result = containerExtension.Options;
 
@@ -429,6 +435,25 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
 
             //Assert
             Assert.AreEqual(NoContainerException.DefaultMessage, result.Message);
+        }
+
+        [TestMethod]
+        public void ShouldResolveIMappingEngine()
+        {
+            //Arrange
+            var container = new UnityContainer();
+            var containerExtension = new UnityExtension();
+            containerExtension.InitializeContainer(container);
+            
+            //Act
+            new AutoMapperRegistration().Register(containerExtension);
+            var result = containerExtension.Resolve<IMappingEngine>();
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(IMappingEngine));
+            Assert.IsInstanceOfType(result, typeof(MappingEngine));
+
         }
     }
 }
