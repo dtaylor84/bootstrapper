@@ -41,6 +41,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=2.5.2.830, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="AutofacContrib.CommonServiceLocator, Version=2.5.2.830, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\CommonServiceLocator\AutofacContrib.CommonServiceLocator.dll</HintPath>
+    </Reference>
     <Reference Include="AutoMapper, Version=1.1.0.188, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\..\packages\AutoMapper.1.1.0.118\lib\AutoMapper.dll</HintPath>
     </Reference>
@@ -122,8 +129,11 @@
     <Compile Include="Core\Extensions\StartupTasks\StartupTasksRegistrationTests.cs" />
     <Compile Include="Extensions\AutoMapper\AutoMapperExtensionTests.cs" />
     <Compile Include="Extensions\AutoMapper\AutoMapperRegistrationTests.cs" />
+    <Compile Include="Extensions\Containers\Autofac\BootstrapperAutofacHelperTests.cs" />
+    <Compile Include="Extensions\Containers\Autofac\AutofacExtensionTests.cs" />
     <Compile Include="Extensions\Containers\Ninject\BootstrapperNinjectHelperTests.cs" />
     <Compile Include="Extensions\Containers\Ninject\NinjectExtensionTests.cs" />
+    <Compile Include="Extensions\Containers\Autofac\TestAutofacRegistration.cs" />
     <Compile Include="Extensions\Containers\Ninject\TestNinjectRegistration.cs" />
     <Compile Include="Extensions\Locator\BootstrapperServiceLocatorHelperTests.cs" />
     <Compile Include="Extensions\Locator\ServiceLocatorExtensionTests.cs" />
@@ -158,6 +168,10 @@
     <ProjectReference Include="..\..\Core\Bootstrapper\Bootstrapper.csproj">
       <Project>{451C9B3F-D315-48EA-84EA-45C45E513B45}</Project>
       <Name>Bootstrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Extensions\Containers\Bootstrapper.Autofac\Bootstrapper.Autofac.csproj">
+      <Project>{C2FCA69E-EC5A-49CC-9F75-9191DE83C9A4}</Project>
+      <Name>Bootstrapper.Autofac</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Extensions\Containers\Bootstrapper.Ninject\Bootstrapper.Ninject.csproj">
       <Project>{5341CC1B-EABC-4076-B5E2-DFF05AED8A83}</Project>
