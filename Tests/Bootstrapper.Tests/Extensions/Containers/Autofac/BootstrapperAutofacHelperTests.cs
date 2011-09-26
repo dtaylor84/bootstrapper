@@ -1,23 +1,23 @@
-﻿using Bootstrap.Extensions.Containers;
-using Bootstrap.Ninject;
+﻿using Bootstrap.Autofac;
+using Bootstrap.Extensions.Containers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bootstrap.Tests.Extensions.Containers.Ninject
+namespace Bootstrap.Tests.Extensions.Containers.Autofac
 {
     [TestClass]
-    public class BootstrapperNinjectHelperTests
+    public class BootstrapperAutofacHelperTests
     {
         [TestMethod]
-        public void ShouldAddTheNinjectExtensionToBootstrapper()
+        public void ShouldAddTheAutofacExtensionToBootstrapper()
         {
             //Arrange
             Bootstrapper.ClearExtensions();
 
             //Act
-            var result = Bootstrapper.With.Ninject();
+            var result = Bootstrapper.With.Autofac();
 
             //Assert
-            Assert.IsInstanceOfType(Bootstrapper.GetExtensions()[0], typeof(NinjectExtension));
+            Assert.IsInstanceOfType(Bootstrapper.GetExtensions()[0], typeof(AutofacExtension));
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IBootstrapperContainerExtensionOptions));
             Assert.IsInstanceOfType(result, typeof(BootstrapperContainerExtensionOptions));

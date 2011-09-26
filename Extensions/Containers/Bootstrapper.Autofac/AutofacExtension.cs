@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutofacContrib.CommonServiceLocator;
 using Bootstrap.Extensions.Containers;
-using global::Autofac;
+using Autofac;
 using Microsoft.Practices.ServiceLocation;
 
 namespace Bootstrap.Autofac
@@ -44,7 +44,7 @@ namespace Bootstrap.Autofac
             CheckContainer();
 
             container.Resolve<IEnumerable<IBootstrapperRegistration>>().ToList().ForEach(r => r.Register(this));
-            container.Resolve<IEnumerable<IAutofacRegistration>>().ToList().ForEach(r => UpdateContainer(cb => r.Register(cb)));
+            container.Resolve<IEnumerable<IAutofacRegistration>>().ToList().ForEach(r => UpdateContainer(r.Register));
         }
 
         protected override void ResetContainer()
@@ -57,13 +57,9 @@ namespace Bootstrap.Autofac
         {
             CheckContainer();
 
-            UpdateContainer(cb =>
-            {
-                RegistrationHelper.GetAssemblies().ToList().ForEach(a =>
-                {
-                    RegistrationHelper.GetTypesImplementing<TTarget>(a).ToList().ForEach(t => cb.RegisterType(t).As<TTarget>());
-                });
-            });
+            UpdateContainer(cb => RegistrationHelper.GetAssemblies().ToList()
+                                    .ForEach(a => RegistrationHelper.GetTypesImplementing<TTarget>(a).ToList()
+                                        .ForEach(t => cb.RegisterType(t).As<TTarget>())));
         }
 
         public override void SetServiceLocator()
