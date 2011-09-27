@@ -4,29 +4,29 @@ using Bootstrap.Extensions;
 
 namespace Bootstrap
 {
-    public class IncludedAssemblies: IIncludedAssemblies
+    public class IncludedOnlyAssemblies: IIncludedOnlyAssemblies
     {
         public List<Assembly> Assemblies { get; set; }
 
-        public IncludedAssemblies()
+        public IncludedOnlyAssemblies()
         {
             Assemblies = new List<Assembly>();
         }
 
-        public IIncludedAssemblies Assembly(Assembly assembly)
+        public IIncludedOnlyAssemblies Assembly(Assembly assembly)
         {
             Assemblies.Add(assembly);
             return this;
         }
 
-        public IIncludedAssemblies AndAssembly(Assembly assembly)
+        public IIncludedOnlyAssemblies AndAssembly(Assembly assembly)
         {
             return Assembly(assembly);
         }
 
-        public IIncludedOnlyAssemblies IncludingOnly
+        public IIncludedAssemblies Including
         {
-            get { return Bootstrapper.IncludingOnly; }
+            get { return Bootstrapper.Including; }
         }
 
         public IExcludedAssemblies Excluding

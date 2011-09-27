@@ -26,7 +26,9 @@ namespace Bootstrap.Extensions.Containers
 
         public static IEnumerable<Assembly> GetAssemblies()
         {
-            return AppDomain.CurrentDomain.GetAssemblies()
+            return Bootstrapper.IncludingOnly.Assemblies.Any() 
+                    ? Bootstrapper.IncludingOnly.Assemblies
+                    :AppDomain.CurrentDomain.GetAssemblies()
                         .Where(a => !a.IsDynamic && IsNotExcluded(a));
         }
 

@@ -10,6 +10,7 @@ namespace Bootstrap
         IExcludedAssemblies AndAssembly(string assembly);
         BootstrapperExtensions With { get; }
         IIncludedAssemblies Including { get; }
+        IIncludedOnlyAssemblies IncludingOnly { get; }
         void Start();
     }
 }

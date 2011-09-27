@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
+using AutoMapper;
+using Bootstrap.Autofac;
 using Bootstrap.AutoMapper;
 using Bootstrap.Extensions;
 using Bootstrap.Extensions.Containers;
@@ -219,10 +221,16 @@ namespace Bootstrap.Tests.Core
                 .Excluding
                     .Assembly("StructureMap")
                     .AndAssembly("Microsoft.Practices")
+                .IncludingOnly
+                    .Assembly(Assembly.GetCallingAssembly())
+                    .AndAssembly(Assembly.GetExecutingAssembly())
+                    .AndAssembly(Assembly.GetAssembly(typeof(Mapper)))
+                    .AndAssembly(Assembly.GetAssembly(typeof(AutoMapperExtension)))
                 .With.Ninject().UsingAutoRegistration()
                 .And.StructureMap().UsingAutoRegistration()
                 .And.Unity().UsingAutoRegistration()
                 .And.Windsor().UsingAutoRegistration()
+                .And.Autofac().UsingAutoRegistration()
                 .And.AutoMapper()
                 .And.ServiceLocator()
                 .And.StartupTasks()
@@ -232,8 +240,7 @@ namespace Bootstrap.Tests.Core
                     .AndGroup(s => s
                         .First<TaskOmega>()
                         .Then().TheRest())
-                .Excluding.Assembly("Castle")
-                .Start();
+                .Excluding.Assembly("Castle");                
         }
 
         [TestMethod]
@@ -282,5 +289,27 @@ namespace Bootstrap.Tests.Core
             Assert.IsFalse(result.Contains(Assembly.GetExecutingAssembly()));
         }
 
+        [TestMethod]
+        public void ShouldReturnIncludedOnlyAssemblies()
+        {
+            //Act
+            var result = Bootstrapper.IncludingOnly.Assemblies;
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(List<Assembly>));
+        }
+
+        [TestMethod]
+        public void ShouldResetIncludedOnlyAssemblies()
+        {
+            //Act
+            Bootstrapper.IncludingOnly.Assembly(Assembly.GetExecutingAssembly());
+            Bootstrapper.Reset();
+            var result = Bootstrapper.IncludingOnly.Assemblies;
+
+            //Assert
+            Assert.IsFalse(result.Contains(Assembly.GetExecutingAssembly()));
+        }
     }
 }

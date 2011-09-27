@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Bootstrap.Extensions;
 
 namespace Bootstrap
@@ -32,6 +31,11 @@ namespace Bootstrap
         public IIncludedAssemblies Including
         {
             get { return Bootstrapper.Including; }
+        }
+
+        public IIncludedOnlyAssemblies IncludingOnly
+        {
+            get { return Bootstrapper.IncludingOnly; }
         }
 
         public void Start()

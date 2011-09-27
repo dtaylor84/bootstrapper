@@ -14,6 +14,7 @@ namespace Bootstrap
         public static IBootstrapperContainerExtension ContainerExtension { get; set; }
         public static IExcludedAssemblies Excluding { get; private set; }
         public static IIncludedAssemblies Including { get; private set; }
+        public static IIncludedOnlyAssemblies IncludingOnly { get; private set; }
 
         static Bootstrapper()
         {
@@ -50,6 +51,7 @@ namespace Bootstrap
         {
             Excluding = new ExcludedAssemblies();
             Including = new IncludedAssemblies();
+            IncludingOnly = new IncludedOnlyAssemblies();
         }
     }
 }
