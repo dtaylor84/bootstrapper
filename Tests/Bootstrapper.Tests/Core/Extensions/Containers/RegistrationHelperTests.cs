@@ -83,11 +83,28 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
         {
             //Arrange
             Bootstrapper.Excluding.Assembly("StructureMap").AndAssembly("Castle").AndAssembly("Windsor");
+
             //Act
             var result = RegistrationHelper.GetAssemblies().ToList();
 
             //Assert
             Bootstrapper.Excluding.Assemblies.ForEach(e => Assert.IsFalse(result.Any(a => a.FullName.StartsWith(e))));
+        }
+
+        [TestMethod]
+        public void ShouldIncludeOnlyIncludedOnlyAssemblies()
+        {
+            //Arrange
+            var bootstrapperAssembly = Assembly.GetAssembly(typeof (Bootstrapper));
+            Bootstrapper.IncludingOnly.Assembly(bootstrapperAssembly);
+
+            //Act
+            var result = RegistrationHelper.GetAssemblies().ToList();
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(1, result.Count);
+            Assert.AreSame(bootstrapperAssembly, result[0]);
         }
 
         [TestMethod]

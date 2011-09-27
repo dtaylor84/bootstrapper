@@ -4,12 +4,12 @@ using Bootstrap.Extensions;
 
 namespace Bootstrap
 {
-    public interface IIncludedAssemblies
+    public interface IIncludedOnlyAssemblies
     {
         List<Assembly> Assemblies { get; set; }
-        IIncludedAssemblies Assembly(Assembly assembly);
-        IIncludedAssemblies AndAssembly(Assembly assembly);
-        IIncludedOnlyAssemblies IncludingOnly { get; }
+        IIncludedOnlyAssemblies Assembly(Assembly assembly);
+        IIncludedOnlyAssemblies AndAssembly(Assembly assembly);
+        IIncludedAssemblies Including { get; }
         IExcludedAssemblies Excluding { get; }
         BootstrapperExtensions With { get; }
         void Start();

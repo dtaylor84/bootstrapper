@@ -9,25 +9,25 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bootstrap.Tests.Core
 {
     [TestClass]
-    public class IncludedAssembliesTests
+    public class IncludedOnlyAssembliesTests
     {
         [TestMethod]
-        public void ShouldCreateANewIncludedAssemblies()
+        public void ShouldCreateANewIncludedOnlyAssemblies()
         {
             //Act
-            var result = new IncludedAssemblies();
+            var result = new IncludedOnlyAssemblies();
 
             //Assert
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(IIncludedAssemblies));
-            Assert.IsInstanceOfType(result, typeof(IncludedAssemblies));
+            Assert.IsInstanceOfType(result, typeof(IIncludedOnlyAssemblies));
+            Assert.IsInstanceOfType(result, typeof(IncludedOnlyAssemblies));
         }
 
         [TestMethod]
         public void ShouldReturnEmpyListOfAssemblies()
         {
             //Act
-            var result = new IncludedAssemblies().Assemblies;
+            var result = new IncludedOnlyAssemblies().Assemblies;
 
             //Assert
             Assert.IsNotNull(result);
@@ -36,48 +36,48 @@ namespace Bootstrap.Tests.Core
         }
 
         [TestMethod]
-        public void ShouldAddAssemblyToIncludedAssemblies()
+        public void ShouldAddAssemblyToIncludedOnlyAssemblies()
         {
             //Act
-            var included = new IncludedAssemblies();
-            var result = included.Assembly(Assembly.GetAssembly(GetType()));
+            var includedOnly = new IncludedOnlyAssemblies();
+            var result = includedOnly.Assembly(Assembly.GetAssembly(GetType()));
 
             //Assert
-            Assert.AreSame(included, result);
+            Assert.AreSame(includedOnly, result);
             Assert.IsTrue(result.Assemblies.Contains(Assembly.GetAssembly(GetType())));
         }
 
         [TestMethod]
-        public void ShouldAddAssemblyToIncludedAssembliesUsingAndAssembly()
+        public void ShouldAddAssemblyToIncludedOnlyAssembliesUsingAndAssembly()
         {
             //Act
-            var included = new IncludedAssemblies();
-            var result = included.Assembly(Assembly.GetAssembly(typeof(Bootstrapper))).
+            var includedOnly = new IncludedOnlyAssemblies();
+            var result = includedOnly.Assembly(Assembly.GetAssembly(typeof(Bootstrapper))).
                                AndAssembly(Assembly.GetAssembly(typeof(AutoMapperExtension)));
 
             //Assert
-            Assert.AreSame(included, result);
+            Assert.AreSame(includedOnly, result);
             Assert.IsTrue(result.Assemblies.Contains(Assembly.GetAssembly(typeof(Bootstrapper))));
             Assert.IsTrue(result.Assemblies.Contains(Assembly.GetAssembly(typeof(AutoMapperExtension))));
         }
 
         [TestMethod]
-        public void ShouldReturnIncludedOnlyAssemblies()
+        public void ShouldReturnIncludedAssemblies()
         {
             //Act
-            var included = new IncludedAssemblies();
-            var result = included.IncludingOnly;
+            var includedOnly = new IncludedOnlyAssemblies();
+            var result = includedOnly.Including;
 
             //Assert
-            Assert.AreSame(Bootstrapper.IncludingOnly, result);
+            Assert.AreSame(Bootstrapper.Including, result);
         }
 
         [TestMethod]
         public void ShouldReturnExcludedAssemblies()
         {
             //Act
-            var included = new IncludedAssemblies();
-            var result = included.Excluding;
+            var includedOnly = new IncludedOnlyAssemblies();
+            var result = includedOnly.Excluding;
 
             //Assert
             Assert.AreSame(Bootstrapper.Excluding, result);
@@ -87,8 +87,8 @@ namespace Bootstrap.Tests.Core
         public void ShouldReturnBootstrapperExtensions()
         {
             //Act
-            var included = new IncludedAssemblies();
-            var result = included.With;
+            var includedOnly = new IncludedOnlyAssemblies();
+            var result = includedOnly.With;
 
             //Assert
             Assert.AreSame(Bootstrapper.With, result);
@@ -98,12 +98,12 @@ namespace Bootstrap.Tests.Core
         public void ShouldInvokeBootstrapperStart()
         {
             //Act
-            var included = new IncludedAssemblies();
+            var includedOnly = new IncludedOnlyAssemblies();
             var extension = A.Fake<IBootstrapperExtension>();
             Bootstrapper.With.Extension(extension);
 
             //Act
-            included.Start();
+            includedOnly.Start();
             Bootstrapper.ClearExtensions();
 
             //Assert

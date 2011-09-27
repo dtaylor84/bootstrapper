@@ -70,6 +70,16 @@ namespace Bootstrap.Tests.Core
             Assert.AreSame(Bootstrapper.Including, result);
         }
 
+        [TestMethod]
+        public void ShouldReturnIncludedOnlyAssemblies()
+        {
+            //Act
+            var included = new ExcludedAssemblies();
+            var result = included.IncludingOnly;
+
+            //Assert
+            Assert.AreSame(Bootstrapper.IncludingOnly, result);
+        }
 
         [TestMethod]
         public void ShouldReturnBootstrapperExtensions()

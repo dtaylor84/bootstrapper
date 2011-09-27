@@ -70,7 +70,9 @@
     <Compile Include="Extensions\StartupTasks\ISequenceSpecification.cs" />
     <Compile Include="Extensions\StartupTasks\IStartupTask.cs" />
     <Compile Include="IIncludedAssemblies.cs" />
+    <Compile Include="IIncludedOnlyAssemblies.cs" />
     <Compile Include="IncludedAssemblies.cs" />
+    <Compile Include="IncludedOnlyAssemblies.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Extensions\Containers\RegistrationHelper.cs" />
     <Compile Include="Extensions\StartupTasks\BootstrapperStartupTasksHelper.cs" />
