@@ -34,7 +34,8 @@ namespace Bootstrap.Extensions.Containers
 
         private static bool IsNotExcluded(Assembly assembly)
         {
-            return !Bootstrapper.Excluding.Assemblies.Any(e => assembly.FullName.StartsWith(e));
+            return  Bootstrapper.Including.Assemblies.Any(e => assembly.FullName == e.FullName) || 
+                    !Bootstrapper.Excluding.Assemblies.Any(e => assembly.FullName.StartsWith(e));
         }
 
         public static List<T> GetInstancesOfTypesImplementing<T>()

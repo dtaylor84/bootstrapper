@@ -108,6 +108,21 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
         }
 
         [TestMethod]
+        public void ShouldExcluedExcludedAssembliesExceptoForTheExplicitelyIncludedOnes()
+        {
+            //Arrange
+            Bootstrapper.Excluding.Assembly("Bootstrapper").Including.Assembly(Assembly.GetExecutingAssembly());
+
+            //Act
+            var result = RegistrationHelper.GetAssemblies().ToList();
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(1, result.Count(a => a.FullName.StartsWith("Bootstrapper")));
+            Assert.AreEqual(Assembly.GetExecutingAssembly(), result.First(a => a.FullName.StartsWith("Bootstrapper")));
+        }
+
+        [TestMethod]
         public void ShouldReturnInstancesOfAType()
         {
             //Act
