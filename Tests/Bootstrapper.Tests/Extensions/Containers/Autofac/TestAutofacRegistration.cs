@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Bootstrap.Autofac;
+using Bootstrap.Extensions.Containers;
 
 namespace Bootstrap.Tests.Extensions.Containers.Autofac
 {
@@ -7,6 +8,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
     {
         public void Register(ContainerBuilder containerBuilder)
         {
+            containerBuilder.RegisterType<RegistrationHelper>().As<IRegistrationHelper>();
             containerBuilder.RegisterType<AutofacExtension>();
         }
     }

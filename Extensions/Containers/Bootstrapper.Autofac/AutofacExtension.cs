@@ -13,7 +13,7 @@ namespace Bootstrap.Autofac
         private IContainer container;
         public IBootstrapperContainerExtensionOptions Options { get; private set; }
 
-        public AutofacExtension()
+        public AutofacExtension(IRegistrationHelper registrationHelper): base(registrationHelper)
         {
             Options = new BootstrapperContainerExtensionOptions();
             Bootstrapper.Excluding.Assembly("Autofac");

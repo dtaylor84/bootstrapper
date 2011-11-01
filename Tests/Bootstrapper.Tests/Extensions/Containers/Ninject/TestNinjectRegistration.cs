@@ -1,4 +1,5 @@
-﻿using Bootstrap.Ninject;
+﻿using Bootstrap.Extensions.Containers;
+using Bootstrap.Ninject;
 using Ninject;
 
 namespace Bootstrap.Tests.Extensions.Containers.Ninject
@@ -7,6 +8,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
     {
         public void Register(IKernel container)
         {
+            container.Bind<IRegistrationHelper>().To<RegistrationHelper>();
             container.Bind<NinjectExtension>().To<NinjectExtension>();
         }
     }

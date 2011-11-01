@@ -7,7 +7,7 @@ namespace Bootstrap.Unity
     {
         public static IBootstrapperContainerExtensionOptions Unity(this BootstrapperExtensions extensions)
         {
-            var extension = new UnityExtension();
+            var extension = new UnityExtension(new RegistrationHelper());
             extensions.Extension(extension);
             return extension.Options;
         }

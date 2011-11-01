@@ -12,6 +12,23 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
     [TestClass]
     public class RegistrationHelperTests
     {
+        private IRegistrationHelper registrationHelper;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            registrationHelper = new RegistrationHelper();
+        }
+
+        [TestMethod]
+        public void ShouldCreateANewRegistrationHelper()
+        {
+            //Assert
+            Assert.IsNotNull(registrationHelper);
+            Assert.IsInstanceOfType(registrationHelper, typeof(IRegistrationHelper));
+            Assert.IsInstanceOfType(registrationHelper, typeof(RegistrationHelper));
+        }
+
         [TestMethod]
         public void ShouldReturnTypesFromAGivenAssembly()
         {
@@ -19,7 +36,7 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
             var assembly = Assembly.GetAssembly(typeof (IBootstrapperExtension));
 
             //Act
-            var result = RegistrationHelper.GetTypesImplementing<IBootstrapperExtension>(assembly);
+            var result = registrationHelper.GetTypesImplementing<IBootstrapperExtension>(assembly);
 
             //Assert
             Assert.IsTrue(result.Any(t => typeof(IBootstrapperExtension).IsAssignableFrom(t)));
@@ -32,7 +49,7 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
             var assemblyName = Assembly.GetAssembly(typeof(IBootstrapperExtension)).GetName().FullName;
 
             //Act
-            var result = RegistrationHelper.GetTypesImplementing<IBootstrapperExtension>(assemblyName);
+            var result = registrationHelper.GetTypesImplementing<IBootstrapperExtension>(assemblyName);
 
             //Assert
             Assert.IsTrue(result.Any(t => typeof(IBootstrapperExtension).IsAssignableFrom(t)));            
@@ -42,7 +59,7 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
         public void ShouldReturnTypesFromCallingAssembly()
         {
             //Act
-            var result = RegistrationHelper.GetTypesImplementing<IStartupTask>();
+            var result = registrationHelper.GetTypesImplementing<IStartupTask>();
 
             //Assert
             Assert.IsTrue(result.Any(t => typeof(TestStartupTask).IsAssignableFrom(t)));
@@ -52,17 +69,17 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
         public void ShouldExcludeNonPublicClasses()
         {
             //Act
-            var result = RegistrationHelper.GetTypesImplementing<IStartupTask>();
+            var result = registrationHelper.GetTypesImplementing<IStartupTask>();
 
             //Assert
             Assert.IsFalse(result.Any(t => t == typeof(InternalTestStartupTask)));            
         }
-
+        
         [TestMethod]
         public void ShouldExcludeAbstractClasses()
         {
             //Act
-            var result = RegistrationHelper.GetTypesImplementing<IStartupTask>();
+            var result = registrationHelper.GetTypesImplementing<IStartupTask>();
 
             //Assert
             Assert.IsFalse(result.Any(t => t == typeof(AbstractTestStartupTask)));
@@ -72,7 +89,7 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
         public void ShouldReturnNonDynamicAssemblies()
         {
             //Act
-            var result = RegistrationHelper.GetAssemblies().ToList();
+            var result = registrationHelper.GetAssemblies().ToList();
 
             //Assert
             Assert.IsFalse(result.Any(a => a.IsDynamic));
@@ -85,7 +102,7 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
             Bootstrapper.Excluding.Assembly("StructureMap").AndAssembly("Castle").AndAssembly("Windsor");
 
             //Act
-            var result = RegistrationHelper.GetAssemblies().ToList();
+            var result = registrationHelper.GetAssemblies().ToList();
 
             //Assert
             Bootstrapper.Excluding.Assemblies.ForEach(e => Assert.IsFalse(result.Any(a => a.FullName.StartsWith(e))));
@@ -99,7 +116,7 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
             Bootstrapper.IncludingOnly.Assembly(bootstrapperAssembly);
 
             //Act
-            var result = RegistrationHelper.GetAssemblies().ToList();
+            var result = registrationHelper.GetAssemblies().ToList();
 
             //Assert
             Assert.IsNotNull(result);
@@ -114,7 +131,7 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
             Bootstrapper.Excluding.Assembly("Bootstrapper").Including.Assembly(Assembly.GetExecutingAssembly());
 
             //Act
-            var result = RegistrationHelper.GetAssemblies().ToList();
+            var result = registrationHelper.GetAssemblies().ToList();
 
             //Assert
             Assert.IsNotNull(result);
@@ -126,13 +143,13 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
         public void ShouldReturnInstancesOfAType()
         {
             //Act
-            var result = RegistrationHelper.GetInstancesOfTypesImplementing<IBootstrapperContainerExtension>();
+            var result = registrationHelper.GetInstancesOfTypesImplementing<IRegistrationHelper>();
 
             //Assert
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(List<IBootstrapperContainerExtension>));
+            Assert.IsInstanceOfType(result, typeof(List<IRegistrationHelper>));
             Assert.IsTrue(result.Count > 0);
-            Assert.IsTrue(result.Any(c => c is TestContainerExtension));
+            Assert.IsTrue(result.Any(c => c is RegistrationHelper));
         }
     }
 }

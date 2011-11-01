@@ -12,6 +12,8 @@ namespace Bootstrap.Extensions.StartupTasks
         const int DefaultPosition = int.MaxValue;       
         public StartupTasksOptions Options { get; private set; }
         private readonly List<TaskGroup> taskGroups;
+        private readonly IRegistrationHelper registrationHelper;
+
         public List<ExecutionLogEntry> ExecutionLog { 
             get
             {
@@ -21,10 +23,11 @@ namespace Bootstrap.Extensions.StartupTasks
             }
         }
 
-        public StartupTasksExtension()
+        public StartupTasksExtension(IRegistrationHelper registrationHelper)
         {
             Options = new StartupTasksOptions();
             taskGroups = new List<TaskGroup>();
+            this.registrationHelper = registrationHelper;
         }
 
         public void Run()
@@ -88,13 +91,13 @@ namespace Bootstrap.Extensions.StartupTasks
             group.ExecutionLog.Add(logEntry);
         }
 
-        private static List<IStartupTask> GetTasks()
+        private List<IStartupTask> GetTasks()
         {
             List<IStartupTask> tasks;
             if (Bootstrapper.ContainerExtension != null && Bootstrapper.Container != null)
                 tasks = Bootstrapper.ContainerExtension.ResolveAll<IStartupTask>().OrderBy(t => t.GetType().Name).ToList();
             else
-                tasks = RegistrationHelper.GetInstancesOfTypesImplementing<IStartupTask>().OrderBy(t => t.GetType().Name).ToList();
+                tasks = registrationHelper.GetInstancesOfTypesImplementing<IStartupTask>().OrderBy(t => t.GetType().Name).ToList();
             return tasks;
         }
 

@@ -12,7 +12,7 @@ namespace Bootstrap.StructureMap
         private IContainer container;
         public IBootstrapperContainerExtensionOptions Options { get; private set; }
 
-        public StructureMapExtension()
+        public StructureMapExtension(IRegistrationHelper registrationHelper): base(registrationHelper)
         {
             Options = new BootstrapperContainerExtensionOptions();
             Bootstrapper.Excluding.Assembly("StructureMap");
