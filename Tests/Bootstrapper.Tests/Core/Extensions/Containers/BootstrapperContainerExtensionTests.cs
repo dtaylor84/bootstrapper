@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
+using Bootstrap.Extensions.Containers;
 using Bootstrap.Tests.Extensions.TestImplementations;
+using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bootstrap.Tests.Core.Extensions.Containers
@@ -8,12 +11,19 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
     [TestClass]
     public class BootstrapperContainerExtensionTests
     {
+        private IRegistrationHelper registrationHelper;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            registrationHelper = A.Fake<IRegistrationHelper>();
+        }
 
         [TestMethod]
         public void ShouldCreateATestContainerExtension()
         {
             //Act
-            var result = new TestContainerExtension();
+            var result = new TestContainerExtension(registrationHelper);
 
             //Assert
             Assert.IsNotNull(result);
@@ -24,7 +34,7 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
         public void ShouldAddMicrosoftPracticesToExcludedAssemblies()
         {
             //Act
-            var result = new TestContainerExtension();
+            var result = new TestContainerExtension(registrationHelper);
 
             //Assert
             Assert.IsNotNull(result);
@@ -35,7 +45,7 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
         public void ShouldSetTheBootstrapperContainer()
         {
             //Arrange
-            var containerExtension = new TestContainerExtension();
+            var containerExtension = new TestContainerExtension(registrationHelper);
 
             //Act
             Bootstrapper.With.Extension(containerExtension).Start();
@@ -50,7 +60,7 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
         public void ShouldRegisterAndInvokeRegistrations()
         {
             //Arrange
-            var containerExtension = new TestContainerExtension();
+            var containerExtension = new TestContainerExtension(registrationHelper);
 
             //Act
             Bootstrapper.With.Extension(containerExtension).Start();
@@ -65,7 +75,7 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
         public void ShouldResetTheBootstrapperContainer()
         {
             //Arrange
-            var containerExtension = new TestContainerExtension();
+            var containerExtension = new TestContainerExtension(registrationHelper);
             Bootstrapper.With.Extension(containerExtension).Start();
 
             //Act
@@ -81,13 +91,16 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
         public void ShouldRegisterBasedOnConvention()
         {
             //Arrange
-            var containerExtension = new TestContainerExtension();
+            var assembly = Assembly.GetAssembly(typeof(RegisteredByConvention));
+            A.CallTo(() => registrationHelper.GetAssemblies()).Returns(new List<Assembly> { assembly });
+            var containerExtension = new TestContainerExtension(registrationHelper);
 
             //Act
             containerExtension.DoAutoRegister();
             var result = containerExtension.Registrations;
 
             //Assert
+            A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result,typeof(Dictionary<Type,Type>));
             Assert.IsTrue(result.ContainsKey(typeof(IRegisteredByConvention)));

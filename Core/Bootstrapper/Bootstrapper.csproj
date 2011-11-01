@@ -56,6 +56,7 @@
     <Compile Include="Extensions\Containers\BootstrapperContainerExtensionOptions.cs" />
     <Compile Include="Extensions\Containers\IBootstrapperRegistration.cs" />
     <Compile Include="Extensions\Containers\IBootstrapperContainerExtensionOptions.cs" />
+    <Compile Include="Extensions\Containers\IRegistrationHelper.cs" />
     <Compile Include="Extensions\Containers\IRegistrationInvoker.cs" />
     <Compile Include="Extensions\Containers\NoContainerException.cs" />
     <Compile Include="Extensions\Containers\RegistrationInvoker.cs" />

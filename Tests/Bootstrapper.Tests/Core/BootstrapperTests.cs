@@ -64,7 +64,7 @@ namespace Bootstrap.Tests.Core
         public void ShouldReturnTheSetContainer()
         {
             //Arrange
-            var containerExtension = new TestContainerExtension();
+            var containerExtension = new TestContainerExtension(A.Fake<IRegistrationHelper>());
             Bootstrapper.With.Extension(containerExtension);
 
             //Act
@@ -111,7 +111,7 @@ namespace Bootstrap.Tests.Core
         public void ShouldClearContainer()
         {
             //Arrange
-            var containerExtension = new TestContainerExtension();
+            var containerExtension = new TestContainerExtension(A.Fake<IRegistrationHelper>());
             Bootstrapper.With.Extension(containerExtension);
             Bootstrapper.Start();
 

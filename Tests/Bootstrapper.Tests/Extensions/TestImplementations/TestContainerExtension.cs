@@ -11,7 +11,7 @@ namespace Bootstrap.Tests.Extensions.TestImplementations
         public bool RegistrationsInvoked { get; set; }
         public Dictionary<Type, Type> Registrations { get; set; }
 
-        public TestContainerExtension()
+        public TestContainerExtension(IRegistrationHelper registrationHelper): base(registrationHelper)
         {
             RegistrationsRegistered = false;
             RegistrationsInvoked = false;

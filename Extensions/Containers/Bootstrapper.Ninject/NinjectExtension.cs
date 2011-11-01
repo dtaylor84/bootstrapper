@@ -9,10 +9,10 @@ namespace Bootstrap.Ninject
 {
     public class NinjectExtension: BootstrapperContainerExtension
     {
-        private IKernel container;
+        private IKernel container;        
         public IBootstrapperContainerExtensionOptions Options { get; private set; }
 
-        public NinjectExtension()
+        public NinjectExtension(IRegistrationHelper registrationHelper): base(registrationHelper)
         {
             Options = new BootstrapperContainerExtensionOptions();
             Bootstrapper.Excluding.Assembly("Ninject");

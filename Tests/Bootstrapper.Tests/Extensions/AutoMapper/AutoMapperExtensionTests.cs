@@ -14,11 +14,19 @@ namespace Bootstrap.Tests.Extensions.AutoMapper
     [TestClass]
     public class AutoMapperExtensionTests
     {
+        private IRegistrationHelper registrationHelper;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            registrationHelper = A.Fake<IRegistrationHelper>();
+        }
+
         [TestMethod]
         public void ShouldCreateAnAutoMapperExtension()
         {
             //Act
-            var result = new AutoMapperExtension();
+            var result = new AutoMapperExtension(registrationHelper);
 
             //Assert
             Assert.IsNotNull(result);
@@ -30,7 +38,7 @@ namespace Bootstrap.Tests.Extensions.AutoMapper
         public void ShouldAddAutoMapperToExcludedAssemblies()
         {
             //Act
-            var result = new AutoMapperExtension();
+            var result = new AutoMapperExtension(registrationHelper);
 
             //Assert
             Assert.IsNotNull(result);
@@ -47,7 +55,7 @@ namespace Bootstrap.Tests.Extensions.AutoMapper
             A.CallTo(() => containerExtension.Resolve<IProfileExpression>()).Returns(profileExpression);
             A.CallTo(() => containerExtension.ResolveAll<IMapCreator>()).Returns(mapCreators);
             Bootstrapper.With.Extension(containerExtension);
-            var mapperExtension = new AutoMapperExtension();
+            var mapperExtension = new AutoMapperExtension(registrationHelper);
 
             //Act
             mapperExtension.Run();
@@ -67,7 +75,7 @@ namespace Bootstrap.Tests.Extensions.AutoMapper
         {
             //Arrange
             Mapper.CreateMap<object, object>();
-            var mapperExtension = new AutoMapperExtension();
+            var mapperExtension = new AutoMapperExtension(registrationHelper);
             Assert.AreNotEqual(0, Mapper.GetAllTypeMaps().Length);
 
             //Act
@@ -81,14 +89,16 @@ namespace Bootstrap.Tests.Extensions.AutoMapper
         public void ShouldInvokeCreateMapForAllMapCreatorsWhenNoContainerExtensionHasBeenDeclared()
         {
             //Arrange
-            var mapperExtension = new AutoMapperExtension();
+            var mapCreators = new List<IMapCreator> { A.Fake<IMapCreator>(), A.Fake<IMapCreator>() };
+            A.CallTo(() => registrationHelper.GetInstancesOfTypesImplementing<IMapCreator>()).Returns(mapCreators);
+            var mapperExtension = new AutoMapperExtension(registrationHelper);
 
             //Act
             mapperExtension.Run();
             
             //Assert
-            Assert.IsNotNull(Mapper.Map<BootstrapperContainerExtension, IBootstrapperExtension>(new TestContainerExtension()));
-            ExceptionAssert.Throws<AutoMapperMappingException>(() =>Mapper.Map<IBootstrapperExtension, BootstrapperContainerExtension>(new StartupTasksExtension()));
+            A.CallTo(() => registrationHelper.GetInstancesOfTypesImplementing<IMapCreator>()).MustHaveHappened();
+            mapCreators.ForEach(m => A.CallTo(() => m.CreateMap(Mapper.Configuration)).MustHaveHappened());
         }
     }
 }

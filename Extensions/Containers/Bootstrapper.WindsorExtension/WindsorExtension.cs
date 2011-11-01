@@ -15,7 +15,7 @@ namespace Bootstrap.Windsor
         private IWindsorContainer container;
         public IBootstrapperContainerExtensionOptions Options { get; private set; }
 
-        public WindsorExtension()
+        public WindsorExtension(IRegistrationHelper registrationHelper): base(registrationHelper)
         {
             Options= new BootstrapperContainerExtensionOptions();
             Bootstrapper.Excluding.Assembly("Castle");

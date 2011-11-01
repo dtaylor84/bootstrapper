@@ -8,9 +8,12 @@ namespace Bootstrap.AutoMapper
 {
     public class AutoMapperExtension : IBootstrapperExtension
     {
-        public AutoMapperExtension()
+        private readonly IRegistrationHelper registrationHelper;
+
+        public AutoMapperExtension(IRegistrationHelper registrationHelper)
         {
-            Bootstrapper.Excluding.Assembly("AutoMapper");            
+            Bootstrapper.Excluding.Assembly("AutoMapper");
+            this.registrationHelper = registrationHelper;
         }
 
         public void Run()
@@ -26,7 +29,7 @@ namespace Bootstrap.AutoMapper
             else
             {
                 configuration = Mapper.Configuration;
-                mapCreators = RegistrationHelper.GetInstancesOfTypesImplementing<IMapCreator>();
+                mapCreators = registrationHelper.GetInstancesOfTypesImplementing<IMapCreator>();
             }
             mapCreators.ForEach(m => m.CreateMap(configuration));            
         }

@@ -11,7 +11,7 @@ namespace Bootstrap.Unity
         private IUnityContainer container;
         public IBootstrapperContainerExtensionOptions Options { get; private set; }
 
-        public UnityExtension()
+        public UnityExtension(IRegistrationHelper registrationHelper): base(registrationHelper)
         {
             Options = new BootstrapperContainerExtensionOptions();
             Bootstrapper.Excluding.Assembly("Microsoft.Practices");

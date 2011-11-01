@@ -1,5 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using AutoMapper;
+using Bootstrap.AutoMapper;
 using Bootstrap.Extensions.Containers;
 using Bootstrap.Extensions.StartupTasks;
 using Bootstrap.Ninject;
@@ -17,17 +21,20 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
     [TestClass]
     public class NinjectExtensionTests
     {
+        private IRegistrationHelper registrationHelper;
+
         [TestInitialize]
         public void InitializeBootstrapper()
         {
             Bootstrapper.ClearExtensions();
+            registrationHelper = A.Fake<IRegistrationHelper>();
         }
 
         [TestMethod]
         public void ShouldCreateANinjectExtension()
         {
             //Act
-            var result = new NinjectExtension();
+            var result = new NinjectExtension(registrationHelper);
 
             //Assert
             Assert.IsNotNull(result);
@@ -38,7 +45,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
         public void ShouldAddNinjectToExcludedAssemblies()
         {
             //Act
-            var result = new NinjectExtension();
+            var result = new NinjectExtension(registrationHelper);
 
             //Assert
             Assert.IsNotNull(result);
@@ -49,7 +56,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
         public void ShouldReturnANullContainer()
         {
             //Arrange
-            var containerExtension = new NinjectExtension();
+            var containerExtension = new NinjectExtension(registrationHelper);
 
             //Act
             var result = containerExtension.Container;
@@ -62,7 +69,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
         public void ShouldReturnAnIKernel()
         {
             //Arrange
-            var containerExtension = new NinjectExtension();
+            var containerExtension = new NinjectExtension(registrationHelper);
 
             //Act
             containerExtension.Run();
@@ -77,29 +84,44 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
         public void ShouldRegisterAllTypesOfIBootstrapperRegistration()
         {
             //Arrange
-            var containerExtension = new NinjectExtension();
+            var assembly = Assembly.GetAssembly(typeof(AutoMapperRegistration));
+            A.CallTo(() => registrationHelper.GetAssemblies())
+                .Returns(new List<Assembly> { assembly });
+            A.CallTo(() => registrationHelper.GetTypesImplementing<IBootstrapperRegistration>(assembly))
+                .Returns(new List<Type> { typeof(AutoMapperRegistration) });
+            var containerExtension = new NinjectExtension(registrationHelper);
 
             //Act
             containerExtension.Run();
             var result = containerExtension.ResolveAll<IBootstrapperRegistration>();
 
             //Assert
+            A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
+            A.CallTo(() => registrationHelper.GetTypesImplementing<IBootstrapperRegistration>(assembly)).MustHaveHappened();
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IEnumerable<IBootstrapperRegistration>));
             Assert.IsTrue(result.Count > 0);
+            Assert.IsTrue(result[0] is AutoMapperRegistration);
         }
 
         [TestMethod]
         public void ShouldRegisterAllTypesOfINinjectRegistration()
         {
             //Arrange
-            var containerExtension = new NinjectExtension();
+            var assembly = Assembly.GetAssembly(typeof(TestNinjectRegistration));
+            A.CallTo(() => registrationHelper.GetAssemblies())
+                .Returns(new List<Assembly> { assembly });
+            A.CallTo(() => registrationHelper.GetTypesImplementing<INinjectRegistration>(assembly))
+                .Returns(new List<Type> { typeof(TestNinjectRegistration) });
+            var containerExtension = new NinjectExtension(registrationHelper);
 
             //Act
             containerExtension.Run();
             var result = containerExtension.ResolveAll<INinjectRegistration>();
 
             //Assert
+            A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
+            A.CallTo(() => registrationHelper.GetTypesImplementing<INinjectRegistration>(assembly)).MustHaveHappened();
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IEnumerable<INinjectRegistration>));
             Assert.IsTrue(result.Count > 0);
@@ -109,29 +131,40 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
         public void ShouldInvokeTheRegisterMethodOfAllIBootstrapperRegistrationTypes()
         {
             //Arrange
-            var containerExtension = new NinjectExtension();
+            var assembly = Assembly.GetAssembly(typeof(AutoMapperRegistration));
+            A.CallTo(() => registrationHelper.GetAssemblies())
+                .Returns(new List<Assembly> { assembly });
+            A.CallTo(() => registrationHelper.GetTypesImplementing<IBootstrapperRegistration>(assembly))
+                .Returns(new List<Type> { typeof(AutoMapperRegistration) });
+            var containerExtension = new NinjectExtension(registrationHelper);
 
             //Act
             containerExtension.Run();
-            var result = containerExtension.ResolveAll<IStartupTask>();
 
             //Assert
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(IList<IStartupTask>));
-            Assert.IsTrue(result.Count > 0);
+            A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
+            A.CallTo(() => registrationHelper.GetTypesImplementing<IBootstrapperRegistration>(assembly)).MustHaveHappened();
+            Assert.IsNotNull(containerExtension.Resolve<IProfileExpression>());
         }
 
         [TestMethod]
         public void ShouldInvokeTheRegisterMethodOfAllINinjectRegistrationTypes()
         {
             //Arrange
-            var containerExtension = new NinjectExtension();
+            var assembly = Assembly.GetAssembly(typeof(TestNinjectRegistration));
+            A.CallTo(() => registrationHelper.GetAssemblies())
+                .Returns(new List<Assembly> { assembly });
+            A.CallTo(() => registrationHelper.GetTypesImplementing<INinjectRegistration>(assembly))
+                .Returns(new List<Type> { typeof(TestNinjectRegistration) });
+            var containerExtension = new NinjectExtension(registrationHelper);
 
             //Act
             containerExtension.Run();
             var result = containerExtension.Resolve<NinjectExtension>();
 
             //Assert
+            A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
+            A.CallTo(() => registrationHelper.GetTypesImplementing<INinjectRegistration>(assembly)).MustHaveHappened();
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(NinjectExtension));
         }
@@ -141,7 +174,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
         {
             //Arrange
             ServiceLocator.SetLocatorProvider(() => null);
-            var containerExtension = new NinjectExtension();
+            var containerExtension = new NinjectExtension(registrationHelper);
             containerExtension.Run();
 
             //Act            
@@ -157,7 +190,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
         public void ShouldResetTheServiceLocator()
         {
             //Arrange
-            var containerExtension = new NinjectExtension();
+            var containerExtension = new NinjectExtension(registrationHelper);
             containerExtension.Run();
 
             //Act
@@ -171,7 +204,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
         public void ShouldSetTheContainer()
         {
             //Arrange            
-            var containerExtension = new NinjectExtension();
+            var containerExtension = new NinjectExtension(registrationHelper);
 
             //Act
             containerExtension.Run();
@@ -186,7 +219,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
         public void ShouldResetTheContainer()
         {
             //Arrange
-            var containerExtension = new NinjectExtension();
+            var containerExtension = new NinjectExtension(registrationHelper);
             containerExtension.Run();
 
             //Act
@@ -200,7 +233,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
         public void ShouldInitializeTheContainerToTheValuePassed()
         {
             //Arrange
-            var containerExtension = new NinjectExtension();
+            var containerExtension = new NinjectExtension(registrationHelper);
             var container = A.Fake<IKernel>();
 
             //Act
@@ -217,7 +250,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
         public void ShouldResolveASingleType()
         {
             //Arrange
-            var containerExtension = new NinjectExtension();
+            var containerExtension = new NinjectExtension(registrationHelper);
             var container = new StandardKernel();
             var instance = new object();
             container.Bind<object>().ToConstant(instance);
@@ -235,7 +268,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
         public void ShouldResolveMultipleTypes()
         {
             //Arrange
-            var containerExtension = new NinjectExtension();
+            var containerExtension = new NinjectExtension(registrationHelper);
             var container = new StandardKernel();
             container.Bind<IStartupTask>().To<TaskAlpha>();
             container.Bind<IStartupTask>().To<TaskBeta>();
@@ -255,16 +288,16 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
         {
             //Arrange
             var container = new StandardKernel();
-            var containerExtension = new NinjectExtension();
+            var containerExtension = new NinjectExtension(registrationHelper);
             containerExtension.InitializeContainer(container);
 
             //Act
-            containerExtension.Register<IBootstrapperContainerExtension, NinjectExtension>();
-            var result = container.Get<IBootstrapperContainerExtension>();
+            containerExtension.Register<IRegistrationHelper, RegistrationHelper>();
+            var result = container.Get<IRegistrationHelper>();
 
             //Assert
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(NinjectExtension));
+            Assert.IsInstanceOfType(result, typeof(RegistrationHelper));
         }
 
         [TestMethod]
@@ -272,7 +305,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
         {
             //Arrange
             var container = new StandardKernel();
-            var containerExtension = new NinjectExtension();
+            var containerExtension = new NinjectExtension(registrationHelper);
             containerExtension.InitializeContainer(container);
 
             //Act
@@ -289,26 +322,33 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
         public void ShouldRegisterWithTargetType()
         {
             //Arrange
+            var assembly = Assembly.GetAssembly(typeof(RegistrationHelper));
+            A.CallTo(() => registrationHelper.GetAssemblies())
+                .Returns(new List<Assembly> { assembly });
+            A.CallTo(() => registrationHelper.GetTypesImplementing<IRegistrationHelper>(assembly))
+                .Returns(new List<Type> { typeof(RegistrationHelper) });
             var container = new StandardKernel();
-            var containerExtension = new NinjectExtension();
+            var containerExtension = new NinjectExtension(registrationHelper);
             containerExtension.InitializeContainer(container);
 
             //Act
-            containerExtension.RegisterAll<IBootstrapperContainerExtension>();
-            var result = container.GetAll<IBootstrapperContainerExtension>();
+            containerExtension.RegisterAll<IRegistrationHelper>();
+            var result = container.GetAll<IRegistrationHelper>();
 
             //Assert
+            A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
+            A.CallTo(() => registrationHelper.GetTypesImplementing<IRegistrationHelper>(assembly)).MustHaveHappened();
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(IEnumerable<IBootstrapperContainerExtension>));
+            Assert.IsInstanceOfType(result, typeof(IEnumerable<IRegistrationHelper>));
             Assert.IsTrue(result.Count() > 0);
-            Assert.IsTrue(result.Any(c => c is NinjectExtension));
+            Assert.IsTrue(result.Any(c => c is RegistrationHelper));
         }
 
         [TestMethod]
         public void ShouldReturnABootstrapperContainerExtensionOptions()
         {
             //Arrange
-            var containerExtension = new NinjectExtension();
+            var containerExtension = new NinjectExtension(registrationHelper);
 
             //Act
             var result = containerExtension.Options;
@@ -323,13 +363,21 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
         public void ShouldRegisterWithConventionAndWithRegistration()
         {
             //Arrange
-            var containerExtension = new NinjectExtension();
+            var assembly = Assembly.GetAssembly(typeof(TestNinjectRegistration));
+            A.CallTo(() => registrationHelper.GetAssemblies())
+                .Returns(new List<Assembly> { assembly });
+            A.CallTo(() => registrationHelper.GetTypesImplementing<INinjectRegistration>(assembly))
+                .Returns(new List<Type> { typeof(TestNinjectRegistration) });
+            var containerExtension = new NinjectExtension(registrationHelper);
             containerExtension.Options.UsingAutoRegistration();
 
             //Act
             containerExtension.Run();
 
             //Assert
+            A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
+            A.CallTo(() => registrationHelper.GetTypesImplementing<INinjectRegistration>(assembly)).MustHaveHappened();
+            Assert.IsNotNull(containerExtension.Resolve<IRegistrationHelper>());
             Assert.IsNotNull(containerExtension.Resolve<NinjectExtension>());
             Assert.IsNotNull(containerExtension.Resolve<IRegisteredByConvention>());
         }
@@ -338,7 +386,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
         public void ShouldThrowNoContainerExceptionWhenSettingServiceLocatorBeforeInitializingTheContainer()
         {
             //Arrange
-            var containerExtension = new NinjectExtension();
+            var containerExtension = new NinjectExtension(registrationHelper);
 
             //Act
             var result = ExceptionAssert.Throws<NoContainerException>(containerExtension.SetServiceLocator);
@@ -351,7 +399,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
         public void ShouldThrowNoContainerExceptionWhenResolvingSimpleTypeBeforeInitializingTheContainer()
         {
             //Arrange
-            var containerExtension = new NinjectExtension();
+            var containerExtension = new NinjectExtension(registrationHelper);
 
             //Act
             var result = ExceptionAssert.Throws<NoContainerException>(() => containerExtension.Resolve<object>());
@@ -364,7 +412,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
         public void ShouldThrowNoContainerExceptionWhenResolvingMultipleTypesBeforeInitializingTheContainer()
         {
             //Arrange
-            var containerExtension = new NinjectExtension();
+            var containerExtension = new NinjectExtension(registrationHelper);
 
             //Act
             var result = ExceptionAssert.Throws<NoContainerException>(() => containerExtension.ResolveAll<object>());
@@ -377,7 +425,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
         public void ShouldThrowNoContainerExceptionWhenRegisteringWithTargetAndImplementationTypeBeforeInitializingTheContainer()
         {
             //Arrange
-            var containerExtension = new NinjectExtension();
+            var containerExtension = new NinjectExtension(registrationHelper);
 
             //Act
             var result = ExceptionAssert.Throws<NoContainerException>(containerExtension.Register<IBootstrapperContainerExtension, NinjectExtension>);
@@ -390,7 +438,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
         public void ShouldThrowNoContainerExceptionWhenRegisteringWithTargetAndImplementationInstanceBeforeInitializingTheContainer()
         {
             //Arrange
-            var containerExtension = new NinjectExtension();
+            var containerExtension = new NinjectExtension(registrationHelper);
 
             //Act
             var result = ExceptionAssert.Throws<NoContainerException>(() => containerExtension.Register<IBootstrapperContainerExtension>(containerExtension));
@@ -403,7 +451,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
         public void ShouldThrowNoContainerExceptionWhenRegisteringWithTargetTypeBeforeInitializingTheContainer()
         {
             //Arrange
-            var containerExtension = new NinjectExtension();
+            var containerExtension = new NinjectExtension(registrationHelper);
 
             //Act
             var result = ExceptionAssert.Throws<NoContainerException>(containerExtension.RegisterAll<IBootstrapperContainerExtension>);

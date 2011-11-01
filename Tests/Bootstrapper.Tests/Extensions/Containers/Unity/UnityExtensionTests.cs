@@ -1,5 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using AutoMapper;
+using Bootstrap.AutoMapper;
 using Bootstrap.Extensions.Containers;
 using Bootstrap.Extensions.StartupTasks;
 using Bootstrap.Tests.Extensions.TestImplementations;
@@ -15,17 +19,20 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
     [TestClass]
     public class UnityExtensionTests
     {
+        private IRegistrationHelper registrationHelper;
+
         [TestInitialize]
         public void InitializeBootstrapper()
         {
             Bootstrapper.ClearExtensions();
+            registrationHelper = A.Fake<IRegistrationHelper>();
         }
 
         [TestMethod]
         public void ShouldCreateAUnityExtension()
         {
             //Act
-            var result = new UnityExtension();
+            var result = new UnityExtension(registrationHelper);
 
             //Assert
             Assert.IsNotNull(result);
@@ -36,7 +43,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
         public void ShouldAddMicrosoftPracticesToExcludedAssemblies()
         {
             //Act
-            var result = new UnityExtension();
+            var result = new UnityExtension(registrationHelper);
 
             //Assert
             Assert.IsNotNull(result);
@@ -47,7 +54,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
         public void ShouldReturnANullContainer()
         {
             //Arrange
-            var containerExtension = new UnityExtension();
+            var containerExtension = new UnityExtension(registrationHelper);
 
             //Act
             var result = containerExtension.Container;
@@ -60,7 +67,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
         public void ShouldReturnAnIUnityContainer()
         {
             //Arrange
-            var containerExtension = new UnityExtension();
+            var containerExtension = new UnityExtension(registrationHelper);
 
             //Act
             containerExtension.Run();
@@ -75,29 +82,44 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
         public void ShouldRegisterAllTypesOfIBootstrapperRegistration()
         {
             //Arrange
-            var containerExtension = new UnityExtension();
+            var assembly = Assembly.GetAssembly(typeof (AutoMapperRegistration));
+            A.CallTo(() => registrationHelper.GetAssemblies())
+                .Returns(new List<Assembly> {assembly});
+            A.CallTo(() => registrationHelper.GetTypesImplementing<IBootstrapperRegistration>(assembly))
+                .Returns(new List<Type> {typeof (AutoMapperRegistration)});
+            var containerExtension = new UnityExtension(registrationHelper);
 
             //Act
             containerExtension.Run();
             var result = containerExtension.ResolveAll<IBootstrapperRegistration>();
 
             //Assert
+            A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
+            A.CallTo(() => registrationHelper.GetTypesImplementing<IBootstrapperRegistration>(assembly)).MustHaveHappened();
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IEnumerable<IBootstrapperRegistration>));
             Assert.IsTrue(result.Count > 0);
+            Assert.IsTrue(result[0] is AutoMapperRegistration);
         }
 
         [TestMethod]
         public void ShouldRegisterAllTypesOfIUnityRegistration()
         {
             //Arrange
-            var containerExtension = new UnityExtension();
+            var assembly = Assembly.GetAssembly(typeof(TestUnityRegistration));
+            A.CallTo(() => registrationHelper.GetAssemblies())
+                .Returns(new List<Assembly> { assembly });
+            A.CallTo(() => registrationHelper.GetTypesImplementing<IUnityRegistration>(assembly))
+                .Returns(new List<Type> { typeof(TestUnityRegistration) }); 
+            var containerExtension = new UnityExtension(registrationHelper);
 
             //Act
             containerExtension.Run();
             var result = containerExtension.ResolveAll<IUnityRegistration>();
 
             //Assert
+            A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
+            A.CallTo(() => registrationHelper.GetTypesImplementing<IUnityRegistration>(assembly)).MustHaveHappened();
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IEnumerable<IUnityRegistration>));
             Assert.IsTrue(result.Count > 0);
@@ -107,28 +129,40 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
         public void ShouldInvokeTheRegisterMethodOfAllIBootstrapperRegistrationTypes()
         {
             //Arrange
-            var containerExtension = new UnityExtension();
+            var assembly = Assembly.GetAssembly(typeof(AutoMapperRegistration));
+            A.CallTo(() => registrationHelper.GetAssemblies())
+                .Returns(new List<Assembly> { assembly });
+            A.CallTo(() => registrationHelper.GetTypesImplementing<IBootstrapperRegistration>(assembly))
+                .Returns(new List<Type> { typeof(AutoMapperRegistration) });
+            var containerExtension = new UnityExtension(registrationHelper);
 
             //Act
-            containerExtension.Run();
-            var result = containerExtension.Resolve<IStartupTask>();
+            containerExtension.Run();          
 
             //Assert
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(IStartupTask));
+            A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
+            A.CallTo(() => registrationHelper.GetTypesImplementing<IBootstrapperRegistration>(assembly)).MustHaveHappened();
+            Assert.IsNotNull(containerExtension.Resolve<IProfileExpression>());
         }
 
         [TestMethod]
         public void ShouldInvokeTheRegisterMethodOfAllIUnityRegistrationTypes()
         {
             //Arrange
-            var containerExtension = new UnityExtension();
+            var assembly = Assembly.GetAssembly(typeof(TestUnityRegistration));
+            A.CallTo(() => registrationHelper.GetAssemblies())
+                .Returns(new List<Assembly> { assembly });
+            A.CallTo(() => registrationHelper.GetTypesImplementing<IUnityRegistration>(assembly))
+                .Returns(new List<Type> { typeof(TestUnityRegistration) }); 
+            var containerExtension = new UnityExtension(registrationHelper);
 
             //Act
             containerExtension.Run();
             var result = containerExtension.Resolve<UnityExtension>();
 
             //Assert
+            A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
+            A.CallTo(() => registrationHelper.GetTypesImplementing<IUnityRegistration>(assembly)).MustHaveHappened();
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(UnityExtension));
         }
@@ -138,7 +172,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
         {
             //Arrange
             ServiceLocator.SetLocatorProvider(() => null);
-            var containerExtension = new UnityExtension();
+            var containerExtension = new UnityExtension(registrationHelper);
             containerExtension.Run();
 
             //Act
@@ -154,7 +188,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
         public void ShouldResetTheServiceLocator()
         {
             //Arrange
-            var containerExtension = new UnityExtension();
+            var containerExtension = new UnityExtension(registrationHelper);
             containerExtension.Run();
 
             //Act
@@ -168,7 +202,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
         public void ShouldSetTheContainer()
         {
             //Arrange            
-            var containerExtension = new UnityExtension();
+            var containerExtension = new UnityExtension(registrationHelper);
 
             //Act
             containerExtension.Run();
@@ -183,7 +217,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
         public void ShouldResetTheContainer()
         {
             //Arrange
-            var containerExtension = new UnityExtension();
+            var containerExtension = new UnityExtension(registrationHelper);
             containerExtension.Run();
 
             //Act
@@ -197,7 +231,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
         public void ShouldInitializeTheContainerToTheValuePassed()
         {
             //Arrange
-            var containerExtension = new UnityExtension();
+            var containerExtension = new UnityExtension(registrationHelper);
             var container = A.Fake<IUnityContainer>();
 
             //Act
@@ -214,7 +248,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
         public void ShouldResolveASingleUnnamedType()
         {
             //Arrange
-            var containerExtension = new UnityExtension();
+            var containerExtension = new UnityExtension(registrationHelper);
             var container = new UnityContainer();
             var instance1 = new object();
             var instance2 = new object();
@@ -234,7 +268,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
         public void ShouldResolveASingleNamedType()
         {
             //Arrange
-            var containerExtension = new UnityExtension();
+            var containerExtension = new UnityExtension(registrationHelper);
             var container = new UnityContainer();
             var instance = new object();
             container.RegisterInstance("Name", instance);
@@ -252,7 +286,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
         public void ShouldResolveMultipleTypes()
         {
             //Arrange
-            var containerExtension = new UnityExtension();
+            var containerExtension = new UnityExtension(registrationHelper);
             var container = new UnityContainer();
             var instance1 = new object();
             var instance2 = new object();
@@ -274,16 +308,16 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
         {
             //Arrange
             var container = new UnityContainer();
-            var containerExtension = new UnityExtension();
+            var containerExtension = new UnityExtension(registrationHelper);
             containerExtension.InitializeContainer(container);
 
             //Act
-            containerExtension.Register<IBootstrapperContainerExtension, UnityExtension>();
-            var result = container.Resolve<IBootstrapperContainerExtension>(typeof(UnityExtension).Name);
+            containerExtension.Register<IRegistrationHelper, RegistrationHelper>();
+            var result = container.Resolve<IRegistrationHelper>(typeof(RegistrationHelper).Name);
 
             //Assert
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(UnityExtension));
+            Assert.IsInstanceOfType(result, typeof(RegistrationHelper));
         }
 
         [TestMethod]
@@ -291,7 +325,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
         {
             //Arrange
             var container = new UnityContainer();
-            var containerExtension = new UnityExtension();
+            var containerExtension = new UnityExtension(registrationHelper);
             containerExtension.InitializeContainer(container);
 
             //Act
@@ -308,26 +342,33 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
         public void ShouldRegisterWithTargetType()
         {
             //Arrange
+            var assembly = Assembly.GetAssembly(typeof(RegistrationHelper));
+            A.CallTo(() => registrationHelper.GetAssemblies())
+                .Returns(new List<Assembly> { assembly });
+            A.CallTo(() => registrationHelper.GetTypesImplementing<IRegistrationHelper>(assembly))
+                .Returns(new List<Type> { typeof(RegistrationHelper) });
             var container = new UnityContainer();
-            var containerExtension = new UnityExtension();
+            var containerExtension = new UnityExtension(registrationHelper);
             containerExtension.InitializeContainer(container);
 
             //Act
-            containerExtension.RegisterAll<IBootstrapperContainerExtension>();
-            var result = container.ResolveAll<IBootstrapperContainerExtension>();
+            containerExtension.RegisterAll<IRegistrationHelper>();
+            var result = container.ResolveAll<IRegistrationHelper>();
 
             //Assert
+            A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
+            A.CallTo(() => registrationHelper.GetTypesImplementing<IRegistrationHelper>(assembly)).MustHaveHappened();
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(IEnumerable<IBootstrapperContainerExtension>));
+            Assert.IsInstanceOfType(result, typeof(IEnumerable<IRegistrationHelper>));
             Assert.IsTrue(result.Count() > 0);
-            Assert.IsTrue(result.Any(c => c is UnityExtension));
+            Assert.IsTrue(result.Any(c => c is RegistrationHelper));
         }
 
         [TestMethod]
         public void ShouldReturnABootstrapperContainerExtensionOptions()
         {
             //Arrange
-            var containerExtension = new UnityExtension();
+            var containerExtension = new UnityExtension(registrationHelper);
 
             //Act
             var result = containerExtension.Options;
@@ -342,13 +383,21 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
         public void ShouldRegisterWithConventionAndWithRegistration()
         {
             //Arrange
-            var containerExtension = new UnityExtension();
+            var assembly = Assembly.GetAssembly(typeof(TestUnityRegistration));
+            A.CallTo(() => registrationHelper.GetAssemblies())
+                .Returns(new List<Assembly> { assembly });
+            A.CallTo(() => registrationHelper.GetTypesImplementing<IUnityRegistration>(assembly))
+                .Returns(new List<Type> { typeof(TestUnityRegistration) });
+            var containerExtension = new UnityExtension(registrationHelper);
             containerExtension.Options.UsingAutoRegistration();
 
             //Act
             containerExtension.Run();
 
             //Assert
+            A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
+            A.CallTo(() => registrationHelper.GetTypesImplementing<IUnityRegistration>(assembly)).MustHaveHappened();
+            Assert.IsNotNull(containerExtension.Resolve<IRegistrationHelper>());
             Assert.IsNotNull(containerExtension.Resolve<UnityExtension>());
             Assert.IsNotNull(containerExtension.Resolve<IRegisteredByConvention>());
         }
@@ -357,7 +406,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
         public void ShouldThrowNoContainerExceptionWhenSettingServiceLocatorBeforeInitializingTheContainer()
         {
             //Arrange
-            var containerExtension = new UnityExtension();
+            var containerExtension = new UnityExtension(registrationHelper);
 
             //Act
             var result = ExceptionAssert.Throws<NoContainerException>(containerExtension.SetServiceLocator);
@@ -370,7 +419,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
         public void ShouldThrowNoContainerExceptionWhenResolvingSimpleTypeBeforeInitializingTheContainer()
         {
             //Arrange
-            var containerExtension = new UnityExtension();
+            var containerExtension = new UnityExtension(registrationHelper);
 
             //Act
             var result = ExceptionAssert.Throws<NoContainerException>(() => containerExtension.Resolve<object>());
@@ -383,7 +432,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
         public void ShouldThrowNoContainerExceptionWhenResolvingMultipleTypesBeforeInitializingTheContainer()
         {
             //Arrange
-            var containerExtension = new UnityExtension();
+            var containerExtension = new UnityExtension(registrationHelper);
 
             //Act
             var result = ExceptionAssert.Throws<NoContainerException>(() => containerExtension.ResolveAll<object>());
@@ -396,7 +445,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
         public void ShouldThrowNoContainerExceptionWhenRegisteringWithTargetAndImplementationTypeBeforeInitializingTheContainer()
         {
             //Arrange
-            var containerExtension = new UnityExtension();
+            var containerExtension = new UnityExtension(registrationHelper);
 
             //Act
             var result = ExceptionAssert.Throws<NoContainerException>(containerExtension.Register<IBootstrapperContainerExtension, UnityExtension>);
@@ -409,7 +458,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
         public void ShouldThrowNoContainerExceptionWhenRegisteringWithTargetAndImplementationInstanceBeforeInitializingTheContainer()
         {
             //Arrange
-            var containerExtension = new UnityExtension();
+            var containerExtension = new UnityExtension(registrationHelper);
 
             //Act
             var result = ExceptionAssert.Throws<NoContainerException>(() => containerExtension.Register<IBootstrapperContainerExtension>(containerExtension));
@@ -422,7 +471,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
         public void ShouldThrowNoContainerExceptionWhenRegisteringWithTargetTypeBeforeInitializingTheContainer()
         {
             //Arrange
-            var containerExtension = new UnityExtension();
+            var containerExtension = new UnityExtension(registrationHelper);
 
             //Act
             var result = ExceptionAssert.Throws<NoContainerException>(containerExtension.RegisterAll<IBootstrapperContainerExtension>);

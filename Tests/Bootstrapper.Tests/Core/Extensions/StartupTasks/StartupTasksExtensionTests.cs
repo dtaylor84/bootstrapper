@@ -12,17 +12,30 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
     [TestClass]
     public class StartupTasksExtensionTests
     {
+        private IRegistrationHelper registrationHelper;
+
         [TestInitialize]
         public void Initialize()
         {
             Bootstrapper.ClearExtensions();
+            registrationHelper = A.Fake<IRegistrationHelper>();
+            A.CallTo(() => registrationHelper.GetInstancesOfTypesImplementing<IStartupTask>())
+                .Returns(new List<IStartupTask>
+                             {
+                                 new TaskAlpha(),
+                                 new TaskBeta(),
+                                 new TaskGamma(),
+                                 new TaskOmega(),
+                                 new TestStartupTask(),
+                                 new InternalTestStartupTask()
+                             });
         }
 
         [TestMethod]
         public void ShouldCreateANewStartupTasksExtension()
         {
             //Act
-            var result = new StartupTasksExtension();
+            var result = new StartupTasksExtension(registrationHelper);
 
             //Assert
             Assert.IsNotNull(result);
@@ -37,7 +50,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
             var containerExtension = A.Fake<IBootstrapperContainerExtension>();
             var task = A.Fake<IStartupTask>();
             A.CallTo(() => containerExtension.ResolveAll<IStartupTask>()).Returns(new List<IStartupTask> {task});
-            Bootstrapper.With.Extension(containerExtension).And.Extension(new StartupTasksExtension());
+            Bootstrapper.With.Extension(containerExtension).And.Extension(new StartupTasksExtension(registrationHelper));
 
             //Act
             Bootstrapper.Start();
@@ -53,7 +66,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
             var containerExtension = A.Fake<IBootstrapperContainerExtension>();
             var task = A.Fake<IStartupTask>();
             A.CallTo(() => containerExtension.ResolveAll<IStartupTask>()).Returns(new List<IStartupTask> { task });
-            Bootstrapper.With.Extension(containerExtension).And.Extension(new StartupTasksExtension());
+            Bootstrapper.With.Extension(containerExtension).And.Extension(new StartupTasksExtension(registrationHelper));
 
             //Act
             Bootstrapper.Reset();
@@ -66,7 +79,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
         public void ShouldExecuteTheRunMethodForAllStartupTasksWhenNoContainerExtensionHasBeenDeclared()
         {
             //Arrange
-            var tasksExtension = new StartupTasksExtension();
+            var tasksExtension = new StartupTasksExtension(registrationHelper);
 
             //Act
             tasksExtension.Run();
@@ -79,7 +92,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
         public void ShouldExecuteTheResetMethodForAllStartupTasksWhenNoContainerExtensionHasBeenDeclared()
         {
             //Arrange
-            var tasksExtension = new StartupTasksExtension();
+            var tasksExtension = new StartupTasksExtension(registrationHelper);
 
             //Act
             tasksExtension.Run();
@@ -92,7 +105,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
         [TestMethod]
         public void ShouldReturnAnEmptyExecutionLog()
         {
-            var taskExtension = new StartupTasksExtension();
+            var taskExtension = new StartupTasksExtension(registrationHelper);
 
             //Act
             var result = taskExtension.ExecutionLog;
@@ -106,7 +119,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
         [TestMethod]
         public void ShouldLogTheExecutionOrderOfTasks()
         {
-            var tasksExtension = new StartupTasksExtension();
+            var tasksExtension = new StartupTasksExtension(registrationHelper);
 
             //Act
             tasksExtension.Run();
@@ -125,7 +138,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
         [TestMethod]
         public void ShouldLogTheResetOrderOfTasks()
         {
-            var tasksExtension = new StartupTasksExtension();
+            var tasksExtension = new StartupTasksExtension(registrationHelper);
 
             //Act
             tasksExtension.Reset();
@@ -144,7 +157,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
         [TestMethod]
         public void ShouldExecuteTasksInSequenceUsingTheTaskAttribute()
         {
-            var tasksExtension = new StartupTasksExtension();
+            var tasksExtension = new StartupTasksExtension(registrationHelper);
 
             //Act
             tasksExtension.Run();
@@ -163,7 +176,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
         [TestMethod]
         public void ShouldResetTasksInReverseSequenceUsingTheTaskAttribute()
         {
-            var tasksExtension = new StartupTasksExtension();
+            var tasksExtension = new StartupTasksExtension(registrationHelper);
 
             //Act
             tasksExtension.Reset();
@@ -183,7 +196,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
         public void ShouldReturnAStartupTaskOptions()
         {
             //Arrange
-            var tasksExtension = new StartupTasksExtension();
+            var tasksExtension = new StartupTasksExtension(registrationHelper);
 
             //Act
             var result = tasksExtension.Options;
@@ -196,7 +209,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
         [TestMethod]
         public void ShouldExecuteTasksInSequenceUsingFluentSequence()
         {
-            var tasksExtension = new StartupTasksExtension();
+            var tasksExtension = new StartupTasksExtension(registrationHelper);
             tasksExtension
                 .Options
                     .UsingThisExecutionOrder(s => s
@@ -223,7 +236,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
         [TestMethod]
         public void ShouldResetTasksInReverseSequenceUsingFluentSequence()
         {
-            var tasksExtension = new StartupTasksExtension();
+            var tasksExtension = new StartupTasksExtension(registrationHelper);
             tasksExtension
                 .Options
                     .UsingThisExecutionOrder(s => s
@@ -250,7 +263,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
         [TestMethod]
         public void ShouldRunUsingFluentPostionOrAttributePositionIfMissingOrDefaultPositionIfBothAreMissing()
         {
-            var tasksExtension = new StartupTasksExtension();
+            var tasksExtension = new StartupTasksExtension(registrationHelper);
             tasksExtension
                 .Options
                     .UsingThisExecutionOrder(s => s
@@ -274,7 +287,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
         [TestMethod]
         public void ShouldResetUsingFluentPostionOrAttributePositionIfMissingOrDefaultPositionIfBothAreMissing()
         {
-            var tasksExtension = new StartupTasksExtension();
+            var tasksExtension = new StartupTasksExtension(registrationHelper);
             tasksExtension
                 .Options
                     .UsingThisExecutionOrder(s => s
@@ -298,7 +311,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
         [TestMethod]
         public void ShouldDelayStartOfTaskWhenDeclaredInAttribute()
         {
-            var taskExtension = new StartupTasksExtension();
+            var taskExtension = new StartupTasksExtension(registrationHelper);
 
             //Act
             taskExtension.Run();
@@ -312,7 +325,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
         [TestMethod]
         public void ShouldNotDelayResetOfTaskWhenDeclaredInAttribute()
         {
-            var taskExtension = new StartupTasksExtension();
+            var taskExtension = new StartupTasksExtension(registrationHelper);
 
             //Act
             taskExtension.Reset();
@@ -327,7 +340,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
         [TestMethod]
         public void ShouldExecuteTasksUsingFluentDelay()
         {
-            var tasksExtension = new StartupTasksExtension();
+            var tasksExtension = new StartupTasksExtension(registrationHelper);
             tasksExtension
                 .Options
                     .UsingThisExecutionOrder(s => s
@@ -354,7 +367,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
         [TestMethod]
         public void ShouldRunUsingFluentDelayOrAttributeDealyIfMissingOrDefaultDelayIfBothAreMissing()
         {
-            var tasksExtension = new StartupTasksExtension();
+            var tasksExtension = new StartupTasksExtension(registrationHelper);
             tasksExtension
                 .Options
                     .UsingThisExecutionOrder(s => s
@@ -379,7 +392,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
         public void ShouldApplyFluentDelayOnlytoFirstOfTheRestTask()
         {
             //Arrange
-            var tasksExtension = new StartupTasksExtension();
+            var tasksExtension = new StartupTasksExtension(registrationHelper);
             tasksExtension
                 .Options
                     .UsingThisExecutionOrder(s => s
@@ -401,7 +414,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
         public void ShouldRunTasksInDifferentGroupsInParallelWithAttribute()
         {
             //Arrange
-            var taskExtension = new StartupTasksExtension();
+            var taskExtension = new StartupTasksExtension(registrationHelper);
             taskExtension
                 .Options
                 .UsingThisExecutionOrder(s => s
@@ -420,7 +433,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
         [TestMethod]
         public void ShouldResetTasksSequentiallyFromLastGroupToFirstInReverseOrderWithAttribute()
         {
-            var tasksExtension = new StartupTasksExtension();
+            var tasksExtension = new StartupTasksExtension(registrationHelper);
 
             //Act
             tasksExtension.Reset();
@@ -441,7 +454,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
         public void ShouldRunTasksInDifferentGroupsInParallelWithFluentSyntax()
         {
             //Arrange
-            var taskExtension = new StartupTasksExtension();
+            var taskExtension = new StartupTasksExtension(registrationHelper);
             taskExtension
                 .Options
                 .WithGroup(s => s
@@ -470,7 +483,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
         public void ShouldResetTasksSequentiallyFromLastGroupToFirstInReverseOrderWithFluentSyntax()
         {
             //Arrange
-            var taskExtension = new StartupTasksExtension();
+            var taskExtension = new StartupTasksExtension(registrationHelper);
             taskExtension
                 .Options
                 .WithGroup(s => s

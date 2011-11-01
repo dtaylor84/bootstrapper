@@ -5,26 +5,26 @@ using System.Reflection;
 
 namespace Bootstrap.Extensions.Containers
 {
-    public class RegistrationHelper
+    public class RegistrationHelper : IRegistrationHelper
     {
-        public static IEnumerable<Type> GetTypesImplementing<T>()
+        public IEnumerable<Type> GetTypesImplementing<T>()
         {
             return GetTypesImplementing<T>(Assembly.GetCallingAssembly());
         }
 
-        public static IEnumerable<Type> GetTypesImplementing<T>(string assemblyName)
+        public IEnumerable<Type> GetTypesImplementing<T>(string assemblyName)
         {
             return GetTypesImplementing<T>(Assembly.Load(assemblyName));
         }
 
-        public static IEnumerable<Type> GetTypesImplementing<T>(Assembly assembly)
+        public IEnumerable<Type> GetTypesImplementing<T>(Assembly assembly)
         {
             return assembly.GetExportedTypes().Where(t => t.IsPublic &&
                                                           !t.IsAbstract &&
                                                           typeof (T).IsAssignableFrom(t));
         }
 
-        public static IEnumerable<Assembly> GetAssemblies()
+        public IEnumerable<Assembly> GetAssemblies()
         {
             return Bootstrapper.IncludingOnly.Assemblies.Any() 
                     ? Bootstrapper.IncludingOnly.Assemblies
@@ -38,7 +38,7 @@ namespace Bootstrap.Extensions.Containers
                     !Bootstrapper.Excluding.Assemblies.Any(e => assembly.FullName.StartsWith(e));
         }
 
-        public static List<T> GetInstancesOfTypesImplementing<T>()
+        public List<T> GetInstancesOfTypesImplementing<T>()
         {
             var instances = new List<T>();
             GetAssemblies().ToList()
