@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Bootstrap.Extensions;
 
@@ -15,6 +17,7 @@ namespace Bootstrap
 
         public IIncludedOnlyAssemblies Assembly(Assembly assembly)
         {
+            if(Assemblies.Count ==0) Assemblies.AddRange(BootstrapperAssemblies());
             Assemblies.Add(assembly);
             return this;
         }
@@ -42,6 +45,18 @@ namespace Bootstrap
         public void Start()
         {
             Bootstrapper.Start();
+        }
+
+        private static IEnumerable<Assembly> BootstrapperAssemblies()
+        {
+            var bootstrapperAssemblies = new List<Assembly>();
+            var loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
+            loadedAssemblies.ForEach(a =>
+                                         {
+                                             if (a.FullName.StartsWith("Bootstrapper"))
+                                                 bootstrapperAssemblies.Add(a);
+                                         });
+            return bootstrapperAssemblies;
         }
     }
 }

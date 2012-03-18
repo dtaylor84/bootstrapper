@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
-using Bootstrap.AutoMapper;
 using Bootstrap.Extensions;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -52,13 +51,13 @@ namespace Bootstrap.Tests.Core
         {
             //Act
             var includedOnly = new IncludedOnlyAssemblies();
-            var result = includedOnly.Assembly(Assembly.GetAssembly(typeof(Bootstrapper))).
-                               AndAssembly(Assembly.GetAssembly(typeof(AutoMapperExtension)));
+            var result = includedOnly.Assembly(Assembly.GetAssembly(typeof(System.DateTime))).
+                               AndAssembly(Assembly.GetAssembly(typeof(Enumerable)));
 
             //Assert
             Assert.AreSame(includedOnly, result);
-            Assert.IsTrue(result.Assemblies.Contains(Assembly.GetAssembly(typeof(Bootstrapper))));
-            Assert.IsTrue(result.Assemblies.Contains(Assembly.GetAssembly(typeof(AutoMapperExtension))));
+            Assert.IsTrue(result.Assemblies.Contains(Assembly.GetAssembly(typeof(System.DateTime))));
+            Assert.IsTrue(result.Assemblies.Contains(Assembly.GetAssembly(typeof(Enumerable))));
         }
 
         [TestMethod]
@@ -71,6 +70,19 @@ namespace Bootstrap.Tests.Core
             //Assert
             Assert.AreSame(Bootstrapper.Including, result);
         }
+
+        [TestMethod]
+        public void ShouldReturnBootstrapperAssemblies()
+        {
+            //Arrange
+            var includedOnly = new IncludedOnlyAssemblies();
+
+            //Act
+            var result = includedOnly.Assembly(Assembly.GetAssembly(typeof(System.DateTime)));
+
+            //Assert
+            Assert.IsTrue(result.Assemblies.Count(a => a.FullName.StartsWith("Bootstrapper")) > 1);
+        }        
 
         [TestMethod]
         public void ShouldReturnExcludedAssemblies()

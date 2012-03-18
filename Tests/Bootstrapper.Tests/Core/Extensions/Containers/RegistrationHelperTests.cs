@@ -112,16 +112,14 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
         public void ShouldIncludeOnlyIncludedOnlyAssemblies()
         {
             //Arrange
-            var bootstrapperAssembly = Assembly.GetAssembly(typeof (Bootstrapper));
-            Bootstrapper.IncludingOnly.Assembly(bootstrapperAssembly);
+            var systemAssembly = Assembly.GetAssembly(typeof (System.DateTime));
+            Bootstrapper.IncludingOnly.Assembly(systemAssembly);
 
             //Act
             var result = registrationHelper.GetAssemblies().ToList();
 
             //Assert
-            Assert.IsNotNull(result);
-            Assert.AreEqual(1, result.Count);
-            Assert.AreSame(bootstrapperAssembly, result[0]);
+            Assert.IsTrue(result.SequenceEqual(Bootstrapper.IncludingOnly.Assemblies));
         }
 
         [TestMethod]
