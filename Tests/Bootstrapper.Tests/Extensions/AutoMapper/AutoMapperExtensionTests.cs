@@ -3,9 +3,6 @@ using AutoMapper;
 using Bootstrap.AutoMapper;
 using Bootstrap.Extensions;
 using Bootstrap.Extensions.Containers;
-using Bootstrap.Extensions.StartupTasks;
-using Bootstrap.Tests.Extensions.TestImplementations;
-using Bootstrap.Tests.Other;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -19,6 +16,7 @@ namespace Bootstrap.Tests.Extensions.AutoMapper
         [TestInitialize]
         public void Initialize()
         {
+            Bootstrapper.ClearExtensions();
             registrationHelper = A.Fake<IRegistrationHelper>();
         }
 

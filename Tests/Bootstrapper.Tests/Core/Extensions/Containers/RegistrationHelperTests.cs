@@ -123,9 +123,10 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
         }
 
         [TestMethod]
-        public void ShouldExcluedExcludedAssembliesExceptoForTheExplicitelyIncludedOnes()
+        public void ShouldExcludeExcludedAssembliesExceptoForTheExplicitelyIncludedOnes()
         {
             //Arrange
+            Bootstrapper.ClearExtensions();
             Bootstrapper.Excluding.Assembly("Bootstrapper").Including.Assembly(Assembly.GetExecutingAssembly());
 
             //Act
@@ -140,6 +141,9 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
         [TestMethod]
         public void ShouldReturnInstancesOfAType()
         {
+            //Arrange
+             Bootstrapper.ClearExtensions();
+
             //Act
             var result = registrationHelper.GetInstancesOfTypesImplementing<IRegistrationHelper>();
 
