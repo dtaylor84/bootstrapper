@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Bootstrap.Extensions.Containers;
+using Castle.Core.Internal;
 using Castle.Facilities.FactorySupport;
+using Castle.MicroKernel;
 using Castle.Windsor;
-using Castle.Core;
 using Castle.MicroKernel.Registration;
 using CommonServiceLocator.WindsorAdapter;
 using Microsoft.Practices.ServiceLocation;
@@ -13,25 +14,34 @@ namespace Bootstrap.Windsor
     public class WindsorExtension: BootstrapperContainerExtension
     {
         private IWindsorContainer container;
+        private readonly ICollection<IFacility> facilities;
+
         public IBootstrapperContainerExtensionOptions Options { get; private set; }
 
         public WindsorExtension(IRegistrationHelper registrationHelper): base(registrationHelper)
         {
             Options= new BootstrapperContainerExtensionOptions();
+            facilities = new List<IFacility>();
             Bootstrapper.Excluding.Assembly("Castle");
+            Bootstrapper.Excluding.Assembly("Castle.Facilities.FactorySupport");
+        }
+
+        public void AddFacility(IFacility facility)
+        {
+            facilities.Add(facility);
         }
 
         public void InitializeContainer(IWindsorContainer aContainer)
         {
-            container = aContainer;
+            container = aContainer
+                .AddFacility<FactorySupportFacility>();
+            facilities.ForEach(f => container.AddFacility(f));
             Container = container;
         }
 
         protected override void InitializeContainer()
         {
-            container = new WindsorContainer()
-                .AddFacility<FactorySupportFacility>();
-            Container = container;
+            InitializeContainer(new WindsorContainer());
         }
 
         protected override void RegisterImplementationsOfIRegistration()
@@ -77,7 +87,8 @@ namespace Bootstrap.Windsor
             CheckContainer();
             if (!container.Kernel.HasComponent(typeof(TTarget).Name) ||
                 container.Resolve<TTarget>().GetType() != typeof(TImplementation))
-                container.Register(Component.For<TTarget>().ImplementedBy<TImplementation>());
+                container.Register(Component.For(typeof(TTarget)).ImplementedBy<TImplementation>());
+
         }
 
         public override void Register<TTarget>(TTarget implementation)
@@ -85,7 +96,7 @@ namespace Bootstrap.Windsor
             CheckContainer();
             if (!container.Kernel.HasComponent(typeof(TTarget).Name) ||
                 container.Resolve<TTarget>().GetType() != implementation.GetType())
-                container.Register(Component.For<TTarget>().Instance(implementation));
+                container.Register(Component.For(typeof(TTarget)).Instance(implementation));
         }
 
         public override void RegisterAll<TTarget>()

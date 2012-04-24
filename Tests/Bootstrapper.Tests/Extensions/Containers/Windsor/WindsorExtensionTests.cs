@@ -4,10 +4,10 @@ using System.Reflection;
 using AutoMapper;
 using Bootstrap.AutoMapper;
 using Bootstrap.Extensions.Containers;
-using Bootstrap.Extensions.StartupTasks;
 using Bootstrap.Tests.Extensions.TestImplementations;
 using Bootstrap.Tests.Other;
 using Bootstrap.Windsor;
+using Castle.MicroKernel;
 using CommonServiceLocator.WindsorAdapter;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -48,6 +48,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
             //Assert
             Assert.IsNotNull(result);
             Assert.IsTrue(Bootstrapper.Excluding.Assemblies.Contains("Castle"));
+            Assert.IsTrue(Bootstrapper.Excluding.Assemblies.Contains("Castle.Facilities.FactorySupport"));
         }
         
         [TestMethod]
@@ -93,7 +94,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
             //Assert
             A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
             Assert.IsInstanceOfType(result, typeof(IEnumerable<IBootstrapperRegistration>));
-            Assert.IsTrue(result.Count() > 0);
+            Assert.IsTrue(result.Any());
             Assert.IsTrue(result[0] is AutoMapperRegistration);
         }
 
@@ -113,7 +114,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
             A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IEnumerable<IWindsorRegistration>));
-            Assert.IsTrue(result.Count() > 0);
+            Assert.IsTrue(result.Any());
         }
 
         [TestMethod]
@@ -318,7 +319,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
             A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IEnumerable<IRegistrationHelper>));
-            Assert.IsTrue(result.Count() > 0);
+            Assert.IsTrue(result.Any());
             Assert.IsTrue(result.Any(c => c is RegistrationHelper));
         }
 
@@ -431,6 +432,22 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
 
             //Assert
             Assert.AreEqual(NoContainerException.DefaultMessage, result.Message);
+        }
+
+        [TestMethod]
+        public void ShouldAddFacility()
+        {
+            // Arrange
+            var containerExtension = new WindsorExtension(registrationHelper);
+            var facility = A.Fake<IFacility>();
+            var container = new WindsorContainer();
+
+            // Act
+            containerExtension.InitializeContainer(container);
+            containerExtension.AddFacility(facility);
+
+            // Assert
+            Assert.IsTrue(container.Kernel.GetFacilities().Contains(facility));
         }
     }
 }
