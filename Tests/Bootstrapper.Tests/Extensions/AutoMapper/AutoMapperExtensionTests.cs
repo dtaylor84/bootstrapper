@@ -3,6 +3,7 @@ using AutoMapper;
 using Bootstrap.AutoMapper;
 using Bootstrap.Extensions;
 using Bootstrap.Extensions.Containers;
+using Bootstrap.Tests.Extensions.TestImplementations;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -69,6 +70,31 @@ namespace Bootstrap.Tests.Extensions.AutoMapper
         }
 
         [TestMethod]
+        public void ShouldInvokeConfigureForAllRegisteredProfiles()
+        {
+            //Arrange
+            Mapper.Reset();
+            var containerExtension = A.Fake<IBootstrapperContainerExtension>();
+            var profiles = new List<Profile> { new TestAutoMapperProfile() };
+            A.CallTo(() => containerExtension.Resolve<IProfileExpression>()).Returns(Mapper.Configuration);
+            A.CallTo(() => containerExtension.ResolveAll<Profile>()).Returns(profiles);
+            Bootstrapper.With.Extension(containerExtension);
+            var mapperExtension = new AutoMapperExtension(registrationHelper);
+            var from = A.Fake<ITestInterface>();
+
+            //Act
+            mapperExtension.Run();
+            var result = Mapper.Map<ITestInterface, TestImplementation>(from);
+
+            //Assert
+            A.CallTo(() => containerExtension.Resolve<IProfileExpression>()).MustHaveHappened();
+            A.CallTo(() => containerExtension.ResolveAll<Profile>()).MustHaveHappened();
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(TestImplementation));
+        }
+
+
+        [TestMethod]
         public void ShouldResetMapper()
         {
             //Arrange
@@ -96,7 +122,27 @@ namespace Bootstrap.Tests.Extensions.AutoMapper
             
             //Assert
             A.CallTo(() => registrationHelper.GetInstancesOfTypesImplementing<IMapCreator>()).MustHaveHappened();
-            mapCreators.ForEach(m => A.CallTo(() => m.CreateMap(Mapper.Configuration)).MustHaveHappened());
+            mapCreators.ForEach(m => A.CallTo(() => m.CreateMap(A<IProfileExpression>.Ignored)).MustHaveHappened());
         }
+
+        [TestMethod]
+        public void ShouldInvokeConfigureForAllProfilesWhenNoContainerExtensionHasBeenDeclared()
+        {
+            //Arrange
+            var profiles = new List<Profile> { new TestAutoMapperProfile() };
+            A.CallTo(() => registrationHelper.GetInstancesOfTypesImplementing<Profile>()).Returns(profiles);
+            var mapperExtension = new AutoMapperExtension(registrationHelper);
+            var from = A.Fake<ITestInterface>();
+
+            //Act
+            mapperExtension.Run();
+            var result = Mapper.Map<ITestInterface, TestImplementation>(from);
+
+            //Assert
+            A.CallTo(() => registrationHelper.GetInstancesOfTypesImplementing<Profile>()).MustHaveHappened();
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(TestImplementation));
+        }
+
     }
 }

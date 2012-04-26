@@ -10,6 +10,7 @@ namespace Bootstrap.AutoMapper
             containerExtension.Register<IProfileExpression>(Mapper.Configuration);
             containerExtension.Register(Mapper.Engine);
             containerExtension.RegisterAll<IMapCreator>();
+            containerExtension.RegisterAll<Profile>();
         }
     }
 }

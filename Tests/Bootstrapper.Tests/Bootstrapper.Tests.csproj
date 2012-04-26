@@ -140,6 +140,7 @@
     <Compile Include="Core\Extensions\StartupTasks\StartupTasksRegistrationTests.cs" />
     <Compile Include="Extensions\AutoMapper\AutoMapperExtensionTests.cs" />
     <Compile Include="Extensions\AutoMapper\AutoMapperRegistrationTests.cs" />
+    <Compile Include="Extensions\AutoMapper\TestAutoMapperProfile.cs" />
     <Compile Include="Extensions\Containers\Autofac\BootstrapperAutofacHelperTests.cs" />
     <Compile Include="Extensions\Containers\Autofac\AutofacExtensionTests.cs" />
     <Compile Include="Extensions\Containers\Autofac\TestAutofacModule.cs" />

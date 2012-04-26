@@ -18,20 +18,24 @@ namespace Bootstrap.AutoMapper
 
         public void Run()
         {
-            List<IMapCreator> mapCreators;
             IProfileExpression configuration;
+            List<IMapCreator> mapCreators;
+            List<Profile> profiles;
 
             if (Bootstrapper.ContainerExtension != null && Bootstrapper.Container != null)
             {
                 configuration = Bootstrapper.ContainerExtension.Resolve<IProfileExpression>();
                 mapCreators = Bootstrapper.ContainerExtension.ResolveAll<IMapCreator>().ToList();
+                profiles = Bootstrapper.ContainerExtension.ResolveAll<Profile>().ToList();
             }
             else
             {
                 configuration = Mapper.Configuration;
                 mapCreators = registrationHelper.GetInstancesOfTypesImplementing<IMapCreator>();
+                profiles = registrationHelper.GetInstancesOfTypesImplementing<Profile>();
             }
-            mapCreators.ForEach(m => m.CreateMap(configuration));            
+            mapCreators.ForEach(m => m.CreateMap(configuration));
+            Mapper.Initialize(c => profiles.ForEach(c.AddProfile));
         }
 
         public void Reset()

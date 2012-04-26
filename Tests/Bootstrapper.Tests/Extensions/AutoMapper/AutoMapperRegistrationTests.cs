@@ -22,7 +22,7 @@ namespace Bootstrap.Tests.Extensions.AutoMapper
         }
 
         [TestMethod]
-        public void ShouldInvokeRegisterAllForMapCreatorsInContainerExtension()
+        public void ShouldInvokeRegisterAllForMapCreatorsAndProfilesInContainerExtension()
         {
             //Arrange
             var containerExtension = A.Fake<IBootstrapperContainerExtension>();
@@ -34,6 +34,7 @@ namespace Bootstrap.Tests.Extensions.AutoMapper
             A.CallTo(() => containerExtension.Register<IProfileExpression>(Mapper.Configuration)).MustHaveHappened();
             A.CallTo(() => containerExtension.Register(Mapper.Engine)).MustHaveHappened();
             A.CallTo(() => containerExtension.RegisterAll<IMapCreator>()).MustHaveHappened();
+            A.CallTo(() => containerExtension.RegisterAll<Profile>()).MustHaveHappened();
         }
 
     }
