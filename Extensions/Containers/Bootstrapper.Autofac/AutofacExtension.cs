@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Autofac.Core;
 using AutofacContrib.CommonServiceLocator;
 using Bootstrap.Extensions.Containers;
 using Autofac;
@@ -37,6 +38,7 @@ namespace Bootstrap.Autofac
             if (Options.AutoRegistration) AutoRegister();
             RegisterAll<IBootstrapperRegistration>();
             RegisterAll<IAutofacRegistration>();
+            RegisterAll<IModule>();
         }
 
         protected override void InvokeRegisterForImplementationsOfIRegistration()
@@ -45,6 +47,7 @@ namespace Bootstrap.Autofac
 
             container.Resolve<IEnumerable<IBootstrapperRegistration>>().ToList().ForEach(r => r.Register(this));
             container.Resolve<IEnumerable<IAutofacRegistration>>().ToList().ForEach(r => UpdateContainer(r.Register));
+            container.Resolve<IEnumerable<IModule>>().ToList().ForEach(UpdateContainer);
         }
 
         protected override void ResetContainer()
@@ -102,6 +105,14 @@ namespace Bootstrap.Autofac
             var containerBuilder = new ContainerBuilder();
             registrationBuilder(containerBuilder);
             containerBuilder.Update(container);
+        }
+
+        private void UpdateContainer(IModule module)
+        {
+            var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterModule(module);
+            containerBuilder.Update(container);
+            
         }
     }
 }

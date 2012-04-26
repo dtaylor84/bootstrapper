@@ -10,7 +10,6 @@ using Bootstrap.Windsor;
 using Castle.Facilities.FactorySupport;
 using Castle.MicroKernel;
 using Castle.MicroKernel.Registration;
-using Castle.MicroKernel.SubSystems.Configuration;
 using CommonServiceLocator.WindsorAdapter;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

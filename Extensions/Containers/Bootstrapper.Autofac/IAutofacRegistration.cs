@@ -1,4 +1,4 @@
-﻿using global::Autofac;
+﻿using Autofac;
 
 namespace Bootstrap.Autofac
 {
