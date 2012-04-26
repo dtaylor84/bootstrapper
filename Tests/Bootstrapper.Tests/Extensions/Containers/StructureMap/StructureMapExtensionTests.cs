@@ -3,12 +3,12 @@ using System.Linq;
 using AutoMapper;
 using Bootstrap.AutoMapper;
 using Bootstrap.Extensions.Containers;
-using Bootstrap.Extensions.StartupTasks;
 using Bootstrap.StructureMap;
 using Bootstrap.Tests.Extensions.TestImplementations;
 using Bootstrap.Tests.Other;
 using FakeItEasy;
 using StructureMap;
+using StructureMap.Configuration.DSL;
 using StructureMap.ServiceLocatorAdapter;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Practices.ServiceLocation;
@@ -94,7 +94,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
             A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IEnumerable<IBootstrapperRegistration>));
-            Assert.IsTrue(result.Count() > 0);
+            Assert.IsTrue(result.Any());
         }
 
         [TestMethod]
@@ -113,8 +113,28 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
             A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IEnumerable<IStructureMapRegistration>));
-            Assert.IsTrue(result.Count() > 0);
+            Assert.IsTrue(result.Any());
         }
+
+        [TestMethod]
+        public void ShouldRegisterAllTypesOfRegistry()
+        {
+            //Arrange
+            var assembly = Assembly.GetAssembly(typeof(TestStructureMapRegistry));
+            A.CallTo(() => registrationHelper.GetAssemblies()).Returns(new List<Assembly> { assembly });
+            var containerExtension = new StructureMapExtension(registrationHelper);
+
+            //Act
+            containerExtension.Run();
+            var result = containerExtension.ResolveAll<Registry>();
+
+            //Assert            
+            A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(IEnumerable<Registry>));
+            Assert.IsTrue(result.Any());
+        }
+
 
         [TestMethod]
         public void ShouldInvokeTheRegisterMethodOfAllIBootstrapperRegistrationTypes()
@@ -149,6 +169,25 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(StructureMapExtension));
         }
+
+        [TestMethod]
+        public void ShouldInvokeRegistrationsOfAllRegistryTypes()
+        {
+            //Arrange
+            var assembly = Assembly.GetAssembly(typeof(TestStructureMapRegistry));
+            A.CallTo(() => registrationHelper.GetAssemblies()).Returns(new List<Assembly> { assembly });
+            var containerExtension = new StructureMapExtension(registrationHelper);
+
+            //Act
+            containerExtension.Run();
+            var result = containerExtension.Resolve<ITestInterface>();
+
+            //Assert
+            A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ITestInterface));
+        }
+
 
         [TestMethod]
         public void ShouldSetTheServiceLocator()
@@ -318,7 +357,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
             A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IEnumerable<IRegistrationHelper>));
-            Assert.IsTrue(result.Count() > 0);
+            Assert.IsTrue(result.Any());
             Assert.IsTrue(result.Any(c => c is RegistrationHelper));
         }
 
