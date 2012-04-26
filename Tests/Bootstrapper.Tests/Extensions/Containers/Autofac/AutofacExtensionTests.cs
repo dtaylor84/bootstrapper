@@ -16,6 +16,7 @@ using Bootstrap.Tests.Other;
 using FakeItEasy;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Module = Autofac.Module;
 
 namespace Bootstrap.Tests.Extensions.Containers.Autofac
 {
@@ -129,6 +130,29 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
         }
 
         [TestMethod]
+        public void ShouldRegisterAllTypesOfModule()
+        {
+            //Arrange
+            var assembly = Assembly.GetAssembly(typeof(TestAutofacModule));
+            A.CallTo(() => registrationHelper.GetAssemblies())
+                .Returns(new List<Assembly> { assembly });
+            A.CallTo(() => registrationHelper.GetTypesImplementing<IModule>(assembly))
+                .Returns(new List<Type> { typeof(TestAutofacModule) });
+            var containerExtension = new AutofacExtension(registrationHelper);
+
+            //Act
+            containerExtension.Run();
+            var result = containerExtension.ResolveAll<IModule>();
+
+            //Assert
+            A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
+            A.CallTo(() => registrationHelper.GetTypesImplementing<IModule>(assembly)).MustHaveHappened();
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(IEnumerable<IModule>));
+            Assert.IsTrue(result.Any());
+        }
+
+        [TestMethod]
         public void ShouldInvokeTheRegisterMethodOfAllIBootstrapperRegistrationTypes()
         {
             //Arrange
@@ -169,6 +193,29 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(AutofacExtension));
         }
+
+        [TestMethod]
+        public void ShouldInvokeTheLoadMethodOfAllIModuleTypes()
+        {
+            //Arrange
+            var assembly = Assembly.GetAssembly(typeof(TestAutofacModule));
+            A.CallTo(() => registrationHelper.GetAssemblies())
+               .Returns(new List<Assembly> { assembly });
+            A.CallTo(() => registrationHelper.GetTypesImplementing<IModule>(assembly))
+                .Returns(new List<Type> { typeof(TestAutofacModule) });
+            var containerExtension = new AutofacExtension(registrationHelper);
+
+            //Act
+            containerExtension.Run();
+            var result = containerExtension.Resolve<ITestInterface>();
+
+            //Assert
+            A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
+            A.CallTo(() => registrationHelper.GetTypesImplementing<IModule>(assembly)).MustHaveHappened();
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ITestInterface));
+        }
+
 
         [TestMethod]
         public void ShouldSetTheServiceLocator()
@@ -337,13 +384,13 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
 
             //Act
             containerExtension.RegisterAll<IRegistrationHelper>();
-            var result = container.Resolve<IEnumerable<IRegistrationHelper>>();
+            var result = container.Resolve<IEnumerable<IRegistrationHelper>>().ToList();
 
             //Assert
             A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
             A.CallTo(() => registrationHelper.GetTypesImplementing<IRegistrationHelper>(assembly)).MustHaveHappened();
             Assert.IsInstanceOfType(result, typeof(IEnumerable<IRegistrationHelper>));
-            Assert.IsTrue(result.Count() > 0);
+            Assert.IsTrue(result.Any());
             Assert.IsTrue(result.Any(c => c is RegistrationHelper));
         }
 

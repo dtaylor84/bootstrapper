@@ -142,6 +142,7 @@
     <Compile Include="Extensions\AutoMapper\AutoMapperRegistrationTests.cs" />
     <Compile Include="Extensions\Containers\Autofac\BootstrapperAutofacHelperTests.cs" />
     <Compile Include="Extensions\Containers\Autofac\AutofacExtensionTests.cs" />
+    <Compile Include="Extensions\Containers\Autofac\TestAutofacModule.cs" />
     <Compile Include="Extensions\Containers\Ninject\BootstrapperNinjectHelperTests.cs" />
     <Compile Include="Extensions\Containers\Ninject\NinjectExtensionTests.cs" />
     <Compile Include="Extensions\Containers\Autofac\TestAutofacRegistration.cs" />
