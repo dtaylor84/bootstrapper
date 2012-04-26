@@ -16,7 +16,6 @@ using Bootstrap.Tests.Other;
 using FakeItEasy;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Module = Autofac.Module;
 
 namespace Bootstrap.Tests.Extensions.Containers.Autofac
 {

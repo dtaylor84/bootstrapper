@@ -146,6 +146,7 @@
     <Compile Include="Extensions\Containers\Ninject\BootstrapperNinjectHelperTests.cs" />
     <Compile Include="Extensions\Containers\Ninject\NinjectExtensionTests.cs" />
     <Compile Include="Extensions\Containers\Autofac\TestAutofacRegistration.cs" />
+    <Compile Include="Extensions\Containers\Ninject\TestNinjectModule.cs" />
     <Compile Include="Extensions\Containers\Ninject\TestNinjectRegistration.cs" />
     <Compile Include="Extensions\Containers\StructureMap\TestStructureMapRegistry.cs" />
     <Compile Include="Extensions\Containers\Windsor\TestWindsorInstaller.cs" />
