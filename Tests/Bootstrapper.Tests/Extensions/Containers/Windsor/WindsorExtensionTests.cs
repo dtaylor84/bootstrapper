@@ -7,6 +7,7 @@ using Bootstrap.Extensions.Containers;
 using Bootstrap.Tests.Extensions.TestImplementations;
 using Bootstrap.Tests.Other;
 using Bootstrap.Windsor;
+using Castle.Facilities.FactorySupport;
 using Castle.MicroKernel;
 using CommonServiceLocator.WindsorAdapter;
 using FakeItEasy;
@@ -217,6 +218,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
             //Arrange
             var containerExtension = new WindsorExtension(registrationHelper);
             var container = A.Fake<IWindsorContainer>();
+            A.CallTo(() => container.AddFacility<FactorySupportFacility>()).Returns(container);
 
             //Act
             containerExtension.InitializeContainer(container);
@@ -234,9 +236,10 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
             //Arrange
             var containerExtension = new WindsorExtension(registrationHelper);
             var container = A.Fake<IWindsorContainer>();
-            containerExtension.InitializeContainer(container);
             var instance = new object();
+            A.CallTo(() => container.AddFacility<FactorySupportFacility>()).Returns(container);
             A.CallTo(() => container.Resolve<object>()).Returns(instance);
+            containerExtension.InitializeContainer(container);
 
             //Act
             var result = containerExtension.Resolve<object>();
@@ -253,9 +256,10 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
             //Arrange
             var containerExtension = new WindsorExtension(registrationHelper);
             var container = A.Fake<IWindsorContainer>();
-            containerExtension.InitializeContainer(container);
-            var instances = new [] { new object(), new object() };
+            var instances = new[] { new object(), new object() };
+            A.CallTo(() => container.AddFacility<FactorySupportFacility>()).Returns(container);
             A.CallTo(() => container.ResolveAll<object>()).Returns(instances);
+            containerExtension.InitializeContainer(container);
 
             //Act
             var result = containerExtension.ResolveAll<object>();
@@ -443,8 +447,8 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
             var container = new WindsorContainer();
 
             // Act
-            containerExtension.InitializeContainer(container);
             containerExtension.AddFacility(facility);
+            containerExtension.InitializeContainer(container);
 
             // Assert
             Assert.IsTrue(container.Kernel.GetFacilities().Contains(facility));
