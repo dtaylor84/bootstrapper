@@ -3,6 +3,7 @@ using System.Linq;
 using Bootstrap.Extensions.Containers;
 using Microsoft.Practices.ServiceLocation;
 using Ninject;
+using Ninject.Modules;
 using NinjectAdapter;
 
 namespace Bootstrap.Ninject
@@ -36,6 +37,7 @@ namespace Bootstrap.Ninject
             if (Options.AutoRegistration) AutoRegister();
             RegisterAll<IBootstrapperRegistration>();
             RegisterAll<INinjectRegistration>();
+            RegisterAll<INinjectModule>();
         }
 
         protected override void InvokeRegisterForImplementationsOfIRegistration()
@@ -43,6 +45,7 @@ namespace Bootstrap.Ninject
             CheckContainer();
             container.GetAll<IBootstrapperRegistration>().ToList().ForEach(r => r.Register(this));
             container.GetAll<INinjectRegistration>().ToList().ForEach(r => r.Register(container));
+            container.Load(container.GetAll<INinjectModule>());
         }
 
         protected override void ResetContainer()

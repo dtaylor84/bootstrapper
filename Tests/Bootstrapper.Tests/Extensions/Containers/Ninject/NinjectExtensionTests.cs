@@ -14,6 +14,7 @@ using FakeItEasy;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Ninject;
+using Ninject.Modules;
 using NinjectAdapter;
 
 namespace Bootstrap.Tests.Extensions.Containers.Ninject
@@ -100,7 +101,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
             A.CallTo(() => registrationHelper.GetTypesImplementing<IBootstrapperRegistration>(assembly)).MustHaveHappened();
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IEnumerable<IBootstrapperRegistration>));
-            Assert.IsTrue(result.Count > 0);
+            Assert.IsTrue(result.Any());
             Assert.IsTrue(result[0] is AutoMapperRegistration);
         }
 
@@ -124,8 +125,32 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
             A.CallTo(() => registrationHelper.GetTypesImplementing<INinjectRegistration>(assembly)).MustHaveHappened();
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IEnumerable<INinjectRegistration>));
-            Assert.IsTrue(result.Count > 0);
+            Assert.IsTrue(result.Any());
         }
+
+        [TestMethod]
+        public void ShouldRegisterAllTypesOfINinjectModule()
+        {
+            //Arrange
+            var assembly = Assembly.GetAssembly(typeof(TestNinjectModule));
+            A.CallTo(() => registrationHelper.GetAssemblies())
+                .Returns(new List<Assembly> { assembly });
+            A.CallTo(() => registrationHelper.GetTypesImplementing<INinjectModule>(assembly))
+                .Returns(new List<Type> { typeof(TestNinjectModule) });
+            var containerExtension = new NinjectExtension(registrationHelper);
+
+            //Act
+            containerExtension.Run();
+            var result = containerExtension.ResolveAll<INinjectModule>();
+
+            //Assert
+            A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
+            A.CallTo(() => registrationHelper.GetTypesImplementing<INinjectModule>(assembly)).MustHaveHappened();
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(IEnumerable<INinjectModule>));
+            Assert.IsTrue(result.Any());
+        }
+
 
         [TestMethod]
         public void ShouldInvokeTheRegisterMethodOfAllIBootstrapperRegistrationTypes()
@@ -167,6 +192,28 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
             A.CallTo(() => registrationHelper.GetTypesImplementing<INinjectRegistration>(assembly)).MustHaveHappened();
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(NinjectExtension));
+        }
+
+        [TestMethod]
+        public void ShouldInvokeTheLoadMethodOfAllINinjectModuleTypes()
+        {
+            //Arrange
+            var assembly = Assembly.GetAssembly(typeof(TestNinjectModule));
+            A.CallTo(() => registrationHelper.GetAssemblies())
+                .Returns(new List<Assembly> { assembly });
+            A.CallTo(() => registrationHelper.GetTypesImplementing<INinjectModule>(assembly))
+                .Returns(new List<Type> { typeof(TestNinjectModule) });
+            var containerExtension = new NinjectExtension(registrationHelper);
+
+            //Act
+            containerExtension.Run();
+            var result = containerExtension.Resolve<ITestInterface>();
+
+            //Assert
+            A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
+            A.CallTo(() => registrationHelper.GetTypesImplementing<INinjectModule>(assembly)).MustHaveHappened();
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ITestInterface));
         }
 
         [TestMethod]
@@ -333,14 +380,14 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
 
             //Act
             containerExtension.RegisterAll<IRegistrationHelper>();
-            var result = container.GetAll<IRegistrationHelper>();
+            var result = container.GetAll<IRegistrationHelper>().ToList();
 
             //Assert
             A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
             A.CallTo(() => registrationHelper.GetTypesImplementing<IRegistrationHelper>(assembly)).MustHaveHappened();
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IEnumerable<IRegistrationHelper>));
-            Assert.IsTrue(result.Count() > 0);
+            Assert.IsTrue(result.Any());
             Assert.IsTrue(result.Any(c => c is RegistrationHelper));
         }
 
