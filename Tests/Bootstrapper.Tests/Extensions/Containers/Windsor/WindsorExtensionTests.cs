@@ -9,6 +9,8 @@ using Bootstrap.Tests.Other;
 using Bootstrap.Windsor;
 using Castle.Facilities.FactorySupport;
 using Castle.MicroKernel;
+using Castle.MicroKernel.Registration;
+using Castle.MicroKernel.SubSystems.Configuration;
 using CommonServiceLocator.WindsorAdapter;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -119,6 +121,26 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
         }
 
         [TestMethod]
+        public void ShouldRegisterAllTypesOfIWindsorInstaller()
+        {
+            //Arrange
+            var assembly = Assembly.GetAssembly(typeof(TestWindsorInstaller));
+            A.CallTo(() => registrationHelper.GetAssemblies()).Returns(new List<Assembly> { assembly });
+            var containerExtension = new WindsorExtension(registrationHelper);
+
+            //Act
+            containerExtension.Run();
+            var result = containerExtension.ResolveAll<IWindsorInstaller>();
+
+            //Assert
+            A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(IEnumerable<IWindsorInstaller>));
+            Assert.IsTrue(result.Any());
+        }
+
+
+        [TestMethod]
         public void ShouldInvokeTheRegisterMethodOfAllIBootstrapperRegistrationTypes()
         {
             //Arrange
@@ -150,6 +172,24 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
             A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(WindsorExtension));         
+        }
+
+        [TestMethod]
+        public void ShouldInvokeTheInstallMethodOfAllIWindsorInstallerTypes()
+        {
+            //Arrange
+            var assembly = Assembly.GetAssembly(typeof(TestWindsorInstaller));
+            A.CallTo(() => registrationHelper.GetAssemblies()).Returns(new List<Assembly> { assembly });
+            var containerExtension = new WindsorExtension(registrationHelper);
+
+            //Act
+            containerExtension.Run();
+            var result = containerExtension.Resolve<IConfigurationStore>();
+
+            //Assert
+            A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(IConfigurationStore));
         }
 
         [TestMethod]
