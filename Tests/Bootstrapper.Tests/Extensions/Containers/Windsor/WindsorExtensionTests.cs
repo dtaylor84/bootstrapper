@@ -184,12 +184,12 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
 
             //Act
             containerExtension.Run();
-            var result = containerExtension.Resolve<IConfigurationStore>();
+            var result = containerExtension.Resolve<ITestInterface>();
 
             //Assert
             A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(IConfigurationStore));
+            Assert.IsInstanceOfType(result, typeof(ITestInterface));
         }
 
         [TestMethod]

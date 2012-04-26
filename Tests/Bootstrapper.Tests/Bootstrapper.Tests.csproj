@@ -146,10 +146,13 @@
     <Compile Include="Extensions\Containers\Ninject\NinjectExtensionTests.cs" />
     <Compile Include="Extensions\Containers\Autofac\TestAutofacRegistration.cs" />
     <Compile Include="Extensions\Containers\Ninject\TestNinjectRegistration.cs" />
+    <Compile Include="Extensions\Containers\StructureMap\TestStructureMapRegistry.cs" />
     <Compile Include="Extensions\Containers\Windsor\TestWindsorInstaller.cs" />
     <Compile Include="Extensions\Locator\BootstrapperServiceLocatorHelperTests.cs" />
     <Compile Include="Extensions\Locator\ServiceLocatorExtensionTests.cs" />
     <Compile Include="Extensions\TestImplementations\AbstractTestStartupTask.cs" />
+    <Compile Include="Extensions\TestImplementations\ITestInterface.cs" />
+    <Compile Include="Extensions\TestImplementations\TestImplementation.cs" />
     <Compile Include="Extensions\TestImplementations\TestMapCreator.cs" />
     <Compile Include="Extensions\TestImplementations\InternalTestStartupTask.cs" />
     <Compile Include="Extensions\Containers\StructureMap\BootstrapperStructureMapHelperTests.cs" />

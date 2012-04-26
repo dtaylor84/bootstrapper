@@ -2,6 +2,7 @@
 using System.Linq;
 using Bootstrap.Extensions.Containers;
 using StructureMap;
+using StructureMap.Configuration.DSL;
 using StructureMap.ServiceLocatorAdapter;
 using Microsoft.Practices.ServiceLocation;
 
@@ -36,6 +37,7 @@ namespace Bootstrap.StructureMap
             if (Options.AutoRegistration) AutoRegister();
             RegisterAll<IBootstrapperRegistration>();
             RegisterAll<IStructureMapRegistration>();
+            RegisterAll<Registry>();
         }
 
         protected override void InvokeRegisterForImplementationsOfIRegistration()
@@ -43,6 +45,7 @@ namespace Bootstrap.StructureMap
             CheckContainer();
             container.GetAllInstances<IBootstrapperRegistration>().ToList().ForEach(r => r.Register(this));
             container.GetAllInstances<IStructureMapRegistration>().ToList().ForEach(r => r.Register(container));
+            container.GetAllInstances<Registry>().ToList().ForEach(r => container.Configure(c => c.AddRegistry(r)));
         }
 
         public override void SetServiceLocator()
