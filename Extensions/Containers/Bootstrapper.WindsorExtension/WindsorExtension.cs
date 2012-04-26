@@ -50,6 +50,7 @@ namespace Bootstrap.Windsor
             if(Options.AutoRegistration) AutoRegister();
             RegisterAll<IBootstrapperRegistration>();
             RegisterAll<IWindsorRegistration>();
+            RegisterAll<IWindsorInstaller>();
         }
 
         protected override void InvokeRegisterForImplementationsOfIRegistration()
@@ -57,6 +58,7 @@ namespace Bootstrap.Windsor
             CheckContainer();
             container.ResolveAll<IBootstrapperRegistration>().ForEach(r => r.Register(this));
             container.ResolveAll<IWindsorRegistration>().ForEach(r => r.Register(container));
+            container.Install(container.ResolveAll<IWindsorInstaller>());
         }
 
         public override void SetServiceLocator()
