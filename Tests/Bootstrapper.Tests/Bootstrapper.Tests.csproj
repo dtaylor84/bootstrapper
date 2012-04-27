@@ -140,6 +140,7 @@
     <Compile Include="Core\Extensions\StartupTasks\StartupTasksRegistrationTests.cs" />
     <Compile Include="Extensions\AutoMapper\AutoMapperExtensionTests.cs" />
     <Compile Include="Extensions\AutoMapper\AutoMapperRegistrationTests.cs" />
+    <Compile Include="Extensions\AutoMapper\TestAutoMapperMapCreator.cs" />
     <Compile Include="Extensions\AutoMapper\TestAutoMapperProfile.cs" />
     <Compile Include="Extensions\Containers\Autofac\BootstrapperAutofacHelperTests.cs" />
     <Compile Include="Extensions\Containers\Autofac\AutofacExtensionTests.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="Extensions\Locator\BootstrapperServiceLocatorHelperTests.cs" />
     <Compile Include="Extensions\Locator\ServiceLocatorExtensionTests.cs" />
     <Compile Include="Extensions\TestImplementations\AbstractTestStartupTask.cs" />
+    <Compile Include="Extensions\TestImplementations\AnotherTestImplementation.cs" />
     <Compile Include="Extensions\TestImplementations\ITestInterface.cs" />
     <Compile Include="Extensions\TestImplementations\TestImplementation.cs" />
     <Compile Include="Extensions\TestImplementations\TestMapCreator.cs" />
