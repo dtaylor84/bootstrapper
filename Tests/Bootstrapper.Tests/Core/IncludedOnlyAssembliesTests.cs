@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
+using Bootstrap.AutoMapper;
 using Bootstrap.Extensions;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -47,6 +49,24 @@ namespace Bootstrap.Tests.Core
         }
 
         [TestMethod]
+        public void ShouldAddAssemblyRangeToIncludedOnlyAssemblies()
+        {
+            //Act
+            var includedOnly = new IncludedOnlyAssemblies();
+            var assemblyRange = new List<Assembly>
+                                    {
+                                        Assembly.GetAssembly(typeof(System.DateTime)),
+                                        Assembly.GetAssembly(typeof(Enumerable))
+                                    };
+            var result = includedOnly.AssemblyRange(assemblyRange);
+
+            //Assert
+            Assert.AreSame(includedOnly, result);
+            Assert.IsTrue(result.Assemblies.Contains(Assembly.GetAssembly(typeof(System.DateTime))));
+            Assert.IsTrue(result.Assemblies.Contains(Assembly.GetAssembly(typeof(Enumerable))));
+        }
+
+        [TestMethod]
         public void ShouldAddAssemblyToIncludedOnlyAssembliesUsingAndAssembly()
         {
             //Act
@@ -58,6 +78,26 @@ namespace Bootstrap.Tests.Core
             Assert.AreSame(includedOnly, result);
             Assert.IsTrue(result.Assemblies.Contains(Assembly.GetAssembly(typeof(System.DateTime))));
             Assert.IsTrue(result.Assemblies.Contains(Assembly.GetAssembly(typeof(Enumerable))));
+        }
+
+        [TestMethod]
+        public void ShouldAddAssemblyRangeToIncludedOnlyAssembliesUsingAndAssemblyRange()
+        {
+            //Act
+            var includedOnly = new IncludedOnlyAssemblies();
+            var assemblyRange = new List<Assembly>
+                                    {
+                                        Assembly.GetAssembly(typeof(Enumerable)),
+                                        Assembly.GetAssembly(typeof(XDocument))
+                                    };
+            var result = includedOnly.Assembly(Assembly.GetAssembly(typeof(System.DateTime))).
+                               AndAssemblyRange(assemblyRange);
+
+            //Assert
+            Assert.AreSame(includedOnly, result);
+            Assert.IsTrue(result.Assemblies.Contains(Assembly.GetAssembly(typeof(System.DateTime))));
+            Assert.IsTrue(result.Assemblies.Contains(Assembly.GetAssembly(typeof(Enumerable))));
+            Assert.IsTrue(result.Assemblies.Contains(Assembly.GetAssembly(typeof(XDocument))));
         }
 
         [TestMethod]

@@ -19,9 +19,20 @@ namespace Bootstrap
             return this;
         }
 
+        public IIncludedAssemblies AssemblyRange(IEnumerable<Assembly> assemblies)
+        {
+            Assemblies.AddRange(assemblies);
+            return this;
+        }
+
         public IIncludedAssemblies AndAssembly(Assembly assembly)
         {
             return Assembly(assembly);
+        }
+
+        public IIncludedAssemblies AndAssemblyRange(IEnumerable<Assembly> assemblies)
+        {
+            return AssemblyRange(assemblies);
         }
 
         public IIncludedOnlyAssemblies IncludingOnly
