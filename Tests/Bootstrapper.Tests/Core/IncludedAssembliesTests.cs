@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Bootstrap.AutoMapper;
+using Bootstrap.Autofac;
 using Bootstrap.Extensions;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -48,6 +49,24 @@ namespace Bootstrap.Tests.Core
         }
 
         [TestMethod]
+        public void ShouldAddAssemblyRangeToIncludedAssemblies()
+        {
+            //Act
+            var included = new IncludedAssemblies();
+            var assemblyRange = new List<Assembly>
+                                    {
+                                        Assembly.GetAssembly(typeof (Bootstrapper)),
+                                        Assembly.GetAssembly(typeof (AutoMapperExtension))
+                                    };
+            var result = included.AssemblyRange(assemblyRange);
+
+            //Assert
+            Assert.AreSame(included, result);
+            Assert.IsTrue(result.Assemblies.Contains(Assembly.GetAssembly(typeof(Bootstrapper))));
+            Assert.IsTrue(result.Assemblies.Contains(Assembly.GetAssembly(typeof(AutoMapperExtension))));
+        }
+
+        [TestMethod]
         public void ShouldAddAssemblyToIncludedAssembliesUsingAndAssembly()
         {
             //Act
@@ -59,6 +78,26 @@ namespace Bootstrap.Tests.Core
             Assert.AreSame(included, result);
             Assert.IsTrue(result.Assemblies.Contains(Assembly.GetAssembly(typeof(Bootstrapper))));
             Assert.IsTrue(result.Assemblies.Contains(Assembly.GetAssembly(typeof(AutoMapperExtension))));
+        }
+
+        [TestMethod]
+        public void ShouldAddAssemblyRangeToIncludedAssembliesUsingAndAssemblyRange()
+        {
+            //Act
+            var included = new IncludedAssemblies();
+            var assemblyRange = new List<Assembly>
+                                    {
+                                        Assembly.GetAssembly(typeof (AutofacExtension)),
+                                        Assembly.GetAssembly(typeof (AutoMapperExtension))
+                                    };
+            var result = included.Assembly(Assembly.GetAssembly(typeof(Bootstrapper))).
+                               AndAssemblyRange(assemblyRange);
+
+            //Assert
+            Assert.AreSame(included, result);
+            Assert.IsTrue(result.Assemblies.Contains(Assembly.GetAssembly(typeof(Bootstrapper))));
+            Assert.IsTrue(result.Assemblies.Contains(Assembly.GetAssembly(typeof(AutoMapperExtension))));
+            Assert.IsTrue(result.Assemblies.Contains(Assembly.GetAssembly(typeof (AutofacExtension))));
         }
 
         [TestMethod]

@@ -17,14 +17,25 @@ namespace Bootstrap
 
         public IIncludedOnlyAssemblies Assembly(Assembly assembly)
         {
-            if(Assemblies.Count ==0) Assemblies.AddRange(BootstrapperAssemblies());
+            if(Assemblies.Count == 0) Assemblies.AddRange(BootstrapperAssemblies());
             Assemblies.Add(assembly);
+            return this;
+        }
+
+        public IIncludedOnlyAssemblies AssemblyRange(IEnumerable<Assembly> assemblies)
+        {
+            Assemblies.AddRange(assemblies);
             return this;
         }
 
         public IIncludedOnlyAssemblies AndAssembly(Assembly assembly)
         {
             return Assembly(assembly);
+        }
+
+        public IIncludedOnlyAssemblies AndAssemblyRange(IEnumerable<Assembly> assemblies)
+        {
+            return AssemblyRange(assemblies);
         }
 
         public IIncludedAssemblies Including
