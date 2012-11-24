@@ -56,7 +56,7 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
             Bootstrapper.Start();
 
             //Assert
-            A.CallTo(() => task.Run()).MustHaveHappened();
+            A.CallTo(() => task.Run()).MustHaveHappened(Repeated.Exactly.Once);
         }
 
         [TestMethod]
@@ -69,10 +69,11 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
             Bootstrapper.With.Extension(containerExtension).And.Extension(new StartupTasksExtension(registrationHelper));
 
             //Act
+            Bootstrapper.Start();
             Bootstrapper.Reset();
 
             //Assert
-            A.CallTo(() => task.Reset()).MustHaveHappened();
+            A.CallTo(() => task.Reset()).MustHaveHappened(Repeated.Exactly.Once);
         }
 
         [TestMethod]
