@@ -103,6 +103,7 @@ namespace Bootstrap.Extensions.StartupTasks
 
         private void BuildTaskGroups(List<IStartupTask> tasks)
         {
+            taskGroups.Clear();
             AddExecutionParameters(tasks)
                 .OrderBy(t => t.Position)
                 .GroupBy(t => t.Group)
