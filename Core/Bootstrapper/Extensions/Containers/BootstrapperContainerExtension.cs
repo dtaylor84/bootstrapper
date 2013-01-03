@@ -41,8 +41,8 @@ namespace Bootstrap.Extensions.Containers
 
         protected void AutoRegister()
         {
-            RegistrationHelper.GetAssemblies().ToList()
-                .ForEach(a => a.GetExportedTypes().Where(t => !t.IsGenericType && !t.IsAbstract).ToList()
+            RegistrationHelper.GetAssemblies()
+                .ForEach(a => a.GetExportedTypes().Where(t => !t.IsGenericType && !t.IsAbstract)
                     .ForEach(t =>
                                  {
                                      var defaultInterfaceName = string.Format("I{0}", t.Name);
