@@ -6,5 +6,7 @@ Bootstrapper.5.1.ReSharper.user
 *.docstates
 *.suo
 *.user
-*.nchrunchproject
+*.ncrunchsolution
+*.ncrunchproject
+*.cache
 TestResults
