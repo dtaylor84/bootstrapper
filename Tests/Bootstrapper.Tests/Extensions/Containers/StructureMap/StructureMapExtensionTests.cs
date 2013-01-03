@@ -210,6 +210,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         public void ShouldResetTheServiceLocator()
         {
             //Arrange
+            ServiceLocator.SetLocatorProvider(A.Fake<IServiceLocator>);
             var containerExtension = new StructureMapExtension(registrationHelper);
             containerExtension.Run();
 

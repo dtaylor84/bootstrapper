@@ -212,6 +212,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
         public void ShouldResetTheServiceLocator()
         {
             //Arrange
+            ServiceLocator.SetLocatorProvider(A.Fake<IServiceLocator>);
             var containerExtension = new WindsorExtension(registrationHelper);
             containerExtension.Run();
 

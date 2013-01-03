@@ -237,6 +237,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
         public void ShouldResetTheServiceLocator()
         {
             //Arrange
+            ServiceLocator.SetLocatorProvider(A.Fake<IServiceLocator>);
             var containerExtension = new NinjectExtension(registrationHelper);
             containerExtension.Run();
 
