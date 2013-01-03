@@ -14,11 +14,11 @@ namespace Bootstrap.Extensions.Containers
         protected IRegistrationHelper RegistrationHelper;
         public abstract void SetServiceLocator();
         public abstract void ResetServiceLocator();
-        public abstract T Resolve<T>();
+        public abstract T Resolve<T>() where T : class;
         public abstract IList<T> ResolveAll<T>();
-        public abstract void Register<TTarget, TImplementation>() where TImplementation : TTarget;
-        public abstract void Register<TTarget>(TTarget implementation);
-        public abstract void RegisterAll<TTarget>();
+        public abstract void Register<TTarget, TImplementation>() where TTarget : class where TImplementation : class, TTarget;
+        public abstract void Register<TTarget>(TTarget implementation) where TTarget : class;
+        public abstract void RegisterAll<TTarget>() where TTarget : class;
 
         public object Container { get; protected set; }
 
@@ -41,8 +41,8 @@ namespace Bootstrap.Extensions.Containers
 
         protected void AutoRegister()
         {
-            RegistrationHelper.GetAssemblies().ToList()
-                .ForEach(a => a.GetExportedTypes().Where(t => !t.IsGenericType && !t.IsAbstract).ToList()
+            RegistrationHelper.GetAssemblies()
+                .ForEach(a => a.GetExportedTypes().Where(t => !t.IsGenericType && !t.IsAbstract)
                     .ForEach(t =>
                                  {
                                      var defaultInterfaceName = string.Format("I{0}", t.Name);

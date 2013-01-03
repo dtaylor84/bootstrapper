@@ -62,6 +62,9 @@
     <Reference Include="Castle.Windsor">
       <HintPath>..\..\packages\Castle.Windsor.3.0.0.4001\lib\net40\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="CommonServiceLocator.SimpleInjectorAdapter">
+      <HintPath>..\..\packages\CommonServiceLocator.SimpleInjectorAdapter.1.6.0.12319\lib\net35\CommonServiceLocator.SimpleInjectorAdapter.dll</HintPath>
+    </Reference>
     <Reference Include="CommonServiceLocator.WindsorAdapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\CommonServiceLocator.WindsorAdapter.1.0\lib\NET35\CommonServiceLocator.WindsorAdapter.dll</HintPath>
     </Reference>
@@ -86,6 +89,13 @@
     </Reference>
     <Reference Include="NinjectAdapter">
       <HintPath>..\..\packages\CommonServiceLocator.NinjectAdapter.1.0.0.0\lib\NinjectAdapter.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleInjector">
+      <HintPath>..\..\packages\SimpleInjector.1.6.0.12319\lib\net35\SimpleInjector.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleInjector.Extensions, Version=1.6.0.12319, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\SimpleInjector.Extensions.1.6.0.12319\lib\net35\SimpleInjector.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap, Version=2.6.3.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -130,6 +140,7 @@
     <Compile Include="Core\Extensions\StartupTasks\TaskOmega.cs" />
     <Compile Include="Core\IncludedAssembliesTests.cs" />
     <Compile Include="Core\IncludedOnlyAssembliesTests.cs" />
+    <Compile Include="Core\UtilsTests.cs" />
     <Compile Include="Extensions\AutoMapper\BootstrapperAutoMapperHelperTests.cs" />
     <Compile Include="Core\Extensions\Containers\BootstrapperContainerExtensionTests.cs" />
     <Compile Include="Core\Extensions\StartupTasks\BootstrapperStartupTasksHelperTests.cs" />
@@ -150,6 +161,9 @@
     <Compile Include="Extensions\Containers\Autofac\TestAutofacRegistration.cs" />
     <Compile Include="Extensions\Containers\Ninject\TestNinjectModule.cs" />
     <Compile Include="Extensions\Containers\Ninject\TestNinjectRegistration.cs" />
+    <Compile Include="Extensions\Containers\SimpleInjector\SimpleInjectorExtensionTests.cs" />
+    <Compile Include="Extensions\Containers\SimpleInjector\TestSimpleInjectorRegistration.cs" />
+    <Compile Include="Extensions\Containers\SimpleInjector\BootstrapperSimpleInjectorHelperTests.cs" />
     <Compile Include="Extensions\Containers\StructureMap\TestStructureMapRegistry.cs" />
     <Compile Include="Extensions\Containers\Windsor\TestWindsorInstaller.cs" />
     <Compile Include="Extensions\Locator\BootstrapperServiceLocatorHelperTests.cs" />
@@ -184,6 +198,10 @@
     <ProjectReference Include="..\..\Bootstrapper.ServiceLocator\Bootstrapper.ServiceLocator.csproj">
       <Project>{E6F0B913-1A8F-43EC-B2CB-E23EFBE7C1D9}</Project>
       <Name>Bootstrapper.ServiceLocator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bootstrapper.SimpleInjector\Bootstrapper.SimpleInjector.csproj">
+      <Project>{F6449AB4-379B-4A68-8E91-36F6A9FA46CE}</Project>
+      <Name>Bootstrapper.SimpleInjector</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Core\Bootstrapper\Bootstrapper.csproj">
       <Project>{451C9B3F-D315-48EA-84EA-45C45E513B45}</Project>

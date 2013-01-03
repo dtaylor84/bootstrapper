@@ -1,6 +1,6 @@
 ﻿namespace Bootstrap.Extensions.Containers
 {
-    public class RegistrationInvoker<TTarget,TImplementation>: IRegistrationInvoker<TTarget,TImplementation> where TImplementation:TTarget
+    public class RegistrationInvoker<TTarget,TImplementation>: IRegistrationInvoker<TTarget,TImplementation> where TTarget:class where TImplementation:class, TTarget
     {
         private readonly IBootstrapperContainerExtension containerExtension;
 
