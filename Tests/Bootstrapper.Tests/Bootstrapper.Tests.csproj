@@ -163,6 +163,7 @@
     <Compile Include="Extensions\Containers\Ninject\TestNinjectRegistration.cs" />
     <Compile Include="Extensions\Containers\SimpleInjector\SimpleInjectorExtensionTests.cs" />
     <Compile Include="Extensions\Containers\SimpleInjector\TestSimpleInjectorRegistration.cs" />
+    <Compile Include="Extensions\Containers\SimpleInjector\BootstrapperSimpleInjectorHelperTests.cs" />
     <Compile Include="Extensions\Containers\StructureMap\TestStructureMapRegistry.cs" />
     <Compile Include="Extensions\Containers\Windsor\TestWindsorInstaller.cs" />
     <Compile Include="Extensions\Locator\BootstrapperServiceLocatorHelperTests.cs" />
