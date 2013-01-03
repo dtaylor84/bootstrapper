@@ -237,6 +237,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
         public void ShouldResetTheServiceLocator()
         {
             //Arrange
+            ServiceLocator.SetLocatorProvider(A.Fake<IServiceLocator>);
             var containerExtension = new AutofacExtension(registrationHelper);
             containerExtension.Run();
 

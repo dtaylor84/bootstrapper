@@ -188,6 +188,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
         public void ShouldResetTheServiceLocator()
         {
             //Arrange
+            ServiceLocator.SetLocatorProvider(A.Fake<IServiceLocator>);
             var containerExtension = new UnityExtension(registrationHelper);
             containerExtension.Run();
 
