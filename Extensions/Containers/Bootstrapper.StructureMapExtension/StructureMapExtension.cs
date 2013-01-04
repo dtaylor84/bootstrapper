@@ -3,7 +3,7 @@ using System.Linq;
 using Bootstrap.Extensions.Containers;
 using StructureMap;
 using StructureMap.Configuration.DSL;
-using StructureMap.ServiceLocatorAdapter;
+using CommonServiceLocator.StructureMapAdapter;
 using Microsoft.Practices.ServiceLocation;
 
 namespace Bootstrap.StructureMap

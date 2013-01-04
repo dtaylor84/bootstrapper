@@ -32,6 +32,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper.SimpleInjector
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonServiceLocator.WindsorAdapter", "ServiceLocatorAdapters\Windsor\CommonServiceLocator.WindsorAdapter\CommonServiceLocator.WindsorAdapter.csproj", "{8EC4D673-EF55-49C2-8757-2DCEFA59B2A6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonServiceLocator.StructureMapAdapter", "ServiceLocatorAdapters\StructureMap\StructureMapAdapter\CommonServiceLocator.StructureMapAdapter.csproj", "{65410B76-BFC2-4AA7-B383-2929583D0121}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Bootstrapper.vsmdi
@@ -89,6 +91,10 @@ Global
 		{8EC4D673-EF55-49C2-8757-2DCEFA59B2A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8EC4D673-EF55-49C2-8757-2DCEFA59B2A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8EC4D673-EF55-49C2-8757-2DCEFA59B2A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65410B76-BFC2-4AA7-B383-2929583D0121}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65410B76-BFC2-4AA7-B383-2929583D0121}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65410B76-BFC2-4AA7-B383-2929583D0121}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65410B76-BFC2-4AA7-B383-2929583D0121}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
