@@ -28,7 +28,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper.Ninject", "Ext
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper.Autofac", "Extensions\Containers\Bootstrapper.Autofac\Bootstrapper.Autofac.csproj", "{C2FCA69E-EC5A-49CC-9F75-9191DE83C9A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper.SimpleInjector", "Bootstrapper.SimpleInjector\Bootstrapper.SimpleInjector.csproj", "{F6449AB4-379B-4A68-8E91-36F6A9FA46CE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper.SimpleInjector", "Extensions\Containers\Bootstrapper.SimpleInjector\Bootstrapper.SimpleInjector.csproj", "{F6449AB4-379B-4A68-8E91-36F6A9FA46CE}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
