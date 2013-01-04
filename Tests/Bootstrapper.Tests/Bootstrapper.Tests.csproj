@@ -209,10 +209,6 @@
       <Project>{E6F0B913-1A8F-43EC-B2CB-E23EFBE7C1D9}</Project>
       <Name>Bootstrapper.ServiceLocator</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Bootstrapper.SimpleInjector\Bootstrapper.SimpleInjector.csproj">
-      <Project>{F6449AB4-379B-4A68-8E91-36F6A9FA46CE}</Project>
-      <Name>Bootstrapper.SimpleInjector</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Core\Bootstrapper\Bootstrapper.csproj">
       <Project>{451C9B3F-D315-48EA-84EA-45C45E513B45}</Project>
       <Name>Bootstrapper</Name>
@@ -224,6 +220,10 @@
     <ProjectReference Include="..\..\Extensions\Containers\Bootstrapper.Ninject\Bootstrapper.Ninject.csproj">
       <Project>{5341CC1B-EABC-4076-B5E2-DFF05AED8A83}</Project>
       <Name>Bootstrapper.Ninject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Extensions\Containers\Bootstrapper.SimpleInjector\Bootstrapper.SimpleInjector.csproj">
+      <Project>{F6449AB4-379B-4A68-8E91-36F6A9FA46CE}</Project>
+      <Name>Bootstrapper.SimpleInjector</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Extensions\Containers\Bootstrapper.StructureMapExtension\Bootstrapper.StructureMap.csproj">
       <Project>{B4E4CBAC-28F3-4649-BFEC-698C0FD8357A}</Project>

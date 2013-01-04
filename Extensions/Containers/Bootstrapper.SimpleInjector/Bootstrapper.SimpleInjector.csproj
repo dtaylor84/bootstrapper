@@ -58,7 +58,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core\Bootstrapper\Bootstrapper.csproj">
+    <ProjectReference Include="..\..\..\Core\Bootstrapper\Bootstrapper.csproj">
       <Project>{451C9B3F-D315-48EA-84EA-45C45E513B45}</Project>
       <Name>Bootstrapper</Name>
     </ProjectReference>
