@@ -71,9 +71,6 @@
     <Reference Include="CommonServiceLocator.SimpleInjectorAdapter">
       <HintPath>..\..\packages\CommonServiceLocator.SimpleInjectorAdapter.1.6.0.12319\lib\net35\CommonServiceLocator.SimpleInjectorAdapter.dll</HintPath>
     </Reference>
-    <Reference Include="CommonServiceLocator.WindsorAdapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\CommonServiceLocator.WindsorAdapter.1.0\lib\NET35\CommonServiceLocator.WindsorAdapter.dll</HintPath>
-    </Reference>
     <Reference Include="FakeItEasy, Version=1.7.4626.65, Culture=neutral, PublicKeyToken=eff28e2146d5fd2c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\FakeItEasy.1.7.4626.65\lib\NET40\FakeItEasy.dll</HintPath>
@@ -132,6 +129,10 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\Components\AdvancedLogger.cs" />
+    <Compile Include="Adapters\Components\ILogger.cs" />
+    <Compile Include="Adapters\Components\SimpleLogger.cs" />
+    <Compile Include="Adapters\WindsorAdapterTests.cs" />
     <Compile Include="Core\ExcludedAssembliesTests.cs" />
     <Compile Include="Core\Extensions\BootstrapperExtensionOptionsTests.cs" />
     <Compile Include="Core\Extensions\Containers\BootstrapperContainerExtensionOptionsTests.cs" />
@@ -236,6 +237,10 @@
     <ProjectReference Include="..\..\Extensions\Containers\Bootstrapper.WindsorExtension\Bootstrapper.Windsor.csproj">
       <Project>{AD16249F-B34D-4DED-8801-7BFC9AFD9B2A}</Project>
       <Name>Bootstrapper.Windsor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ServiceLocatorAdapters\Windsor\CommonServiceLocator.WindsorAdapter\CommonServiceLocator.WindsorAdapter.csproj">
+      <Project>{8ec4d673-ef55-49c2-8757-2dcefa59b2a6}</Project>
+      <Name>CommonServiceLocator.WindsorAdapter</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bootstrapper.Tests.ExtensionForTest\Bootstrapper.Tests.ExtensionForTest.csproj">
       <Project>{E0531F4E-3D33-42D4-AE64-13D015D2192F}</Project>
