@@ -1,0 +1,12 @@
+syntax: glob
+_ReSharper.Bootstrapper
+Bootstrapper.5.1.ReSharper.user
+*/bin
+*/obj
+*.docstates
+*.suo
+*.user
+*.ncrunchsolution
+*.ncrunchproject
+*.cache
+TestResults
