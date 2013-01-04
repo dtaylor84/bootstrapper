@@ -9,7 +9,7 @@ using Bootstrap.Tests.Other;
 using FakeItEasy;
 using StructureMap;
 using StructureMap.Configuration.DSL;
-using StructureMap.ServiceLocatorAdapter;
+using CommonServiceLocator.StructureMapAdapter;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Practices.ServiceLocation;
 using System.Reflection;

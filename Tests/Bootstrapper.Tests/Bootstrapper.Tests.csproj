@@ -108,10 +108,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\structuremap.2.6.4.1\lib\net40\StructureMap.dll</HintPath>
     </Reference>
-    <Reference Include="StructureMapAdapter, Version=1.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\CommonServiceLocator.StructureMapAdapter.1.1.0.3\lib\StructureMapAdapter.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -132,6 +128,7 @@
     <Compile Include="Adapters\Components\AdvancedLogger.cs" />
     <Compile Include="Adapters\Components\ILogger.cs" />
     <Compile Include="Adapters\Components\SimpleLogger.cs" />
+    <Compile Include="Adapters\StructureMapAdapterTests.cs" />
     <Compile Include="Adapters\WindsorAdapterTests.cs" />
     <Compile Include="Core\ExcludedAssembliesTests.cs" />
     <Compile Include="Core\Extensions\BootstrapperExtensionOptionsTests.cs" />
@@ -237,6 +234,10 @@
     <ProjectReference Include="..\..\Extensions\Containers\Bootstrapper.WindsorExtension\Bootstrapper.Windsor.csproj">
       <Project>{AD16249F-B34D-4DED-8801-7BFC9AFD9B2A}</Project>
       <Name>Bootstrapper.Windsor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ServiceLocatorAdapters\StructureMap\StructureMapAdapter\CommonServiceLocator.StructureMapAdapter.csproj">
+      <Project>{65410b76-bfc2-4aa7-b383-2929583d0121}</Project>
+      <Name>CommonServiceLocator.StructureMapAdapter</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ServiceLocatorAdapters\Windsor\CommonServiceLocator.WindsorAdapter\CommonServiceLocator.WindsorAdapter.csproj">
       <Project>{8ec4d673-ef55-49c2-8757-2dcefa59b2a6}</Project>
