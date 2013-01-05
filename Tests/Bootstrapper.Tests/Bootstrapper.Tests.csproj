@@ -125,6 +125,7 @@
     <Compile Include="Adapters\StructureMapAdapterTests.cs" />
     <Compile Include="Adapters\NinjectAdapterTests.cs" />
     <Compile Include="Adapters\AutofacAdapterTests.cs" />
+    <Compile Include="Adapters\ServiceLocatorAdapterTests.cs" />
     <Compile Include="Adapters\WindsorAdapterTests.cs" />
     <Compile Include="Core\ExcludedAssembliesTests.cs" />
     <Compile Include="Core\Extensions\BootstrapperExtensionOptionsTests.cs" />

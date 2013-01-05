@@ -18,7 +18,7 @@ namespace Bootstrap
         public IIncludedOnlyAssemblies Assembly(Assembly assembly)
         {
             if(Assemblies.Count == 0) Assemblies.AddRange(BootstrapperAssemblies());
-            Assemblies.Add(assembly);
+            if(!Assemblies.Contains(assembly)) Assemblies.Add(assembly);
             return this;
         }
 
