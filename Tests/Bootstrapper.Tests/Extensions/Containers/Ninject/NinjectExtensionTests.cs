@@ -15,7 +15,7 @@ using Microsoft.Practices.ServiceLocation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Ninject;
 using Ninject.Modules;
-using NinjectAdapter;
+using CommonServiceLocator.NinjectAdapter;
 
 namespace Bootstrap.Tests.Extensions.Containers.Ninject
 {
