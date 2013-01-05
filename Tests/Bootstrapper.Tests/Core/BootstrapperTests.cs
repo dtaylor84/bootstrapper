@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using AutoMapper;
 using Bootstrap.Autofac;
@@ -293,6 +294,7 @@ namespace Bootstrap.Tests.Core
         public void ShouldReturnIncludedOnlyAssemblies()
         {
             //Act
+            Bootstrapper.IncludingOnly.Assembly(Assembly.GetExecutingAssembly());
             var result = Bootstrapper.IncludingOnly.Assemblies;
 
             //Assert
@@ -310,6 +312,20 @@ namespace Bootstrap.Tests.Core
 
             //Assert
             Assert.IsFalse(result.Contains(Assembly.GetExecutingAssembly()));
+        }
+
+        [TestMethod]
+        public void IncludingOnly_WhenInvokedWithAnAssemblyThatIsAlreadyInclued_ShouldNotAddedAgain()
+        {
+            //Arrange
+            Bootstrapper.IncludingOnly.Assembly(Assembly.GetExecutingAssembly());
+            Bootstrapper.IncludingOnly.Assembly(Assembly.GetExecutingAssembly());
+            
+            //Act
+            var result = Bootstrapper.IncludingOnly.Assemblies;
+
+            //Assert
+            Assert.AreEqual(1, result.Count(a => a.FullName == Assembly.GetExecutingAssembly().FullName));
         }
     }
 }
