@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Autofac;
 using Autofac.Core;
-using AutofacContrib.CommonServiceLocator;
+using CommonServiceLocator.AutofacAdapter;
 using AutoMapper;
 using Bootstrap.Autofac;
 using Bootstrap.AutoMapper;
