@@ -354,14 +354,14 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
 
             //Act
             containerExtension.RegisterAll<IRegistrationHelper>();
-            var result = container.ResolveAll<IRegistrationHelper>();
+            var result = container.ResolveAll<IRegistrationHelper>().ToList();
 
             //Assert
             A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
             A.CallTo(() => registrationHelper.GetTypesImplementing<IRegistrationHelper>(assembly)).MustHaveHappened();
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IEnumerable<IRegistrationHelper>));
-            Assert.IsTrue(result.Count() > 0);
+            Assert.IsTrue(result.Any());
             Assert.IsTrue(result.Any(c => c is RegistrationHelper));
         }
 

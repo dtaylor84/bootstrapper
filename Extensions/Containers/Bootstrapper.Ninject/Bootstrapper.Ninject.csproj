@@ -41,9 +41,6 @@
     <Reference Include="Ninject.Extensions.Conventions">
       <HintPath>..\..\..\packages\ninject.extensions.conventions.3.0.0.11\lib\net40\Ninject.Extensions.Conventions.dll</HintPath>
     </Reference>
-    <Reference Include="NinjectAdapter">
-      <HintPath>..\..\..\packages\CommonServiceLocator.NinjectAdapter.1.0.0.0\lib\NinjectAdapter.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -65,6 +62,10 @@
     <ProjectReference Include="..\..\..\Core\Bootstrapper\Bootstrapper.csproj">
       <Project>{451C9B3F-D315-48EA-84EA-45C45E513B45}</Project>
       <Name>Bootstrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ServiceLocatorAdapters\Ninject\NinjectAdapter\CommonServiceLocator.NinjectAdapter.csproj">
+      <Project>{69a03518-a28f-4d13-9b45-85778a9eeb0c}</Project>
+      <Name>CommonServiceLocator.NinjectAdapter</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
