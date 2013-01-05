@@ -1,29 +1,38 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Linq;
+using Autofac;
 using Bootstrap.Tests.Adapters.Components;
 using Bootstrap.Tests.Other;
-using Castle.MicroKernel.Registration;
-using Castle.Windsor;
-using CommonServiceLocator.WindsorAdapter;
+using CommonServiceLocator.AutofacAdapter;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bootstrap.Tests.Adapters
 {
     [TestClass]
-    public class WindsorAdapterTests
+    public class AutofacAdapterTests
     {
         private IServiceLocator locator;
 
         [TestInitialize]
         public void Initialize()
         {
-            var container = new WindsorContainer()
-                .Register(AllTypes.FromAssembly(typeof (ILogger).Assembly)
-                                  .BasedOn<ILogger>()
-                                  .WithService.FirstInterface()
-                );
-            locator = new WindsorServiceLocator(container);            
+            var builder = new ContainerBuilder();
+
+            builder
+                .RegisterType<SimpleLogger>()
+                .Named<ILogger>(typeof(SimpleLogger).FullName)
+                .SingleInstance()
+                .As<ILogger>();
+
+            builder
+                .RegisterType<AdvancedLogger>()
+                .Named<ILogger>(typeof(AdvancedLogger).FullName)
+                .SingleInstance()
+                .As<ILogger>(); 
+            
+            locator = new AutofacServiceLocator(builder.Build());
         }
 
         [TestMethod]
@@ -47,10 +56,10 @@ namespace Bootstrap.Tests.Adapters
         public void GetInstance_WhenInvokedWithARegisteredName_ShouldReturnAnInstanceOfTheType()
         {
             //Act
-            var result = locator.GetInstance<ILogger>(typeof (AdvancedLogger).FullName);
+            var result = locator.GetInstance<ILogger>(typeof(AdvancedLogger).FullName);
 
             //Assert
-            Assert.IsInstanceOfType(result, typeof (AdvancedLogger));            
+            Assert.IsInstanceOfType(result, typeof(AdvancedLogger));
         }
 
         [TestMethod]
@@ -67,7 +76,7 @@ namespace Bootstrap.Tests.Adapters
             var result = locator.GetAllInstances<ILogger>();
 
             //Assert
-            Assert.AreEqual(2, result.Count());            
+            Assert.AreEqual(2, result.Count());
         }
 
         [TestMethod]
@@ -85,7 +94,7 @@ namespace Bootstrap.Tests.Adapters
         {
             //Act
             var result1 = locator.GetInstance<ILogger>();
-            var result2 = locator.GetInstance(typeof (ILogger), null);
+            var result2 = locator.GetInstance(typeof(ILogger), null);
 
             //Assert
             Assert.AreEqual(result1.GetType(), result2.GetType());
@@ -95,8 +104,8 @@ namespace Bootstrap.Tests.Adapters
         public void GetInstance_WhenInvokedWithNAmeGenricallyOrNot_ShouldReturnTheSameResults()
         {
             //Act
-            var result1 = locator.GetInstance<ILogger>(typeof (AdvancedLogger).FullName);
-            var result2 = locator.GetInstance(typeof (ILogger), typeof (AdvancedLogger).FullName);
+            var result1 = locator.GetInstance<ILogger>(typeof(AdvancedLogger).FullName);
+            var result2 = locator.GetInstance(typeof(ILogger), typeof(AdvancedLogger).FullName);
 
             //Assert
             Assert.AreEqual(result1.GetType(), result2.GetType());
@@ -118,7 +127,7 @@ namespace Bootstrap.Tests.Adapters
         {
             //Act
             var result1 = locator.GetAllInstances<ILogger>().ToList();
-            var result2 = locator.GetAllInstances(typeof (ILogger)).ToList();
+            var result2 = locator.GetAllInstances(typeof(ILogger)).ToList();
 
             //Assert
             Assert.AreEqual(result1.Count(), result2.Count());

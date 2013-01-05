@@ -49,9 +49,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Autofac.2.6.3.862\lib\NET40\Autofac.Configuration.dll</HintPath>
     </Reference>
-    <Reference Include="AutofacContrib.CommonServiceLocator">
-      <HintPath>..\..\packages\Autofac.CommonServiceLocator-unofficial.2.5.2.830\lib\NET40\AutofacContrib.CommonServiceLocator.dll</HintPath>
-    </Reference>
     <Reference Include="AutoMapper, Version=2.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\AutoMapper.2.2.0\lib\net40\AutoMapper.dll</HintPath>
@@ -127,6 +124,7 @@
     <Compile Include="Adapters\Components\SimpleLogger.cs" />
     <Compile Include="Adapters\StructureMapAdapterTests.cs" />
     <Compile Include="Adapters\NinjectAdapterTests.cs" />
+    <Compile Include="Adapters\AutofacAdapterTests.cs" />
     <Compile Include="Adapters\WindsorAdapterTests.cs" />
     <Compile Include="Core\ExcludedAssembliesTests.cs" />
     <Compile Include="Core\Extensions\BootstrapperExtensionOptionsTests.cs" />
@@ -232,6 +230,10 @@
     <ProjectReference Include="..\..\Extensions\Containers\Bootstrapper.WindsorExtension\Bootstrapper.Windsor.csproj">
       <Project>{AD16249F-B34D-4DED-8801-7BFC9AFD9B2A}</Project>
       <Name>Bootstrapper.Windsor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ServiceLocatorAdapters\Autofac\CommonServiceLocator.AutofacAdapter\CommonServiceLocator.AutofacAdapter.csproj">
+      <Project>{b5945378-4a44-4ecd-834f-fedba1daee60}</Project>
+      <Name>CommonServiceLocator.AutofacAdapter</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ServiceLocatorAdapters\Ninject\NinjectAdapter\CommonServiceLocator.NinjectAdapter.csproj">
       <Project>{69a03518-a28f-4d13-9b45-85778a9eeb0c}</Project>
