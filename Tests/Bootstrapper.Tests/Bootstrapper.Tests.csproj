@@ -49,9 +49,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Autofac.2.6.3.862\lib\NET40\Autofac.Configuration.dll</HintPath>
     </Reference>
-    <Reference Include="AutofacContrib.CommonServiceLocator">
-      <HintPath>..\..\packages\Autofac.CommonServiceLocator-unofficial.2.5.2.830\lib\NET40\AutofacContrib.CommonServiceLocator.dll</HintPath>
-    </Reference>
     <Reference Include="AutoMapper, Version=2.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\AutoMapper.2.2.0\lib\net40\AutoMapper.dll</HintPath>
@@ -70,9 +67,6 @@
     </Reference>
     <Reference Include="CommonServiceLocator.SimpleInjectorAdapter">
       <HintPath>..\..\packages\CommonServiceLocator.SimpleInjectorAdapter.1.6.0.12319\lib\net35\CommonServiceLocator.SimpleInjectorAdapter.dll</HintPath>
-    </Reference>
-    <Reference Include="CommonServiceLocator.WindsorAdapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\CommonServiceLocator.WindsorAdapter.1.0\lib\NET35\CommonServiceLocator.WindsorAdapter.dll</HintPath>
     </Reference>
     <Reference Include="FakeItEasy, Version=1.7.4626.65, Culture=neutral, PublicKeyToken=eff28e2146d5fd2c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -97,9 +91,6 @@
     <Reference Include="Ninject.Extensions.Conventions">
       <HintPath>..\..\packages\Ninject.Extensions.Conventions.3.0.0.11\lib\net40\Ninject.Extensions.Conventions.dll</HintPath>
     </Reference>
-    <Reference Include="NinjectAdapter">
-      <HintPath>..\..\packages\CommonServiceLocator.NinjectAdapter.1.0.0.0\lib\NinjectAdapter.dll</HintPath>
-    </Reference>
     <Reference Include="SimpleInjector">
       <HintPath>..\..\packages\SimpleInjector.1.6.0.12319\lib\net35\SimpleInjector.dll</HintPath>
     </Reference>
@@ -110,10 +101,6 @@
     <Reference Include="StructureMap, Version=2.6.4.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\structuremap.2.6.4.1\lib\net40\StructureMap.dll</HintPath>
-    </Reference>
-    <Reference Include="StructureMapAdapter, Version=1.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\CommonServiceLocator.StructureMapAdapter.1.1.0.3\lib\StructureMapAdapter.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -132,6 +119,14 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\Components\AdvancedLogger.cs" />
+    <Compile Include="Adapters\Components\ILogger.cs" />
+    <Compile Include="Adapters\Components\SimpleLogger.cs" />
+    <Compile Include="Adapters\StructureMapAdapterTests.cs" />
+    <Compile Include="Adapters\NinjectAdapterTests.cs" />
+    <Compile Include="Adapters\AutofacAdapterTests.cs" />
+    <Compile Include="Adapters\ServiceLocatorAdapterTests.cs" />
+    <Compile Include="Adapters\WindsorAdapterTests.cs" />
     <Compile Include="Core\ExcludedAssembliesTests.cs" />
     <Compile Include="Core\Extensions\BootstrapperExtensionOptionsTests.cs" />
     <Compile Include="Core\Extensions\Containers\BootstrapperContainerExtensionOptionsTests.cs" />
@@ -236,6 +231,22 @@
     <ProjectReference Include="..\..\Extensions\Containers\Bootstrapper.WindsorExtension\Bootstrapper.Windsor.csproj">
       <Project>{AD16249F-B34D-4DED-8801-7BFC9AFD9B2A}</Project>
       <Name>Bootstrapper.Windsor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ServiceLocatorAdapters\Autofac\CommonServiceLocator.AutofacAdapter\CommonServiceLocator.AutofacAdapter.csproj">
+      <Project>{b5945378-4a44-4ecd-834f-fedba1daee60}</Project>
+      <Name>CommonServiceLocator.AutofacAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ServiceLocatorAdapters\Ninject\NinjectAdapter\CommonServiceLocator.NinjectAdapter.csproj">
+      <Project>{69a03518-a28f-4d13-9b45-85778a9eeb0c}</Project>
+      <Name>CommonServiceLocator.NinjectAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ServiceLocatorAdapters\StructureMap\StructureMapAdapter\CommonServiceLocator.StructureMapAdapter.csproj">
+      <Project>{65410b76-bfc2-4aa7-b383-2929583d0121}</Project>
+      <Name>CommonServiceLocator.StructureMapAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ServiceLocatorAdapters\Windsor\CommonServiceLocator.WindsorAdapter\CommonServiceLocator.WindsorAdapter.csproj">
+      <Project>{8ec4d673-ef55-49c2-8757-2dcefa59b2a6}</Project>
+      <Name>CommonServiceLocator.WindsorAdapter</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bootstrapper.Tests.ExtensionForTest\Bootstrapper.Tests.ExtensionForTest.csproj">
       <Project>{E0531F4E-3D33-42D4-AE64-13D015D2192F}</Project>

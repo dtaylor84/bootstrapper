@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Autofac.Core;
-using AutofacContrib.CommonServiceLocator;
+using CommonServiceLocator.AutofacAdapter;
 using Bootstrap.Extensions.Containers;
 using Autofac;
 using Microsoft.Practices.ServiceLocation;

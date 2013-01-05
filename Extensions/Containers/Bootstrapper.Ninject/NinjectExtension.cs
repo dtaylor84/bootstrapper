@@ -4,7 +4,7 @@ using Bootstrap.Extensions.Containers;
 using Microsoft.Practices.ServiceLocation;
 using Ninject;
 using Ninject.Modules;
-using NinjectAdapter;
+using CommonServiceLocator.NinjectAdapter;
 
 namespace Bootstrap.Ninject
 {
