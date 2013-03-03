@@ -4,7 +4,10 @@ using System.Linq;
 using System.Reflection;
 using AutoMapper;
 using Bootstrap.AutoMapper;
+using Bootstrap.Extensions;
 using Bootstrap.Extensions.Containers;
+using Bootstrap.Extensions.StartupTasks;
+using Bootstrap.Locator;
 using Bootstrap.SimpleInjector;
 using Bootstrap.Tests.Extensions.TestImplementations;
 using Bootstrap.Tests.Other;
@@ -301,16 +304,17 @@ namespace Bootstrap.Tests.Extensions.Containers.SimpleInjector
         {
             //Arrange
             var containerExtension = new SimpleInjectorExtension(registrationHelper);
-            var container = A.Fake<Container>();
-            var instances = new[] { new object(), new object() };
+            var container = new Container();
+            var instances = new IBootstrapperExtension[] {new StartupTasksExtension(A.Fake<IRegistrationHelper>()) , new ServiceLocatorExtension()};
             container.RegisterAll(instances);
             containerExtension.InitializeContainer(container);
 
             //Act
-            var result = containerExtension.ResolveAll<object>();
+            var result = containerExtension.ResolveAll<IBootstrapperExtension>();
 
             //Assert
             Assert.IsNotNull(result);
+            Assert.AreEqual(instances.Count(), result.Count);
             Assert.IsTrue(instances.SequenceEqual(result));
         }
 

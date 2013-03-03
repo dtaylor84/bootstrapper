@@ -4,7 +4,7 @@ using Bootstrap.Tests.Adapters.Components;
 using Bootstrap.Tests.Other;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using CommonServiceLocator.WindsorAdapter;
+using CommonServiceLocator.WindsorAdapter.Unofficial;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -19,7 +19,7 @@ namespace Bootstrap.Tests.Adapters
         public void Initialize()
         {
             var container = new WindsorContainer()
-                .Register(AllTypes.FromAssembly(typeof (ILogger).Assembly)
+                .Register(Classes.FromAssembly(typeof (ILogger).Assembly)
                                   .BasedOn<ILogger>()
                                   .WithService.FirstInterface()
                 );

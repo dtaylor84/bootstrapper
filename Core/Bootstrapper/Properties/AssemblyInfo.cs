@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Bootstrapper")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("bootstrapper.codeplex.com uses a convention over configuration approach to initialize your IOC container, create automapper maps and run any other startup tasks that your application might need.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Microsoft")]
 [assembly: AssemblyProduct("Bootstrapper")]
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.0.3.2")]
-[assembly: AssemblyFileVersion("2.0.3.2")]
+[assembly: AssemblyVersion("2.0.3.6")]
+[assembly: AssemblyFileVersion("2.0.3.6")]

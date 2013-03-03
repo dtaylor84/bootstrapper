@@ -11,6 +11,7 @@ using Castle.Facilities.FactorySupport;
 using Castle.MicroKernel;
 using Castle.MicroKernel.Registration;
 using CommonServiceLocator.WindsorAdapter;
+using CommonServiceLocator.WindsorAdapter.Unofficial;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Practices.ServiceLocation;
