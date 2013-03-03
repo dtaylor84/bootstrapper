@@ -5,6 +5,7 @@ using Autofac;
 using Bootstrap.Tests.Adapters.Components;
 using Bootstrap.Tests.Other;
 using CommonServiceLocator.AutofacAdapter;
+using CommonServiceLocator.AutofacAdapter.Unofficial;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

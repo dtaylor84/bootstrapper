@@ -13,6 +13,7 @@ using Bootstrap.Extensions.StartupTasks;
 using Bootstrap.Tests.Core.Extensions.StartupTasks;
 using Bootstrap.Tests.Extensions.TestImplementations;
 using Bootstrap.Tests.Other;
+using CommonServiceLocator.AutofacAdapter.Unofficial;
 using FakeItEasy;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

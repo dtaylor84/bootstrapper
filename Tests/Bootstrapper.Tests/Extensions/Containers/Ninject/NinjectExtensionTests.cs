@@ -10,6 +10,7 @@ using Bootstrap.Ninject;
 using Bootstrap.Tests.Core.Extensions.StartupTasks;
 using Bootstrap.Tests.Extensions.TestImplementations;
 using Bootstrap.Tests.Other;
+using CommonServiceLocator.NinjectAdapter.Unofficial;
 using FakeItEasy;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

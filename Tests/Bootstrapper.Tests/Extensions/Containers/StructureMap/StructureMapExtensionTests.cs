@@ -6,6 +6,7 @@ using Bootstrap.Extensions.Containers;
 using Bootstrap.StructureMap;
 using Bootstrap.Tests.Extensions.TestImplementations;
 using Bootstrap.Tests.Other;
+using CommonServiceLocator.StructureMapAdapter.Unofficial;
 using FakeItEasy;
 using StructureMap;
 using StructureMap.Configuration.DSL;
