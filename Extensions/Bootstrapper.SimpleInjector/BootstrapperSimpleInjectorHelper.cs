@@ -5,7 +5,7 @@ namespace Bootstrap.SimpleInjector
 {
     public static class BootstrapperSimpleInjectorHelper
     {
-        public static IBootstrapperContainerExtensionOptions SimpleInjector(this BootstrapperExtensions extensions)
+        public static SimpleInjectorOptions SimpleInjector(this BootstrapperExtensions extensions)
         {
             var extension = new SimpleInjectorExtension(new RegistrationHelper(), new BootstrapperContainerExtensionOptions());
             extensions.Extension(extension);

@@ -5,7 +5,7 @@ namespace Bootstrap.StructureMap
 {
     public static class BootstrapperStructureMapHelper
     {
-        public static IBootstrapperContainerExtensionOptions StructureMap(this BootstrapperExtensions extensions)
+        public static StructureMapOptions StructureMap(this BootstrapperExtensions extensions)
         {
             var extension = new StructureMapExtension(new RegistrationHelper(), new BootstrapperContainerExtensionOptions());
             extensions.Extension(extension);
