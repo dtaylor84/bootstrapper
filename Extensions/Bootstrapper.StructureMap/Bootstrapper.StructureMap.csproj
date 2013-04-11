@@ -54,6 +54,7 @@
     <Compile Include="IStructureMapRegistration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StructureMapExtension.cs" />
+    <Compile Include="StructureMapOptions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Bootstrapper\Bootstrapper.csproj">

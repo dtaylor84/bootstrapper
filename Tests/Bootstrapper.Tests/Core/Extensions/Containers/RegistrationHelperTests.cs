@@ -43,7 +43,7 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
         }
 
         [TestMethod]
-        public void ShouldReturnTypesFromAGiveAssemblyName()
+        public void ShouldReturnTypesFromAGivenAssemblyName()
         {
             //Arrange
             var assemblyName = Assembly.GetAssembly(typeof(IBootstrapperExtension)).GetName().FullName;

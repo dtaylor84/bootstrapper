@@ -34,22 +34,23 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac">
-      <HintPath>..\..\packages\Autofac.3.0.1\lib\net40\Autofac.dll</HintPath>
+      <HintPath>..\..\packages\Autofac.3.0.2\lib\net40\Autofac.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Autofac.Configuration">
-      <HintPath>..\..\packages\Autofac.3.0.1\lib\net40\Autofac.Configuration.dll</HintPath>
+      <HintPath>..\..\packages\Autofac.3.0.2\lib\net40\Autofac.Configuration.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Bootstrapper">
-      <HintPath>..\..\packages\Bootstrapper.2.0.3.6\lib\Net40\Bootstrapper.dll</HintPath>
+      <HintPath>..\..\packages\Bootstrapper.2.0.3.7\lib\Net40\Bootstrapper.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Bootstrapper.Autofac">
       <HintPath>..\..\Extensions\Bootstrapper.Autofac\bin\Release\Bootstrapper.Autofac.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="CommonServiceLocator.AutofacAdapter.Unofficial">
-      <HintPath>..\..\packages\CommonServiceLocator.AutofacAdapter.Unofficial.3.0.1.0\lib\Net40\CommonServiceLocator.AutofacAdapter.Unofficial.dll</HintPath>
+      <HintPath>..\..\packages\CommonServiceLocator.AutofacAdapter.Unofficial.3.0.2.1\lib\Net40\CommonServiceLocator.AutofacAdapter.Unofficial.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">

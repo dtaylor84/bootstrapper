@@ -45,11 +45,11 @@
   <ItemGroup>
     <Reference Include="Autofac, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Autofac.3.0.1\lib\net40\Autofac.dll</HintPath>
+      <HintPath>..\..\packages\Autofac.3.0.2\lib\net40\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="Autofac.Configuration, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Autofac.3.0.1\lib\net40\Autofac.Configuration.dll</HintPath>
+      <HintPath>..\..\packages\Autofac.3.0.2\lib\net40\Autofac.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="AutoMapper, Version=2.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -67,8 +67,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Castle.Windsor.3.2.0\lib\net40\Castle.Windsor.dll</HintPath>
     </Reference>
-    <Reference Include="CommonServiceLocator.SimpleInjectorAdapter">
-      <HintPath>..\..\packages\CommonServiceLocator.SimpleInjectorAdapter.2.0.1\lib\net40-client\CommonServiceLocator.SimpleInjectorAdapter.dll</HintPath>
+    <Reference Include="CommonServiceLocator.SimpleInjectorAdapter, Version=2.2.0.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\CommonServiceLocator.SimpleInjectorAdapter.2.2.0\lib\net40-client\CommonServiceLocator.SimpleInjectorAdapter.dll</HintPath>
     </Reference>
     <Reference Include="FakeItEasy, Version=1.8.0.0, Culture=neutral, PublicKeyToken=eff28e2146d5fd2c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -93,8 +94,9 @@
     <Reference Include="Ninject.Extensions.Conventions">
       <HintPath>..\..\packages\Ninject.Extensions.Conventions.3.0.0.11\lib\net40\Ninject.Extensions.Conventions.dll</HintPath>
     </Reference>
-    <Reference Include="SimpleInjector">
-      <HintPath>..\..\packages\SimpleInjector.2.0.1\lib\net40-client\SimpleInjector.dll</HintPath>
+    <Reference Include="SimpleInjector, Version=2.2.0.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\SimpleInjector.2.2.0\lib\net40-client\SimpleInjector.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap, Version=2.6.4.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -159,16 +161,22 @@
     <Compile Include="Extensions\Containers\Autofac\BootstrapperAutofacHelperTests.cs" />
     <Compile Include="Extensions\Containers\Autofac\AutofacExtensionTests.cs" />
     <Compile Include="Extensions\Containers\Autofac\TestAutofacModule.cs" />
+    <Compile Include="Extensions\Containers\Autofac\AutofacOptionsTests.cs" />
     <Compile Include="Extensions\Containers\Ninject\BootstrapperNinjectHelperTests.cs" />
     <Compile Include="Extensions\Containers\Ninject\NinjectExtensionTests.cs" />
     <Compile Include="Extensions\Containers\Autofac\TestAutofacRegistration.cs" />
     <Compile Include="Extensions\Containers\Ninject\TestNinjectModule.cs" />
     <Compile Include="Extensions\Containers\Ninject\TestNinjectRegistration.cs" />
+    <Compile Include="Extensions\Containers\Ninject\NinjectOptionsTests.cs" />
     <Compile Include="Extensions\Containers\SimpleInjector\SimpleInjectorExtensionTests.cs" />
     <Compile Include="Extensions\Containers\SimpleInjector\TestSimpleInjectorRegistration.cs" />
     <Compile Include="Extensions\Containers\SimpleInjector\BootstrapperSimpleInjectorHelperTests.cs" />
+    <Compile Include="Extensions\Containers\SimpleInjector\SimpleInjectoOptionsTests.cs" />
     <Compile Include="Extensions\Containers\StructureMap\TestStructureMapRegistry.cs" />
+    <Compile Include="Extensions\Containers\StructureMap\StructureMapOptionsTests.cs" />
+    <Compile Include="Extensions\Containers\Unity\UnityOptionsTests.cs" />
     <Compile Include="Extensions\Containers\Windsor\TestWindsorInstaller.cs" />
+    <Compile Include="Extensions\Containers\Windsor\WindsorOptionTests.cs" />
     <Compile Include="Extensions\Locator\BootstrapperServiceLocatorHelperTests.cs" />
     <Compile Include="Extensions\Locator\ServiceLocatorExtensionTests.cs" />
     <Compile Include="Extensions\TestImplementations\AbstractTestStartupTask.cs" />

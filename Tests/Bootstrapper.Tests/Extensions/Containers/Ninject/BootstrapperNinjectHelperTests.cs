@@ -20,7 +20,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
             Assert.IsInstanceOfType(Bootstrapper.GetExtensions()[0], typeof(NinjectExtension));
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IBootstrapperContainerExtensionOptions));
-            Assert.IsInstanceOfType(result, typeof(BootstrapperContainerExtensionOptions));
+            Assert.IsInstanceOfType(result, typeof(NinjectOptions));
         }
     }
 }

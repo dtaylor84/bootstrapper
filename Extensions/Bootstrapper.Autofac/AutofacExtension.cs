@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Autofac.Core;
-using CommonServiceLocator.AutofacAdapter;
 using Bootstrap.Extensions.Containers;
 using Autofac;
 using CommonServiceLocator.AutofacAdapter.Unofficial;
@@ -13,24 +12,22 @@ namespace Bootstrap.Autofac
     public class AutofacExtension : BootstrapperContainerExtension
     {
         private IContainer container;
-        public IBootstrapperContainerExtensionOptions Options { get; private set; }
+        public AutofacOptions Options { get; private set; }
 
-        public AutofacExtension(IRegistrationHelper registrationHelper): base(registrationHelper)
+        public AutofacExtension(IRegistrationHelper registrationHelper, IBootstrapperContainerExtensionOptions options): base(registrationHelper)
         {
-            Options = new BootstrapperContainerExtensionOptions();
+            Options = new AutofacOptions(options);
             Bootstrapper.Excluding.Assembly("Autofac");
         }
 
         public void InitializeContainer(IContainer aContainer)
         {
-            container = aContainer;
-            Container = container;
+            Container = container = aContainer;
         }
 
         protected override void InitializeContainer()
         {
-            container = new ContainerBuilder().Build();
-            Container = container;
+            InitializeContainer(Options.Container ?? new ContainerBuilder().Build());
         }
 
         protected override void RegisterImplementationsOfIRegistration()

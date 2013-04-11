@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using Autofac;
 using Autofac.Core;
-using CommonServiceLocator.AutofacAdapter;
 using AutoMapper;
 using Bootstrap.Autofac;
 using Bootstrap.AutoMapper;
@@ -24,19 +23,21 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
     public class AutofacExtensionTests
     {
         private IRegistrationHelper registrationHelper;
+        private IBootstrapperContainerExtensionOptions options;
 
         [TestInitialize]
         public void InitializeBootstrapper()
         {
             Bootstrapper.ClearExtensions();
             registrationHelper = A.Fake<IRegistrationHelper>();
+            options = A.Fake<IBootstrapperContainerExtensionOptions>();
         }
 
         [TestMethod]
         public void ShouldCreateAnAutofacExtension()
         {
             //Act
-            var result = new AutofacExtension(registrationHelper);
+            var result = new AutofacExtension(registrationHelper, options);
 
             //Assert
             Assert.IsNotNull(result);
@@ -47,7 +48,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
         public void ShouldAddAutofacToExcludedAssemblies()
         {
             //Act
-            var result = new AutofacExtension(registrationHelper);
+            var result = new AutofacExtension(registrationHelper, options);
 
             //Assert
             Assert.IsNotNull(result);
@@ -58,7 +59,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
         public void ShouldReturnANullContainer()
         {
             //Arrange
-            var containerExtension = new AutofacExtension(registrationHelper);
+            var containerExtension = new AutofacExtension(registrationHelper, options);
 
             //Act
             var result = containerExtension.Container;
@@ -71,7 +72,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
         public void ShouldReturnAContainer()
         {
             //Arrange
-            var containerExtension = new AutofacExtension(registrationHelper);
+            var containerExtension = new AutofacExtension(registrationHelper, options);
 
             //Act
             containerExtension.Run();
@@ -91,7 +92,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
                 .Returns(new List<Assembly> { assembly });
             A.CallTo(() => registrationHelper.GetTypesImplementing<IBootstrapperRegistration>(assembly))
                 .Returns(new List<Type> { typeof(AutoMapperRegistration) });
-            var containerExtension = new AutofacExtension(registrationHelper);
+            var containerExtension = new AutofacExtension(registrationHelper, options);
 
             //Act
             containerExtension.Run();
@@ -114,8 +115,8 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
             A.CallTo(() => registrationHelper.GetAssemblies())
                 .Returns(new List<Assembly> { assembly });
             A.CallTo(() => registrationHelper.GetTypesImplementing<IAutofacRegistration>(assembly))
-                .Returns(new List<Type> { typeof(TestAutofacRegistration) }); 
-            var containerExtension = new AutofacExtension(registrationHelper);
+                .Returns(new List<Type> { typeof(TestAutofacRegistration) });
+            var containerExtension = new AutofacExtension(registrationHelper, options);
 
             //Act
             containerExtension.Run();
@@ -138,7 +139,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
                 .Returns(new List<Assembly> { assembly });
             A.CallTo(() => registrationHelper.GetTypesImplementing<IModule>(assembly))
                 .Returns(new List<Type> { typeof(TestAutofacModule) });
-            var containerExtension = new AutofacExtension(registrationHelper);
+            var containerExtension = new AutofacExtension(registrationHelper, options);
 
             //Act
             containerExtension.Run();
@@ -160,8 +161,8 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
             A.CallTo(() => registrationHelper.GetAssemblies())
                .Returns(new List<Assembly> { assembly });
             A.CallTo(() => registrationHelper.GetTypesImplementing<IBootstrapperRegistration>(assembly))
-                .Returns(new List<Type> { typeof(AutoMapperRegistration) }); 
-            var containerExtension = new AutofacExtension(registrationHelper);
+                .Returns(new List<Type> { typeof(AutoMapperRegistration) });
+            var containerExtension = new AutofacExtension(registrationHelper, options);
 
             //Act
             containerExtension.Run();
@@ -181,7 +182,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
                .Returns(new List<Assembly> { assembly });
             A.CallTo(() => registrationHelper.GetTypesImplementing<IAutofacRegistration>(assembly))
                 .Returns(new List<Type> { typeof(TestAutofacRegistration) });
-            var containerExtension = new AutofacExtension(registrationHelper);
+            var containerExtension = new AutofacExtension(registrationHelper, options);
 
             //Act
             containerExtension.Run();
@@ -203,7 +204,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
                .Returns(new List<Assembly> { assembly });
             A.CallTo(() => registrationHelper.GetTypesImplementing<IModule>(assembly))
                 .Returns(new List<Type> { typeof(TestAutofacModule) });
-            var containerExtension = new AutofacExtension(registrationHelper);
+            var containerExtension = new AutofacExtension(registrationHelper, options);
 
             //Act
             containerExtension.Run();
@@ -222,7 +223,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
         {
             //Arrange
             ServiceLocator.SetLocatorProvider(() => null);
-            var containerExtension = new AutofacExtension(registrationHelper);
+            var containerExtension = new AutofacExtension(registrationHelper, options);
             containerExtension.Run();
 
             //Act            
@@ -239,7 +240,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
         {
             //Arrange
             ServiceLocator.SetLocatorProvider(A.Fake<IServiceLocator>);
-            var containerExtension = new AutofacExtension(registrationHelper);
+            var containerExtension = new AutofacExtension(registrationHelper, options);
             containerExtension.Run();
 
             //Act
@@ -253,7 +254,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
         public void ShouldSetTheContainer()
         {
             //Arrange            
-            var containerExtension = new AutofacExtension(registrationHelper);
+            var containerExtension = new AutofacExtension(registrationHelper, options);
 
             //Act
             containerExtension.Run();
@@ -268,7 +269,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
         public void ShouldResetTheContainer()
         {
             //Arrange
-            var containerExtension = new AutofacExtension(registrationHelper);
+            var containerExtension = new AutofacExtension(registrationHelper, options);
             containerExtension.Run();
 
             //Act
@@ -282,7 +283,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
         public void ShouldInitializeTheContainerToTheValuePassed()
         {
             //Arrange
-            var containerExtension = new AutofacExtension(registrationHelper);
+            var containerExtension = new AutofacExtension(registrationHelper, options);
             var container = new ContainerBuilder().Build();
 
             //Act
@@ -299,7 +300,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
         public void ShouldResolveASingleType()
         {
             //Arrange
-            var containerExtension = new AutofacExtension(registrationHelper);
+            var containerExtension = new AutofacExtension(registrationHelper, options);
             var containerBuilder = new ContainerBuilder();
             var instance = new object();
             containerBuilder.RegisterInstance(instance);
@@ -317,7 +318,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
         public void ShouldResolveMultipleTypes()
         {
             //Arrange
-            var containerExtension = new AutofacExtension(registrationHelper);
+            var containerExtension = new AutofacExtension(registrationHelper, options);
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterType<TaskAlpha>().As<IStartupTask>();
             containerBuilder.RegisterType<TaskBeta>().As<IStartupTask>();
@@ -336,7 +337,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
         public void ShouldRegisterWithTargetAndImplementationType()
         {
             //Arrange
-            var containerExtension = new AutofacExtension(registrationHelper);
+            var containerExtension = new AutofacExtension(registrationHelper, options);
             var containerBuilder = new ContainerBuilder();
             var container = containerBuilder.Build();
             containerExtension.InitializeContainer(container);
@@ -354,7 +355,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
         public void ShouldRegisterWithTargetAndImplementationInstance()
         {
             //Arrange
-            var containerExtension = new AutofacExtension(registrationHelper);
+            var containerExtension = new AutofacExtension(registrationHelper, options);
             var containerBuilder = new ContainerBuilder();
             var container = containerBuilder.Build();
             containerExtension.InitializeContainer(container);
@@ -378,7 +379,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
                 .Returns(new List<Assembly> { assembly });
             A.CallTo(() => registrationHelper.GetTypesImplementing<IRegistrationHelper>(assembly))
                 .Returns(new List<Type> { typeof(RegistrationHelper) });
-            var containerExtension = new AutofacExtension(registrationHelper);
+            var containerExtension = new AutofacExtension(registrationHelper, options);
             var containerBuilder = new ContainerBuilder();
             var container = containerBuilder.Build();
             containerExtension.InitializeContainer(container);
@@ -396,10 +397,10 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
         }
 
         [TestMethod]
-        public void ShouldReturnABootstrapperContainerExtensionOptions()
+        public void ShouldReturnAnAutofacOptions()
         {
             //Arrange
-            var containerExtension = new AutofacExtension(registrationHelper);
+            var containerExtension = new AutofacExtension(registrationHelper, options);
 
             //Act
             var result = containerExtension.Options;
@@ -407,7 +408,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
             //Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IBootstrapperContainerExtensionOptions));
-            Assert.IsInstanceOfType(result, typeof(BootstrapperContainerExtensionOptions));
+            Assert.IsInstanceOfType(result, typeof(AutofacOptions));
         }
 
         [TestMethod]
@@ -419,8 +420,8 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
                 .Returns(new List<Assembly> { assembly });
             A.CallTo(() => registrationHelper.GetTypesImplementing<IAutofacRegistration>(assembly))
                 .Returns(new List<Type> { typeof(TestAutofacRegistration) });
-            var containerExtension = new AutofacExtension(registrationHelper);
-            containerExtension.Options.UsingAutoRegistration();
+            A.CallTo(() => options.AutoRegistration).Returns(true);
+            var containerExtension = new AutofacExtension(registrationHelper, options);
 
             //Act
             containerExtension.Run();
@@ -436,7 +437,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
         public void ShouldThrowNoContainerExceptionWhenSettingServiceLocatorBeforeInitializingTheContainer()
         {
             //Arrange
-            var containerExtension = new AutofacExtension(registrationHelper);
+            var containerExtension = new AutofacExtension(registrationHelper, options);
 
             //Act
             var result = ExceptionAssert.Throws<NoContainerException>(containerExtension.SetServiceLocator);
@@ -449,7 +450,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
         public void ShouldThrowNoContainerExceptionWhenResolvingSimpleTypeBeforeInitializingTheContainer()
         {
             //Arrange
-            var containerExtension = new AutofacExtension(registrationHelper);
+            var containerExtension = new AutofacExtension(registrationHelper, options);
 
             //Act
             var result = ExceptionAssert.Throws<NoContainerException>(() => containerExtension.Resolve<object>());
@@ -462,7 +463,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
         public void ShouldThrowNoContainerExceptionWhenResolvingMultipleTypesBeforeInitializingTheContainer()
         {
             //Arrange
-            var containerExtension = new AutofacExtension(registrationHelper);
+            var containerExtension = new AutofacExtension(registrationHelper, options);
 
             //Act
             var result = ExceptionAssert.Throws<NoContainerException>(() => containerExtension.ResolveAll<object>());
@@ -475,7 +476,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
         public void ShouldThrowNoContainerExceptionWhenRegisteringWithTargetAndImplementationTypeBeforeInitializingTheContainer()
         {
             //Arrange
-            var containerExtension = new AutofacExtension(registrationHelper);
+            var containerExtension = new AutofacExtension(registrationHelper, options);
 
             //Act
             var result = ExceptionAssert.Throws<NoContainerException>(containerExtension.Register<IBootstrapperContainerExtension, AutofacExtension>);
@@ -488,7 +489,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
         public void ShouldThrowNoContainerExceptionWhenRegisteringWithTargetAndImplementationInstanceBeforeInitializingTheContainer()
         {
             //Arrange
-            var containerExtension = new AutofacExtension(registrationHelper);
+            var containerExtension = new AutofacExtension(registrationHelper, options);
 
             //Act
             var result = ExceptionAssert.Throws<NoContainerException>(() => containerExtension.Register<IBootstrapperContainerExtension>(containerExtension));
@@ -501,13 +502,36 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
         public void ShouldThrowNoContainerExceptionWhenRegisteringWithTargetTypeBeforeInitializingTheContainer()
         {
             //Arrange
-            var containerExtension = new AutofacExtension(registrationHelper);
+            var containerExtension = new AutofacExtension(registrationHelper, options);
 
             //Act
             var result = ExceptionAssert.Throws<NoContainerException>(containerExtension.RegisterAll<IBootstrapperContainerExtension>);
 
             //Assert
             Assert.AreEqual(NoContainerException.DefaultMessage, result.Message);
+        }
+
+        [TestMethod]
+        public void Run_WhenTheContainerInOptionsIsSet_ShouldUseTheExistingContainer()
+        {
+            //Arrange
+            var assembly = Assembly.GetAssembly(typeof(TestAutofacRegistration));
+            A.CallTo(() => registrationHelper.GetAssemblies())
+                .Returns(new List<Assembly> { assembly });
+            A.CallTo(() => registrationHelper.GetTypesImplementing<IAutofacRegistration>(assembly))
+                .Returns(new List<Type> { typeof(TestAutofacRegistration) });
+            var container = new ContainerBuilder().Build();
+            var containerExtension = new AutofacExtension(registrationHelper, options)
+                {
+                    Options = {Container = container}
+                };
+
+
+            //Act
+            containerExtension.Run();
+
+            //Assert
+            Assert.AreSame(container, containerExtension.Container);            
         }
     }
 }

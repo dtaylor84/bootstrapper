@@ -1,4 +1,5 @@
-﻿using Bootstrap.Autofac;
+﻿using System.Linq;
+using Bootstrap.Autofac;
 using Bootstrap.Extensions.Containers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -17,10 +18,10 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
             var result = Bootstrapper.With.Autofac();
 
             //Assert
-            Assert.IsInstanceOfType(Bootstrapper.GetExtensions()[0], typeof(AutofacExtension));
+            Assert.IsInstanceOfType(Bootstrapper.GetExtensions().First(), typeof(AutofacExtension));
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IBootstrapperContainerExtensionOptions));
-            Assert.IsInstanceOfType(result, typeof(BootstrapperContainerExtensionOptions));
+            Assert.IsInstanceOfType(result, typeof(AutofacOptions));
         }
     }
 }

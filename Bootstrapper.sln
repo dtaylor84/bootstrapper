@@ -4,6 +4,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D2FD405F-1602-4D14-A1F0-11DAF1ACF7E7}"
 	ProjectSection(SolutionItems) = preProject
 		Bootstrapper.vsmdi = Bootstrapper.vsmdi
+		CleanPackages.bat = CleanPackages.bat
 		Local.testsettings = Local.testsettings
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 	EndProjectSection
@@ -72,6 +73,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper.Unity.NuGetPackage", "Nuget\Bootstrapper.Unity.NuGetPackage\Bootstrapper.Unity.NuGetPackage.csproj", "{2F8331E3-FD5D-4E8B-82AF-796C42BC5C05}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper.Windsor.NuGetPackage", "Nuget\Bootstrapper.Windsor.NuGetPackage\Bootstrapper.Windsor.NuGetPackage.csproj", "{CA6084EC-37CF-4363-9581-1A86BE098049}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{56291811-A6B0-47C1-9623-1D4C93ACB085}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
@@ -199,6 +202,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{E0531F4E-3D33-42D4-AE64-13D015D2192F} = {56291811-A6B0-47C1-9623-1D4C93ACB085}
+		{0C4C0CFC-3E77-4FE4-81CA-618BEE9AAB96} = {56291811-A6B0-47C1-9623-1D4C93ACB085}
 		{3FD8D10B-9762-498D-A7CB-5B854DFF50F3} = {DA467C95-49E6-45F5-824C-973E27511FBD}
 		{523404E5-EDA0-4AEB-8B25-59F6D97204F1} = {DA467C95-49E6-45F5-824C-973E27511FBD}
 		{7928B8BF-496A-4344-95D5-D3D4320F931A} = {DA467C95-49E6-45F5-824C-973E27511FBD}

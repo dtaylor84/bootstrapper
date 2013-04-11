@@ -21,7 +21,7 @@ namespace Bootstrap.Tests.Extensions.Containers.SimpleInjector
             Assert.IsInstanceOfType(Bootstrapper.GetExtensions()[0], typeof(SimpleInjectorExtension));
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IBootstrapperContainerExtensionOptions));
-            Assert.IsInstanceOfType(result, typeof(BootstrapperContainerExtensionOptions));
+            Assert.IsInstanceOfType(result, typeof(SimpleInjectorOptions));
         }
     }
 }

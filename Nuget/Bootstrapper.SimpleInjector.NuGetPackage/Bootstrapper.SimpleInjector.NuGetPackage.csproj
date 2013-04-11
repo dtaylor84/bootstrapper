@@ -34,14 +34,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Bootstrapper">
-      <HintPath>..\..\packages\Bootstrapper.2.0.3.6\lib\Net40\Bootstrapper.dll</HintPath>
+      <HintPath>..\..\packages\Bootstrapper.2.0.3.7\lib\Net40\Bootstrapper.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Bootstrapper.SimpleInjector">
       <HintPath>..\..\Extensions\Bootstrapper.SimpleInjector\bin\Release\Bootstrapper.SimpleInjector.dll</HintPath>
     </Reference>
     <Reference Include="CommonServiceLocator.SimpleInjectorAdapter">
-      <HintPath>..\..\packages\CommonServiceLocator.SimpleInjectorAdapter.2.0.1\lib\net40-client\CommonServiceLocator.SimpleInjectorAdapter.dll</HintPath>
+      <HintPath>..\..\packages\CommonServiceLocator.SimpleInjectorAdapter.2.2.0\lib\net40-client\CommonServiceLocator.SimpleInjectorAdapter.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
@@ -49,7 +49,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="SimpleInjector">
-      <HintPath>..\..\packages\SimpleInjector.2.0.1\lib\net40-client\SimpleInjector.dll</HintPath>
+      <HintPath>..\..\packages\SimpleInjector.2.2.0\lib\net40-client\SimpleInjector.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />

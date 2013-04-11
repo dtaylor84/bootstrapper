@@ -73,6 +73,7 @@
     <Compile Include="IWindsorRegistration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WindsorExtension.cs" />
+    <Compile Include="WindsorOptions.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

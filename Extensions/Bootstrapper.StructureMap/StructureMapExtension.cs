@@ -4,7 +4,6 @@ using Bootstrap.Extensions.Containers;
 using CommonServiceLocator.StructureMapAdapter.Unofficial;
 using StructureMap;
 using StructureMap.Configuration.DSL;
-using CommonServiceLocator.StructureMapAdapter;
 using Microsoft.Practices.ServiceLocation;
 
 namespace Bootstrap.StructureMap
@@ -12,24 +11,22 @@ namespace Bootstrap.StructureMap
     public class StructureMapExtension : BootstrapperContainerExtension
     {
         private IContainer container;
-        public IBootstrapperContainerExtensionOptions Options { get; private set; }
+        public StructureMapOptions Options { get; private set; }
 
-        public StructureMapExtension(IRegistrationHelper registrationHelper): base(registrationHelper)
+        public StructureMapExtension(IRegistrationHelper registrationHelper, IBootstrapperContainerExtensionOptions options): base(registrationHelper)
         {
-            Options = new BootstrapperContainerExtensionOptions();
+            Options = new StructureMapOptions(options);
             Bootstrapper.Excluding.Assembly("StructureMap");
         }
 
         public void InitializeContainer(IContainer aContainer)
         {
-            container = aContainer;
-            Container = container;
+            Container = container = aContainer;
         }
 
         protected override void InitializeContainer()
         {
-            container = new Container();
-            Container = container;
+            InitializeContainer(Options.Container ?? new Container());
         }
 
         protected override void RegisterImplementationsOfIRegistration()
