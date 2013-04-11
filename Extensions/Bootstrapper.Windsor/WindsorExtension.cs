@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Bootstrap.Extensions.Containers;
-using Castle.Core.Internal;
 using Castle.Facilities.FactorySupport;
 using Castle.MicroKernel;
 using Castle.Windsor;
 using Castle.MicroKernel.Registration;
-using CommonServiceLocator.WindsorAdapter;
 using CommonServiceLocator.WindsorAdapter.Unofficial;
 using Microsoft.Practices.ServiceLocation;
 
@@ -17,11 +15,11 @@ namespace Bootstrap.Windsor
         private IWindsorContainer container;
         private readonly ICollection<IFacility> facilities;
 
-        public IBootstrapperContainerExtensionOptions Options { get; private set; }
+        public WindsorOptions Options { get; private set; }
 
-        public WindsorExtension(IRegistrationHelper registrationHelper): base(registrationHelper)
+        public WindsorExtension(IRegistrationHelper registrationHelper, IBootstrapperContainerExtensionOptions options): base(registrationHelper)
         {
-            Options= new BootstrapperContainerExtensionOptions();
+            Options= new WindsorOptions(options);
             facilities = new List<IFacility>();
             Bootstrapper.Excluding.Assembly("Castle");
             Bootstrapper.Excluding.Assembly("Castle.Facilities.FactorySupport");
@@ -34,15 +32,13 @@ namespace Bootstrap.Windsor
 
         public void InitializeContainer(IWindsorContainer aContainer)
         {
-            container = aContainer
-                .AddFacility<FactorySupportFacility>();
+            Container = container = aContainer.AddFacility<FactorySupportFacility>();
             facilities.ForEach(f => container.AddFacility(f));
-            Container = container;
         }
 
         protected override void InitializeContainer()
         {
-            InitializeContainer(new WindsorContainer());
+            InitializeContainer(Options.Container ?? new WindsorContainer());
         }
 
         protected override void RegisterImplementationsOfIRegistration()

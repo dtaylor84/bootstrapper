@@ -9,6 +9,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
         public void Register(IUnityContainer container)
         {
             container.RegisterType<IRegistrationHelper, RegistrationHelper>();
+            container.RegisterType<IBootstrapperContainerExtensionOptions, BootstrapperContainerExtensionOptions>();
             container.RegisterType<UnityExtension, UnityExtension>();
         }
     }

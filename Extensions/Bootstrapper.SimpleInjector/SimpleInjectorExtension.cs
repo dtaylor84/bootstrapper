@@ -4,18 +4,17 @@ using Bootstrap.Extensions.Containers;
 using CommonServiceLocator.SimpleInjectorAdapter;
 using Microsoft.Practices.ServiceLocation;
 using SimpleInjector;
-using SimpleInjector.Extensions;
 
 namespace Bootstrap.SimpleInjector
 {
     public class SimpleInjectorExtension: BootstrapperContainerExtension
     {
         private Container container;
-        public IBootstrapperContainerExtensionOptions Options { get; private set; }
+        public SimpleInjectorOptions Options { get; private set; }
 
-        public SimpleInjectorExtension(IRegistrationHelper registrationHelper): base(registrationHelper)
+        public SimpleInjectorExtension(IRegistrationHelper registrationHelper, IBootstrapperContainerExtensionOptions options): base(registrationHelper)
         {
-            Options = new BootstrapperContainerExtensionOptions();
+            Options = new SimpleInjectorOptions(options);
             Bootstrapper.Excluding.Assembly("SimpleInjector");
         }
 
@@ -26,7 +25,7 @@ namespace Bootstrap.SimpleInjector
 
         protected override void InitializeContainer()
         {
-            InitializeContainer(new Container());
+            InitializeContainer(Options.Container ?? new Container());
         }
 
         protected override void RegisterImplementationsOfIRegistration()

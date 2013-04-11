@@ -1,0 +1,1 @@
+del nuget\*.nupkg /s

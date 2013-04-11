@@ -9,24 +9,22 @@ namespace Bootstrap.Unity
     public class UnityExtension: BootstrapperContainerExtension
     {
         private IUnityContainer container;
-        public IBootstrapperContainerExtensionOptions Options { get; private set; }
+        public UnityOptions Options { get; private set; }
 
-        public UnityExtension(IRegistrationHelper registrationHelper): base(registrationHelper)
+        public UnityExtension(IRegistrationHelper registrationHelper, IBootstrapperContainerExtensionOptions options): base(registrationHelper)
         {
-            Options = new BootstrapperContainerExtensionOptions();
+            Options = new UnityOptions(options);
             Bootstrapper.Excluding.Assembly("Microsoft.Practices");
         }
 
         public void InitializeContainer(IUnityContainer aContainer)
         {
-            container = aContainer;
-            Container = container;
+            Container = container = aContainer;
         }
 
         protected override void InitializeContainer()
         {
-            container = new UnityContainer();
-            Container = container;
+            InitializeContainer(Options.Container ?? new UnityContainer());
         }
 
         protected override void RegisterImplementationsOfIRegistration()
@@ -86,7 +84,7 @@ namespace Bootstrap.Unity
             CheckContainer();
             RegistrationHelper.GetAssemblies().ToList().ForEach(
                 a => RegistrationHelper.GetTypesImplementing<TTarget>(a).ToList().ForEach(
-                    t => container.RegisterType(typeof (TTarget), t, t.Name)));
+                    t => container.RegisterType(typeof (TTarget), t, t.FullName)));
         }
 
         protected override void ResetContainer()

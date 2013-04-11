@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Bootstrap.AutoMapper;
@@ -10,7 +11,6 @@ using CommonServiceLocator.StructureMapAdapter.Unofficial;
 using FakeItEasy;
 using StructureMap;
 using StructureMap.Configuration.DSL;
-using CommonServiceLocator.StructureMapAdapter;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Practices.ServiceLocation;
 using System.Reflection;
@@ -21,19 +21,21 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
     public class StructureMapExtensionTests
     {
         private IRegistrationHelper registrationHelper;
+        private IBootstrapperContainerExtensionOptions options;
 
         [TestInitialize]
         public void InitializeBootstrapper()
         {
             Bootstrapper.ClearExtensions();
             registrationHelper = A.Fake<IRegistrationHelper>();
+            options = A.Fake<IBootstrapperContainerExtensionOptions>();
         }
 
         [TestMethod]
         public void ShouldCreateAStructureMapExtension()
         {
             //Act
-            var result = new StructureMapExtension(registrationHelper);
+            var result = new StructureMapExtension(registrationHelper, options);
 
             //Assert
             Assert.IsNotNull(result);
@@ -44,7 +46,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         public void ShouldAddStructureMapToExcludedAssemblies()
         {
             //Act
-            var result = new StructureMapExtension(registrationHelper);
+            var result = new StructureMapExtension(registrationHelper, options);
 
             //Assert
             Assert.IsNotNull(result);
@@ -55,7 +57,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         public void ShouldReturnANullContainer()
         {
             //Arrange
-            var containerExtension = new StructureMapExtension(registrationHelper);
+            var containerExtension = new StructureMapExtension(registrationHelper, options);
 
             //Act
             var result = containerExtension.Container;
@@ -68,7 +70,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         public void ShouldReturnAnIContainer()
         {
             //Arrange
-            var containerExtension = new StructureMapExtension(registrationHelper);
+            var containerExtension = new StructureMapExtension(registrationHelper, options);
 
             //Act
             containerExtension.Run();
@@ -85,7 +87,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
             //Arrange
             var assembly = Assembly.GetAssembly(typeof (AutoMapperRegistration));
             A.CallTo(() => registrationHelper.GetAssemblies()).Returns(new List<Assembly> {assembly});
-            var containerExtension = new StructureMapExtension(registrationHelper);
+            var containerExtension = new StructureMapExtension(registrationHelper, options);
 
             //Act
             containerExtension.Run();
@@ -104,7 +106,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
             //Arrange
             var assembly = Assembly.GetAssembly(typeof(TestStructureMapRegistration));
             A.CallTo(() => registrationHelper.GetAssemblies()).Returns(new List<Assembly> { assembly });
-            var containerExtension = new StructureMapExtension(registrationHelper);
+            var containerExtension = new StructureMapExtension(registrationHelper, options);
 
             //Act
             containerExtension.Run();
@@ -123,7 +125,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
             //Arrange
             var assembly = Assembly.GetAssembly(typeof(TestStructureMapRegistry));
             A.CallTo(() => registrationHelper.GetAssemblies()).Returns(new List<Assembly> { assembly });
-            var containerExtension = new StructureMapExtension(registrationHelper);
+            var containerExtension = new StructureMapExtension(registrationHelper, options);
 
             //Act
             containerExtension.Run();
@@ -143,7 +145,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
             //Arrange
             var assembly = Assembly.GetAssembly(typeof(AutoMapperRegistration));
             A.CallTo(() => registrationHelper.GetAssemblies()).Returns(new List<Assembly> { assembly });
-            var containerExtension = new StructureMapExtension(registrationHelper);
+            var containerExtension = new StructureMapExtension(registrationHelper, options);
 
             //Act
             containerExtension.Run();
@@ -159,7 +161,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
             //Arrange
             var assembly = Assembly.GetAssembly(typeof(TestStructureMapRegistration));
             A.CallTo(() => registrationHelper.GetAssemblies()).Returns(new List<Assembly> { assembly });
-            var containerExtension = new StructureMapExtension(registrationHelper);
+            var containerExtension = new StructureMapExtension(registrationHelper, options);
 
             //Act
             containerExtension.Run();
@@ -177,7 +179,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
             //Arrange
             var assembly = Assembly.GetAssembly(typeof(TestStructureMapRegistry));
             A.CallTo(() => registrationHelper.GetAssemblies()).Returns(new List<Assembly> { assembly });
-            var containerExtension = new StructureMapExtension(registrationHelper);
+            var containerExtension = new StructureMapExtension(registrationHelper, options);
 
             //Act
             containerExtension.Run();
@@ -195,7 +197,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         {
             //Arrange
             ServiceLocator.SetLocatorProvider(() => null);
-            var containerExtension = new StructureMapExtension(registrationHelper);
+            var containerExtension = new StructureMapExtension(registrationHelper, options);
             containerExtension.Run();
 
             //Act            
@@ -212,7 +214,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         {
             //Arrange
             ServiceLocator.SetLocatorProvider(A.Fake<IServiceLocator>);
-            var containerExtension = new StructureMapExtension(registrationHelper);
+            var containerExtension = new StructureMapExtension(registrationHelper, options);
             containerExtension.Run();
 
             //Act
@@ -226,7 +228,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         public void ShouldSetTheContainer()
         {
             //Arrange            
-            var containerExtension = new StructureMapExtension(registrationHelper);
+            var containerExtension = new StructureMapExtension(registrationHelper, options);
 
             //Act
             containerExtension.Run();
@@ -241,7 +243,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         public void ShouldResetTheContainer()
         {
             //Arrange
-            var containerExtension = new StructureMapExtension(registrationHelper);
+            var containerExtension = new StructureMapExtension(registrationHelper, options);
             containerExtension.Run();
 
             //Act
@@ -255,7 +257,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         public void ShouldInitializeTheContainerToTheValuePassed()
         {
             //Arrange
-            var containerExtension = new StructureMapExtension(registrationHelper);
+            var containerExtension = new StructureMapExtension(registrationHelper, options);
             var container = A.Fake<IContainer>();
 
             //Act
@@ -272,7 +274,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         public void ShouldResolveASingleType()
         {
             //Arrange
-            var containerExtension = new StructureMapExtension(registrationHelper);
+            var containerExtension = new StructureMapExtension(registrationHelper, options);
             var container = A.Fake<IContainer>();
             containerExtension.InitializeContainer(container);
             var instance = new object();
@@ -291,7 +293,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         public void ShouldResolveMultipleTypes()
         {
             //Arrange
-            var containerExtension = new StructureMapExtension(registrationHelper);
+            var containerExtension = new StructureMapExtension(registrationHelper, options);
             var container = A.Fake<IContainer>();
             containerExtension.InitializeContainer(container);
             var instances = new List<object> { new object(), new object() };
@@ -311,7 +313,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         {
             //Arrange
             var container = new Container();
-            var containerExtension = new StructureMapExtension(registrationHelper);
+            var containerExtension = new StructureMapExtension(registrationHelper, options);
             containerExtension.InitializeContainer(container);
 
             //Act
@@ -328,7 +330,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         {
             //Arrange
             var container = new Container();
-            var containerExtension = new StructureMapExtension(registrationHelper);
+            var containerExtension = new StructureMapExtension(registrationHelper, options);
             containerExtension.InitializeContainer(container);
 
             //Act
@@ -348,7 +350,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
             var assembly = Assembly.GetAssembly(typeof(RegistrationHelper));
             A.CallTo(() => registrationHelper.GetAssemblies()).Returns(new List<Assembly> { assembly });
             var container = new Container();
-            var containerExtension = new StructureMapExtension(registrationHelper);
+            var containerExtension = new StructureMapExtension(registrationHelper, options);
             containerExtension.InitializeContainer(container);
 
             //Act
@@ -367,7 +369,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         public void ShouldReturnABootstrapperContainerExtensionOptions()
         {
             //Arrange
-            var containerExtension = new StructureMapExtension(registrationHelper);
+            var containerExtension = new StructureMapExtension(registrationHelper, options);
 
             //Act
             var result = containerExtension.Options;
@@ -375,7 +377,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
             //Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IBootstrapperContainerExtensionOptions));
-            Assert.IsInstanceOfType(result, typeof(BootstrapperContainerExtensionOptions));
+            Assert.IsInstanceOfType(result, typeof(StructureMapOptions));
         }
 
         [TestMethod]
@@ -385,8 +387,8 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
             var assembly = Assembly.GetAssembly(typeof(StructureMapExtensionTests));
             A.CallTo(() => registrationHelper.GetAssemblies()).Returns(new List<Assembly> { assembly });
 
-            var containerExtension = new StructureMapExtension(registrationHelper);
-            containerExtension.Options.UsingAutoRegistration();
+            var containerExtension = new StructureMapExtension(registrationHelper, options);
+            A.CallTo(() => options.AutoRegistration).Returns(true);
 
             //Act
             containerExtension.Run();
@@ -401,7 +403,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         public void ShouldThrowNoContainerExceptionWhenSettingServiceLocatorBeforeInitializingTheContainer()
         {
             //Arrange
-            var containerExtension = new StructureMapExtension(registrationHelper);
+            var containerExtension = new StructureMapExtension(registrationHelper, options);
 
             //Act
             var result = ExceptionAssert.Throws<NoContainerException>(containerExtension.SetServiceLocator);
@@ -414,7 +416,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         public void ShouldThrowNoContainerExceptionWhenResolvingSimpleTypeBeforeInitializingTheContainer()
         {
             //Arrange
-            var containerExtension = new StructureMapExtension(registrationHelper);
+            var containerExtension = new StructureMapExtension(registrationHelper, options);
 
             //Act
             var result = ExceptionAssert.Throws<NoContainerException>(() => containerExtension.Resolve<object>());
@@ -426,7 +428,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         [TestMethod] public void ShouldThrowNoContainerExceptionWhenResolvingMultipleTypesBeforeInitializingTheContainer()
         {
             //Arrange
-            var containerExtension = new StructureMapExtension(registrationHelper);
+            var containerExtension = new StructureMapExtension(registrationHelper, options);
 
             //Act
             var result = ExceptionAssert.Throws<NoContainerException>(() => containerExtension.ResolveAll<object>());
@@ -439,7 +441,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         public void ShouldThrowNoContainerExceptionWhenRegisteringWithTargetAndImplementationTypeBeforeInitializingTheContainer()
         {
             //Arrange
-            var containerExtension = new StructureMapExtension(registrationHelper);
+            var containerExtension = new StructureMapExtension(registrationHelper, options);
 
             //Act
             var result = ExceptionAssert.Throws<NoContainerException>(containerExtension.Register<IBootstrapperContainerExtension, StructureMapExtension>);
@@ -452,7 +454,7 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         public void ShouldThrowNoContainerExceptionWhenRegisteringWithTargetAndImplementationInstanceBeforeInitializingTheContainer()
         {
             //Arrange
-            var containerExtension = new StructureMapExtension(registrationHelper);
+            var containerExtension = new StructureMapExtension(registrationHelper, options);
 
             //Act
             var result = ExceptionAssert.Throws<NoContainerException>(() => containerExtension.Register<IBootstrapperContainerExtension>(containerExtension));
@@ -465,13 +467,36 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         public void ShouldThrowNoContainerExceptionWhenRegisteringWithTargetTypeBeforeInitializingTheContainer()
         {
             //Arrange
-            var containerExtension = new StructureMapExtension(registrationHelper);
+            var containerExtension = new StructureMapExtension(registrationHelper, options);
 
             //Act
             var result = ExceptionAssert.Throws<NoContainerException>(containerExtension.RegisterAll<IBootstrapperContainerExtension>);
 
             //Assert
             Assert.AreEqual(NoContainerException.DefaultMessage, result.Message);
+        }
+
+        [TestMethod]
+        public void Run_WhenTheContainerInOptionsIsSet_ShouldUseTheExistingContainer()
+        {
+            //Arrange
+            var assembly = Assembly.GetAssembly(typeof(TestStructureMapRegistration));
+            A.CallTo(() => registrationHelper.GetAssemblies())
+                .Returns(new List<Assembly> { assembly });
+            A.CallTo(() => registrationHelper.GetTypesImplementing<IStructureMapRegistration>(assembly))
+                .Returns(new List<Type> { typeof(TestStructureMapRegistration) });
+            var container = new Container();
+            var containerExtension = new StructureMapExtension(registrationHelper, options)
+            {
+                Options = { Container = container }
+            };
+
+
+            //Act
+            containerExtension.Run();
+
+            //Assert
+            Assert.AreSame(container, containerExtension.Container);
         }
     }
 }

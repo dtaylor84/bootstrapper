@@ -57,6 +57,7 @@
     <Compile Include="BootstrapperNinjectHelper.cs" />
     <Compile Include="INinjectRegistration.cs" />
     <Compile Include="NinjectExtension.cs" />
+    <Compile Include="NinjectOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

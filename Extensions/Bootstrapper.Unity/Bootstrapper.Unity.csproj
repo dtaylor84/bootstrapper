@@ -58,6 +58,7 @@
     <Compile Include="IUnityRegistration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnityExtension.cs" />
+    <Compile Include="UnityOptions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Bootstrapper\Bootstrapper.csproj">

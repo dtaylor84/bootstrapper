@@ -9,7 +9,7 @@ namespace Bootstrap.Windsor
     {
         public static IBootstrapperContainerExtensionOptions Windsor(this BootstrapperExtensions extensions, params IFacility[] facilities)
         {
-            var extension = new WindsorExtension(new RegistrationHelper());
+            var extension = new WindsorExtension(new RegistrationHelper(), new BootstrapperContainerExtensionOptions());
             facilities.ForEach(extension.AddFacility);
             extensions.Extension(extension);
             return extension.Options;

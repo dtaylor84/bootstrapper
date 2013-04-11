@@ -9,6 +9,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
         public void Register(IKernel container)
         {
             container.Bind<IRegistrationHelper>().To<RegistrationHelper>();
+            container.Bind<IBootstrapperContainerExtensionOptions>().To<BootstrapperContainerExtensionOptions>();
             container.Bind<NinjectExtension>().To<NinjectExtension>();
         }
     }

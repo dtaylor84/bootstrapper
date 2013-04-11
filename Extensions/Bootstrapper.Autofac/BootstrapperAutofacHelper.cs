@@ -5,9 +5,9 @@ namespace Bootstrap.Autofac
 {
     public static class BootstrapperAutofacHelper
     {
-        public static IBootstrapperContainerExtensionOptions Autofac(this BootstrapperExtensions extensions)
+        public static AutofacOptions Autofac(this BootstrapperExtensions extensions)
         {
-            var extension = new AutofacExtension(new RegistrationHelper());
+            var extension = new AutofacExtension(new RegistrationHelper(), new BootstrapperContainerExtensionOptions());
             extensions.Extension(extension);
             return extension.Options;
         }

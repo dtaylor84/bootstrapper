@@ -5,31 +5,28 @@ using CommonServiceLocator.NinjectAdapter.Unofficial;
 using Microsoft.Practices.ServiceLocation;
 using Ninject;
 using Ninject.Modules;
-using CommonServiceLocator.NinjectAdapter;
 
 namespace Bootstrap.Ninject
 {
     public class NinjectExtension: BootstrapperContainerExtension
     {
         private IKernel container;        
-        public IBootstrapperContainerExtensionOptions Options { get; private set; }
+        public NinjectOptions Options { get; private set; }
 
-        public NinjectExtension(IRegistrationHelper registrationHelper): base(registrationHelper)
+        public NinjectExtension(IRegistrationHelper registrationHelper, IBootstrapperContainerExtensionOptions options): base(registrationHelper)
         {
-            Options = new BootstrapperContainerExtensionOptions();
+            Options = new NinjectOptions(options);
             Bootstrapper.Excluding.Assembly("Ninject");
         }
 
         public void InitializeContainer(IKernel aContainer)
         {
-            container = aContainer;
-            Container = container;
+            Container = container = aContainer;
         }
 
         protected override void InitializeContainer()
         {
-            container = new StandardKernel();
-            Container = container;
+            InitializeContainer(Options.Container ?? new StandardKernel());
         }
 
         protected override void RegisterImplementationsOfIRegistration()

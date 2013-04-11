@@ -23,7 +23,7 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
             Assert.IsInstanceOfType(Bootstrapper.GetExtensions()[0], typeof (WindsorExtension));
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof (IBootstrapperContainerExtensionOptions));
-            Assert.IsInstanceOfType(result, typeof (BootstrapperContainerExtensionOptions));
+            Assert.IsInstanceOfType(result, typeof (WindsorOptions));
         }
 
         [TestMethod]
