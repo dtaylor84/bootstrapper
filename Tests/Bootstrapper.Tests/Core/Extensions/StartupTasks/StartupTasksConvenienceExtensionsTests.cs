@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Bootstrap.Extensions.Containers;
 using Bootstrap.Extensions.StartupTasks;
 using FakeItEasy;
@@ -7,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bootstrap.Tests.Core.Extensions.StartupTasks
 {
     [TestClass]
-    public class BootstrapperStartupTasksHelperTests
+    public class StartupTasksConvenienceExtensionsTests
     {
         [TestInitialize]
         [TestCleanup]
@@ -20,7 +21,6 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
         public void ShouldAddTheStartupTaskExtensionToBootstrapper()
         {
             //Arrange
-            Bootstrapper.ClearExtensions();
             var containerExtension = A.Fake<IBootstrapperContainerExtension>();
             A.CallTo(() => containerExtension.ResolveAll<IStartupTask>()).Returns(new List<IStartupTask>());
 
@@ -34,6 +34,18 @@ namespace Bootstrap.Tests.Core.Extensions.StartupTasks
             var extension = Bootstrapper.GetExtensions()[1] as StartupTasksExtension;
             Assert.IsNotNull(extension);
             Assert.AreSame(extension.Options, result);
+        }
+
+        [TestMethod]
+        public void StartupTasks_WhenInvoked_ShouldPassTheBootstrapperRegistrationHelperToTheConstructorOfTheExtension()
+        {
+            //Act
+            Bootstrapper.With.StartupTasks();
+
+            //Assert
+            var extension = Bootstrapper.GetExtensions().First() as StartupTasksExtension;
+            Assert.IsNotNull(extension);            
+            Assert.AreSame(Bootstrapper.RegistrationHelper, extension.Registrator);            
         }
     }
 }

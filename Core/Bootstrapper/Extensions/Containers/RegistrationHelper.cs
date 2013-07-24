@@ -7,6 +7,13 @@ namespace Bootstrap.Extensions.Containers
 {
     public class RegistrationHelper : IRegistrationHelper
     {
+        internal readonly IBootstrapperAssemblyProvider AssemblyProvider;
+
+        public RegistrationHelper(IBootstrapperAssemblyProvider assemblyProvider)
+        {
+            this.AssemblyProvider = assemblyProvider;
+        }
+
         public IEnumerable<Type> GetTypesImplementing<T>()
         {
             return GetTypesImplementing<T>(Assembly.GetCallingAssembly());
@@ -28,7 +35,7 @@ namespace Bootstrap.Extensions.Containers
         {
             return Bootstrapper.IncludingOnly.Assemblies.Any() 
                     ? Bootstrapper.IncludingOnly.Assemblies
-                    :AppDomain.CurrentDomain.GetAssemblies()
+                    :AssemblyProvider.GetAssemblies()
                         .Where(a => !a.IsDynamic && IsNotExcluded(a));
         }
 

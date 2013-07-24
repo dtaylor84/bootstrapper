@@ -55,8 +55,8 @@ namespace Bootstrap.Ninject
         public override void RegisterAll<TTarget>()
         {
             CheckContainer();
-            RegistrationHelper.GetAssemblies().ToList().ForEach(
-                a => RegistrationHelper.GetTypesImplementing<TTarget>(a).ToList().ForEach(
+            Registrator.GetAssemblies().ToList().ForEach(
+                a => Registrator.GetTypesImplementing<TTarget>(a).ToList().ForEach(
                     t => container.Bind<TTarget>().To(t)));
         }
 

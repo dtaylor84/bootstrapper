@@ -17,7 +17,7 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
         [TestInitialize]
         public void Initialize()
         {
-            registrationHelper = new RegistrationHelper();
+            registrationHelper = new RegistrationHelper(new LoadedAssemblyProvider());
         }
 
         [TestMethod]
@@ -145,13 +145,14 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
              Bootstrapper.ClearExtensions();
 
             //Act
-            var result = registrationHelper.GetInstancesOfTypesImplementing<IRegistrationHelper>();
+            var result = registrationHelper.GetInstancesOfTypesImplementing<IBootstrapperAssemblyProvider>();
 
             //Assert
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(List<IRegistrationHelper>));
+            Assert.IsInstanceOfType(result, typeof(List<IBootstrapperAssemblyProvider>));
             Assert.IsTrue(result.Count > 0);
-            Assert.IsTrue(result.Any(c => c is RegistrationHelper));
+            Assert.IsTrue(result.Any(c => c is LoadedAssemblyProvider));
+            Assert.IsTrue(result.Any(c => c is ReferencedAssemblyProvider));
         }
     }
 }

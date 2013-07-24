@@ -1,15 +1,13 @@
 ﻿using Autofac;
-using Bootstrap.Extensions;
 using Bootstrap.Extensions.Containers;
 
 namespace Bootstrap.Autofac
 {
-    public class AutofacOptions: IBootstrapperContainerExtensionOptions
+    public class AutofacOptions: BootstrapperOption, IBootstrapperContainerExtensionOptions
     {
         private readonly IBootstrapperContainerExtensionOptions options;
 
         public IContainer Container { get; set; }
-        public BootstrapperExtensions And {get { return options.And; }}
         public bool AutoRegistration {get { return options.AutoRegistration; }}
 
         public AutofacOptions(IBootstrapperContainerExtensionOptions options)
@@ -23,12 +21,7 @@ namespace Bootstrap.Autofac
             return this;
         }
 
-        public void Start()
-        {
-            options.Start();
-        }
-
-        public IBootstrapperContainerExtensionOptions UsingAutoRegistration()
+        public IBootstrapperOption UsingAutoRegistration()
         {
             options.UsingAutoRegistration();
             return this;

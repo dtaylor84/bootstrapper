@@ -314,12 +314,12 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
             containerExtension.InitializeContainer(container);
 
             //Act
-            containerExtension.Register<IRegistrationHelper, RegistrationHelper>();
-            var result = container.Resolve<IRegistrationHelper>(typeof(RegistrationHelper).Name);
+            containerExtension.Register<IBootstrapperAssemblyProvider, LoadedAssemblyProvider>();
+            var result = container.Resolve<IBootstrapperAssemblyProvider>(typeof(LoadedAssemblyProvider).Name);
 
             //Assert
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(RegistrationHelper));
+            Assert.IsInstanceOfType(result, typeof(LoadedAssemblyProvider));
         }
 
         [TestMethod]
@@ -347,23 +347,24 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
             var assembly = Assembly.GetAssembly(typeof(RegistrationHelper));
             A.CallTo(() => registrationHelper.GetAssemblies())
                 .Returns(new List<Assembly> { assembly });
-            A.CallTo(() => registrationHelper.GetTypesImplementing<IRegistrationHelper>(assembly))
-                .Returns(new List<Type> { typeof(RegistrationHelper) });
+            A.CallTo(() => registrationHelper.GetTypesImplementing<IBootstrapperAssemblyProvider>(assembly))
+                .Returns(new List<Type> { typeof(LoadedAssemblyProvider), typeof(ReferencedAssemblyProvider) });
             var container = new UnityContainer();
             var containerExtension = new UnityExtension(registrationHelper, options);
             containerExtension.InitializeContainer(container);
 
             //Act
-            containerExtension.RegisterAll<IRegistrationHelper>();
-            var result = container.ResolveAll<IRegistrationHelper>().ToList();
+            containerExtension.RegisterAll<IBootstrapperAssemblyProvider>();
+            var result = container.ResolveAll<IBootstrapperAssemblyProvider>().ToList();
 
             //Assert
             A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
-            A.CallTo(() => registrationHelper.GetTypesImplementing<IRegistrationHelper>(assembly)).MustHaveHappened();
+            A.CallTo(() => registrationHelper.GetTypesImplementing<IBootstrapperAssemblyProvider>(assembly)).MustHaveHappened();
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(IEnumerable<IRegistrationHelper>));
+            Assert.IsInstanceOfType(result, typeof(IEnumerable<IBootstrapperAssemblyProvider>));
             Assert.IsTrue(result.Any());
-            Assert.IsTrue(result.Any(c => c is RegistrationHelper));
+            Assert.IsTrue(result.Any(c => c is LoadedAssemblyProvider));
+            Assert.IsTrue(result.Any(c => c is ReferencedAssemblyProvider));
         }
 
         [TestMethod]

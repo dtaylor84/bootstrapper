@@ -101,7 +101,7 @@ namespace Bootstrap.Windsor
         public override void RegisterAll<TTarget>()
         {
             CheckContainer();
-            RegistrationHelper.GetAssemblies().ToList().ForEach(
+            Registrator.GetAssemblies().ToList().ForEach(
                 a => container.Register(Classes.FromAssembly(a).BasedOn<TTarget>().WithService.Base()));
         }
 

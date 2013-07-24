@@ -322,12 +322,12 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
             containerExtension.InitializeContainer(container);
 
             //Act
-            containerExtension.Register<IRegistrationHelper, RegistrationHelper>();
-            var result = container.Resolve<IRegistrationHelper>();
+            containerExtension.Register<IBootstrapperAssemblyProvider, LoadedAssemblyProvider>();
+            var result = container.Resolve<IBootstrapperAssemblyProvider>();
 
             //Assert
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(RegistrationHelper));
+            Assert.IsInstanceOfType(result, typeof(LoadedAssemblyProvider));
         }
 
         [TestMethod]
@@ -359,15 +359,16 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
             containerExtension.InitializeContainer(container);
 
             //Act
-            containerExtension.RegisterAll<IRegistrationHelper>();
-            var result = container.ResolveAll<IRegistrationHelper>();
+            containerExtension.RegisterAll<IBootstrapperAssemblyProvider>();
+            var result = container.ResolveAll<IBootstrapperAssemblyProvider>();
 
             //Assert
             A.CallTo(() => registrationHelper.GetAssemblies()).MustHaveHappened();
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(IEnumerable<IRegistrationHelper>));
+            Assert.IsInstanceOfType(result, typeof(IEnumerable<IBootstrapperAssemblyProvider>));
             Assert.IsTrue(result.Any());
-            Assert.IsTrue(result.Any(c => c is RegistrationHelper));
+            Assert.IsTrue(result.Any(c => c is LoadedAssemblyProvider));
+            Assert.IsTrue(result.Any(c => c is ReferencedAssemblyProvider));
         }
 
         [TestMethod]

@@ -6,14 +6,18 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bootstrap.Tests.Extensions.Containers.Autofac
 {
     [TestClass]
-    public class BootstrapperAutofacHelperTests
+    public class AutofacConvenienceExtensionsTests
     {
+        [TestInitialize]
+        [TestCleanup]
+        public void Initialize()
+        {
+            Bootstrapper.ClearExtensions();
+        }
+
         [TestMethod]
         public void ShouldAddTheAutofacExtensionToBootstrapper()
         {
-            //Arrange
-            Bootstrapper.ClearExtensions();
-
             //Act
             var result = Bootstrapper.With.Autofac();
 
@@ -22,6 +26,18 @@ namespace Bootstrap.Tests.Extensions.Containers.Autofac
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IBootstrapperContainerExtensionOptions));
             Assert.IsInstanceOfType(result, typeof(AutofacOptions));
+        }
+
+        [TestMethod]
+        public void Autofac_WhenInvoked_ShouldPassTheBootstrapperRegistrationHelperToTheConstructorOfTheExtension()
+        {
+            //Act
+            Bootstrapper.With.Autofac();
+
+            //Assert
+            var extension = Bootstrapper.GetExtensions().First() as AutofacExtension;
+            Assert.IsNotNull(extension);
+            Assert.AreSame(Bootstrapper.RegistrationHelper, extension.Registrator);
         }
     }
 }

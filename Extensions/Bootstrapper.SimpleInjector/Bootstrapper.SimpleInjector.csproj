@@ -54,7 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BootstrapperSimpleInjectorHelper.cs" />
+    <Compile Include="SimpleInjectorConvenienceExtensions.cs" />
     <Compile Include="ISimpleInjectorRegistration.cs" />
     <Compile Include="SimpleInjectorExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

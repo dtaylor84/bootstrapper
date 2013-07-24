@@ -3,9 +3,8 @@ using System.Collections.Generic;
 
 namespace Bootstrap.Extensions.StartupTasks
 {
-    public class StartupTasksOptions: BootstrapperExtensionOptions
+    public class StartupTasksOptions: BootstrapperOption
     {
-        private readonly ISequenceSpecification taskSequence = new SequenceSpecification();
         public List<ISequenceSpecification> Groups { get; set; }
         public List<TaskExecutionParameters> Sequence { get { return Groups[Groups.Count-1].Sequence; } }
 

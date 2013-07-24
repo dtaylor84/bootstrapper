@@ -1,10 +1,10 @@
 ﻿namespace Bootstrap.Extensions.Containers
 {
-    public class BootstrapperContainerExtensionOptions: BootstrapperExtensionOptions, IBootstrapperContainerExtensionOptions
+    public class BootstrapperContainerExtensionOptions: BootstrapperOption, IBootstrapperContainerExtensionOptions
     {
         public bool AutoRegistration { get; private set; }
 
-        public IBootstrapperContainerExtensionOptions UsingAutoRegistration()
+        public IBootstrapperOption UsingAutoRegistration()
         {
             AutoRegistration = true;
             return this;

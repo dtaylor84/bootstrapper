@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
-using Bootstrap.Extensions;
 
 namespace Bootstrap
 {
-    public class IncludedAssemblies: IIncludedAssemblies
+    public class IncludedAssemblies: BootstrapperOption, IIncludedAssemblies
     {
         public List<Assembly> Assemblies { get; set; }
 
@@ -33,26 +32,6 @@ namespace Bootstrap
         public IIncludedAssemblies AndAssemblyRange(IEnumerable<Assembly> assemblies)
         {
             return AssemblyRange(assemblies);
-        }
-
-        public IIncludedOnlyAssemblies IncludingOnly
-        {
-            get { return Bootstrapper.IncludingOnly; }
-        }
-
-        public IExcludedAssemblies Excluding
-        {
-            get { return Bootstrapper.Excluding; }
-        }
-
-        public BootstrapperExtensions With
-        {
-            get { return Bootstrapper.With; }
-        }
-
-        public void Start()
-        {
-            Bootstrapper.Start();
         }
     }
 }

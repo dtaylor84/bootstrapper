@@ -19,7 +19,6 @@
         <dependency id="CommonServiceLocator.NinjectAdapter.Unofficial" version="3.0.1.10" />
         <dependency id="Ninject" version="3.0.1.10" />
         <dependency id="Ninject.Extensions.Conventions" version="3.0.0.11" />
-        <dependency id="NuGet.PackageNPublish" version="0.6.0.1" />
         </dependencies>
   </metadata>
   <files>

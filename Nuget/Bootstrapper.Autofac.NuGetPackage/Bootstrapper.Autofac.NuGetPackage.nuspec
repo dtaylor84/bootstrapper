@@ -18,7 +18,6 @@
         <dependency id="Bootstrapper" version="2.0.3.7" />
         <dependency id="CommonServiceLocator" version="1.0" />
         <dependency id="CommonServiceLocator.AutofacAdapter.Unofficial" version="3.0.2.1" />
-        <dependency id="NuGet.PackageNPublish" version="0.6.0.1" />
         </dependencies>
   </metadata>
   <files>

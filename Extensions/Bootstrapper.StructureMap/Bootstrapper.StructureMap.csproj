@@ -50,7 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BootstrapperStructureMapHelper.cs" />
+    <Compile Include="StructureMapConvenienceExtensions.cs" />
     <Compile Include="IStructureMapRegistration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StructureMapExtension.cs" />

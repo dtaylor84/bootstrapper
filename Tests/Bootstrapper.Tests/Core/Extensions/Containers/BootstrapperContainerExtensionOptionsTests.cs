@@ -16,8 +16,8 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
             //Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IBootstrapperContainerExtensionOptions));
-            Assert.IsInstanceOfType(result, typeof(IBootstrapperExtensionOptions));
-            Assert.IsInstanceOfType(result, typeof(BootstrapperExtensionOptions));
+            Assert.IsInstanceOfType(result, typeof(IBootstrapperOption));
+            Assert.IsInstanceOfType(result, typeof(BootstrapperOption));
             Assert.IsInstanceOfType(result, typeof(BootstrapperContainerExtensionOptions));
         }
 
@@ -46,9 +46,10 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
             //Assert
             Assert.IsTrue(options.AutoRegistration);
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(IBootstrapperExtensionOptions));
             Assert.IsInstanceOfType(result, typeof(IBootstrapperContainerExtensionOptions));
             Assert.IsInstanceOfType(result, typeof(BootstrapperContainerExtensionOptions));
+            Assert.IsInstanceOfType(result, typeof(IBootstrapperOption));
+            Assert.IsInstanceOfType(result, typeof(BootstrapperOption));
             Assert.AreSame(options, result);
         }
     }

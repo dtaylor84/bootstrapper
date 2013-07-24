@@ -2,7 +2,7 @@
 
 namespace Bootstrap.Locator
 {
-    public static class BootstrapperServiceLocatorHelper
+    public static class ServiceLocatorConvenienceExtensions
     {
         public static BootstrapperExtensions ServiceLocator(this BootstrapperExtensions extensions)
         {

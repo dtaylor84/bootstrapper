@@ -8,14 +8,18 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bootstrap.Tests.Extensions.Containers.Windsor
 {
     [TestClass]
-    public class BootstrapperWindsorHelperTests
+    public class WindsorConvenienceExtensionsTests
     {
+        [TestInitialize]
+        [TestCleanup]
+        public void InitializeBootstrapper()
+        {
+            Bootstrapper.ClearExtensions();
+        }
+
         [TestMethod]
         public void ShouldAddTheWindsorExtensionToBootstrapper()
         {
-            //Arrange
-            Bootstrapper.ClearExtensions();
-
             //Act
             var result = Bootstrapper.With.Windsor();
 
@@ -29,9 +33,6 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
         [TestMethod]
         public void ShouldRegisterRequestedFacilities()
         {
-            //Arrange
-            Bootstrapper.ClearExtensions();
-
             //Act
             Bootstrapper.With.Windsor(
                 Facilities
@@ -42,6 +43,18 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
             //Assert
             var container = ((IWindsorContainer)Bootstrapper.Container);
             Assert.IsTrue(container.Kernel.GetFacilities().Any(f => f is TypedFactoryFacility));
+        }
+
+        [TestMethod]
+        public void Windsor_WhenInvoked_ShouldPassTheBootstrapperRegistrationHelperToTheConstructorOfTheExtension()
+        {
+            //Act
+            Bootstrapper.With.Windsor();
+
+            //Assert
+            var extension = Bootstrapper.GetExtensions().First() as WindsorExtension;
+            Assert.IsNotNull(extension);
+            Assert.AreSame(Bootstrapper.RegistrationHelper, extension.Registrator);
         }
     }
 }

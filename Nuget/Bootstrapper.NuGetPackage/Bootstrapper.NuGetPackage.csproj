@@ -47,7 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="_MSBuild\NuGetPackageAndPublish.targets" />
+    <None Include="_MSBuild\NuGetPackageAndPublish.targets">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Bootstrapper.NuGetPackage.nuspec">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

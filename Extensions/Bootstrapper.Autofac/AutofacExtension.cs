@@ -58,8 +58,8 @@ namespace Bootstrap.Autofac
         {
             CheckContainer();
 
-            UpdateContainer(cb => RegistrationHelper.GetAssemblies().ToList()
-                                    .ForEach(a => RegistrationHelper.GetTypesImplementing<TTarget>(a).ToList()
+            UpdateContainer(cb => Registrator.GetAssemblies().ToList()
+                                    .ForEach(a => Registrator.GetTypesImplementing<TTarget>(a).ToList()
                                         .ForEach(t => cb.RegisterType(t).As<TTarget>())));
         }
 

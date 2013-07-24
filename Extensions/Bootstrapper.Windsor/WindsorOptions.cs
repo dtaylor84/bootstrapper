@@ -1,15 +1,13 @@
-﻿using Bootstrap.Extensions;
-using Bootstrap.Extensions.Containers;
+﻿using Bootstrap.Extensions.Containers;
 using Castle.Windsor;
 
 namespace Bootstrap.Windsor
 {
-    public class WindsorOptions : IBootstrapperContainerExtensionOptions
+    public class WindsorOptions : BootstrapperOption, IBootstrapperContainerExtensionOptions
     {
         private readonly IBootstrapperContainerExtensionOptions options;
 
         public IWindsorContainer Container { get; set; }
-        public BootstrapperExtensions And { get { return options.And; } }
         public bool AutoRegistration { get { return options.AutoRegistration; } }
 
         public WindsorOptions(IBootstrapperContainerExtensionOptions options)
@@ -23,12 +21,7 @@ namespace Bootstrap.Windsor
             return this;
         }
 
-        public void Start()
-        {
-            options.Start();
-        }
-
-        public IBootstrapperContainerExtensionOptions UsingAutoRegistration()
+        public IBootstrapperOption UsingAutoRegistration()
         {
             options.UsingAutoRegistration();
             return this;

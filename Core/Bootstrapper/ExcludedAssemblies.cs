@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using Bootstrap.Extensions;
 
 namespace Bootstrap
 {
-    public class ExcludedAssemblies: IExcludedAssemblies
+    public class ExcludedAssemblies: BootstrapperOption, IExcludedAssemblies
     {
         public List<string> Assemblies {get; set; }
 
@@ -21,26 +20,6 @@ namespace Bootstrap
         public IExcludedAssemblies AndAssembly(string assembly)
         {
             return Assembly(assembly);
-        }
-
-        public BootstrapperExtensions With
-        {
-            get { return Bootstrapper.With; }
-        }
-
-        public IIncludedAssemblies Including
-        {
-            get { return Bootstrapper.Including; }
-        }
-
-        public IIncludedOnlyAssemblies IncludingOnly
-        {
-            get { return Bootstrapper.IncludingOnly; }
-        }
-
-        public void Start()
-        {
-            Bootstrapper.Start();
         }
     }
 }

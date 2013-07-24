@@ -11,7 +11,6 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
         <dependency id="CommonServiceLocator" version="1.0" />
-        <dependency id="NuGet.PackageNPublish" version="0.6.0.1" />
         <dependency id="structuremap" version="2.6.4.1" />
         </dependencies>
   </metadata>

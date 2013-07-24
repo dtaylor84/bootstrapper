@@ -3,11 +3,11 @@ using Bootstrap.Extensions.Containers;
 
 namespace Bootstrap.StructureMap
 {
-    public static class BootstrapperStructureMapHelper
+    public static class StructureMapConvenienceExtensions
     {
         public static StructureMapOptions StructureMap(this BootstrapperExtensions extensions)
         {
-            var extension = new StructureMapExtension(new RegistrationHelper(), new BootstrapperContainerExtensionOptions());
+            var extension = new StructureMapExtension(Bootstrapper.RegistrationHelper, new BootstrapperContainerExtensionOptions());
             extensions.Extension(extension);
             return extension.Options;
         }

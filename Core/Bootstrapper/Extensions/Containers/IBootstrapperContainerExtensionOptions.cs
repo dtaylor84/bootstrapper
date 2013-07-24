@@ -1,8 +1,8 @@
 ﻿namespace Bootstrap.Extensions.Containers
 {
-    public interface IBootstrapperContainerExtensionOptions: IBootstrapperExtensionOptions
+    public interface IBootstrapperContainerExtensionOptions
     {
-        IBootstrapperContainerExtensionOptions UsingAutoRegistration();
+        IBootstrapperOption UsingAutoRegistration();
         bool AutoRegistration { get;}
     }
 }

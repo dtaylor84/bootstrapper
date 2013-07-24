@@ -56,7 +56,7 @@
   <ItemGroup>
     <Compile Include="AutofacExtension.cs" />
     <Compile Include="AutofacOptions.cs" />
-    <Compile Include="BootstrapperAutofacHelper.cs" />
+    <Compile Include="AutofacConvenienceExtensions.cs" />
     <Compile Include="IAutofacRegistration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
