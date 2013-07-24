@@ -8,6 +8,7 @@ namespace Bootstrap.Tests.Extensions.Containers.SimpleInjector
     {
         public void Register(Container container)
         {
+            container.Register<IBootstrapperAssemblyProvider, LoadedAssemblyProvider>();
             container.Register<IRegistrationHelper,RegistrationHelper>();
             container.Register<IBootstrapperContainerExtensionOptions, BootstrapperContainerExtensionOptions>();
             container.Register<SimpleInjectorExtension>();

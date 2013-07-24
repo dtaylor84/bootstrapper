@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using Bootstrap.Extensions;
-using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bootstrap.Tests.Core
@@ -18,6 +16,8 @@ namespace Bootstrap.Tests.Core
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IExcludedAssemblies));
             Assert.IsInstanceOfType(result, typeof(ExcludedAssemblies));
+            Assert.IsInstanceOfType(result, typeof(IBootstrapperOption));
+            Assert.IsInstanceOfType(result, typeof(BootstrapperOption));
         }
 
         [TestMethod]
@@ -58,55 +58,5 @@ namespace Bootstrap.Tests.Core
             Assert.IsTrue(result.Assemblies.Contains("Test1"));
             Assert.IsTrue(result.Assemblies.Contains("Test2"));
         }
-
-        [TestMethod]
-        public void ShouldReturnIncludedAssemblies()
-        {
-            //Act
-            var excluded = new ExcludedAssemblies();
-            var result = excluded.Including;
-
-            //Assert
-            Assert.AreSame(Bootstrapper.Including, result);
-        }
-
-        [TestMethod]
-        public void ShouldReturnIncludedOnlyAssemblies()
-        {
-            //Act
-            var included = new ExcludedAssemblies();
-            var result = included.IncludingOnly;
-
-            //Assert
-            Assert.AreSame(Bootstrapper.IncludingOnly, result);
-        }
-
-        [TestMethod]
-        public void ShouldReturnBootstrapperExtensions()
-        {
-            //Act
-            var excluded = new ExcludedAssemblies();
-            var result = excluded.With;
-
-            //Assert
-            Assert.AreSame(Bootstrapper.With, result);
-        }
-
-        [TestMethod]
-        public void ShouldInvokeBootstrapperStart()
-        {
-            //Act
-            var excluded = new ExcludedAssemblies();
-            var extension = A.Fake<IBootstrapperExtension>();
-            Bootstrapper.With.Extension(extension);
-
-            //Act
-            excluded.Start();
-            Bootstrapper.ClearExtensions();
-
-            //Assert
-            A.CallTo(() => extension.Run()).MustHaveHappened();
-        }
-
     }
 }

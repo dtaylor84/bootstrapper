@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Bootstrap.AutoMapper;
 using Bootstrap.Autofac;
-using Bootstrap.Extensions;
-using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bootstrap.Tests.Core
@@ -22,6 +20,8 @@ namespace Bootstrap.Tests.Core
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IIncludedAssemblies));
             Assert.IsInstanceOfType(result, typeof(IncludedAssemblies));
+            Assert.IsInstanceOfType(result, typeof(IBootstrapperOption));
+            Assert.IsInstanceOfType(result, typeof(BootstrapperOption));
         }
 
         [TestMethod]
@@ -98,55 +98,6 @@ namespace Bootstrap.Tests.Core
             Assert.IsTrue(result.Assemblies.Contains(Assembly.GetAssembly(typeof(Bootstrapper))));
             Assert.IsTrue(result.Assemblies.Contains(Assembly.GetAssembly(typeof(AutoMapperExtension))));
             Assert.IsTrue(result.Assemblies.Contains(Assembly.GetAssembly(typeof (AutofacExtension))));
-        }
-
-        [TestMethod]
-        public void ShouldReturnIncludedOnlyAssemblies()
-        {
-            //Act
-            var included = new IncludedAssemblies();
-            var result = included.IncludingOnly;
-
-            //Assert
-            Assert.AreSame(Bootstrapper.IncludingOnly, result);
-        }
-
-        [TestMethod]
-        public void ShouldReturnExcludedAssemblies()
-        {
-            //Act
-            var included = new IncludedAssemblies();
-            var result = included.Excluding;
-
-            //Assert
-            Assert.AreSame(Bootstrapper.Excluding, result);
-        }
-
-        [TestMethod]
-        public void ShouldReturnBootstrapperExtensions()
-        {
-            //Act
-            var included = new IncludedAssemblies();
-            var result = included.With;
-
-            //Assert
-            Assert.AreSame(Bootstrapper.With, result);
-        }
-
-        [TestMethod]
-        public void ShouldInvokeBootstrapperStart()
-        {
-            //Act
-            var included = new IncludedAssemblies();
-            var extension = A.Fake<IBootstrapperExtension>();
-            Bootstrapper.With.Extension(extension);
-
-            //Act
-            included.Start();
-            Bootstrapper.ClearExtensions();
-
-            //Assert
-            A.CallTo(() => extension.Run()).MustHaveHappened();
         }
     }
 }

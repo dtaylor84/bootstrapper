@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Bootstrap.Extensions;
 
 namespace Bootstrap
 {
-    public class IncludedOnlyAssemblies: IIncludedOnlyAssemblies
+    public class IncludedOnlyAssemblies: BootstrapperOption, IIncludedOnlyAssemblies
     {
         public List<Assembly> Assemblies { get; set; }
 
@@ -38,36 +37,12 @@ namespace Bootstrap
             return AssemblyRange(assemblies);
         }
 
-        public IIncludedAssemblies Including
-        {
-            get { return Bootstrapper.Including; }
-        }
-
-        public IExcludedAssemblies Excluding
-        {
-            get { return Bootstrapper.Excluding; }
-        }
-
-        public BootstrapperExtensions With
-        {
-            get { return Bootstrapper.With; }
-        }
-
-        public void Start()
-        {
-            Bootstrapper.Start();
-        }
-
         private static IEnumerable<Assembly> BootstrapperAssemblies()
         {
-            var bootstrapperAssemblies = new List<Assembly>();
-            var loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
-            loadedAssemblies.ForEach(a =>
-                                         {
-                                             if (a.FullName.StartsWith("Bootstrapper"))
-                                                 bootstrapperAssemblies.Add(a);
-                                         });
-            return bootstrapperAssemblies;
+            return AppDomain
+                .CurrentDomain
+                .GetAssemblies()
+                .Where(a => a.FullName.StartsWith("Bootstrapper"));
         }
     }
 }

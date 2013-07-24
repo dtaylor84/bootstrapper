@@ -7,7 +7,7 @@ namespace Bootstrap.Tests.Extensions.AutoMapper
 {
     
     [TestClass]
-    public class BootstrapperAutoMapperHelperTests
+    public class AutoMapperConvenienceExtensionsTests
     {
         [TestInitialize]
         [TestCleanup]

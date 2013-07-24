@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BootstrapperServiceLocatorHelper.cs" />
+    <Compile Include="ServiceLocatorConvenienceExtensions.cs" />
     <Compile Include="ServiceLocatorExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

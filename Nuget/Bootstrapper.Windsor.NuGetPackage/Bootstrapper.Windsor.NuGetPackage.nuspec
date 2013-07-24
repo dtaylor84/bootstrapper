@@ -20,7 +20,6 @@
         <dependency id="Castle.Windsor" version="3.2.0" />
         <dependency id="CommonServiceLocator" version="1.0" />
         <dependency id="CommonServiceLocator.WindsorAdapter.Unofficial" version="3.2.0.0" />
-        <dependency id="NuGet.PackageNPublish" version="0.6.0.1" />
         </dependencies>
   </metadata>
   <files>

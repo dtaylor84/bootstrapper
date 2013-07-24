@@ -12,7 +12,7 @@ namespace Bootstrap.Extensions.StartupTasks
         const int DefaultPosition = int.MaxValue;       
         public StartupTasksOptions Options { get; private set; }
         private readonly List<TaskGroup> taskGroups;
-        private readonly IRegistrationHelper registrationHelper;
+        internal readonly IRegistrationHelper Registrator;
 
         public List<ExecutionLogEntry> ExecutionLog { 
             get
@@ -27,7 +27,7 @@ namespace Bootstrap.Extensions.StartupTasks
         {
             Options = new StartupTasksOptions();
             taskGroups = new List<TaskGroup>();
-            this.registrationHelper = registrationHelper;
+            this.Registrator = registrationHelper;
         }
 
         public void Run()
@@ -97,7 +97,7 @@ namespace Bootstrap.Extensions.StartupTasks
             if (Bootstrapper.ContainerExtension != null && Bootstrapper.Container != null)
                 tasks = Bootstrapper.ContainerExtension.ResolveAll<IStartupTask>().OrderBy(t => t.GetType().Name).ToList();
             else
-                tasks = registrationHelper.GetInstancesOfTypesImplementing<IStartupTask>().OrderBy(t => t.GetType().Name).ToList();
+                tasks = Registrator.GetInstancesOfTypesImplementing<IStartupTask>().OrderBy(t => t.GetType().Name).ToList();
             return tasks;
         }
 
@@ -185,7 +185,7 @@ namespace Bootstrap.Extensions.StartupTasks
             var group = Options.Groups.FirstOrDefault(g => g.Sequence.Any(t => t.TaskType == task.GetType()));
             if (group == null) return null;
             var match = group.Sequence.FirstOrDefault(t => t.TaskType == task.GetType());
-            if (match.Delay == 0) return null;
+            if (match == null || match.Delay == 0) return null;
             return match.Delay;
         }
 

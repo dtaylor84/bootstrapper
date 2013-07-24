@@ -1,5 +1,4 @@
-﻿using Bootstrap.Extensions;
-using Bootstrap.Extensions.Containers;
+﻿using Bootstrap.Extensions.Containers;
 using Bootstrap.Windsor;
 using Castle.Windsor;
 using FakeItEasy;
@@ -23,6 +22,8 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(WindsorOptions));
             Assert.IsInstanceOfType(result, typeof(IBootstrapperContainerExtensionOptions));
+            Assert.IsInstanceOfType(result, typeof(BootstrapperOption));
+            Assert.IsInstanceOfType(result, typeof(IBootstrapperOption));
         }
 
         [TestMethod]
@@ -68,21 +69,6 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
             Assert.AreSame(container, options.Container);
         }
 
-        [TestMethod]
-        public void And_WhenInvoked_ShouldReturnTheValueOfTheOptionsAnd()
-        {
-            //Arrange
-            var extensions = new BootstrapperExtensions();
-            var containerOptions = A.Fake<IBootstrapperContainerExtensionOptions>();
-            var options = new WindsorOptions(containerOptions);
-            A.CallTo(() => containerOptions.And).Returns(extensions);
-
-            //Act
-            var result = options.And;
-
-            //Assert
-            Assert.AreSame(extensions, result);
-        }
 
         [TestMethod]
         public void AutoRegistration_WhenInvoked_ShouldReturnTheValueOfTheOptionsAutoRegistration()
@@ -125,20 +111,6 @@ namespace Bootstrap.Tests.Extensions.Containers.Windsor
 
             //Assert
             A.CallTo(() => containerOptions.UsingAutoRegistration()).MustHaveHappened();
-        }
-
-        [TestMethod]
-        public void Start_WhenInvoked_ShouldInvokeStartInTheOptions()
-        {
-            //Arrange
-            var containerOptions = A.Fake<IBootstrapperContainerExtensionOptions>();
-            var options = new WindsorOptions(containerOptions);
-
-            //Act
-            options.Start();
-
-            //Assert
-            A.CallTo(() => containerOptions.Start()).MustHaveHappened();
         }
     }
 }

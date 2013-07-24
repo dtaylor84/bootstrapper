@@ -18,50 +18,15 @@ namespace Bootstrap.Tests.Extensions.TestImplementations
             Registrations = new Dictionary<Type, Type>();
         }
 
-        public void SetTestServiceLocator(IServiceLocator theLocator)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void RegisterAll<TTarget>()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void SetServiceLocator()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void ResetServiceLocator()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override T Resolve<T>()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override IList<T> ResolveAll<T>()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void Register<TTarget, TImplementation>()
-        {
-            Registrations.Add(typeof(TTarget), typeof(TImplementation));
-        }
-
-        public override void Register<TTarget>(TTarget implementation)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DoAutoRegister()
-        {
-            AutoRegister();
-        }
+        public void SetTestServiceLocator(IServiceLocator theLocator){}
+        public override void RegisterAll<TTarget>() {}
+        public override void SetServiceLocator() {}
+        public override void ResetServiceLocator() {}
+        public override T Resolve<T>() {return null;}
+        public override IList<T> ResolveAll<T>() {return null;}
+        public override void Register<TTarget, TImplementation>() { Registrations.Add(typeof(TTarget), typeof(TImplementation));}
+        public override void Register<TTarget>(TTarget implementation) {}
+        public void DoAutoRegister() {AutoRegister();}
 
         protected override void ResetContainer() {Container = null;}
         protected override void InitializeContainer() { Container = new object();  }

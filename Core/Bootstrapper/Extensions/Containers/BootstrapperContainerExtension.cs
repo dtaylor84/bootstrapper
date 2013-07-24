@@ -11,7 +11,7 @@ namespace Bootstrap.Extensions.Containers
         protected abstract void RegisterImplementationsOfIRegistration();
         protected abstract void InvokeRegisterForImplementationsOfIRegistration();
         protected abstract void ResetContainer();
-        protected IRegistrationHelper RegistrationHelper;
+        protected internal IRegistrationHelper Registrator;
         public abstract void SetServiceLocator();
         public abstract void ResetServiceLocator();
         public abstract T Resolve<T>() where T : class;
@@ -24,7 +24,7 @@ namespace Bootstrap.Extensions.Containers
 
         protected BootstrapperContainerExtension(IRegistrationHelper registrationHelper)
         {
-            RegistrationHelper = registrationHelper;
+            Registrator = registrationHelper;
             Bootstrapper.Excluding.Assembly("Microsoft.Practices");
         }
 
@@ -41,7 +41,7 @@ namespace Bootstrap.Extensions.Containers
 
         protected void AutoRegister()
         {
-            RegistrationHelper.GetAssemblies()
+            Registrator.GetAssemblies()
                 .ForEach(a => a.GetExportedTypes().Where(t => !t.IsGenericType && !t.IsAbstract)
                     .ForEach(t =>
                                  {

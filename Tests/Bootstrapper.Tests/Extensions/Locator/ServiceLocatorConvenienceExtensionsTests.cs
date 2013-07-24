@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Bootstrap.Tests.Extensions.Locator
 {
     [TestClass]
-    public class BootstrapperServiceLocatorHelperTests
+    public class ServiceLocatorConvenienceExtensionsTests
     {
         [TestInitialize]
         [TestCleanup]
@@ -28,6 +28,5 @@ namespace Bootstrap.Tests.Extensions.Locator
             //Assert
             Assert.IsInstanceOfType(Bootstrapper.GetExtensions()[1], typeof(ServiceLocatorExtension));
         }
-
     }
 }

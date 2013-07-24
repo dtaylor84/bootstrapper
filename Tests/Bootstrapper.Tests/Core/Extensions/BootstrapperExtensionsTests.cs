@@ -20,6 +20,8 @@ namespace Bootstrap.Tests.Core.Extensions
             //Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(BootstrapperExtensions));
+            Assert.IsInstanceOfType(result, typeof(IBootstrapperOption));
+            Assert.IsInstanceOfType(result, typeof(BootstrapperOption));
         }
 
         [TestMethod]

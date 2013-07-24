@@ -66,12 +66,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="_MSBuild\NuGetPackageAndPublish.targets" />
     <None Include="Bootstrapper.Autofac.NuGetPackage.nuspec">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Bootstrapper.Autofac.NuGetPackage.tt</DependentUpon>
     </None>
+    <None Include="_MSBuild\NuGetPackageAndPublish.targets" />
     <None Include="Bootstrapper.Autofac.NuGetPackage.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Bootstrapper.Autofac.NuGetPackage.nuspec</LastGenOutput>

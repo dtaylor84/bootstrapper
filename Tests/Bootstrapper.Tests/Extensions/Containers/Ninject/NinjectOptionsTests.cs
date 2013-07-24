@@ -1,5 +1,4 @@
-﻿using Bootstrap.Extensions;
-using Bootstrap.Extensions.Containers;
+﻿using Bootstrap.Extensions.Containers;
 using Bootstrap.Ninject;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -69,22 +68,6 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
         }
 
         [TestMethod]
-        public void And_WhenInvoked_ShouldReturnTheValueOfTheOptionsAnd()
-        {
-            //Arrange
-            var extensions = new BootstrapperExtensions();
-            var containerOptions = A.Fake<IBootstrapperContainerExtensionOptions>();
-            var options = new NinjectOptions(containerOptions);
-            A.CallTo(() => containerOptions.And).Returns(extensions);
-
-            //Act
-            var result = options.And;
-
-            //Assert
-            Assert.AreSame(extensions, result);
-        }
-
-        [TestMethod]
         public void AutoRegistration_WhenInvoked_ShouldReturnTheValueOfTheOptionsAutoRegistration()
         {
             //Arrange
@@ -125,20 +108,6 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
 
             //Assert
             A.CallTo(() => containerOptions.UsingAutoRegistration()).MustHaveHappened();
-        }
-
-        [TestMethod]
-        public void Start_WhenInvoked_ShouldInvokeStartInTheOptions()
-        {
-            //Arrange
-            var containerOptions = A.Fake<IBootstrapperContainerExtensionOptions>();
-            var options = new NinjectOptions(containerOptions);
-
-            //Act
-            options.Start();
-
-            //Assert
-            A.CallTo(() => containerOptions.Start()).MustHaveHappened();
         }
     }
 }

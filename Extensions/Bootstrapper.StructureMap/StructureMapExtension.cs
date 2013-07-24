@@ -94,7 +94,7 @@ namespace Bootstrap.StructureMap
                                 c.Scan(s =>
                                            {
                                                s.AddAllTypesOf<TTarget>();
-                                               foreach (var assembly in RegistrationHelper.GetAssemblies())
+                                               foreach (var assembly in Registrator.GetAssemblies())
                                                    s.Assembly(assembly);
                                            }));
         }

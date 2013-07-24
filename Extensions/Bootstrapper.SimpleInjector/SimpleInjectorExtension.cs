@@ -39,8 +39,8 @@ namespace Bootstrap.SimpleInjector
         protected override void InvokeRegisterForImplementationsOfIRegistration()
         {
             CheckContainer();
-            RegistrationHelper.GetInstancesOfTypesImplementing<IBootstrapperRegistration>().ForEach(r => r.Register(this));
-            RegistrationHelper.GetInstancesOfTypesImplementing<ISimpleInjectorRegistration>().ForEach(r => r.Register(container));
+            Registrator.GetInstancesOfTypesImplementing<IBootstrapperRegistration>().ForEach(r => r.Register(this));
+            Registrator.GetInstancesOfTypesImplementing<ISimpleInjectorRegistration>().ForEach(r => r.Register(container));
         }
 
         protected override void ResetContainer()
@@ -52,9 +52,9 @@ namespace Bootstrap.SimpleInjector
         {
             CheckContainer();
             container.RegisterAll<TTarget>(
-                RegistrationHelper
+                Registrator
                 .GetAssemblies()
-                .SelectMany(a => RegistrationHelper.GetTypesImplementing<TTarget>(a))
+                .SelectMany(a => Registrator.GetTypesImplementing<TTarget>(a))
                 );
         }
 

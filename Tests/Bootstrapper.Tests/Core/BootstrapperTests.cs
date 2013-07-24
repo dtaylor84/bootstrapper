@@ -9,6 +9,7 @@ using Bootstrap.Extensions.Containers;
 using Bootstrap.Extensions.StartupTasks;
 using Bootstrap.Locator;
 using Bootstrap.Ninject;
+using Bootstrap.SimpleInjector;
 using Bootstrap.StructureMap;
 using Bootstrap.Tests.Core.Extensions.StartupTasks;
 using Bootstrap.Tests.ExtensionForTest;
@@ -157,6 +158,19 @@ namespace Bootstrap.Tests.Core
         }
 
         [TestMethod]
+        public void ClearExtensions_WhenInvoked_ShouldSetTheRegistrationHelperToNull()
+        {
+            //Arrange
+            Bootstrapper.LookForTypesIn.ReferencedAssemblies();
+
+            //Act
+            Bootstrapper.ClearExtensions();
+
+            //Assert
+            Assert.IsNull(Bootstrapper.Registrator);            
+        }
+
+        [TestMethod]
         public void ShouldReturnAnEmptyExtensionIList()
         {
             var result = Bootstrapper.GetExtensions();
@@ -212,6 +226,30 @@ namespace Bootstrap.Tests.Core
         }
 
         [TestMethod]
+        public void RegistrationHelper_WhenSet_ShouldSetTheRegistrationHelperProperty()
+        {
+            //Arrange
+            var registrationHelper = A.Fake<IRegistrationHelper>();
+
+            //Act
+            Bootstrapper.RegistrationHelper = registrationHelper;
+
+            //Assert
+            Assert.AreSame(registrationHelper, Bootstrapper.RegistrationHelper);
+        }
+
+        [TestMethod]
+        public void RegistrationHelper_WhenAccessedBeforeBeingSet_ShouldReturnARegistrationHelperWithALoadedAssemblyProvider()
+        {
+            //Act
+            var result = Bootstrapper.RegistrationHelper as RegistrationHelper;
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.AssemblyProvider is LoadedAssemblyProvider);            
+        }
+
+        [TestMethod]
         public void ShouldCompile()
         {
             //Act
@@ -227,11 +265,14 @@ namespace Bootstrap.Tests.Core
                     .AndAssembly(Assembly.GetExecutingAssembly())
                     .AndAssembly(Assembly.GetAssembly(typeof(Mapper)))
                     .AndAssembly(Assembly.GetAssembly(typeof(AutoMapperExtension)))
+                .LookForTypesIn.ReferencedAssemblies()
+                .LookForTypesIn.LoadedAssemblies()
                 .With.Ninject().UsingAutoRegistration()
                 .And.StructureMap().UsingAutoRegistration()
                 .And.Unity().UsingAutoRegistration()
                 .And.Windsor().UsingAutoRegistration()
                 .And.Autofac().UsingAutoRegistration()
+                .And.SimpleInjector().UsingAutoRegistration()
                 .And.AutoMapper()
                 .And.ServiceLocator()
                 .And.StartupTasks()
@@ -241,7 +282,7 @@ namespace Bootstrap.Tests.Core
                     .AndGroup(s => s
                         .First<TaskOmega>()
                         .Then().TheRest())
-                .Excluding.Assembly("Castle");                
+                .Excluding.Assembly("Castle");                       
         }
 
         [TestMethod]

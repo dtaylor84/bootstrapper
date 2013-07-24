@@ -17,7 +17,6 @@
         <dependency id="Bootstrapper" version="2.0.3.7" />
         <dependency id="CommonServiceLocator" version="1.0" />
         <dependency id="CommonServiceLocator.SimpleInjectorAdapter" version="2.2.0" />
-        <dependency id="NuGet.PackageNPublish" version="0.6.0.1" />
         <dependency id="SimpleInjector" version="2.2.0" />
         </dependencies>
   </metadata>

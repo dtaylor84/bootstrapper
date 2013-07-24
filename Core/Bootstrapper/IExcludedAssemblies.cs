@@ -1,16 +1,11 @@
 ﻿using System.Collections.Generic;
-using Bootstrap.Extensions;
 
 namespace Bootstrap
 {
-    public interface IExcludedAssemblies
+    public interface IExcludedAssemblies : IBootstrapperOption
     {
         List<string> Assemblies { get; set; }
         IExcludedAssemblies Assembly(string assembly);
         IExcludedAssemblies AndAssembly(string assembly);
-        BootstrapperExtensions With { get; }
-        IIncludedAssemblies Including { get; }
-        IIncludedOnlyAssemblies IncludingOnly { get; }
-        void Start();
     }
 }

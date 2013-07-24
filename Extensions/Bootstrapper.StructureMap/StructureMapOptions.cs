@@ -1,15 +1,13 @@
-﻿using Bootstrap.Extensions;
-using Bootstrap.Extensions.Containers;
+﻿using Bootstrap.Extensions.Containers;
 using StructureMap;
 
 namespace Bootstrap.StructureMap
 {
-    public class StructureMapOptions : IBootstrapperContainerExtensionOptions
+    public class StructureMapOptions : BootstrapperOption, IBootstrapperContainerExtensionOptions
     {
         private readonly IBootstrapperContainerExtensionOptions options;
 
         public IContainer Container { get; set; }
-        public BootstrapperExtensions And { get { return options.And; } }
         public bool AutoRegistration { get { return options.AutoRegistration; } }
 
         public StructureMapOptions(IBootstrapperContainerExtensionOptions options)
@@ -29,12 +27,7 @@ namespace Bootstrap.StructureMap
             return this;
         }
 
-        public void Start()
-        {
-            options.Start();
-        }
-
-        public IBootstrapperContainerExtensionOptions UsingAutoRegistration()
+        public IBootstrapperOption UsingAutoRegistration()
         {
             options.UsingAutoRegistration();
             return this;

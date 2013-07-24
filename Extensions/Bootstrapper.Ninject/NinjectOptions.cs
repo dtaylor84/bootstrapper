@@ -1,15 +1,13 @@
-﻿using Bootstrap.Extensions;
-using Bootstrap.Extensions.Containers;
+﻿using Bootstrap.Extensions.Containers;
 using Ninject;
 
 namespace Bootstrap.Ninject
 {
-    public class NinjectOptions : IBootstrapperContainerExtensionOptions
+    public class NinjectOptions : BootstrapperOption, IBootstrapperContainerExtensionOptions
     {
         private readonly IBootstrapperContainerExtensionOptions options;
 
         public IKernel Container { get; set; }
-        public BootstrapperExtensions And { get { return options.And; } }
         public bool AutoRegistration { get { return options.AutoRegistration; } }
 
         public NinjectOptions(IBootstrapperContainerExtensionOptions options)
@@ -23,12 +21,7 @@ namespace Bootstrap.Ninject
             return this;
         }
 
-        public void Start()
-        {
-            options.Start();
-        }
-
-        public IBootstrapperContainerExtensionOptions UsingAutoRegistration()
+        public IBootstrapperOption UsingAutoRegistration()
         {
             options.UsingAutoRegistration();
             return this;
