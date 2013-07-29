@@ -7,6 +7,9 @@ namespace Bootstrap.Extensions.Containers
 {
     public class ReferencedAssemblyProvider: IBootstrapperAssemblyProvider 
     {
-        public IEnumerable<Assembly> GetAssemblies() {return BuildManager.GetReferencedAssemblies().Cast<Assembly>();}
+        public IEnumerable<Assembly> GetAssemblies()
+        {
+            return BuildManager.GetReferencedAssemblies().Cast<Assembly>();
+        }
     }
 }

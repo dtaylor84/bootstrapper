@@ -2,7 +2,7 @@
 <package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <id>Bootstrapper.Unity</id>
-    <version>2.0.3.8</version>
+    <version>2.0.3.9</version>
     <title>Bootstrapper.Unity</title>
 	<authors>Luis Bocaletti</authors>
     <owners>Luis Bocaletti</owners>
@@ -14,7 +14,7 @@
     <language>en-us</language>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
-        <dependency id="Bootstrapper" version="2.0.3.7" />
+        <dependency id="Bootstrapper" version="2.0.3.9" />
         <dependency id="CommonServiceLocator" version="1.0" />
         <dependency id="Unity" version="2.1.505.2" />
         </dependencies>

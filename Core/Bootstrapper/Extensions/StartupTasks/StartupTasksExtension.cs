@@ -27,7 +27,7 @@ namespace Bootstrap.Extensions.StartupTasks
         {
             Options = new StartupTasksOptions();
             taskGroups = new List<TaskGroup>();
-            this.Registrator = registrationHelper;
+            Registrator = registrationHelper;
         }
 
         public void Run()
