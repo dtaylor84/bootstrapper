@@ -54,8 +54,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonServiceLocator.Struct
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonServiceLocator.WindsorAdapter.Unofficial", "ServiceLocatorAdapters\CommonServiceLocator.WindsorAdapter.Unofficial\CommonServiceLocator.WindsorAdapter.Unofficial.csproj", "{8EC4D673-EF55-49C2-8757-2DCEFA59B2A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonServiceLocator.WindsorAdapter.Unofficial.NuGetPackage", "Nuget\CommonServiceLocator.WindsorAdapter.Unofficial.NuGetPackage\CommonServiceLocator.WindsorAdapter.Unofficial.NuGetPackage.csproj", "{C9D87CD6-9D67-4F66-9CAD-2A2D5DE5359C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper.StructureMap.NuGetPackage", "Nuget\Bootstrapper.StructureMap.NuGetPackage\Bootstrapper.StructureMap.NuGetPackage.csproj", "{5DEC8877-DF44-488B-AE7F-1FBE56E8742A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper.Autofac.NuGetPackage", "Nuget\Bootstrapper.Autofac.NuGetPackage\Bootstrapper.Autofac.NuGetPackage.csproj", "{038A428B-445A-45A9-9C8C-580DFF71029E}"
@@ -75,6 +73,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper.Windsor.NuGetPackage", "Nuget\Bootstrapper.Windsor.NuGetPackage\Bootstrapper.Windsor.NuGetPackage.csproj", "{CA6084EC-37CF-4363-9581-1A86BE098049}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{56291811-A6B0-47C1-9623-1D4C93ACB085}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonServiceLocator.WindsorAdapter.Unofficial.NuGetPackage", "Nuget\CommonServiceLocator.WindsorAdapter.Unofficial.NuGetPackage\CommonServiceLocator.WindsorAdapter.Unofficial.NuGetPackage.csproj", "{16322A7C-8E9D-45B9-A82E-A136CE59AFC7}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
@@ -157,10 +157,6 @@ Global
 		{8EC4D673-EF55-49C2-8757-2DCEFA59B2A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8EC4D673-EF55-49C2-8757-2DCEFA59B2A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8EC4D673-EF55-49C2-8757-2DCEFA59B2A6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C9D87CD6-9D67-4F66-9CAD-2A2D5DE5359C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C9D87CD6-9D67-4F66-9CAD-2A2D5DE5359C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C9D87CD6-9D67-4F66-9CAD-2A2D5DE5359C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C9D87CD6-9D67-4F66-9CAD-2A2D5DE5359C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5DEC8877-DF44-488B-AE7F-1FBE56E8742A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5DEC8877-DF44-488B-AE7F-1FBE56E8742A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DEC8877-DF44-488B-AE7F-1FBE56E8742A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -197,6 +193,10 @@ Global
 		{CA6084EC-37CF-4363-9581-1A86BE098049}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA6084EC-37CF-4363-9581-1A86BE098049}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA6084EC-37CF-4363-9581-1A86BE098049}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16322A7C-8E9D-45B9-A82E-A136CE59AFC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16322A7C-8E9D-45B9-A82E-A136CE59AFC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16322A7C-8E9D-45B9-A82E-A136CE59AFC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16322A7C-8E9D-45B9-A82E-A136CE59AFC7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -207,7 +207,6 @@ Global
 		{3FD8D10B-9762-498D-A7CB-5B854DFF50F3} = {DA467C95-49E6-45F5-824C-973E27511FBD}
 		{523404E5-EDA0-4AEB-8B25-59F6D97204F1} = {DA467C95-49E6-45F5-824C-973E27511FBD}
 		{7928B8BF-496A-4344-95D5-D3D4320F931A} = {DA467C95-49E6-45F5-824C-973E27511FBD}
-		{C9D87CD6-9D67-4F66-9CAD-2A2D5DE5359C} = {DA467C95-49E6-45F5-824C-973E27511FBD}
 		{5DEC8877-DF44-488B-AE7F-1FBE56E8742A} = {DA467C95-49E6-45F5-824C-973E27511FBD}
 		{038A428B-445A-45A9-9C8C-580DFF71029E} = {DA467C95-49E6-45F5-824C-973E27511FBD}
 		{80421CB1-2D53-45AC-B838-97E4D31AEAE1} = {DA467C95-49E6-45F5-824C-973E27511FBD}
@@ -217,6 +216,7 @@ Global
 		{368E74AE-0764-4005-B144-E65747EA18BD} = {DA467C95-49E6-45F5-824C-973E27511FBD}
 		{2F8331E3-FD5D-4E8B-82AF-796C42BC5C05} = {DA467C95-49E6-45F5-824C-973E27511FBD}
 		{CA6084EC-37CF-4363-9581-1A86BE098049} = {DA467C95-49E6-45F5-824C-973E27511FBD}
+		{16322A7C-8E9D-45B9-A82E-A136CE59AFC7} = {DA467C95-49E6-45F5-824C-973E27511FBD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.2.1.505.2\lib\NET35

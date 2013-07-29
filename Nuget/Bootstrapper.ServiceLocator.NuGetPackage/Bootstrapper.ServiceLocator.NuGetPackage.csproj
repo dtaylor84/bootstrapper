@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Bootstrapper">
-      <HintPath>..\..\packages\Bootstrapper.2.0.3.7\lib\Net40\Bootstrapper.dll</HintPath>
+      <HintPath>..\..\packages\Bootstrapper.2.0.3.9\lib\Net40\Bootstrapper.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Bootstrapper.ServiceLocator">

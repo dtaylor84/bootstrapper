@@ -7,7 +7,6 @@ namespace Bootstrap
 {
     public static class Bootstrapper
     {
-        private static readonly BootstrapperExtensions Extensions;
         internal static IRegistrationHelper Registrator;
 
         public static object Container {get { return ContainerExtension == null ? null : ContainerExtension.Container; }}
@@ -22,7 +21,7 @@ namespace Bootstrap
             set { Registrator = value; }
         }
 
-        public static BootstrapperExtensions With { get { return Extensions; } }
+        public static BootstrapperExtensions With { get; private set; }
         public static IExcludedAssemblies Excluding { get; private set; }
         public static IIncludedAssemblies Including { get; private set; }
         public static IIncludedOnlyAssemblies IncludingOnly { get; private set; }
@@ -30,9 +29,7 @@ namespace Bootstrap
 
         static Bootstrapper()
         {
-            Extensions = new BootstrapperExtensions();
             InitializeExcludedAndIncludedAssemblies();
-            LookForTypesIn = new AssemblySetOptions(); 
         }
 
         public static void ClearExtensions()
@@ -40,7 +37,7 @@ namespace Bootstrap
             Reset();
             ContainerExtension = null;
             Registrator = null;
-            Extensions.ClearExtensions();
+            With.ClearExtensions();
         }
 
         public static IList<IBootstrapperExtension> GetExtensions()
@@ -50,22 +47,24 @@ namespace Bootstrap
 
         public static void Start()
         {
-            foreach (var extension in Extensions.GetExtensions())
+            foreach (var extension in With.GetExtensions())
                 extension.Run();
         }
 
         public static void Reset()
         {
-            InitializeExcludedAndIncludedAssemblies();
-            foreach (var extension in Extensions.GetExtensions().Reverse())
+            foreach (var extension in With.GetExtensions().Reverse())
                 extension.Reset();
+            InitializeExcludedAndIncludedAssemblies();
         }
 
         private static void InitializeExcludedAndIncludedAssemblies()
         {
+            With = new BootstrapperExtensions();
             Excluding = new ExcludedAssemblies();
             Including = new IncludedAssemblies();
             IncludingOnly = new IncludedOnlyAssemblies();
+            LookForTypesIn = new AssemblySetOptions();
         }
     }
 }

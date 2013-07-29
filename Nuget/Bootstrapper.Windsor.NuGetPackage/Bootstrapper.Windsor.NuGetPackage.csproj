@@ -34,30 +34,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Bootstrapper">
-      <HintPath>..\..\packages\Bootstrapper.2.0.3.7\lib\Net40\Bootstrapper.dll</HintPath>
+      <HintPath>..\..\packages\Bootstrapper.2.0.3.9\lib\Net40\Bootstrapper.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Bootstrapper.WindsorExtension">
       <HintPath>..\..\Extensions\Bootstrapper.Windsor\bin\Release\Bootstrapper.WindsorExtension.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.Core">
-      <HintPath>..\..\packages\CommonServiceLocator.WindsorAdapter.Unofficial.3.2.0.0\lib\Net40\Castle.Core.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Castle.Facilities.FactorySupport">
       <HintPath>..\..\packages\Castle.FactorySupportFacility.3.2.0\lib\net40\Castle.Facilities.FactorySupport.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Castle.Windsor">
-      <HintPath>..\..\packages\CommonServiceLocator.WindsorAdapter.Unofficial.3.2.0.0\lib\Net40\Castle.Windsor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="CommonServiceLocator.WindsorAdapter.Unofficial">
-      <HintPath>..\..\packages\CommonServiceLocator.WindsorAdapter.Unofficial.3.2.0.0\lib\Net40\CommonServiceLocator.WindsorAdapter.Unofficial.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation">
-      <HintPath>..\..\packages\CommonServiceLocator.WindsorAdapter.Unofficial.3.2.0.0\lib\Net40\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <HintPath>..\..\packages\CommonServiceLocator.WindsorAdapter.Unofficial.3.2.1.0\lib\Net40\CommonServiceLocator.WindsorAdapter.Unofficial.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -69,7 +57,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="_MSBuild\NuGetPackageAndPublish.targets" />
+    <None Include="Package\tools\init.ps1" />
+    <None Include="Package\tools\install.ps1" />
+    <None Include="Package\tools\uninstall.ps1" />
     <None Include="Bootstrapper.Windsor.NuGetPackage.nuspec">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -86,9 +76,7 @@
     <None Include="Package\content\Content.Readme.txt" />
     <None Include="Package\lib\Net40\Net40.Readme.txt" />
     <None Include="Package\lib\SL40\SL40.Readme.txt" />
-    <None Include="Package\tools\init.ps1" />
-    <None Include="Package\tools\install.ps1" />
-    <None Include="Package\tools\uninstall.ps1" />
+    <None Include="_MSBuild\NuGetPackageAndPublish.targets" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

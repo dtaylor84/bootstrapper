@@ -33,12 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac">
-      <HintPath>..\..\packages\Autofac.3.0.2\lib\net40\Autofac.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Autofac.Configuration">
-      <HintPath>..\..\packages\Autofac.3.0.2\lib\net40\Autofac.Configuration.dll</HintPath>
+    <Reference Include="Autofac, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Autofac.3.1.1\lib\net40\Autofac.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="CommonServiceLocator.AutofacAdapter.Unofficial">
@@ -67,6 +64,9 @@
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
     <None Include="packages.config" />
+    <None Include="Package\tools\init.ps1" />
+    <None Include="Package\tools\install.ps1" />
+    <None Include="Package\tools\uninstall.ps1" />
     <None Include="_MSBuild\NuGetPackageAndPublish.targets" />
     <None Include="CommonServiceLocator.AutofacAdapter.Unofficial.NuGetPackage.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -75,9 +75,6 @@
     <None Include="Package\content\Content.Readme.txt" />
     <None Include="Package\lib\Net40\Net40.Readme.txt" />
     <None Include="Package\lib\SL40\SL40.Readme.txt" />
-    <None Include="Package\tools\init.ps1" />
-    <None Include="Package\tools\install.ps1" />
-    <None Include="Package\tools\uninstall.ps1" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
