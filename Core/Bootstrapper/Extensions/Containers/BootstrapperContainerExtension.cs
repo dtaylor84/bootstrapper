@@ -7,10 +7,6 @@ namespace Bootstrap.Extensions.Containers
 {
     public abstract class BootstrapperContainerExtension : IBootstrapperContainerExtension
     {
-        protected abstract void InitializeContainer();
-        protected abstract void RegisterImplementationsOfIRegistration();
-        protected abstract void InvokeRegisterForImplementationsOfIRegistration();
-        protected abstract void ResetContainer();
         protected internal IRegistrationHelper Registrator;
         public abstract void SetServiceLocator();
         public abstract void ResetServiceLocator();
@@ -19,7 +15,6 @@ namespace Bootstrap.Extensions.Containers
         public abstract void Register<TTarget, TImplementation>() where TTarget : class where TImplementation : class, TTarget;
         public abstract void Register<TTarget>(TTarget implementation) where TTarget : class;
         public abstract void RegisterAll<TTarget>() where TTarget : class;
-
         public object Container { get; protected set; }
 
         protected BootstrapperContainerExtension(IRegistrationHelper registrationHelper)
@@ -41,16 +36,24 @@ namespace Bootstrap.Extensions.Containers
 
         protected void AutoRegister()
         {
-            Registrator.GetAssemblies()
-                .ForEach(a => a.GetExportedTypes().Where(t => !t.IsGenericType && !t.IsAbstract)
-                    .ForEach(t =>
-                                 {
-                                     var defaultInterfaceName = string.Format("I{0}", t.Name);
-                                     var defaultInterface = t.GetInterface(defaultInterfaceName);
-                                     if (defaultInterface != null)
-                                         Register(defaultInterface,t);
-                                 }));
+            Registrator
+                .GetAssemblies()
+                .SelectMany(a => a.GetExportedTypes())
+                .Where(t => !t.IsGenericType && !t.IsAbstract)
+                .Select(t => new { Type = t, DefaultInterface = t.GetInterface("I"+ t.Name) })
+                .Where(t => t.DefaultInterface!=null)
+                .ForEach(t =>Register(t.DefaultInterface, t.Type));
         }
+
+        protected void CheckContainer()
+        {
+            if (Container == null) throw new NoContainerException();
+        }
+
+        protected abstract void InitializeContainer();
+        protected abstract void RegisterImplementationsOfIRegistration();
+        protected abstract void InvokeRegisterForImplementationsOfIRegistration();
+        protected abstract void ResetContainer();
 
         private void InitializeRegistrations()
         {
@@ -64,11 +67,6 @@ namespace Bootstrap.Extensions.Containers
             var invokerClass = genericClass.MakeGenericType(target,implementation);
             var invoker = Activator.CreateInstance(invokerClass,this);
             invoker.GetType().InvokeMember("Register", BindingFlags.Default | BindingFlags.InvokeMethod, null, invoker, null);
-        }
-
-        protected void CheckContainer()
-        {
-            if (Container == null) throw new NoContainerException();
         }
     }
 }
