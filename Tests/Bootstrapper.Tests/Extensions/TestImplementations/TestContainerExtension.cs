@@ -9,6 +9,7 @@ namespace Bootstrap.Tests.Extensions.TestImplementations
     {
         public bool RegistrationsRegistered { get; set; }
         public bool RegistrationsInvoked { get; set; }
+        public bool Reseted { get; set; }
         public Dictionary<Type, Type> Registrations { get; set; }
 
         public TestContainerExtension(IRegistrationHelper registrationHelper): base(registrationHelper)
@@ -28,7 +29,7 @@ namespace Bootstrap.Tests.Extensions.TestImplementations
         public override void Register<TTarget>(TTarget implementation) {}
         public void DoAutoRegister() {AutoRegister();}
 
-        protected override void ResetContainer() {Container = null;}
+        protected override void ResetContainer() {Reseted=true;}
         protected override void InitializeContainer() { Container = new object();  }
         protected override void RegisterImplementationsOfIRegistration() {RegistrationsRegistered = true;}
         protected override void InvokeRegisterForImplementationsOfIRegistration(){RegistrationsInvoked = true;}

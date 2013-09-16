@@ -3,7 +3,6 @@ using System.Linq;
 using System.Reflection;
 using Bootstrap.Tests.Adapters.Components;
 using Bootstrap.Tests.Other;
-using CommonServiceLocator.StructureMapAdapter;
 using CommonServiceLocator.StructureMapAdapter.Unofficial;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

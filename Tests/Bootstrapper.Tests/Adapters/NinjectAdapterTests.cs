@@ -2,7 +2,6 @@
 using System.Linq;
 using Bootstrap.Tests.Adapters.Components;
 using Bootstrap.Tests.Other;
-using CommonServiceLocator.NinjectAdapter;
 using CommonServiceLocator.NinjectAdapter.Unofficial;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
