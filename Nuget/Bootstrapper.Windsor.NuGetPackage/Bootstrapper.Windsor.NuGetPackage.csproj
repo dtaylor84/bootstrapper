@@ -40,6 +40,9 @@
     <Reference Include="Bootstrapper.WindsorExtension">
       <HintPath>..\..\Extensions\Bootstrapper.Windsor\bin\Release\Bootstrapper.WindsorExtension.dll</HintPath>
     </Reference>
+    <Reference Include="Castle.Core">
+      <HintPath>..\..\packages\Castle.Core.3.2.2\lib\net40-client\Castle.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Castle.Facilities.FactorySupport">
       <HintPath>..\..\packages\Castle.FactorySupportFacility.3.2.0\lib\net40\Castle.Facilities.FactorySupport.dll</HintPath>
       <Private>False</Private>
