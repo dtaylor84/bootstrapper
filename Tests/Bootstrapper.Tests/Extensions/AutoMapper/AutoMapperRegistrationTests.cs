@@ -18,6 +18,7 @@ namespace Bootstrap.Tests.Extensions.AutoMapper
             //Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IBootstrapperRegistration));
+            Assert.IsInstanceOfType(result, typeof(Profile));
             Assert.IsInstanceOfType(result, typeof(AutoMapperRegistration));
         }
 
