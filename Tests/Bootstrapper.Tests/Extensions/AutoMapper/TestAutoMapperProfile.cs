@@ -7,7 +7,7 @@ namespace Bootstrap.Tests.Extensions.AutoMapper
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<ITestInterface, TestImplementation>();
+            CreateMap<ITestInterface, TestImplementation>();
         }
     }
 }

@@ -3,7 +3,7 @@ using Bootstrap.Extensions.Containers;
 
 namespace Bootstrap.AutoMapper
 {
-    public class AutoMapperRegistration: IBootstrapperRegistration
+    public class AutoMapperRegistration: Profile, IBootstrapperRegistration
     {
         public void Register(IBootstrapperContainerExtension containerExtension)
         {

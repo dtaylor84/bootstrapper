@@ -71,9 +71,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\CommonServiceLocator.SimpleInjectorAdapter.2.3.0\lib\net40-client\CommonServiceLocator.SimpleInjectorAdapter.dll</HintPath>
     </Reference>
-    <Reference Include="FakeItEasy, Version=1.13.0.0, Culture=neutral, PublicKeyToken=eff28e2146d5fd2c, processorArchitecture=MSIL">
+    <Reference Include="FakeItEasy, Version=1.15.0.0, Culture=neutral, PublicKeyToken=eff28e2146d5fd2c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\FakeItEasy.1.13.0\lib\net40\FakeItEasy.dll</HintPath>
+      <HintPath>..\..\packages\FakeItEasy.1.15.0\lib\net40\FakeItEasy.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -178,6 +178,7 @@
     <Compile Include="Extensions\Containers\SimpleInjector\SimpleInjectoOptionsTests.cs" />
     <Compile Include="Extensions\Containers\StructureMap\TestStructureMapRegistry.cs" />
     <Compile Include="Extensions\Containers\StructureMap\StructureMapOptionsTests.cs" />
+    <Compile Include="Extensions\Containers\TestClasses\Parent.cs" />
     <Compile Include="Extensions\Containers\Unity\UnityOptionsTests.cs" />
     <Compile Include="Extensions\Containers\Windsor\TestWindsorInstaller.cs" />
     <Compile Include="Extensions\Containers\Windsor\WindsorOptionTests.cs" />
