@@ -87,6 +87,12 @@
       <HintPath>..\..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\..\packages\mongocsharpdriver.1.8.3\lib\net35\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>..\..\packages\mongocsharpdriver.1.8.3\lib\net35\MongoDB.Driver.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Ninject.3.0.1.10\lib\net40\Ninject.dll</HintPath>
@@ -178,12 +184,15 @@
     <Compile Include="Extensions\Containers\SimpleInjector\SimpleInjectoOptionsTests.cs" />
     <Compile Include="Extensions\Containers\StructureMap\TestStructureMapRegistry.cs" />
     <Compile Include="Extensions\Containers\StructureMap\StructureMapOptionsTests.cs" />
-    <Compile Include="Extensions\Containers\TestClasses\Parent.cs" />
     <Compile Include="Extensions\Containers\Unity\UnityOptionsTests.cs" />
     <Compile Include="Extensions\Containers\Windsor\TestWindsorInstaller.cs" />
     <Compile Include="Extensions\Containers\Windsor\WindsorOptionTests.cs" />
     <Compile Include="Extensions\Locator\ServiceLocatorConvenienceExtensionsTests.cs" />
     <Compile Include="Extensions\Locator\ServiceLocatorExtensionTests.cs" />
+    <Compile Include="Extensions\MongoDB\MongoConvenienceExtensionsTests.cs" />
+    <Compile Include="Extensions\MongoDB\MongoExtensionTests.cs" />
+    <Compile Include="Extensions\MongoDB\MongoRegistrationTests.cs" />
+    <Compile Include="Extensions\MongoDB\TestMongoClassMap.cs" />
     <Compile Include="Extensions\TestImplementations\AbstractTestStartupTask.cs" />
     <Compile Include="Extensions\TestImplementations\AnotherTestImplementation.cs" />
     <Compile Include="Extensions\TestImplementations\ITestInterface.cs" />
@@ -210,6 +219,10 @@
     <ProjectReference Include="..\..\Extensions\Bootstrapper.AutoMapper\Bootstrapper.AutoMapper.csproj">
       <Project>{53821BFC-38ED-4663-811F-F21C346E8E68}</Project>
       <Name>Bootstrapper.AutoMapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Extensions\Bootstrapper.MongoDB\Bootstrapper.MongoDB.csproj">
+      <Project>{5a2aedad-3269-4803-ac25-e09d29b162bb}</Project>
+      <Name>Bootstrapper.MongoDB</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Extensions\Bootstrapper.ServiceLocator\Bootstrapper.ServiceLocator.csproj">
       <Project>{E6F0B913-1A8F-43EC-B2CB-E23EFBE7C1D9}</Project>
@@ -275,6 +288,9 @@
       <Link>AutoMapper.Net4.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Extensions\Containers\TestClasses\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
