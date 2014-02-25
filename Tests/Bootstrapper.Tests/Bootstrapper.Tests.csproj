@@ -43,20 +43,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Autofac">
       <HintPath>..\..\packages\Autofac.3.3.0\lib\net40\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="AutoMapper, Version=3.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="AutoMapper">
       <HintPath>..\..\packages\AutoMapper.3.1.1\lib\net40\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="AutoMapper.Net4, Version=3.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="AutoMapper.Net4">
       <HintPath>..\..\packages\AutoMapper.3.1.1\lib\net40\AutoMapper.Net4.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.Core, Version=3.2.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Castle.Core">
       <HintPath>..\..\packages\Castle.Core.3.2.2\lib\net40-client\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Facilities.FactorySupport, Version=3.2.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
@@ -67,28 +63,30 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Castle.Windsor.3.2.1\lib\net40\Castle.Windsor.dll</HintPath>
     </Reference>
-    <Reference Include="CommonServiceLocator.SimpleInjectorAdapter, Version=2.4.1.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="CommonServiceLocator.SimpleInjectorAdapter">
       <HintPath>..\..\packages\CommonServiceLocator.SimpleInjectorAdapter.2.4.1\lib\portable-net4+sl4+wp8+win8\CommonServiceLocator.SimpleInjectorAdapter.dll</HintPath>
     </Reference>
-    <Reference Include="FakeItEasy, Version=1.17.0.0, Culture=neutral, PublicKeyToken=eff28e2146d5fd2c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="FakeItEasy">
       <HintPath>..\..\packages\FakeItEasy.1.17.0\lib\net40\FakeItEasy.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\..\packages\CommonServiceLocator.1.2\lib\portable-windows8+net40+sl5+windowsphone8\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
       <HintPath>..\..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\..\packages\mongocsharpdriver.1.8.3\lib\net35\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>..\..\packages\mongocsharpdriver.1.8.3\lib\net35\MongoDB.Driver.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Ninject.3.0.1.10\lib\net40\Ninject.dll</HintPath>
@@ -96,8 +94,7 @@
     <Reference Include="Ninject.Extensions.Conventions">
       <HintPath>..\..\packages\Ninject.Extensions.Conventions.3.0.0.11\lib\net40\Ninject.Extensions.Conventions.dll</HintPath>
     </Reference>
-    <Reference Include="SimpleInjector, Version=2.4.1.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="SimpleInjector">
       <HintPath>..\..\packages\SimpleInjector.2.4.1\lib\net40-client\SimpleInjector.dll</HintPath>
     </Reference>
     <Reference Include="SimpleInjector.Diagnostics">
@@ -188,6 +185,10 @@
     <Compile Include="Extensions\Containers\Windsor\WindsorOptionTests.cs" />
     <Compile Include="Extensions\Locator\ServiceLocatorConvenienceExtensionsTests.cs" />
     <Compile Include="Extensions\Locator\ServiceLocatorExtensionTests.cs" />
+    <Compile Include="Extensions\MongoDB\MongoConvenienceExtensionsTests.cs" />
+    <Compile Include="Extensions\MongoDB\MongoExtensionTests.cs" />
+    <Compile Include="Extensions\MongoDB\MongoRegistrationTests.cs" />
+    <Compile Include="Extensions\MongoDB\TestMongoClassMap.cs" />
     <Compile Include="Extensions\TestImplementations\AbstractTestStartupTask.cs" />
     <Compile Include="Extensions\TestImplementations\AnotherTestImplementation.cs" />
     <Compile Include="Extensions\TestImplementations\ITestInterface.cs" />
@@ -214,6 +215,10 @@
     <ProjectReference Include="..\..\Extensions\Bootstrapper.AutoMapper\Bootstrapper.AutoMapper.csproj">
       <Project>{53821BFC-38ED-4663-811F-F21C346E8E68}</Project>
       <Name>Bootstrapper.AutoMapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Extensions\Bootstrapper.MongoDB\Bootstrapper.MongoDB.csproj">
+      <Project>{5a2aedad-3269-4803-ac25-e09d29b162bb}</Project>
+      <Name>Bootstrapper.MongoDB</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Extensions\Bootstrapper.ServiceLocator\Bootstrapper.ServiceLocator.csproj">
       <Project>{E6F0B913-1A8F-43EC-B2CB-E23EFBE7C1D9}</Project>
@@ -273,6 +278,9 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Extensions\Containers\TestClasses\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\..\packages\AutoMapper.3.1.1\lib\net40\AutoMapper.Net4.dll">
