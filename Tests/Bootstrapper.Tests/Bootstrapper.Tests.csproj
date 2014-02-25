@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0C4C0CFC-3E77-4FE4-81CA-618BEE9AAB96}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bootstrap.Tests</RootNamespace>
+    <AssemblyName>Bootstrapper.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Autofac.3.3.0\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=3.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\AutoMapper.3.1.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4, Version=3.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\AutoMapper.3.1.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core, Version=3.2.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Castle.Core.3.2.2\lib\net40-client\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Facilities.FactorySupport, Version=3.2.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Castle.FactorySupportFacility.3.2.0\lib\net40\Castle.Facilities.FactorySupport.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=3.2.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Castle.Windsor.3.2.1\lib\net40\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="CommonServiceLocator.SimpleInjectorAdapter, Version=2.4.1.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\CommonServiceLocator.SimpleInjectorAdapter.2.4.1\lib\portable-net4+sl4+wp8+win8\CommonServiceLocator.SimpleInjectorAdapter.dll</HintPath>
+    </Reference>
+    <Reference Include="FakeItEasy, Version=1.17.0.0, Culture=neutral, PublicKeyToken=eff28e2146d5fd2c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\FakeItEasy.1.17.0\lib\net40\FakeItEasy.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\CommonServiceLocator.1.2\lib\portable-windows8+net40+sl5+windowsphone8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Ninject.3.0.1.10\lib\net40\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Extensions.Conventions">
+      <HintPath>..\..\packages\Ninject.Extensions.Conventions.3.0.0.11\lib\net40\Ninject.Extensions.Conventions.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleInjector, Version=2.4.1.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\SimpleInjector.2.4.1\lib\net40-client\SimpleInjector.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleInjector.Diagnostics">
+      <HintPath>..\..\packages\SimpleInjector.2.4.1\lib\net40-client\SimpleInjector.Diagnostics.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=2.6.4.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\structuremap.2.6.4.1\lib\net40\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
+      <Visible>False</Visible>
+    </CodeAnalysisDependentAssemblyPaths>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Adapters\Components\AdvancedLogger.cs" />
+    <Compile Include="Adapters\Components\ILogger.cs" />
+    <Compile Include="Adapters\Components\SimpleLogger.cs" />
+    <Compile Include="Adapters\StructureMapAdapterTests.cs" />
+    <Compile Include="Adapters\NinjectAdapterTests.cs" />
+    <Compile Include="Adapters\AutofacAdapterTests.cs" />
+    <Compile Include="Adapters\ServiceLocatorAdapterTests.cs" />
+    <Compile Include="Adapters\WindsorAdapterTests.cs" />
+    <Compile Include="Core\ExcludedAssembliesTests.cs" />
+    <Compile Include="Core\Extensions\Containers\BootstrapperContainerExtensionOptionsTests.cs" />
+    <Compile Include="Core\Extensions\Containers\NoContainerExceptionTests.cs" />
+    <Compile Include="Core\Extensions\Containers\RegistrationInvokerTests.cs" />
+    <Compile Include="Core\Extensions\Containers\LoadedAssemblyProviderTests.cs" />
+    <Compile Include="Core\Extensions\Containers\ReferencedAssemblyProviderTests.cs" />
+    <Compile Include="Core\Extensions\StartupTasks\ExecutionLogEntryTests.cs" />
+    <Compile Include="Core\Extensions\StartupTasks\SequenceSpecialTests.cs" />
+    <Compile Include="Core\Extensions\StartupTasks\SequenceSpecificationTests.cs" />
+    <Compile Include="Core\Extensions\StartupTasks\TaskExecutionParametersTests.cs" />
+    <Compile Include="Core\Extensions\StartupTasks\StartupTasksOptionsTests.cs" />
+    <Compile Include="Core\Extensions\StartupTasks\TaskAlpha.cs" />
+    <Compile Include="Core\Extensions\StartupTasks\TaskAttributeTests.cs" />
+    <Compile Include="Core\Extensions\StartupTasks\TaskBeta.cs" />
+    <Compile Include="Core\Extensions\StartupTasks\TaskGamma.cs" />
+    <Compile Include="Core\Extensions\StartupTasks\TaskGroupTests.cs" />
+    <Compile Include="Core\Extensions\StartupTasks\TaskOmega.cs" />
+    <Compile Include="Core\IncludedAssembliesTests.cs" />
+    <Compile Include="Core\IncludedOnlyAssembliesTests.cs" />
+    <Compile Include="Core\AssemblySetOptionsTests.cs" />
+    <Compile Include="Core\BootstrapperOptionsTests.cs" />
+    <Compile Include="Core\UtilsTests.cs" />
+    <Compile Include="Extensions\AutoMapper\AutoMapperConvenienceExtensionsTests.cs" />
+    <Compile Include="Core\Extensions\Containers\BootstrapperContainerExtensionTests.cs" />
+    <Compile Include="Core\Extensions\StartupTasks\StartupTasksConvenienceExtensionsTests.cs" />
+    <Compile Include="Core\BootstrapperTests.cs" />
+    <Compile Include="Core\Extensions\BootstrapperExtensionsTests.cs" />
+    <Compile Include="Core\Extensions\Containers\RegistrationHelperTests.cs" />
+    <Compile Include="Core\Extensions\StartupTasks\StartupTasksExtensionTests.cs" />
+    <Compile Include="Core\Extensions\StartupTasks\StartupTasksRegistrationTests.cs" />
+    <Compile Include="Extensions\AutoMapper\AutoMapperExtensionTests.cs" />
+    <Compile Include="Extensions\AutoMapper\AutoMapperRegistrationTests.cs" />
+    <Compile Include="Extensions\AutoMapper\TestAutoMapperMapCreator.cs" />
+    <Compile Include="Extensions\AutoMapper\TestAutoMapperProfile.cs" />
+    <Compile Include="Extensions\Containers\Autofac\AutofacConvenienceExtensionsTests.cs" />
+    <Compile Include="Extensions\Containers\Autofac\AutofacExtensionTests.cs" />
+    <Compile Include="Extensions\Containers\Autofac\TestAutofacModule.cs" />
+    <Compile Include="Extensions\Containers\Autofac\AutofacOptionsTests.cs" />
+    <Compile Include="Extensions\Containers\Ninject\NinjectConvenienceExtensionsTests.cs" />
+    <Compile Include="Extensions\Containers\Ninject\NinjectExtensionTests.cs" />
+    <Compile Include="Extensions\Containers\Autofac\TestAutofacRegistration.cs" />
+    <Compile Include="Extensions\Containers\Ninject\TestNinjectModule.cs" />
+    <Compile Include="Extensions\Containers\Ninject\TestNinjectRegistration.cs" />
+    <Compile Include="Extensions\Containers\Ninject\NinjectOptionsTests.cs" />
+    <Compile Include="Extensions\Containers\SimpleInjector\SimpleInjectorExtensionTests.cs" />
+    <Compile Include="Extensions\Containers\SimpleInjector\TestSimpleInjectorRegistration.cs" />
+    <Compile Include="Extensions\Containers\SimpleInjector\SimpleInjectorConvenienceExtensionsTests.cs" />
+    <Compile Include="Extensions\Containers\SimpleInjector\SimpleInjectoOptionsTests.cs" />
+    <Compile Include="Extensions\Containers\StructureMap\TestStructureMapRegistry.cs" />
+    <Compile Include="Extensions\Containers\StructureMap\StructureMapOptionsTests.cs" />
+    <Compile Include="Extensions\Containers\Unity\UnityOptionsTests.cs" />
+    <Compile Include="Extensions\Containers\Windsor\TestWindsorInstaller.cs" />
+    <Compile Include="Extensions\Containers\Windsor\WindsorOptionTests.cs" />
+    <Compile Include="Extensions\Locator\ServiceLocatorConvenienceExtensionsTests.cs" />
+    <Compile Include="Extensions\Locator\ServiceLocatorExtensionTests.cs" />
+    <Compile Include="Extensions\TestImplementations\AbstractTestStartupTask.cs" />
+    <Compile Include="Extensions\TestImplementations\AnotherTestImplementation.cs" />
+    <Compile Include="Extensions\TestImplementations\ITestInterface.cs" />
+    <Compile Include="Extensions\TestImplementations\TestImplementation.cs" />
+    <Compile Include="Extensions\TestImplementations\TestMapCreator.cs" />
+    <Compile Include="Extensions\TestImplementations\InternalTestStartupTask.cs" />
+    <Compile Include="Extensions\Containers\StructureMap\StructureMapConvenienceExtensionsTests.cs" />
+    <Compile Include="Extensions\Containers\StructureMap\StructureMapExtensionTests.cs" />
+    <Compile Include="Extensions\Containers\StructureMap\TestStructureMapRegistration.cs" />
+    <Compile Include="Extensions\TestImplementations\IRegisteredByConvention.cs" />
+    <Compile Include="Extensions\TestImplementations\RegisteredByConvention.cs" />
+    <Compile Include="Extensions\TestImplementations\TestContainerExtension.cs" />
+    <Compile Include="Extensions\TestImplementations\TestStartupTask.cs" />
+    <Compile Include="Extensions\Containers\Unity\UnityConvenienceExtensionsTests.cs" />
+    <Compile Include="Extensions\Containers\Unity\TestUnityRegistration.cs" />
+    <Compile Include="Extensions\Containers\Unity\UnityExtensionTests.cs" />
+    <Compile Include="Extensions\Containers\Windsor\WindsorConvenienceExtensionsTests.cs" />
+    <Compile Include="Extensions\Containers\Windsor\TestWindsorRegistration.cs" />
+    <Compile Include="Extensions\Containers\Windsor\WindsorExtensionTests.cs" />
+    <Compile Include="Other\ExceptionAssert.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Extensions\Bootstrapper.AutoMapper\Bootstrapper.AutoMapper.csproj">
+      <Project>{53821BFC-38ED-4663-811F-F21C346E8E68}</Project>
+      <Name>Bootstrapper.AutoMapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Extensions\Bootstrapper.ServiceLocator\Bootstrapper.ServiceLocator.csproj">
+      <Project>{E6F0B913-1A8F-43EC-B2CB-E23EFBE7C1D9}</Project>
+      <Name>Bootstrapper.ServiceLocator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Bootstrapper\Bootstrapper.csproj">
+      <Project>{451C9B3F-D315-48EA-84EA-45C45E513B45}</Project>
+      <Name>Bootstrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Extensions\Bootstrapper.Autofac\Bootstrapper.Autofac.csproj">
+      <Project>{C2FCA69E-EC5A-49CC-9F75-9191DE83C9A4}</Project>
+      <Name>Bootstrapper.Autofac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Extensions\Bootstrapper.Ninject\Bootstrapper.Ninject.csproj">
+      <Project>{5341CC1B-EABC-4076-B5E2-DFF05AED8A83}</Project>
+      <Name>Bootstrapper.Ninject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Extensions\Bootstrapper.SimpleInjector\Bootstrapper.SimpleInjector.csproj">
+      <Project>{F6449AB4-379B-4A68-8E91-36F6A9FA46CE}</Project>
+      <Name>Bootstrapper.SimpleInjector</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Extensions\Bootstrapper.StructureMap\Bootstrapper.StructureMap.csproj">
+      <Project>{B4E4CBAC-28F3-4649-BFEC-698C0FD8357A}</Project>
+      <Name>Bootstrapper.StructureMap</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Extensions\Bootstrapper.Unity\Bootstrapper.Unity.csproj">
+      <Project>{1704683F-3495-4B2B-9BA4-9931D8FB064F}</Project>
+      <Name>Bootstrapper.Unity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Extensions\Bootstrapper.Windsor\Bootstrapper.Windsor.csproj">
+      <Project>{AD16249F-B34D-4DED-8801-7BFC9AFD9B2A}</Project>
+      <Name>Bootstrapper.Windsor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ServiceLocatorAdapters\CommonServiceLocator.AutofacAdapter.UnOfficial\CommonServiceLocator.AutofacAdapter.Unofficial.csproj">
+      <Project>{b5945378-4a44-4ecd-834f-fedba1daee60}</Project>
+      <Name>CommonServiceLocator.AutofacAdapter.Unofficial</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ServiceLocatorAdapters\CommonServiceLocator.NinjectAdapter.UnOfficial\CommonServiceLocator.NinjectAdapter.Unofficial.csproj">
+      <Project>{69a03518-a28f-4d13-9b45-85778a9eeb0c}</Project>
+      <Name>CommonServiceLocator.NinjectAdapter.Unofficial</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ServiceLocatorAdapters\CommonServiceLocator.StructureMapAdapter.UnOfficial\CommonServiceLocator.StructureMapAdapter.Unofficial.csproj">
+      <Project>{65410b76-bfc2-4aa7-b383-2929583d0121}</Project>
+      <Name>CommonServiceLocator.StructureMapAdapter.Unofficial</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ServiceLocatorAdapters\CommonServiceLocator.WindsorAdapter.Unofficial\CommonServiceLocator.WindsorAdapter.Unofficial.csproj">
+      <Project>{8ec4d673-ef55-49c2-8757-2dcefa59b2a6}</Project>
+      <Name>CommonServiceLocator.WindsorAdapter.Unofficial</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bootstrapper.Tests.ExtensionForTest\Bootstrapper.Tests.ExtensionForTest.csproj">
+      <Project>{E0531F4E-3D33-42D4-AE64-13D015D2192F}</Project>
+      <Name>Bootstrapper.Tests.ExtensionForTest</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\packages\AutoMapper.3.1.1\lib\net40\AutoMapper.Net4.dll">
+      <Link>AutoMapper.Net4.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

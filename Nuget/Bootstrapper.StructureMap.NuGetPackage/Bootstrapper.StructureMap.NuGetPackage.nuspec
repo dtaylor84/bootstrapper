@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <id>Bootstrapper.StructureMap</id>
+    <version>2.0.3.10</version>
+    <title>Bootstrapper.StructureMap</title>
+    <authors>Luis Bocaletti</authors>
+    <owners>Luis Bocaletti</owners>
+    <projectUrl>http://bootstrapper.codeplex.com</projectUrl>
+    <licenseUrl>http://bootstrapper.codeplex.com/license</licenseUrl>
+	<iconUrl>http://i3.codeplex.com/Download?ProjectName=bootstrapper&amp;DownloadId=289179</iconUrl>
+    <summary>StructureMap extension for Bootstrapper</summary>
+    <description>StructureMap extension for Bootstrapper</description>
+    <language>en-us</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <dependencies>
+        <dependency id="Bootstrapper" version="2.0.3.9" />
+        <dependency id="CommonServiceLocator" version="1.2" />
+        <dependency id="CommonServiceLocator.StructureMapAdapter.Unofficial" version="2.6.4.3" />
+        <dependency id="structuremap" version="2.6.4.1" />
+        </dependencies>
+  </metadata>
+  <files>
+      <file src="lib\**\*.dll" target="lib" />
+      <file src="lib\**\*.pdb" target="lib" />
+	  <file src="tools\**\*.*" target="tools" />
+	  <file src="content\**\*.*" target="content" exclude="content\Content.Readme.txt" />
+  </files>
+</package>

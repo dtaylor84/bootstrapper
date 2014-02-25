@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <id>Bootstrapper.Ninject</id>
+    <version>2.0.3.10</version>
+    <title>Bootstrapper.Ninject</title>
+    <authors>Luis Bocaletti</authors>
+    <owners>Luis Bocaletti</owners>
+    <licenseUrl>http://bootstrapper.codeplex.com/license</licenseUrl>
+    <projectUrl>http://bootstrapper.codeplex.com</projectUrl>
+    <iconUrl>http://i3.codeplex.com/Download?ProjectName=bootstrapper&amp;DownloadId=289179</iconUrl>
+    <summary>Ninject extension for Bootstrapper.</summary>
+    <description>Ninject extension for Bootstrapper</description>
+    <language>en-us</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <dependencies>
+        <dependency id="Bootstrapper" version="2.0.3.9" />
+        <dependency id="CommonServiceLocator" version="1.2" />
+        <dependency id="CommonServiceLocator.NinjectAdapter.Unofficial" version="3.0.1.12" />
+        <dependency id="Ninject" version="3.0.1.10" />
+        <dependency id="Ninject.Extensions.Conventions" version="3.0.0.11" />
+        </dependencies>
+  </metadata>
+  <files>
+      <file src="lib\**\*.dll" target="lib" />
+      <file src="lib\**\*.pdb" target="lib" />
+	  <file src="tools\**\*.*" target="tools" />
+	  <file src="content\**\*.*" target="content" exclude="content\Content.Readme.txt" />
+  </files>
+</package>
