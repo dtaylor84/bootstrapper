@@ -2,7 +2,7 @@
 <package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <id>CommonServiceLocator.WindsorAdapter.Unofficial</id>
-    <version>3.2.1.0</version>
+    <version>3.2.1.4</version>
     <title>CommonServiceLocator.WindsorAdapter.Unofficial</title>
     <authors>Luis Bocaletti</authors>
 	<iconUrl>http://docs.castleproject.org/GetFile.aspx?File=/windsorLogo100px.png</iconUrl>
@@ -11,10 +11,9 @@
     <language>en-us</language>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
-        <dependency id="Castle.Core" version="3.2.0" />
+        <dependency id="Castle.Core" version="3.2.2" />
         <dependency id="Castle.Windsor" version="3.2.1" />
-        <dependency id="CommonServiceLocator" version="1.0" />
-        <dependency id="CommonServiceLocator.WindsorAdapter.Unofficial" version="3.2.1.0" />
+        <dependency id="CommonServiceLocator" version="1.2" />
         </dependencies>
   </metadata>
   <files>

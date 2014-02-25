@@ -37,19 +37,8 @@
       <HintPath>..\..\packages\Bootstrapper.2.0.3.9\lib\Net40\Bootstrapper.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Bootstrapper.StructureMap">
-      <HintPath>..\..\Extensions\Bootstrapper.StructureMap\bin\Release\Bootstrapper.StructureMap.dll</HintPath>
-    </Reference>
     <Reference Include="CommonServiceLocator.StructureMapAdapter.Unofficial">
-      <HintPath>..\..\packages\CommonServiceLocator.StructureMapAdapter.Unofficial.2.6.4.1\lib\Net40\CommonServiceLocator.StructureMapAdapter.Unofficial.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation">
-      <HintPath>..\..\packages\CommonServiceLocator.StructureMapAdapter.Unofficial.2.6.4.1\lib\Net40\Microsoft.Practices.ServiceLocation.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="StructureMap">
-      <HintPath>..\..\packages\CommonServiceLocator.StructureMapAdapter.Unofficial.2.6.4.1\lib\Net40\StructureMap.dll</HintPath>
+      <HintPath>..\..\packages\CommonServiceLocator.StructureMapAdapter.Unofficial.2.6.4.3\lib\Net40\CommonServiceLocator.StructureMapAdapter.Unofficial.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -62,7 +51,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="_MSBuild\NuGetPackageAndPublish.targets" />
     <None Include="Bootstrapper.StructureMap.NuGetPackage.nuspec">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -81,11 +69,19 @@
     <None Include="Package\tools\init.ps1" />
     <None Include="Package\tools\install.ps1" />
     <None Include="Package\tools\uninstall.ps1" />
+    <None Include="_MSBuild\NuGetPackageAndPublish.targets" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Extensions\Bootstrapper.StructureMap\Bootstrapper.StructureMap.csproj">
+      <Project>{b4e4cbac-28f3-4649-bfec-698c0fd8357a}</Project>
+      <Name>Bootstrapper.StructureMap</Name>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <Import Project="$(ProjectDir)\_MSBuild\NuGetPackageAndPublish.targets" />

@@ -37,7 +37,7 @@
       <HintPath>..\..\ServiceLocatorAdapters\CommonServiceLocator.NinjectAdapter.UnOfficial\bin\Release\CommonServiceLocator.NinjectAdapter.Unofficial.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
-      <HintPath>..\..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <HintPath>..\..\packages\CommonServiceLocator.1.2\lib\portable-windows8+net40+sl5+windowsphone8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Ninject">
@@ -60,7 +60,6 @@
     <None Include="Package\tools\init.ps1" />
     <None Include="Package\tools\install.ps1" />
     <None Include="Package\tools\uninstall.ps1" />
-    <None Include="_MSBuild\NuGetPackageAndPublish.targets" />
     <None Include="CommonServiceLocator.NinjectAdapter.Unofficial.NuGetPackage.nuspec">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -73,6 +72,7 @@
     <None Include="Package\content\Content.Readme.txt" />
     <None Include="Package\lib\Net40\Net40.Readme.txt" />
     <None Include="Package\lib\SL40\SL40.Readme.txt" />
+    <None Include="_MSBuild\NuGetPackageAndPublish.targets" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

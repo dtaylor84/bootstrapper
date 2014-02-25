@@ -2,7 +2,7 @@
 <package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <id>Bootstrapper.Autofac</id>
-    <version>2.0.3.9</version>
+    <version>2.0.3.10</version>
     <title>Bootstrapper.Autofac</title>
     <authors>Karan Misra,Luis Bocaletti</authors>
     <owners>Luis Bocaletti</owners>
@@ -14,10 +14,10 @@
     <language>en-us</language>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
-        <dependency id="Autofac" version="3.1.1" />
+        <dependency id="Autofac" version="3.3.0" />
         <dependency id="Bootstrapper" version="2.0.3.9" />
-        <dependency id="CommonServiceLocator" version="1.0" />
-        <dependency id="CommonServiceLocator.AutofacAdapter.Unofficial" version="3.1.1.0" />
+        <dependency id="CommonServiceLocator" version="1.2" />
+        <dependency id="CommonServiceLocator.AutofacAdapter.Unofficial" version="3.3.0.1" />
         </dependencies>
   </metadata>
   <files>

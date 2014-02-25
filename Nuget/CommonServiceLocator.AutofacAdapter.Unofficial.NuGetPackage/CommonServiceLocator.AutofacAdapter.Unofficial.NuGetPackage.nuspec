@@ -2,7 +2,7 @@
 <package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <id>CommonServiceLocator.AutofacAdapter.Unofficial</id>
-    <version>3.1.1.0</version>
+    <version>3.3.0.1</version>
     <title>CommonServiceLocator.AutofacAdapter.Unofficial</title>
     <authors>Luis Bocaletti</authors>
 	<iconUrl>http://code.google.com/p/autofac/logo</iconUrl>
@@ -11,8 +11,8 @@
     <language>en-us</language>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
-        <dependency id="Autofac" version="3.1.1" />
-        <dependency id="CommonServiceLocator" version="1.0" />
+        <dependency id="Autofac" version="3.3.0" />
+        <dependency id="CommonServiceLocator" version="1.2" />
         </dependencies>
   </metadata>
   <files>
