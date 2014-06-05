@@ -305,7 +305,9 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
             //Assert
             A.CallTo(() => container.GetAllInstances<object>()).MustHaveHappened();
             Assert.IsNotNull(result);
-            Assert.AreSame(instances, result);
+            Assert.AreEqual(instances.Count, result.Count);
+            Assert.AreSame(instances[0], result[0]);
+            Assert.AreSame(instances[1], result[1]);
         }
 
         [TestMethod]

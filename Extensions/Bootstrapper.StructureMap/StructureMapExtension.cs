@@ -72,7 +72,7 @@ namespace Bootstrap.StructureMap
         public override IList<T> ResolveAll<T>()
         {
             CheckContainer();
-            return container.GetAllInstances<T>();
+            return container.GetAllInstances<T>().ToList();
         }
 
         public override void Register<TTarget, TImplementation>()

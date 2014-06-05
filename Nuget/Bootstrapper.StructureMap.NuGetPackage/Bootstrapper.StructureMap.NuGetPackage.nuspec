@@ -17,7 +17,7 @@
         <dependency id="Bootstrapper" version="2.0.3.9" />
         <dependency id="CommonServiceLocator" version="1.2" />
         <dependency id="CommonServiceLocator.StructureMapAdapter.Unofficial" version="2.6.4.3" />
-        <dependency id="structuremap" version="2.6.4.1" />
+        <dependency id="structuremap" version="3.0.3.116" />
         </dependencies>
   </metadata>
   <files>
