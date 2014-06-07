@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Bootstrap.Extensions.Containers;
 using Castle.Facilities.FactorySupport;
+using Castle.Facilities.TypedFactory;
 using Castle.MicroKernel;
 using Castle.Windsor;
 using Castle.MicroKernel.Registration;
@@ -81,6 +83,14 @@ namespace Bootstrap.Windsor
             return container.ResolveAll<T>();
         }
 
+        public override void RegisterAll(Type target)
+        {
+            CheckContainer();
+            Registrator.GetAssemblies()
+                .SelectMany(a => Registrator.GetTypesImplementing(a, target))
+                .ForEach(t => container.Register(Component.For(target).ImplementedBy(t)));
+        }
+
         public override void Register<TTarget, TImplementation>()
         {
             CheckContainer();
@@ -101,7 +111,7 @@ namespace Bootstrap.Windsor
         public override void RegisterAll<TTarget>()
         {
             CheckContainer();
-            Registrator.GetAssemblies().ToList().ForEach(
+            Registrator.GetAssemblies().ForEach(
                 a => container.Register(Classes.FromAssembly(a).BasedOn<TTarget>().WithService.Base()));
         }
 

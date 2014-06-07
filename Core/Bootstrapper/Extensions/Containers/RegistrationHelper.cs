@@ -11,7 +11,23 @@ namespace Bootstrap.Extensions.Containers
 
         public RegistrationHelper(IBootstrapperAssemblyProvider assemblyProvider)
         {
-            this.AssemblyProvider = assemblyProvider;
+            AssemblyProvider = assemblyProvider;
+        }
+
+        public IEnumerable<Type> GetTypesImplementing(Type t)
+        {
+            return 
+                GetTypesFromAssemblyImplementing(Assembly.GetCallingAssembly(), t);
+        }
+
+        public IEnumerable<Type> GetTypesImplementing(string assemblyName, Type t)
+        {
+            return GetTypesFromAssemblyImplementing(Assembly.Load(assemblyName), t);
+        }
+
+        public IEnumerable<Type> GetTypesImplementing(Assembly assembly, Type t)
+        {
+            return GetTypesFromAssemblyImplementing(assembly, t);
         }
 
         public IEnumerable<Type> GetTypesImplementing<T>()
@@ -26,9 +42,7 @@ namespace Bootstrap.Extensions.Containers
 
         public IEnumerable<Type> GetTypesImplementing<T>(Assembly assembly)
         {
-            return assembly.GetExportedTypes().Where(t => t.IsPublic &&
-                                                          !t.IsAbstract &&
-                                                          typeof (T).IsAssignableFrom(t));
+            return GetTypesFromAssemblyImplementing(assembly, typeof (T));
         }
 
         public IEnumerable<Assembly> GetAssemblies()
@@ -39,12 +53,6 @@ namespace Bootstrap.Extensions.Containers
                         .Where(a => !a.IsDynamic && IsNotExcluded(a));
         }
 
-        private static bool IsNotExcluded(Assembly assembly)
-        {
-            return  Bootstrapper.Including.Assemblies.Any(e => assembly.FullName == e.FullName) || 
-                    !Bootstrapper.Excluding.Assemblies.Any(e => assembly.FullName.StartsWith(e));
-        }
-
         public List<T> GetInstancesOfTypesImplementing<T>()
         {
             var instances = new List<T>();
@@ -53,5 +61,33 @@ namespace Bootstrap.Extensions.Containers
                     .ForEach(t => instances.Add((T)Activator.CreateInstance(t))));
             return instances;
         }
+
+        private static bool IsNotExcluded(Assembly assembly)
+        {
+            return  Bootstrapper.Including.Assemblies.Any(e => assembly.FullName == e.FullName) || 
+                    !Bootstrapper.Excluding.Assemblies.Any(e => assembly.FullName.StartsWith(e));
+        }
+
+        private static IEnumerable<Type> GetTypesFromAssemblyImplementing(Assembly assembly, Type type)
+        {
+            return assembly.GetExportedTypes().Where(t => t.IsPublic &&
+                                                          !t.IsAbstract &&
+                                                          IsAssignableTo(t, type));
+        }
+
+        private static bool IsAssignableTo(Type aType, Type anotherType)
+        {
+            return anotherType.IsGenericType
+                ? IsAssignableToGenericType(aType, anotherType)
+                : anotherType.IsAssignableFrom(aType);
+        }
+
+        private static bool IsAssignableToGenericType(Type aType, Type genericType)
+        {
+            return aType.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == genericType)
+                   || (aType.IsGenericType && aType.GetGenericTypeDefinition() == genericType)
+                   || (aType.BaseType != null && IsAssignableToGenericType(aType.BaseType, genericType));
+        }
+        
     }
 }
