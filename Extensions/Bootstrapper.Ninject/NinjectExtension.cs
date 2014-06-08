@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Bootstrap.Extensions.Containers;
 using CommonServiceLocator.NinjectAdapter.Unofficial;
@@ -81,6 +82,14 @@ namespace Bootstrap.Ninject
         {
             CheckContainer();
             return container.GetAll<T>().ToList();
+        }
+
+        public override void RegisterAll(Type target)
+        {
+            CheckContainer();
+            Registrator.GetAssemblies().ToList().ForEach(
+                a => Registrator.GetTypesImplementing(a, target).ToList().ForEach(
+                    t => container.Bind(target).To(t)));
         }
 
         public override void Register<TTarget, TImplementation>()

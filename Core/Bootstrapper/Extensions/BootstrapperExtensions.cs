@@ -7,7 +7,7 @@ namespace Bootstrap.Extensions
     {
         private readonly List<IBootstrapperExtension> extensions = new List<IBootstrapperExtension>();
 
-        public BootstrapperExtensions And { get { return this; } }
+        public new BootstrapperExtensions And { get { return this; } }
         public IList<IBootstrapperExtension> GetExtensions() {return extensions.AsReadOnly();}
         public void ClearExtensions() {extensions.Clear();}
 

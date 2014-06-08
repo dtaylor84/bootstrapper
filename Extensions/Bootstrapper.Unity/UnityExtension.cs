@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Bootstrap.Extensions.Containers;
 using Microsoft.Practices.ServiceLocation;
@@ -67,6 +68,14 @@ namespace Bootstrap.Unity
             return container.ResolveAll<T>().ToList();
         }
 
+        public override void RegisterAll(Type target)
+        {
+            CheckContainer();
+            Registrator.GetAssemblies().ForEach(
+                a => Registrator.GetTypesImplementing(a, target).ForEach(
+                    t => container.RegisterType(target, t, t.FullName)));
+        }
+
         public override void Register<TTarget, TImplementation>()
         {
             CheckContainer();
@@ -82,8 +91,8 @@ namespace Bootstrap.Unity
         public override void RegisterAll<TTarget>()
         {
             CheckContainer();
-            Registrator.GetAssemblies().ToList().ForEach(
-                a => Registrator.GetTypesImplementing<TTarget>(a).ToList().ForEach(
+            Registrator.GetAssemblies().ForEach(
+                a => Registrator.GetTypesImplementing<TTarget>(a).ForEach(
                     t => container.RegisterType(typeof (TTarget), t, t.FullName)));
         }
 

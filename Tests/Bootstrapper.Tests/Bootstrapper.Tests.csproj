@@ -96,6 +96,9 @@
     <Reference Include="Ninject.Extensions.Conventions">
       <HintPath>..\..\packages\Ninject.Extensions.Conventions.3.0.0.11\lib\net40\Ninject.Extensions.Conventions.dll</HintPath>
     </Reference>
+    <Reference Include="Shouldly">
+      <HintPath>..\..\packages\Shouldly.2.1.1\lib\net40\Shouldly.dll</HintPath>
+    </Reference>
     <Reference Include="SimpleInjector">
       <HintPath>..\..\packages\SimpleInjector.2.4.1\lib\net40-client\SimpleInjector.dll</HintPath>
     </Reference>
@@ -196,6 +199,8 @@
     <Compile Include="Extensions\MongoDB\TestMongoClassMap.cs" />
     <Compile Include="Extensions\TestImplementations\AbstractTestStartupTask.cs" />
     <Compile Include="Extensions\TestImplementations\AnotherTestImplementation.cs" />
+    <Compile Include="Extensions\TestImplementations\GenericTest.cs" />
+    <Compile Include="Extensions\TestImplementations\IGenericTest.cs" />
     <Compile Include="Extensions\TestImplementations\ITestInterface.cs" />
     <Compile Include="Extensions\TestImplementations\TestImplementation.cs" />
     <Compile Include="Extensions\TestImplementations\TestMapCreator.cs" />

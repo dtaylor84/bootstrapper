@@ -9,6 +9,7 @@ using Bootstrap.Tests.Extensions.TestImplementations;
 using Bootstrap.Tests.Other;
 using CommonServiceLocator.StructureMapAdapter.Unofficial;
 using FakeItEasy;
+using Shouldly;
 using StructureMap;
 using StructureMap.Configuration.DSL;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -311,6 +312,29 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         }
 
         [TestMethod]
+        public void RegisterAll_WhenInvokedWithNonGenericTargetType_ShouldRegisterType()
+        {
+            //Arrange
+            var container = new Container();
+            var containerExtension = new StructureMapExtension(registrationHelper, options);
+            containerExtension.InitializeContainer(container);
+            var thisAssembly = Assembly.GetAssembly(typeof (GenericTest<>));
+            A.CallTo(() => registrationHelper.GetAssemblies()).Returns(new[] { thisAssembly });
+            A.CallTo(() => registrationHelper.GetTypesImplementing(thisAssembly, typeof (IGenericTest<>)))
+                .Returns(new[] {typeof (GenericTest<>)});
+
+
+            //Act
+            containerExtension.RegisterAll(typeof(IGenericTest<>));
+            var result1 = container.GetInstance<IGenericTest<object>>();
+            var result2 = container.GetInstance<IGenericTest<string[]>>();
+
+            //Assert
+            result1.ShouldBeOfType<GenericTest<object>>();
+            result2.ShouldBeOfType<GenericTest<string[]>>();
+        }
+
+        [TestMethod]
         public void ShouldRegisterWithTargetAndImplementationType()
         {
             //Arrange
@@ -443,6 +467,19 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
         }
 
         [TestMethod]
+        public void Register_WhenInvokedWithNonGenericTargetAndContainerIsNotInitialized_ShouldThrowException()
+        {
+            //Arrange
+            var containerExtension = new StructureMapExtension(registrationHelper, options);
+
+            //Act
+            var result = ExceptionAssert.Throws<NoContainerException>(() => containerExtension.RegisterAll(typeof(IGenericTest<>)));
+
+            //Assert
+            Assert.AreEqual(NoContainerException.DefaultMessage, result.Message);
+        }
+
+        [TestMethod]
         public void ShouldThrowNoContainerExceptionWhenRegisteringWithTargetAndImplementationTypeBeforeInitializingTheContainer()
         {
             //Arrange
@@ -502,6 +539,27 @@ namespace Bootstrap.Tests.Extensions.Containers.StructureMap
 
             //Assert
             Assert.AreSame(container, containerExtension.Container);
+        }
+
+        [TestMethod]
+        public void Run_WhenInvokedAndAutoMapperExtensionIsLoaded_ShouldRegisterMapperAsSingelton()
+        {
+            //Arrange
+            var assembly = Assembly.GetAssembly(typeof(AutoMapperRegistration));
+            A.CallTo(() => registrationHelper.GetAssemblies())
+                .Returns(new List<Assembly> { assembly });
+            A.CallTo(() => registrationHelper.GetTypesImplementing<IBootstrapperRegistration>(assembly))
+                .Returns(new List<Type> { typeof(AutoMapperRegistration) });
+            var containerExtension = new StructureMapExtension(registrationHelper, options);
+
+            //Act
+            containerExtension.Run();
+
+            //Assert
+            Assert.AreSame(Mapper.Configuration, containerExtension.Resolve<IProfileExpression>());
+            Assert.AreSame(Mapper.Engine, containerExtension.Resolve<IMappingEngine>());
+            Assert.AreSame(containerExtension.Resolve<IProfileExpression>(), containerExtension.Resolve<IProfileExpression>());
+            Assert.AreSame(containerExtension.Resolve<IMappingEngine>(), containerExtension.Resolve<IMappingEngine>());
         }
     }
 }

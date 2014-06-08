@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Bootstrap.Extensions.Containers;
 using CommonServiceLocator.SimpleInjectorAdapter;
 using Microsoft.Practices.ServiceLocation;
 using SimpleInjector;
+using SimpleInjector.Extensions;
 
 namespace Bootstrap.SimpleInjector
 {
@@ -47,17 +50,7 @@ namespace Bootstrap.SimpleInjector
         {
             Container = container = null;
         }
-
-        public override void RegisterAll<TTarget>()  
-        {
-            CheckContainer();
-            container.RegisterAll<TTarget>(
-                Registrator
-                .GetAssemblies()
-                .SelectMany(a => Registrator.GetTypesImplementing<TTarget>(a))
-                );
-        }
-
+        
         public override void SetServiceLocator()
         {
             CheckContainer();
@@ -81,6 +74,19 @@ namespace Bootstrap.SimpleInjector
             return container.GetAllInstances<T>().ToList();
         }
 
+        public override void RegisterAll(Type target)
+        {
+            CheckContainer();
+            var matchingTypes = Registrator
+                .GetAssemblies()
+                .SelectMany(a => Registrator.GetTypesImplementing(a, target));
+
+            if (target.IsGenericType && target.GetGenericArguments().Any(a => a.FullName == null))               
+                matchingTypes.ForEach(t => container.RegisterOpenGeneric(target, t));
+            else
+                container.RegisterAll(target,matchingTypes);
+        }
+
         public override void Register<TTarget, TImplementation>()
         {
             CheckContainer();
@@ -92,5 +98,16 @@ namespace Bootstrap.SimpleInjector
             CheckContainer();
             container.RegisterSingle(implementation);
         }
+
+        public override void RegisterAll<TTarget>()
+        {
+            CheckContainer();
+            container.RegisterAll<TTarget>(
+                Registrator
+                .GetAssemblies()
+                .SelectMany(a => Registrator.GetTypesImplementing<TTarget>(a))
+                );
+        }
+
     }
 }
