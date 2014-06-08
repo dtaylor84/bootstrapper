@@ -11,5 +11,8 @@ namespace Bootstrap.Extensions.Containers
         IEnumerable<Type> GetTypesImplementing<T>(Assembly assembly);
         IEnumerable<Assembly> GetAssemblies();
         List<T> GetInstancesOfTypesImplementing<T>();
+        IEnumerable<Type> GetTypesImplementing(Type t);
+        IEnumerable<Type> GetTypesImplementing(string assemblyName, Type t);
+        IEnumerable<Type> GetTypesImplementing(Assembly assembly, Type t);
     }
 }

@@ -6,6 +6,7 @@ using Bootstrap.Extensions.Containers;
 using Bootstrap.Extensions.StartupTasks;
 using Bootstrap.Tests.Extensions.TestImplementations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Shouldly;
 
 namespace Bootstrap.Tests.Core.Extensions.Containers
 {
@@ -30,16 +31,49 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
         }
 
         [TestMethod]
-        public void ShouldReturnTypesFromAGivenAssembly()
+        public void GetTypesImplementing_WhenInvokedWithATypeAsAParameter_ShouldReturnTheTypesFromTheCallingAssemblyThatImplementTheParameter()
         {
-            //Arrange
-            var assembly = Assembly.GetAssembly(typeof (IBootstrapperExtension));
-
             //Act
-            var result = registrationHelper.GetTypesImplementing<IBootstrapperExtension>(assembly);
+            var result = registrationHelper.GetTypesImplementing(typeof(IGenericTest<>));
 
             //Assert
-            Assert.IsTrue(result.Any(t => typeof(IBootstrapperExtension).IsAssignableFrom(t)));
+            result.First().ShouldBe(typeof(GenericTest<>));
+        }
+
+        [TestMethod]
+        public void GetTypesImplementing_WhenInvokedWithAnAssemblyNameAndATypeAsAParameter_ShouldReturnTheTypesFromTheAssemblyThatImplementTheParameter()
+        {
+            //Arrange
+            var assemblyName = Assembly.GetAssembly(typeof(IGenericTest<>)).GetName().FullName;
+
+            //Act
+            var result = registrationHelper.GetTypesImplementing(assemblyName, typeof(IGenericTest<>));
+
+            //Assert
+            result.First().ShouldBe(typeof(GenericTest<>));
+        }
+
+        [TestMethod]
+        public void GetTypesImplementing_WhenInvokedWithAnAssemblyAndTypeAsAParameter_ShouldReturnTheTypesFromTheAssemblyThatImplementTheParameter()
+        {
+            //Arrange
+            var assembly = Assembly.GetAssembly(typeof(IGenericTest<>));
+
+            //Act
+            var result = registrationHelper.GetTypesImplementing(assembly, typeof(IGenericTest<>));
+
+            //Assert
+            result.First().ShouldBe(typeof(GenericTest<>));
+        }
+
+        [TestMethod]
+        public void ShouldReturnTypesFromCallingAssembly()
+        {
+            //Act
+            var result = registrationHelper.GetTypesImplementing<IStartupTask>();
+
+            //Assert
+            Assert.IsTrue(result.Any(t => typeof(TestStartupTask).IsAssignableFrom(t)));
         }
 
         [TestMethod]
@@ -56,13 +90,16 @@ namespace Bootstrap.Tests.Core.Extensions.Containers
         }
 
         [TestMethod]
-        public void ShouldReturnTypesFromCallingAssembly()
+        public void ShouldReturnTypesFromAGivenAssembly()
         {
+            //Arrange
+            var assembly = Assembly.GetAssembly(typeof (IBootstrapperExtension));
+
             //Act
-            var result = registrationHelper.GetTypesImplementing<IStartupTask>();
+            var result = registrationHelper.GetTypesImplementing<IBootstrapperExtension>(assembly);
 
             //Assert
-            Assert.IsTrue(result.Any(t => typeof(TestStartupTask).IsAssignableFrom(t)));
+            Assert.IsTrue(result.Any(t => typeof(IBootstrapperExtension).IsAssignableFrom(t)));
         }
 
         [TestMethod]

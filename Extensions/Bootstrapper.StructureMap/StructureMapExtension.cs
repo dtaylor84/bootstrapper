@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Bootstrap.Extensions.Containers;
 using CommonServiceLocator.StructureMapAdapter.Unofficial;
@@ -75,6 +76,15 @@ namespace Bootstrap.StructureMap
             return container.GetAllInstances<T>().ToList();
         }
 
+        public override void RegisterAll(Type target)
+        {
+            CheckContainer();
+
+            container.Configure(c => Registrator.GetAssemblies()
+                .SelectMany(a => Registrator.GetTypesImplementing(a, target))
+                .ForEach(t => c.For(target).Use(t)));
+        }
+
         public override void Register<TTarget, TImplementation>()
         {
             CheckContainer();
@@ -91,12 +101,11 @@ namespace Bootstrap.StructureMap
         {
             CheckContainer();
             container.Configure(c =>
-                                c.Scan(s =>
-                                           {
-                                               s.AddAllTypesOf<TTarget>();
-                                               foreach (var assembly in Registrator.GetAssemblies())
-                                                   s.Assembly(assembly);
-                                           }));
+                c.Scan(s =>
+                {
+                    s.AddAllTypesOf<TTarget>();
+                    Registrator.GetAssemblies().ForEach(s.Assembly);
+                }));
         }
     }
 }

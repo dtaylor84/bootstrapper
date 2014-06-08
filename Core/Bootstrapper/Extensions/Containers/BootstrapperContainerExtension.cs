@@ -12,6 +12,7 @@ namespace Bootstrap.Extensions.Containers
         public abstract void ResetServiceLocator();
         public abstract T Resolve<T>() where T : class;
         public abstract IList<T> ResolveAll<T>();
+        public abstract void RegisterAll(Type target);
         public abstract void Register<TTarget, TImplementation>() where TTarget : class where TImplementation : class, TTarget;
         public abstract void Register<TTarget>(TTarget implementation) where TTarget : class;
         public abstract void RegisterAll<TTarget>() where TTarget : class;

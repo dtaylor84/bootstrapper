@@ -16,6 +16,7 @@ using Microsoft.Practices.ServiceLocation;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Ninject;
 using Ninject.Modules;
+using Shouldly;
 
 namespace Bootstrap.Tests.Extensions.Containers.Ninject
 {
@@ -334,6 +335,28 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
         }
 
         [TestMethod]
+        public void RegisterAll_WhenInvokedWithNonGenericTargetType_ShouldRegisterType()
+        {
+            //Arrange
+            var container = new StandardKernel();
+            var containerExtension = new NinjectExtension(registrationHelper, options);
+            containerExtension.InitializeContainer(container);
+            var thisAssembly = Assembly.GetCallingAssembly();
+            A.CallTo(() => registrationHelper.GetAssemblies()).Returns(new[] { thisAssembly });
+            A.CallTo(() => registrationHelper.GetTypesImplementing(thisAssembly, typeof(IGenericTest<>)))
+                .Returns(new[] { typeof(GenericTest<>) });
+
+            //Act
+            containerExtension.RegisterAll(typeof(IGenericTest<>));
+            var result1 = container.Get<IGenericTest<object>>();
+            var result2 = container.Get<IGenericTest<string[]>>();
+
+            //Assert
+            result1.ShouldBeOfType<GenericTest<object>>();
+            result2.ShouldBeOfType<GenericTest<string[]>>();
+        }
+
+        [TestMethod]
         public void ShouldRegisterWithTargetAndImplementationType()
         {
             //Arrange
@@ -473,6 +496,19 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
         }
 
         [TestMethod]
+        public void Register_WhenInvokedWithNonGenericTargetAndContainerIsNotInitialized_ShouldThrowException()
+        {
+            //Arrange
+            var containerExtension = new NinjectExtension(registrationHelper, options);
+
+            //Act
+            var result = ExceptionAssert.Throws<NoContainerException>(() => containerExtension.RegisterAll(typeof(IGenericTest<>)));
+
+            //Assert
+            Assert.AreEqual(NoContainerException.DefaultMessage, result.Message);
+        }
+
+        [TestMethod]
         public void ShouldThrowNoContainerExceptionWhenRegisteringWithTargetAndImplementationTypeBeforeInitializingTheContainer()
         {
             //Arrange
@@ -532,6 +568,27 @@ namespace Bootstrap.Tests.Extensions.Containers.Ninject
 
             //Assert
             Assert.AreSame(container, containerExtension.Container);
+        }
+
+        [TestMethod]
+        public void Run_WhenInvokedAndAutoMapperExtensionIsLoaded_ShouldRegisterMapperAsSingelton()
+        {
+            //Arrange
+            var assembly = Assembly.GetAssembly(typeof(AutoMapperRegistration));
+            A.CallTo(() => registrationHelper.GetAssemblies())
+                .Returns(new List<Assembly> { assembly });
+            A.CallTo(() => registrationHelper.GetTypesImplementing<IBootstrapperRegistration>(assembly))
+                .Returns(new List<Type> { typeof(AutoMapperRegistration) });
+            var containerExtension = new NinjectExtension(registrationHelper, options);
+
+            //Act
+            containerExtension.Run();
+
+            //Assert
+            Assert.AreSame(Mapper.Configuration, containerExtension.Resolve<IProfileExpression>());
+            Assert.AreSame(Mapper.Engine, containerExtension.Resolve<IMappingEngine>());
+            Assert.AreSame(containerExtension.Resolve<IProfileExpression>(), containerExtension.Resolve<IProfileExpression>());
+            Assert.AreSame(containerExtension.Resolve<IMappingEngine>(), containerExtension.Resolve<IMappingEngine>());
         }
     }
 }

@@ -54,15 +54,7 @@ namespace Bootstrap.Autofac
             Container = null;
         }
 
-        public override void RegisterAll<TTarget>()
-        {
-            CheckContainer();
-
-            UpdateContainer(cb => Registrator.GetAssemblies().ToList()
-                                    .ForEach(a => Registrator.GetTypesImplementing<TTarget>(a).ToList()
-                                        .ForEach(t => cb.RegisterType(t).As<TTarget>())));
-        }
-
+        
         public override void SetServiceLocator()
         {
             CheckContainer();
@@ -85,6 +77,28 @@ namespace Bootstrap.Autofac
             CheckContainer();
             return container.Resolve<IEnumerable<T>>().ToList();
         }
+
+        public override void RegisterAll(Type target)
+        {
+            CheckContainer();
+            if(target.IsGenericType && target.GetGenericArguments().Any(a => a.FullName == null))               
+                UpdateContainer(cb => Registrator.GetAssemblies().ToList()
+                                        .ForEach(a => Registrator.GetTypesImplementing(a, target).ToList()
+                                            .ForEach(t => cb.RegisterGeneric(t).As(target))));
+            else
+            UpdateContainer(cb => Registrator.GetAssemblies().ToList()
+                                    .ForEach(a => Registrator.GetTypesImplementing(a, target).ToList()
+                                        .ForEach(t => cb.RegisterType(t).As(target))));
+        }
+
+        public override void RegisterAll<TTarget>()
+        {
+            CheckContainer();
+            UpdateContainer(cb => Registrator.GetAssemblies().ToList()
+                                    .ForEach(a => Registrator.GetTypesImplementing<TTarget>(a).ToList()
+                                        .ForEach(t => cb.RegisterType(t).As<TTarget>())));
+        }
+
 
         public override void Register<TTarget, TImplementation>()
         {

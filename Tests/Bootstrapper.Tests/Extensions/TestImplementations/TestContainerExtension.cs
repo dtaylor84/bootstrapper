@@ -25,6 +25,7 @@ namespace Bootstrap.Tests.Extensions.TestImplementations
         public override void ResetServiceLocator() {}
         public override T Resolve<T>() {return null;}
         public override IList<T> ResolveAll<T>() {return null;}
+        public override void RegisterAll(Type target) {}
         public override void Register<TTarget, TImplementation>() { Registrations.Add(typeof(TTarget), typeof(TImplementation));}
         public override void Register<TTarget>(TTarget implementation) {}
         public void DoAutoRegister() {AutoRegister();}
