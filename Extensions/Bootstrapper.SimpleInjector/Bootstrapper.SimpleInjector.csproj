@@ -33,20 +33,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CommonServiceLocator.SimpleInjectorAdapter, Version=2.4.1.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\CommonServiceLocator.SimpleInjectorAdapter.2.4.1\lib\portable-net4+sl4+wp8+win8\CommonServiceLocator.SimpleInjectorAdapter.dll</HintPath>
+    <Reference Include="CommonServiceLocator.SimpleInjectorAdapter">
+      <HintPath>..\..\packages\CommonServiceLocator.SimpleInjectorAdapter.2.5.0\lib\portable-net4+sl4+wp8+win8\CommonServiceLocator.SimpleInjectorAdapter.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Portable.CommonServiceLocator.1.2.2\lib\net35\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
-    <Reference Include="SimpleInjector, Version=2.4.1.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\SimpleInjector.2.4.1\lib\net40-client\SimpleInjector.dll</HintPath>
+    <Reference Include="SimpleInjector">
+      <HintPath>..\..\packages\SimpleInjector.2.5.0\lib\net40-client\SimpleInjector.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="SimpleInjector.Diagnostics">
-      <HintPath>..\..\packages\SimpleInjector.2.4.1\lib\net40-client\SimpleInjector.Diagnostics.dll</HintPath>
+      <HintPath>..\..\packages\SimpleInjector.2.5.0\lib\net40-client\SimpleInjector.Diagnostics.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

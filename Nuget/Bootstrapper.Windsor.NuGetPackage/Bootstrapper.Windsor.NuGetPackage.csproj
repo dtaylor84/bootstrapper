@@ -34,26 +34,31 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Bootstrapper">
-      <HintPath>..\..\packages\Bootstrapper.2.0.3.9\lib\Net40\Bootstrapper.dll</HintPath>
+      <HintPath>..\..\packages\Bootstrapper.2.0.3.13\lib\Net40\Bootstrapper.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Bootstrapper.WindsorExtension">
       <HintPath>..\..\Extensions\Bootstrapper.Windsor\bin\Release\Bootstrapper.WindsorExtension.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Core">
-      <HintPath>..\..\packages\Castle.Core.3.2.2\lib\net40-client\Castle.Core.dll</HintPath>
+      <HintPath>..\..\packages\Castle.Core.3.3.0\lib\net40-client\Castle.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Castle.Facilities.FactorySupport">
-      <HintPath>..\..\packages\Castle.FactorySupportFacility.3.2.0\lib\net40\Castle.Facilities.FactorySupport.dll</HintPath>
+      <HintPath>..\..\packages\Castle.FactorySupportFacility.3.3.0\lib\net40\Castle.Facilities.FactorySupport.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="CommonServiceLocator.WindsorAdapter.Unofficial">
-      <HintPath>..\..\packages\CommonServiceLocator.WindsorAdapter.Unofficial.3.2.1.4\lib\Net40\CommonServiceLocator.WindsorAdapter.Unofficial.dll</HintPath>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\..\packages\Castle.Windsor.3.3.0\lib\net40\Castle.Windsor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="CommonServiceLocator.WindsorAdapter.Unofficial, Version=3.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\CommonServiceLocator.WindsorAdapter.Unofficial.3.3.0.0\lib\Net40\CommonServiceLocator.WindsorAdapter.Unofficial.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
-      <HintPath>..\..\packages\CommonServiceLocator.1.2\lib\portable-windows8+net40+sl5+windowsphone8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <HintPath>..\..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
