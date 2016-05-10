@@ -7,7 +7,7 @@ namespace Bootstrap.Extensions.Containers
     {
         object Container { get; }
         T Resolve<T>() where T:class;
-        IList<T> ResolveAll<T>();
+        IList<T> ResolveAll<T>() where T:class;
         void RegisterAll(Type target);
         void Register<TTarget,TImplementation>() where TTarget:class where TImplementation:class, TTarget;
         void Register<TTarget>(TTarget implementation) where TTarget : class;

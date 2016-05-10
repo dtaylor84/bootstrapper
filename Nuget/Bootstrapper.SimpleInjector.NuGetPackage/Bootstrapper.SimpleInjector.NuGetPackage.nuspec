@@ -15,9 +15,23 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
         <dependency id="Bootstrapper" version="2.0.3.13" />
-        <dependency id="CommonServiceLocator.SimpleInjectorAdapter" version="2.5.0" />
+        <dependency id="CommonServiceLocator.SimpleInjectorAdapter" version="2.8.2" />
         <dependency id="Portable.CommonServiceLocator" version="1.2.2" />
-        <dependency id="SimpleInjector" version="2.5.0" />
+        <dependency id="SimpleInjector" version="3.1.4" />
+        <dependency id="System.Collections" version="4.0.10" />
+        <dependency id="System.Collections.Concurrent" version="4.0.10" />
+        <dependency id="System.Diagnostics.Debug" version="4.0.10" />
+        <dependency id="System.Globalization" version="4.0.10" />
+        <dependency id="System.IO" version="4.0.10" />
+        <dependency id="System.Linq" version="4.0.0" />
+        <dependency id="System.Linq.Expressions" version="4.0.10" />
+        <dependency id="System.Reflection" version="4.0.10" />
+        <dependency id="System.Reflection.Extensions" version="4.0.0" />
+        <dependency id="System.Reflection.TypeExtensions" version="4.0.0" />
+        <dependency id="System.Runtime" version="4.0.20" />
+        <dependency id="System.Runtime.Extensions" version="4.0.10" />
+        <dependency id="System.Threading" version="4.0.10" />
+        <dependency id="System.Threading.Tasks" version="4.0.10" />
         </dependencies>
   </metadata>
   <files>

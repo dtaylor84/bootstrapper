@@ -6,6 +6,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bootstrap.Tests.Extensions.AutoMapper
 {
+    using global::AutoMapper.QueryableExtensions;
+
     [TestClass]
     public class AutoMapperRegistrationTests
     {
@@ -18,7 +20,6 @@ namespace Bootstrap.Tests.Extensions.AutoMapper
             //Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IBootstrapperRegistration));
-            Assert.IsInstanceOfType(result, typeof(Profile));
             Assert.IsInstanceOfType(result, typeof(AutoMapperRegistration));
         }
 
@@ -32,8 +33,11 @@ namespace Bootstrap.Tests.Extensions.AutoMapper
             new AutoMapperRegistration().Register(containerExtension);
 
             //Assert
-            A.CallTo(() => containerExtension.Register<IProfileExpression>(Mapper.Configuration)).MustHaveHappened();
-            A.CallTo(() => containerExtension.Register(Mapper.Engine)).MustHaveHappened();
+            A.CallTo(() => containerExtension.Register(AutoMapperExtension.ConfigurationProvider)).MustHaveHappened();
+            A.CallTo(() => containerExtension.Register(AutoMapperExtension.ProfileExpression)).MustHaveHappened();
+            A.CallTo(() => containerExtension.Register(AutoMapperExtension.Mapper)).MustHaveHappened();
+            A.CallTo(() => containerExtension.Register(AutoMapperExtension.Engine)).MustHaveHappened();
+            A.CallTo(() => containerExtension.Register<IExpressionBuilder, ExpressionBuilder>()).MustHaveHappened();
             A.CallTo(() => containerExtension.RegisterAll<IMapCreator>()).MustHaveHappened();
             A.CallTo(() => containerExtension.RegisterAll<Profile>()).MustHaveHappened();
         }

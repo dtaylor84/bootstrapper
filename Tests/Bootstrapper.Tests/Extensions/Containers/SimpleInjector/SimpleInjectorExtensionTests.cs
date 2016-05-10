@@ -20,6 +20,8 @@ using SimpleInjector;
 
 namespace Bootstrap.Tests.Extensions.Containers.SimpleInjector
 {
+    using global::AutoMapper.QueryableExtensions;
+
     [TestClass]
     public class SimpleInjectorExtensionTests
     {
@@ -278,7 +280,7 @@ namespace Bootstrap.Tests.Extensions.Containers.SimpleInjector
             var containerExtension = new SimpleInjectorExtension(registrationHelper, options);
             var container = A.Fake<Container>();
             var instance = new object();
-            container.RegisterSingle(instance);
+            container.RegisterSingleton(instance);
             containerExtension.InitializeContainer(container);
 
             //Act
@@ -309,7 +311,7 @@ namespace Bootstrap.Tests.Extensions.Containers.SimpleInjector
             var containerExtension = new SimpleInjectorExtension(registrationHelper, options);
             var container = new Container();
             var instances = new IBootstrapperExtension[] {new StartupTasksExtension(A.Fake<IRegistrationHelper>()) , new ServiceLocatorExtension()};
-            container.RegisterAll(instances);
+            container.RegisterCollection(instances);
             containerExtension.InitializeContainer(container);
 
             //Act
@@ -531,10 +533,13 @@ namespace Bootstrap.Tests.Extensions.Containers.SimpleInjector
             containerExtension.Run();
 
             //Assert
-            Assert.IsNotNull(containerExtension.Resolve<IProfileExpression>());            
-            Assert.AreSame(Mapper.Configuration, containerExtension.Resolve<IProfileExpression>());
-            Assert.AreSame(Mapper.Engine, containerExtension.Resolve<IMappingEngine>());
+            Assert.AreSame(AutoMapperExtension.ConfigurationProvider, containerExtension.Resolve<IConfigurationProvider>());
+            Assert.AreSame(AutoMapperExtension.ProfileExpression, containerExtension.Resolve<IProfileExpression>());
+            Assert.AreSame(AutoMapperExtension.Mapper, containerExtension.Resolve<IMapper>());
+            Assert.AreSame(AutoMapperExtension.Engine, containerExtension.Resolve<IMappingEngine>());
+            Assert.AreSame(containerExtension.Resolve<IConfigurationProvider>(), containerExtension.Resolve<IConfigurationProvider>());
             Assert.AreSame(containerExtension.Resolve<IProfileExpression>(), containerExtension.Resolve<IProfileExpression>());
+            Assert.AreSame(containerExtension.Resolve<IMapper>(), containerExtension.Resolve<IMapper>());
             Assert.AreSame(containerExtension.Resolve<IMappingEngine>(), containerExtension.Resolve<IMappingEngine>());
         }
     }

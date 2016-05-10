@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.IdGenerators;
+using MongoDB.Bson.Serialization.Serializers;
 
 namespace Bootstrap.Tests.Extensions.MongoDB
 {
@@ -9,7 +10,7 @@ namespace Bootstrap.Tests.Extensions.MongoDB
         public TestMongoClassMap()
         {
             var idMember = MapField(p => p.Id)
-                .SetRepresentation(BsonType.ObjectId)
+                .SetSerializer(new StringSerializer(BsonType.ObjectId))
                 .SetIdGenerator(StringObjectIdGenerator.Instance);
 
             SetIdMember(idMember);
