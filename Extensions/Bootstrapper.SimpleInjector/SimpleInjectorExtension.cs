@@ -82,9 +82,9 @@ namespace Bootstrap.SimpleInjector
                 .SelectMany(a => Registrator.GetTypesImplementing(a, target));
 
             if (target.IsGenericType && target.GetGenericArguments().Any(a => a.FullName == null))               
-                matchingTypes.ForEach(t => container.RegisterOpenGeneric(target, t));
+                matchingTypes.ForEach(t => container.Register(target, t));
             else
-                container.RegisterAll(target,matchingTypes);
+                container.RegisterCollection(target,matchingTypes);
         }
 
         public override void Register<TTarget, TImplementation>()
@@ -96,13 +96,13 @@ namespace Bootstrap.SimpleInjector
         public override void Register<TTarget>(TTarget implementation)
         {
             CheckContainer();
-            container.RegisterSingle(implementation);
+            container.RegisterSingleton(implementation);
         }
 
         public override void RegisterAll<TTarget>()
         {
             CheckContainer();
-            container.RegisterAll<TTarget>(
+            container.RegisterCollection<TTarget>(
                 Registrator
                 .GetAssemblies()
                 .SelectMany(a => Registrator.GetTypesImplementing<TTarget>(a))

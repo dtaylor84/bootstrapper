@@ -2,12 +2,13 @@
 <package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <id>Bootstrapper</id>
-    <version>2.0.3.13</version>
+    <version>2.1.0-mdl1</version>
     <title>Bootstrapper</title>
     <authors>Luis Bocaletti</authors>
-    <summary>bootstrap your applications container, maps and  startup tasks</summary>
-	<iconUrl>http://i3.codeplex.com/Download?ProjectName=bootstrapper&amp;DownloadId=289179</iconUrl>
-    <projectUrl>http://bootstrapper.codeplex.com</projectUrl>
+    <owners>David Taylor</owners>
+    <summary>bootstrap your applications container, maps and  startup tasks [MDL FORK]</summary>
+    <iconUrl>https://bootstrapper.codeplex.com/SourceControl/network/forks/dt84/bootstrapper</iconUrl>
+    <projectUrl>https://bootstrapper.codeplex.com/SourceControl/network/forks/dt84/bootstrapper</projectUrl>
     <licenseUrl>http://bootstrapper.codeplex.com/license</licenseUrl>
     <description>bootstrapper.codeplex.com uses a convention over configuration approach to initialize your IOC container, create automapper maps and run any other startup tasks that your application might need.</description>
     <language>en-us</language>

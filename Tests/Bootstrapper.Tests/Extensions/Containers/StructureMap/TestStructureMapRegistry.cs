@@ -3,7 +3,7 @@ using StructureMap.Configuration.DSL;
 
 namespace Bootstrap.Tests.Extensions.Containers.StructureMap
 {
-    public class TestStructureMapRegistry: Registry
+    public class TestStructureMapRegistry : Registry
     {
         public TestStructureMapRegistry()
         {

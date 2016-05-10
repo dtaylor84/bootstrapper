@@ -16,6 +16,8 @@ using Shouldly;
 
 namespace Bootstrap.Tests.Extensions.Containers.Unity
 {
+    using global::AutoMapper.QueryableExtensions;
+
     [TestClass]
     public class UnityExtensionTests
     {
@@ -557,9 +559,13 @@ namespace Bootstrap.Tests.Extensions.Containers.Unity
             containerExtension.Run();
 
             //Assert
-            Assert.AreSame(Mapper.Configuration, containerExtension.Resolve<IProfileExpression>());
-            Assert.AreSame(Mapper.Engine, containerExtension.Resolve<IMappingEngine>());
+            Assert.AreSame(AutoMapperExtension.ConfigurationProvider, containerExtension.Resolve<IConfigurationProvider>());
+            Assert.AreSame(AutoMapperExtension.ProfileExpression, containerExtension.Resolve<IProfileExpression>());
+            Assert.AreSame(AutoMapperExtension.Mapper, containerExtension.Resolve<IMapper>());
+            Assert.AreSame(AutoMapperExtension.Engine, containerExtension.Resolve<IMappingEngine>());
+            Assert.AreSame(containerExtension.Resolve<IConfigurationProvider>(), containerExtension.Resolve<IConfigurationProvider>());
             Assert.AreSame(containerExtension.Resolve<IProfileExpression>(), containerExtension.Resolve<IProfileExpression>());
+            Assert.AreSame(containerExtension.Resolve<IMapper>(), containerExtension.Resolve<IMapper>());
             Assert.AreSame(containerExtension.Resolve<IMappingEngine>(), containerExtension.Resolve<IMappingEngine>());
         }
     }

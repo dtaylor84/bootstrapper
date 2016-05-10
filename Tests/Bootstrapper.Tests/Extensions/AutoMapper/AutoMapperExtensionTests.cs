@@ -70,7 +70,6 @@ namespace Bootstrap.Tests.Extensions.AutoMapper
         public void ShouldInvokeConfigureForAllRegisteredProfiles()
         {
             //Arrange
-            Mapper.Reset();
             var containerExtension = A.Fake<IBootstrapperContainerExtension>();
             var profiles = new List<Profile> { new TestAutoMapperProfile() };
             A.CallTo(() => containerExtension.ResolveAll<Profile>()).Returns(profiles);
@@ -80,7 +79,7 @@ namespace Bootstrap.Tests.Extensions.AutoMapper
 
             //Act
             mapperExtension.Run();
-            var result = Mapper.Map<ITestInterface, TestImplementation>(from);
+            var result = AutoMapperExtension.Mapper.Map<ITestInterface, TestImplementation>(from);
 
             //Assert
             A.CallTo(() => containerExtension.ResolveAll<Profile>()).MustHaveHappened();
@@ -92,15 +91,19 @@ namespace Bootstrap.Tests.Extensions.AutoMapper
         public void ShouldResetMapper()
         {
             //Arrange
-            Mapper.CreateMap<object, object>();
+            var containerExtension = A.Fake<IBootstrapperContainerExtension>();
+            var profiles = new List<Profile> { new TestAutoMapperProfile() };
+            A.CallTo(() => containerExtension.ResolveAll<Profile>()).Returns(profiles);
+            Bootstrapper.With.Extension(containerExtension);
             var mapperExtension = new AutoMapperExtension(registrationHelper);
-            Assert.AreNotEqual(0, Mapper.GetAllTypeMaps().Length);
+            mapperExtension.Run();
+            Assert.AreNotEqual(0, AutoMapperExtension.ConfigurationProvider.GetAllTypeMaps().Length);
 
             //Act
             mapperExtension.Reset();
 
             //Assert
-            Assert.AreEqual(0, Mapper.GetAllTypeMaps().Length);
+            Assert.AreEqual(0, AutoMapperExtension.ConfigurationProvider.GetAllTypeMaps().Length);
         }
 
         [TestMethod]
@@ -130,7 +133,7 @@ namespace Bootstrap.Tests.Extensions.AutoMapper
 
             //Act
             mapperExtension.Run();
-            var result = Mapper.Map<ITestInterface, TestImplementation>(from);
+            var result = AutoMapperExtension.Mapper.Map<ITestInterface, TestImplementation>(from);
 
             //Assert
             A.CallTo(() => registrationHelper.GetInstancesOfTypesImplementing<Profile>()).MustHaveHappened();
@@ -142,7 +145,6 @@ namespace Bootstrap.Tests.Extensions.AutoMapper
         public void ShouldCreateMapsFromMapCreatorsAndProfiles()
         {
             //Arrange
-            Mapper.Reset();
             var containerExtension = A.Fake<IBootstrapperContainerExtension>();
             var mapCreators = new List<IMapCreator> {new TestAutoMapperMapCreator()};
             var profiles = new List<Profile> { new TestAutoMapperProfile()};
@@ -154,8 +156,8 @@ namespace Bootstrap.Tests.Extensions.AutoMapper
 
             //Act
             mapperExtension.Run();
-            var result1 = Mapper.Map<ITestInterface, TestImplementation>(from);
-            var result2 = Mapper.Map<TestImplementation, AnotherTestImplementation>(result1);
+            var result1 = AutoMapperExtension.Mapper.Map<ITestInterface, TestImplementation>(from);
+            var result2 = AutoMapperExtension.Mapper.Map<TestImplementation, AnotherTestImplementation>(result1);
 
             //Assert
             Assert.IsNotNull(result1);
