@@ -15,7 +15,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
         <dependency id="AutoMapper" version="4.2.1" />
-        <dependency id="Bootstrapper" version="2.1.0-dt1" />
+        <dependency id="Bootstrapper" version="2.1.0-mdl1" />
         </dependencies>
   </metadata>
   <files>
