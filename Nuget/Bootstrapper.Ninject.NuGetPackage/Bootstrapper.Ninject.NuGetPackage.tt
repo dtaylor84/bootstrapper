@@ -26,13 +26,13 @@ var description = extract("AssemblyDescription");
 <package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <id><#= packageId #></id>
-    <version><#= fileVer #></version>
+    <version><#= fileVer #>-mdl1</version>
     <title><#= packageId #></title>
     <authors>Luis Bocaletti</authors>
-    <owners>Luis Bocaletti</owners>
+    <owners>David Taylor</owners>
     <licenseUrl>http://bootstrapper.codeplex.com/license</licenseUrl>
-    <projectUrl>http://bootstrapper.codeplex.com</projectUrl>
-    <iconUrl>http://i3.codeplex.com/Download?ProjectName=bootstrapper&amp;DownloadId=289179</iconUrl>
+    <projectUrl>https://bootstrapper.codeplex.com/SourceControl/network/forks/dt84/bootstrapper</projectUrl>
+    <iconUrl>https://bootstrapper.codeplex.com/SourceControl/network/forks/dt84/bootstrapper</iconUrl>
     <summary>Ninject extension for Bootstrapper.</summary>
     <description><#= description #></description>
     <language>en-us</language>
