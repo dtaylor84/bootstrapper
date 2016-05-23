@@ -33,7 +33,7 @@ var description = extract("AssemblyDescription");
     <licenseUrl>http://bootstrapper.codeplex.com/license</licenseUrl>
     <projectUrl>https://bootstrapper.codeplex.com/SourceControl/network/forks/dt84/bootstrapper</projectUrl>
     <iconUrl>https://bootstrapper.codeplex.com/SourceControl/network/forks/dt84/bootstrapper</iconUrl>
-    <summary>Ninject extension for Bootstrapper.</summary>
+    <summary>Ninject extension for Bootstrapper [MDL FORK]</summary>
     <description><#= description #></description>
     <language>en-us</language>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
